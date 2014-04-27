@@ -7,6 +7,9 @@
     <Filter Include="GL">
       <UniqueIdentifier>{dab2d0e9-1505-4a9a-9ac8-854ab75d0b94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{063c771a-52f3-40c8-8619-77e9f217ac53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Core\Core.h">
@@ -46,5 +49,13 @@
     </ClCompile>
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bin\Shaders\standard.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Bin\Shaders\standard.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

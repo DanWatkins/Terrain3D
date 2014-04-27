@@ -29,6 +29,10 @@
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bin\Shaders\standard.frag" />
+    <None Include="..\Bin\Shaders\standard.vert" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB963AF4-49A3-4D23-B569-72107DF1E12E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
