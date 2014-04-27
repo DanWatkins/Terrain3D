@@ -23,6 +23,11 @@ namespace t3d
 		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "standard.frag", GL_FRAGMENT_SHADER);
 
 		mProgram = Shader::linkFromShaders(shaders, 2);
+
+		//fetch all the uniform locations
+		mUniformLocations.matrix_cameraToClip = glGetUniformLocation(mProgram, "matrix_cameraToClip");
+		mUniformLocations.matrix_modelToWorld = glGetUniformLocation(mProgram, "matrix_modelToWorld");
+		mUniformLocations.matrix_worldToCamera = glGetUniformLocation(mProgram, "matrix_worldToCamera");
 	}
 
 
@@ -53,15 +58,28 @@ namespace t3d
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIbo);
 		
-		
 		glBindVertexArray(0);
+
+		//face culling
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CW);
+
+		//depth test
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glDepthFunc(GL_LEQUAL);
+		glDepthRange(0.0f, 1.0f);
+		glEnable(GL_DEPTH_CLAMP);
 	}
 
 	
 	void Terrain3D::onUpdate(Double timeSinceStartup)
 	{
 		static const Float clearColor[] = { 1.0f, 1.0f, 0.9f, 1.0f };
+		static const Float one[] { 1.0f };
 		glClearBufferfv(GL_COLOR, 0, clearColor);
+		glClearBufferfv(GL_DEPTH, 0, one);
 
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);

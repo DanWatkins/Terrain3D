@@ -15,6 +15,15 @@
 
 namespace t3d
 {
+	struct UniformLocations
+	{
+		Uint matrix_cameraToClip;
+		Uint matrix_modelToWorld;
+		Uint matrix_worldToCamera;
+
+	};
+
+
 	/**
 	 * Represents the main application
 	 */
@@ -23,6 +32,7 @@ namespace t3d
 	private:
 		Uint mProgram;
 		Uint mVbo, mIbo, mVao;
+		UniformLocations mUniformLocations;
 
 	private:
 		void onStartup();
@@ -68,7 +78,6 @@ const GLshort indexData_cube[] =
 	2, 4, 6,
 	7, 5, 3,
 	7, 3, 1
-
 };
 
 #endif
