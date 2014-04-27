@@ -2,20 +2,27 @@
 *.slo
 *.lo
 *.o
-*.obj
 
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Compiled Static libraries
 *.lai
 *.la
 *.a
-*.lib
 
-# Executables
+
+
+#other
+*.v12.suo
+*.v11.suo
+*.log
+*.Build.CppClean.log
+*.vcxproj.user
+IDE/Obj/
+*.sdf
+
 *.exe
-*.out
-*.app
+*.pdb
+*ilk
