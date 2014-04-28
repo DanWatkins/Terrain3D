@@ -30,6 +30,9 @@
     <ClInclude Include="..\Src\Constants.h" />
     <ClInclude Include="..\Src\Main.h" />
     <ClInclude Include="..\src\Terrain3D.h" />
+    <ClInclude Include="..\Src\Core\MatrixStack.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\GLFWInput.cpp">
@@ -49,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
+    <ClCompile Include="..\Src\Core\MatrixStack.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shaders\standard.frag">

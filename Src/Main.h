@@ -94,9 +94,9 @@ typedef glm::vec2			Vec2f;
 typedef glm::vec3			Vec3f;
 typedef glm::vec4			Vec4f;
 
-typedef glm::mat2			Mat2f;
-typedef glm::mat3			Mat3f;
-typedef glm::mat4			Mat4f;
+typedef glm::mat2			Mat2;
+typedef glm::mat3			Mat3;
+typedef glm::mat4			Mat4;
 
 struct Color { Float r, g, b, a; };
 

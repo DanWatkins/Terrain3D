@@ -15,6 +15,7 @@
     <ClInclude Include="..\Src\Core\Core.h" />
     <ClInclude Include="..\Src\Core\GLFWInput.h" />
     <ClInclude Include="..\src\Core\Helper.h" />
+    <ClInclude Include="..\Src\Core\MatrixStack.h" />
     <ClInclude Include="..\Src\Core\OpenGLWindow.h" />
     <ClInclude Include="..\Src\Core\Shader.h" />
     <ClInclude Include="..\Src\Main.h" />
@@ -24,6 +25,7 @@
     <ClCompile Include="..\Ext\GL\gl3w.c" />
     <ClCompile Include="..\Src\Core\GLFWInput.cpp" />
     <ClCompile Include="..\src\Core\Helper.cpp" />
+    <ClCompile Include="..\Src\Core\MatrixStack.cpp" />
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp" />
     <ClCompile Include="..\Src\Core\Shader.cpp" />
     <ClCompile Include="..\Src\Main.cpp" />
