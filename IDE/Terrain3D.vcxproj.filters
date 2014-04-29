@@ -10,6 +10,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{063c771a-52f3-40c8-8619-77e9f217ac53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{01f679b5-5cca-4a4c-b3c0-2ce844ef9ed0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Core\Core.h">
@@ -33,6 +36,12 @@
     <ClInclude Include="..\Src\Core\MatrixStack.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\World\World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\World\HeightMap.h">
+      <Filter>World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\GLFWInput.cpp">
@@ -54,6 +63,9 @@
     <ClCompile Include="..\src\Terrian3D.cpp" />
     <ClCompile Include="..\Src\Core\MatrixStack.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\World.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

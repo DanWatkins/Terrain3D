@@ -20,6 +20,8 @@
     <ClInclude Include="..\Src\Core\Shader.h" />
     <ClInclude Include="..\Src\Main.h" />
     <ClInclude Include="..\src\Terrain3D.h" />
+    <ClInclude Include="..\Src\World\HeightMap.h" />
+    <ClInclude Include="..\Src\World\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Ext\GL\gl3w.c" />
@@ -30,6 +32,7 @@
     <ClCompile Include="..\Src\Core\Shader.cpp" />
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
+    <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shaders\standard.frag" />
