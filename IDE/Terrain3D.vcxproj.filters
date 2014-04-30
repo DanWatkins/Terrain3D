@@ -42,6 +42,9 @@
     <ClInclude Include="..\Src\World\HeightMap.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\World\Camera.h">
+      <Filter>World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\GLFWInput.cpp">
@@ -65,6 +68,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\World\World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\Camera.cpp">
       <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,28 +1,38 @@
 //=======================================================================================================================|
-// Created 2014.04.28 by Daniel L. Watkins
+// Created 2014.04.29 by Daniel L. Watkins
 //
 // Copyright (C) 2013-2014 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //=======================================================================================================================|
 
+#ifndef _t3d_CAMERA_H
+#define _t3d_CAMERA_H
+
+#include "../Main.h"
+#include "../Core/OpenGLWindow.h"
 #include "World.h"
-#include "HeightMap.h"
 
 namespace t3d
 {
-	void World::init()
+	class Camera
 	{
-		const int mapSize = 64;
-		mHeightMap.reserve(mapSize);
-		
-		for (int y=0; y<mapSize; y++)
+	private:
+		struct RenderData
 		{
-			for (int x=0; x<mapSize; x++)
-			{
-				mHeightMap.set(x, y, randInt(0, 255));
-			}
-		}
+			Uint vao_terrain;
+		} mRenderData;
 
-		return;
-	}
+
+	private:
+		World *mWorld;
+
+		void uploadTerrainData();
+
+	public:
+		void init(World *world);
+
+	};
 };
+
+#endif
+

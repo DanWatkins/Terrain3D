@@ -20,6 +20,7 @@
     <ClInclude Include="..\Src\Core\Shader.h" />
     <ClInclude Include="..\Src\Main.h" />
     <ClInclude Include="..\src\Terrain3D.h" />
+    <ClInclude Include="..\Src\World\Camera.h" />
     <ClInclude Include="..\Src\World\HeightMap.h" />
     <ClInclude Include="..\Src\World\World.h" />
   </ItemGroup>
@@ -32,6 +33,7 @@
     <ClCompile Include="..\Src\Core\Shader.cpp" />
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
+    <ClCompile Include="..\Src\World\Camera.cpp" />
     <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -31,11 +31,14 @@ namespace t3d
 			bool powerOfTwo = !(size == 0) && !(size & (size - 1));
 
 			if (!powerOfTwo)
+			{
 				std::cout << "Error: cannot reserve non-power of two size for HeightMap. Size=" << size << std::endl;
+				return;
+			}
 
 			mSize = size;
-
-			mHeightData = std::vector<Uint8>(size*size, 0);
+			mHeightData.clear();
+			mHeightData = std::vector<Uint8>(size*size, 50);
 		}
 
 
