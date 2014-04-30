@@ -26,13 +26,13 @@ namespace t3d
 	}
 
 
-	void MatrixStack::orthographic(Float left, Float right, Float bottom, Float top, Float zNear = 1.0f, Float zFar = 1.0f)
+	void MatrixStack::orthographic(Float left, Float right, Float bottom, Float top, Float zNear, Float zFar)
 	{
 		mCurrentMatrix *=  glm::ortho(left, right, bottom, top, zNear, zFar);
 	}
 
 
-	void MatrixStack::pixelPerfectOrtho(glm::ivec2 size, Vec2f depthRange, Bool isTopLeft = true)
+	void MatrixStack::pixelPerfectOrtho(glm::ivec2 size, Vec2f depthRange, Bool isTopLeft)
 	{
 		if (isTopLeft)
 		{

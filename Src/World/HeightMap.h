@@ -34,7 +34,8 @@ namespace t3d
 				std::cout << "Error: cannot reserve non-power of two size for HeightMap. Size=" << size << std::endl;
 
 			mSize = size;
-			mHeightData.reserve(size*size);
+
+			mHeightData = std::vector<Uint8>(size*size, 0);
 		}
 
 
@@ -51,6 +52,7 @@ namespace t3d
 		}
 	};
 };
+
 
 #endif
 

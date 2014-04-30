@@ -12,7 +12,8 @@ namespace t3d
 {
 	class World
 	{
-		
+	public:
+		void init();
 	};
 };
 

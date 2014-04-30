@@ -7,7 +7,7 @@
 
 #include "Terrain3D.h"
 #include "./Core/Core.h"
-
+#include "./World/World.h"
 
 namespace t3d
 {	
@@ -71,6 +71,9 @@ namespace t3d
 		glDepthFunc(GL_LEQUAL);
 		glDepthRange(0.0f, 1.0f);
 		glEnable(GL_DEPTH_CLAMP);
+
+		World world;
+		world.init();
 	}
 
 	
