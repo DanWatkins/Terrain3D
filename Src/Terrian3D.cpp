@@ -8,6 +8,8 @@
 #include "Terrain3D.h"
 #include "./Core/Core.h"
 #include "./World/World.h"
+#include "./World/Camera.h"
+#include "World/HeightMap.h"
 
 namespace t3d
 {	
@@ -37,6 +39,13 @@ namespace t3d
 
 		glUseProgram(0);
 
+
+		World world;
+		Camera camera;
+
+		world.init();
+		camera.init(&world);
+
 		//face culling
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
@@ -48,9 +57,6 @@ namespace t3d
 		glDepthFunc(GL_LEQUAL);
 		glDepthRange(0.0f, 1.0f);
 		glEnable(GL_DEPTH_CLAMP);
-
-		World world;
-		world.init();
 	}
 
 	

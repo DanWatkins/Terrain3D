@@ -73,6 +73,9 @@
     <ClCompile Include="..\Src\World\Camera.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\World\HeightMap.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shaders\standard.frag">

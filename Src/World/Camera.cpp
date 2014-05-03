@@ -9,11 +9,12 @@
 
 namespace t3d
 {
-	void Camera::uploadTerrainData()
+	void Camera::uploadTerrainData(HeightMap &heightMap)
 	{
 		//vertex data
 		Uint vbo;
-		Float *terrainVertexData = NULL;	//TODO have a HeightMap::generateVertexData method
+		heightMap.buildVertexData();
+		Float *terrainVertexData = heightMap.getVertexData();
 
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -23,7 +24,8 @@ namespace t3d
 
 		//index data
 		Uint ibo;
-		Float *terrainIndexData = NULL;
+		heightMap.buildIndexData();
+		Int *terrainIndexData = heightMap.getIndexData();
 
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
@@ -48,6 +50,6 @@ namespace t3d
 	{
 		mWorld = world;
 		
-		uploadTerrainData();
+		uploadTerrainData(world->getHeightMap());
 	}
 };

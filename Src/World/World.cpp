@@ -12,7 +12,7 @@ namespace t3d
 {
 	void World::init()
 	{
-		const int mapSize = 64;
+		const int mapSize = 4;
 		mHeightMap.reserve(mapSize);
 		
 		for (int y=0; y<mapSize; y++)

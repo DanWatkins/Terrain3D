@@ -19,6 +19,8 @@ namespace t3d
 
 	public:
 		void init();
+
+		HeightMap& getHeightMap() { return mHeightMap; }
 	};
 };
 

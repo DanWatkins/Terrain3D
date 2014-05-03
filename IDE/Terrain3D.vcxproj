@@ -34,6 +34,7 @@
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
     <ClCompile Include="..\Src\World\Camera.cpp" />
+    <ClCompile Include="..\Src\World\HeightMap.cpp" />
     <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>

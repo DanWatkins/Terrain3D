@@ -10,6 +10,7 @@
 
 #include "../Main.h"
 #include "../Core/OpenGLWindow.h"
+#include "HeightMap.h"
 #include "World.h"
 
 namespace t3d
@@ -26,7 +27,7 @@ namespace t3d
 	private:
 		World *mWorld;
 
-		void uploadTerrainData();
+		void uploadTerrainData(HeightMap &heightMap);
 
 	public:
 		void init(World *world);

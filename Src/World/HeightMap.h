@@ -19,40 +19,26 @@ namespace t3d
 		std::vector<Uint8> mHeightData;
 		Uint mSize;
 
+		std::vector<Float> mVertexData;
+		std::vector<Int> mIndexData;
+
 	public:
+		static const Uint PRIMITIVE_RESTART_INDEX = (2^32)-1;
 		HeightMap()
 		{
 			mSize = 64;
 		}
 
 
-		void reserve(Uint size)
-		{
-			bool powerOfTwo = !(size == 0) && !(size & (size - 1));
+		void reserve(Uint size);
+		void set(Uint index, Uint8 height);
+		void set(Uint indexX, Uint indexY, Uint8 height);
 
-			if (!powerOfTwo)
-			{
-				std::cout << "Error: cannot reserve non-power of two size for HeightMap. Size=" << size << std::endl;
-				return;
-			}
+		void buildVertexData();
+		Float *getVertexData();
 
-			mSize = size;
-			mHeightData.clear();
-			mHeightData = std::vector<Uint8>(size*size, 50);
-		}
-
-
-		void set(Uint index, Uint8 height) 
-		{
-			mHeightData.at(index) = height;
-		}
-
-
-		void set(Uint indexX, Uint indexY, Uint8 height)
-		{
-			Uint index = mSize*indexY + indexX;
-			mHeightData.at(index) = height;
-		}
+		void buildIndexData();
+		Int *getIndexData();
 	};
 };
 
