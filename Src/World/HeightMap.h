@@ -23,7 +23,8 @@ namespace t3d
 		std::vector<Int> mIndexData;
 
 	public:
-		static const Uint PRIMITIVE_RESTART_INDEX = (2^32)-1;
+		static const Uint PRIMITIVE_RESTART_INDEX = (32*32)-1;
+		
 		HeightMap()
 		{
 			mSize = 64;

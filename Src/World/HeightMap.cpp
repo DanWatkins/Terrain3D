@@ -40,12 +40,34 @@ namespace t3d
 
 	void HeightMap::buildVertexData()
 	{
+		mVertexData.reserve(mSize*mSize*3);
+		const Float spacing = 0.2f;
+		std::vector<Float> colorVertexData;
+		colorVertexData.reserve(mSize*mSize*3);
+
+		for (Uint y=0; y<mSize; y++)
+		{
+			for (Uint x = 0; x<mSize; x++)
+			{
+				mVertexData.push_back(spacing*x);
+				mVertexData.push_back(mHeightData.at(y*mSize + x));
+				mVertexData.push_back(spacing*y);
+
+				//height based coloring (grayscale)
+				Float height = (Float)mHeightData.at(y*mSize + x);
+				colorVertexData.push_back(height);
+				colorVertexData.push_back(height);
+				colorVertexData.push_back(height);
+			}
+		}
+
+		mVertexData.insert(mVertexData.begin(), colorVertexData.begin(), colorVertexData.end());
 	}
 
 
 	Float *HeightMap::getVertexData()
 	{
-		return 0;
+		return &mVertexData.at(0);
 	}
 
 
@@ -78,6 +100,6 @@ namespace t3d
 
 	Int *HeightMap::getIndexData()
 	{
-		return 0;
+		return &mIndexData.at(0);
 	}
 };
