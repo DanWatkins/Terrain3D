@@ -36,10 +36,10 @@ namespace t3d
 		void set(Uint indexX, Uint indexY, Uint8 height);
 
 		void buildVertexData();
-		Float *getVertexData();
+		std::vector<Float> *getVertexData();
 
 		void buildIndexData();
-		Int *getIndexData();
+		std::vector<Int> *getIndexData();
 	};
 };
 

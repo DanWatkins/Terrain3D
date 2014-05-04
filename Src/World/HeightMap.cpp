@@ -61,13 +61,13 @@ namespace t3d
 			}
 		}
 
-		mVertexData.insert(mVertexData.begin(), colorVertexData.begin(), colorVertexData.end());
+		mVertexData.insert(mVertexData.end(), colorVertexData.begin(), colorVertexData.end());
 	}
 
 
-	Float *HeightMap::getVertexData()
+	std::vector<Float> *HeightMap::getVertexData()
 	{
-		return &mVertexData.at(0);
+		return &mVertexData;
 	}
 
 
@@ -98,8 +98,8 @@ namespace t3d
 	}
 
 
-	Int *HeightMap::getIndexData()
+	std::vector<Int> *HeightMap::getIndexData()
 	{
-		return &mIndexData.at(0);
+		return &mIndexData;
 	}
 };

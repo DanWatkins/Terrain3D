@@ -21,6 +21,7 @@ namespace t3d
 		struct RenderData
 		{
 			Uint vao_terrain;
+			Uint indexCount;
 		} mRenderData;
 
 
@@ -31,7 +32,7 @@ namespace t3d
 
 	public:
 		void init(World *world);
-
+		void render();
 	};
 };
 

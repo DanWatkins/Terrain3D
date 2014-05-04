@@ -7,9 +7,6 @@
 
 #include "Terrain3D.h"
 #include "./Core/Core.h"
-#include "./World/World.h"
-#include "./World/Camera.h"
-#include "World/HeightMap.h"
 
 namespace t3d
 {	
@@ -40,11 +37,8 @@ namespace t3d
 		glUseProgram(0);
 
 
-		World world;
-		Camera camera;
-
-		world.init();
-		camera.init(&world);
+		mWorld.init();
+		mCamera.init(&mWorld);
 
 		//face culling
 		glEnable(GL_CULL_FACE);
@@ -70,7 +64,7 @@ namespace t3d
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
 
-		//glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData_cube), GL_UNSIGNED_SHORT, 0);
+		mCamera.render();
 	}
 
 
