@@ -20,10 +20,10 @@ namespace t3d
 		Uint mSize;
 
 		std::vector<Float> mVertexData;
-		std::vector<GLushort> mIndexData;
+		std::vector<Uint16> mIndexData;
 
 	public:
-		static const GLushort PRIMITIVE_RESTART_INDEX = 99;
+		static const Uint16 PRIMITIVE_RESTART_INDEX = 99;
 		
 		HeightMap()
 		{
@@ -39,7 +39,7 @@ namespace t3d
 		std::vector<Float> *getVertexData();
 
 		void buildIndexData();
-		std::vector<GLushort> *getIndexData();
+		std::vector<Uint16> *getIndexData();
 	};
 };
 

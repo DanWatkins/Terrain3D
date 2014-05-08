@@ -41,7 +41,7 @@ namespace t3d
 	void HeightMap::buildVertexData()
 	{
 		mVertexData.reserve(mSize*mSize*3);
-		const Float spacing = 0.2f;
+		const Float spacing = 0.1f;
 		std::vector<Float> colorVertexData;
 		colorVertexData.reserve(mSize*mSize*3);
 
@@ -53,7 +53,6 @@ namespace t3d
 				mVertexData.push_back(mHeightData.at(y*mSize + x) / 255.0f);
 				mVertexData.push_back(spacing*(Float)y);
 
-				//height based coloring (grayscale)
 				Float height = (Float)mHeightData.at(y*mSize + x);
 				colorVertexData.push_back(height);
 				colorVertexData.push_back(height);
@@ -73,8 +72,8 @@ namespace t3d
 
 	void HeightMap::buildIndexData()
 	{
-		GLushort primitiveRestartCount = mSize - 2;
-		GLushort indexCount = (mSize * 2 - 2) * mSize + primitiveRestartCount;
+		Uint16 primitiveRestartCount = mSize - 2;
+		Uint16 indexCount = (mSize * 2 - 2) * mSize + primitiveRestartCount;
 		mIndexData.clear();
 		mIndexData.reserve(indexCount);
 
@@ -98,7 +97,7 @@ namespace t3d
 	}
 
 
-	std::vector<GLushort> *HeightMap::getIndexData()
+	std::vector<Uint16> *HeightMap::getIndexData()
 	{
 		return &mIndexData;
 	}

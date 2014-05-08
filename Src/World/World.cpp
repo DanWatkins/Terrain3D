@@ -12,14 +12,19 @@ namespace t3d
 {
 	void World::init()
 	{
-		const int mapSize = 4;
+		const int mapSize = 16;
 		mHeightMap.reserve(mapSize);
+		Uint oldHeight = 128;
+		Uint8 lastHeight = 128;
 		
 		for (int y=0; y<mapSize; y++)
 		{
 			for (int x=0; x<mapSize; x++)
 			{
-				mHeightMap.set(x, y, randInt(0, 255));
+				Uint8 height = randInt(0, 255);
+				mHeightMap.set(x, y, (height+lastHeight+oldHeight)/3);
+				lastHeight = height;
+				oldHeight = lastHeight;
 			}
 		}
 
