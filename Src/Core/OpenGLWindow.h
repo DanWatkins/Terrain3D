@@ -59,6 +59,8 @@ namespace t3d
 		virtual void onResize(Int width, Int height) = 0;
 		virtual void onTerminate() = 0;
 
+		void printContextInformation();
+
 	private:
 		void _onResize(Int width, Int height);
 	};

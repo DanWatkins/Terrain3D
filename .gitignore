@@ -26,3 +26,4 @@ IDE/Obj/
 *.exe
 *.pdb
 *ilk
+*.nvuser

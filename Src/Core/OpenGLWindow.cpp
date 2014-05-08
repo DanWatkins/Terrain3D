@@ -31,6 +31,9 @@ namespace t3d
 		if (!glfwInit())
 			return -1;
 
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+
 		mWindow = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 		if (!mWindow)
 		{
@@ -39,8 +42,11 @@ namespace t3d
 			return -1;
 		}
 
+	
+
 		glfwMakeContextCurrent(mWindow);
 		gl3wInit();
+		printContextInformation();
 
 		//if (gl3wIsSupported(4, 4) == false)
 		//	printf("Bad OpenGL version.\n");
@@ -67,6 +73,13 @@ namespace t3d
 		glfwTerminate();
 
 		return 0;
+	}
+
+
+	void OpenGLWindow::printContextInformation()
+	{
+		 char* ver = (char*)glGetString(GL_VERSION);
+		 printf("OpenGL Context Version: %s\n", ver);
 	}
 
 

@@ -39,18 +39,6 @@ namespace t3d
 
 		mWorld.init();
 		mCamera.init(&mWorld);
-
-		//face culling
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glFrontFace(GL_CW);
-
-		//depth test
-		glEnable(GL_DEPTH_TEST);
-		glDepthMask(GL_TRUE);
-		glDepthFunc(GL_LEQUAL);
-		glDepthRange(0.0f, 1.0f);
-		glEnable(GL_DEPTH_CLAMP);
 	}
 
 	
@@ -62,8 +50,6 @@ namespace t3d
 		glClearBufferfv(GL_DEPTH, 0, one);
 
 		glUseProgram(mProgram);
-		glBindVertexArray(mVao);
-
 		mCamera.render();
 	}
 
