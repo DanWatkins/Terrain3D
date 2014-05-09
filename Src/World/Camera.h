@@ -20,9 +20,14 @@ namespace t3d
 	private:
 		struct RenderData
 		{
+			Uint program;
 			Uint vao_terrain;
 			Uint indexCount;
+
+			Int uloc_translationMat;
 		} mRenderData;
+
+		Vec3f mTranslateAmount;
 
 
 	private:
@@ -31,8 +36,10 @@ namespace t3d
 		void uploadTerrainData(HeightMap &heightMap);
 
 	public:
-		void init(World *world);
+		void init(Uint program, World *world);
 		void render();
+
+		void translate(Vec3f amount);
 	};
 };
 

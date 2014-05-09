@@ -6,6 +6,7 @@
 //=======================================================================================================================|
 
 #include "Camera.h"
+#include "../Core/MatrixStack.h"
 
 namespace t3d
 {
@@ -53,18 +54,40 @@ namespace t3d
 	}
 	
 
-	void Camera::init(World *world)
+	void Camera::init(Uint program, World *world)
 	{
 		mWorld = world;
-		
+
+		glUseProgram(program);
+		mRenderData.program = program;
+
+		mRenderData.uloc_translationMat = glGetUniformLocation(program, "translationMat");		
+
 		uploadTerrainData(world->getHeightMap());
+
+		glUseProgram(0);
 	}
 
 
 	void Camera::render()
 	{
+		glUseProgram(mRenderData.program);
+
+		MatrixStack matrixStack;
+		matrixStack.translate(mTranslateAmount);
+		matrixStack.push();
+
+		glUniformMatrix4fv(mRenderData.uloc_translationMat, 1, GL_FALSE, glm::value_ptr(matrixStack.top()));
+
+
 		glBindVertexArray(mRenderData.vao_terrain);
 		glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_SHORT, 0);
 		glBindVertexArray(0);
+	}
+
+
+	void Camera::translate(Vec3f amount)
+	{
+		mTranslateAmount += amount;
 	}
 };

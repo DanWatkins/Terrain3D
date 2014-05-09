@@ -24,9 +24,9 @@ namespace t3d
 		mProgram = Shader::linkFromShaders(shaders, 2);
 
 		//fetch all the uniform locations
-		mUniformLocations.matrix_cameraToClip = glGetUniformLocation(mProgram, "matrix_cameraToClip");
-		mUniformLocations.matrix_modelToWorld = glGetUniformLocation(mProgram, "matrix_modelToWorld");
-		mUniformLocations.matrix_worldToCamera = glGetUniformLocation(mProgram, "matrix_worldToCamera");
+		//mUniformLocations.matrix_cameraToClip = glGetUniformLocation(mProgram, "matrix_cameraToClip");
+		//mUniformLocations.matrix_modelToWorld = glGetUniformLocation(mProgram, "matrix_modelToWorld");
+		//mUniformLocations.matrix_worldToCamera = glGetUniformLocation(mProgram, "matrix_worldToCamera");
 	}
 
 
@@ -38,7 +38,7 @@ namespace t3d
 
 
 		mWorld.init();
-		mCamera.init(&mWorld);
+		mCamera.init(mProgram, &mWorld);
 	}
 
 	
@@ -56,12 +56,22 @@ namespace t3d
 
 	void Terrain3D::onKey(Int key, Int action)
 	{
+		const Float translationSpeed = 0.02f;
+
 		switch (key)
 		{
 			case GLFW_KEY_ESCAPE:
-			{
-				terminate();
-			}
+				terminate(); break;
+
+			//camera translation
+			case GLFW_KEY_DOWN:
+				mCamera.translate(Vec3f(0.0f, -translationSpeed, 0.0f)); break;
+			case GLFW_KEY_UP:
+				mCamera.translate(Vec3f(0.0f, translationSpeed, 0.0f)); break;
+			case GLFW_KEY_LEFT:
+				mCamera.translate(Vec3f(-translationSpeed, 0.0f, 0.0f)); break;
+			case GLFW_KEY_RIGHT:
+				mCamera.translate(Vec3f(translationSpeed, 0.0f, 0.0f)); break;
 		}
 	}
 
