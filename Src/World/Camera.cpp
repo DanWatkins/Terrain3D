@@ -73,7 +73,8 @@ namespace t3d
 	{
 		glUseProgram(mRenderData.program);
 
-		Mat4 matrix = glm::translate(mTranslateAmount) * glm::scale(mScaleAmount);
+		Vec3f zoomScale(mZoomFactor);
+		Mat4 matrix = glm::translate(mTranslateAmount) * glm::scale(mScaleAmount) * glm::scale(zoomScale);
 		glUniformMatrix4fv(mRenderData.uloc_translationMat, 1, GL_FALSE, glm::value_ptr(matrix));
 
 		glBindVertexArray(mRenderData.vao_terrain);

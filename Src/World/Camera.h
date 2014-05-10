@@ -30,6 +30,8 @@ namespace t3d
 		Vec3f mTranslateAmount;
 		Vec3f mScaleAmount;
 
+		Float mZoomFactor;
+
 
 	private:
 		World *mWorld;
@@ -37,11 +39,15 @@ namespace t3d
 		void uploadTerrainData(HeightMap &heightMap);
 
 	public:
-		Camera() : mScaleAmount(1.0f, 1.0f, 1.0f) {}
+		Camera() : mScaleAmount(1.0f, 1.0f, 1.0f), mZoomFactor(1.0f) {}
 
 		void init(Uint program, World *world);
 		void render();
 
+		void setZoom(Float zoomFactor) { mZoomFactor = zoomFactor; }
+		void incZoom(Float zoomFactor) { mZoomFactor += zoomFactor; }
+
+		//TODO these should probably be reomoved from the public API
 		void translate(Vec3f amount) { mTranslateAmount += amount; }
 		void scale(Vec3f amount) { mScaleAmount +=amount; }
 	};
