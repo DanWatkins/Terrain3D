@@ -69,12 +69,18 @@ namespace t3d
 	}
 
 
+	//TODO someday I will implement this using polar coordinates. For now, simply translating the entire world
+	//like this will have to do
 	void Camera::render()
 	{
 		glUseProgram(mRenderData.program);
 
+		Mat4 rotationMatrix(1.0f);
+		rotationMatrix *= (RotateX(mRotationAmount.x) * RotateY(mRotationAmount.y) * RotateZ(mRotationAmount.z));
+
+
 		Vec3f zoomScale(mZoomFactor);
-		Mat4 matrix = glm::translate(mTranslateAmount) * glm::scale(mScaleAmount) * glm::scale(zoomScale);
+		Mat4 matrix = glm::translate(mTranslateAmount) * glm::scale(mScaleAmount) * glm::scale(zoomScale) * rotationMatrix;
 		glUniformMatrix4fv(mRenderData.uloc_translationMat, 1, GL_FALSE, glm::value_ptr(matrix));
 
 		glBindVertexArray(mRenderData.vao_terrain);

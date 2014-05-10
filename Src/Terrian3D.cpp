@@ -59,6 +59,7 @@ namespace t3d
 		const Float translationSpeed = 0.02f;
 		const Float scaleSpeed = 0.01f;
 		const Float zoomSpeed = 0.02f;
+		const Float rotationSpeed = 0.06f;
 
 		switch (key)
 		{
@@ -88,6 +89,19 @@ namespace t3d
 				mCamera.incZoom(zoomSpeed); break;
 			case GLFW_KEY_MINUS:
 				mCamera.incZoom(-zoomSpeed); break;
+
+			case GLFW_KEY_G:
+				mCamera.rotate(Vec3f(rotationSpeed, 0.0f, 0.0f)); break;
+			case GLFW_KEY_B:
+				mCamera.rotate(Vec3f(-rotationSpeed, 0.0f, 0.0f)); break;
+			case GLFW_KEY_H:
+				mCamera.rotate(Vec3f(0.0f, rotationSpeed, 0.0f)); break;
+			case GLFW_KEY_N:
+				mCamera.rotate(Vec3f(0.0f, -rotationSpeed, 0.0f)); break;
+			case GLFW_KEY_J:
+				mCamera.rotate(Vec3f(0.0f, 0.0f, rotationSpeed)); break;
+			case GLFW_KEY_M:
+				mCamera.rotate(Vec3f(0.0f, 0.0f, -rotationSpeed)); break;
 
 		}
 	}

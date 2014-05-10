@@ -29,6 +29,7 @@ namespace t3d
 
 		Vec3f mTranslateAmount;
 		Vec3f mScaleAmount;
+		Vec3f mRotationAmount;
 
 		Float mZoomFactor;
 
@@ -49,7 +50,44 @@ namespace t3d
 
 		//TODO these should probably be reomoved from the public API
 		void translate(Vec3f amount) { mTranslateAmount += amount; }
-		void scale(Vec3f amount) { mScaleAmount +=amount; }
+		void scale(Vec3f amount) { mScaleAmount += amount; }
+		void rotate(Vec3f amount) { mRotationAmount += amount; }
+
+
+	private:
+		//Imported from Learning Modern 3D Graphics Programming. This is just temporary for now
+		glm::mat4 RotateX(float fAngRad)
+		{
+			float fCos = cosf(fAngRad);
+			float fSin = sinf(fAngRad);
+
+			glm::mat4 theMat(1.0f);
+			theMat[1].y = fCos; theMat[2].y = -fSin;
+			theMat[1].z = fSin; theMat[2].z = fCos;
+			return theMat;
+		}
+
+		glm::mat4 RotateY(float fAngRad)
+		{
+			float fCos = cosf(fAngRad);
+			float fSin = sinf(fAngRad);
+
+			glm::mat4 theMat(1.0f);
+			theMat[0].x = fCos; theMat[2].x = fSin;
+			theMat[0].z = -fSin; theMat[2].z = fCos;
+			return theMat;
+		}
+
+		glm::mat4 RotateZ(float fAngRad)
+		{
+			float fCos = cosf(fAngRad);
+			float fSin = sinf(fAngRad);
+
+			glm::mat4 theMat(1.0f);
+			theMat[0].x = fCos; theMat[1].x = -fSin;
+			theMat[0].y = fSin; theMat[1].y = fCos;
+			return theMat;
+		}
 	};
 };
 
