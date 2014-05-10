@@ -73,21 +73,11 @@ namespace t3d
 	{
 		glUseProgram(mRenderData.program);
 
-		MatrixStack matrixStack;
-		matrixStack.translate(mTranslateAmount);
-		matrixStack.push();
-
-		glUniformMatrix4fv(mRenderData.uloc_translationMat, 1, GL_FALSE, glm::value_ptr(matrixStack.top()));
-
+		Mat4 matrix = glm::translate(mTranslateAmount) * glm::scale(mScaleAmount);
+		glUniformMatrix4fv(mRenderData.uloc_translationMat, 1, GL_FALSE, glm::value_ptr(matrix));
 
 		glBindVertexArray(mRenderData.vao_terrain);
 		glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_SHORT, 0);
 		glBindVertexArray(0);
-	}
-
-
-	void Camera::translate(Vec3f amount)
-	{
-		mTranslateAmount += amount;
 	}
 };

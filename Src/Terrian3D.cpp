@@ -57,6 +57,7 @@ namespace t3d
 	void Terrain3D::onKey(Int key, Int action)
 	{
 		const Float translationSpeed = 0.02f;
+		const Float scaleSpeed = 0.01f;
 
 		switch (key)
 		{
@@ -72,6 +73,16 @@ namespace t3d
 				mCamera.translate(Vec3f(-translationSpeed, 0.0f, 0.0f)); break;
 			case GLFW_KEY_RIGHT:
 				mCamera.translate(Vec3f(translationSpeed, 0.0f, 0.0f)); break;
+
+			case GLFW_KEY_S:
+				mCamera.scale(Vec3f(scaleSpeed, 0.0f, 0.0f)); break;
+			case GLFW_KEY_X:
+				mCamera.scale(Vec3f(-scaleSpeed, 0.0f, 0.0f)); break;
+			case GLFW_KEY_D:
+				mCamera.scale(Vec3f(0.0f, scaleSpeed, 0.0f)); break;
+			case GLFW_KEY_C:
+				mCamera.scale(Vec3f(0.0f, -scaleSpeed, 0.0f)); break;
+
 		}
 	}
 

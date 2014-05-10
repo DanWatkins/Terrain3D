@@ -28,6 +28,7 @@ namespace t3d
 		} mRenderData;
 
 		Vec3f mTranslateAmount;
+		Vec3f mScaleAmount;
 
 
 	private:
@@ -36,10 +37,13 @@ namespace t3d
 		void uploadTerrainData(HeightMap &heightMap);
 
 	public:
+		Camera() : mScaleAmount(1.0f, 1.0f, 1.0f) {}
+
 		void init(Uint program, World *world);
 		void render();
 
-		void translate(Vec3f amount);
+		void translate(Vec3f amount) { mTranslateAmount += amount; }
+		void scale(Vec3f amount) { mScaleAmount +=amount; }
 	};
 };
 
