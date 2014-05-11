@@ -16,7 +16,7 @@ namespace t3d
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
 		mNearPlane(0.01f),
-		mFarPlane(100.0f),
+		mFarPlane(600.0f),
 		mAspectRatio(16/9)
 	{
 		lookAt(Vec3f(40, 1.5, 40));
