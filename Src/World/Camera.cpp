@@ -10,6 +10,18 @@
 
 namespace t3d
 {
+	Camera::Camera() :
+		mPosition(0, 0, 1),
+		mHorizontalAngle(0.0f),
+		mVerticalAngle(0.0f),
+		mFieldOfView(50.0f),
+		mNearPlane(0.01f),
+		mFarPlane(100.0f),
+		mAspectRatio(16/9)
+	{
+	}
+
+
 	void Camera::uploadTerrainData(HeightMap &heightMap)
 	{
 		glGenVertexArrays(1, &mRenderData.vao_terrain);
@@ -61,7 +73,8 @@ namespace t3d
 		glUseProgram(program);
 		mRenderData.program = program;
 
-		mRenderData.uloc_translationMat = glGetUniformLocation(program, "translationMat");		
+		mRenderData.uloc_cameraMatrix = glGetUniformLocation(program, "cameraMatrix");		
+		mRenderData.uloc_modelMatrix = glGetUniformLocation(program, "modelMatrix");
 
 		uploadTerrainData(world->getHeightMap());
 
@@ -69,22 +82,90 @@ namespace t3d
 	}
 
 
-	//TODO someday I will implement this using polar coordinates. For now, simply translating the entire world
-	//like this will have to do
+
 	void Camera::render()
 	{
 		glUseProgram(mRenderData.program);
 
-		Mat4 rotationMatrix(1.0f);
-		rotationMatrix *= (RotateX(mRotationAmount.x) * RotateY(mRotationAmount.y) * RotateZ(mRotationAmount.z));
 
-
-		Vec3f zoomScale(mZoomFactor);
-		Mat4 matrix = glm::translate(mTranslateAmount) * glm::scale(mScaleAmount) * glm::scale(zoomScale) * rotationMatrix;
-		glUniformMatrix4fv(mRenderData.uloc_translationMat, 1, GL_FALSE, glm::value_ptr(matrix));
+		glUniformMatrix4fv(mRenderData.uloc_cameraMatrix, 1, GL_FALSE, glm::value_ptr(getTotalMatrix()));
+		glUniformMatrix4fv(mRenderData.uloc_modelMatrix, 1, GL_FALSE, glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
 		glBindVertexArray(mRenderData.vao_terrain);
 		glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_SHORT, 0);
 		glBindVertexArray(0);
+	}
+
+
+	Mat4 Camera::getOrientation()
+	{
+		Mat4 orientation;
+		orientation = glm::rotate(orientation, mVerticalAngle, Vec3f(1, 0, 0));
+		orientation = glm::rotate(orientation, mHorizontalAngle, Vec3f(0, 1, 0));
+		return orientation;
+	}
+
+
+	void Camera::lookAt(Vec3f position)
+	{
+		if (position == mPosition)
+		{
+			std::cout << "MEGA ERROR: You are trying to look at your origin" << std::endl;
+			return;
+		}
+
+		Vec3f direction = glm::normalize(position - mPosition);
+		mVerticalAngle = radToDeg(asinf(-direction.y));
+		mHorizontalAngle = -radToDeg(atan2f(-direction.x, -direction.z));
+		normalizeAngles();
+	}
+
+
+	Vec3f Camera::getForward()
+	{
+		return Vec3f(glm::inverse(getOrientation()) * Vec4f(0, 0, -1, 1));
+	}
+
+
+	Vec3f Camera::getRight()
+	{
+		return Vec3f(glm::inverse(getOrientation()) * Vec4f(1, 0, 0, 1));
+	}
+
+
+	Vec3f Camera::getUp()
+	{
+		return Vec3f(glm::inverse(getOrientation()) * Vec4f(0, 1, 0, 1));
+	}
+
+
+	Mat4 Camera::getTotalMatrix()
+	{
+		return getPerspectiveMatrix() * getViewMatrix();
+	}
+
+
+	Mat4 Camera::getPerspectiveMatrix()
+	{
+		return glm::perspective(mFieldOfView, mAspectRatio, mNearPlane, mFarPlane);
+	}
+
+
+	Mat4 Camera::getViewMatrix()
+	{
+		return getOrientation() * glm::translate(Mat4(), -mPosition);
+	}
+
+
+	void Camera::normalizeAngles()
+	{
+		mHorizontalAngle = fmodf(mHorizontalAngle, 360.0f);
+		if (mHorizontalAngle < 0.0f)
+			mHorizontalAngle += 360.0f;
+
+		if (mVerticalAngle > mMaxVerticalAngle)
+			mVerticalAngle = mMaxVerticalAngle;
+		else if (mVerticalAngle < -mMaxVerticalAngle)
+			mVerticalAngle = -mMaxVerticalAngle;
 	}
 };

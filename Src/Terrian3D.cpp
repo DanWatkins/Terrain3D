@@ -65,44 +65,6 @@ namespace t3d
 		{
 			case GLFW_KEY_ESCAPE:
 				terminate(); break;
-
-			//camera translation
-			case GLFW_KEY_DOWN:
-				mCamera.translate(Vec3f(0.0f, -translationSpeed, 0.0f)); break;
-			case GLFW_KEY_UP:
-				mCamera.translate(Vec3f(0.0f, translationSpeed, 0.0f)); break;
-			case GLFW_KEY_LEFT:
-				mCamera.translate(Vec3f(-translationSpeed, 0.0f, 0.0f)); break;
-			case GLFW_KEY_RIGHT:
-				mCamera.translate(Vec3f(translationSpeed, 0.0f, 0.0f)); break;
-
-			case GLFW_KEY_S:
-				mCamera.scale(Vec3f(scaleSpeed, 0.0f, 0.0f)); break;
-			case GLFW_KEY_X:
-				mCamera.scale(Vec3f(-scaleSpeed, 0.0f, 0.0f)); break;
-			case GLFW_KEY_D:
-				mCamera.scale(Vec3f(0.0f, scaleSpeed, 0.0f)); break;
-			case GLFW_KEY_C:
-				mCamera.scale(Vec3f(0.0f, -scaleSpeed, 0.0f)); break;
-
-			case GLFW_KEY_EQUAL:
-				mCamera.incZoom(zoomSpeed); break;
-			case GLFW_KEY_MINUS:
-				mCamera.incZoom(-zoomSpeed); break;
-
-			case GLFW_KEY_G:
-				mCamera.rotate(Vec3f(rotationSpeed, 0.0f, 0.0f)); break;
-			case GLFW_KEY_B:
-				mCamera.rotate(Vec3f(-rotationSpeed, 0.0f, 0.0f)); break;
-			case GLFW_KEY_H:
-				mCamera.rotate(Vec3f(0.0f, rotationSpeed, 0.0f)); break;
-			case GLFW_KEY_N:
-				mCamera.rotate(Vec3f(0.0f, -rotationSpeed, 0.0f)); break;
-			case GLFW_KEY_J:
-				mCamera.rotate(Vec3f(0.0f, 0.0f, rotationSpeed)); break;
-			case GLFW_KEY_M:
-				mCamera.rotate(Vec3f(0.0f, 0.0f, -rotationSpeed)); break;
-
 		}
 	}
 
