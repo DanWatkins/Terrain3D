@@ -11,7 +11,7 @@
 namespace t3d
 {
 	Camera::Camera() :
-		mPosition(0, 0, 3),
+		mPosition(0, 6, 0),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -19,11 +19,14 @@ namespace t3d
 		mFarPlane(100.0f),
 		mAspectRatio(16/9)
 	{
+		lookAt(Vec3f(40, 1.5, 40));
 	}
 
 
 	void Camera::uploadTerrainData(HeightMap &heightMap)
 	{
+		sf::Clock clock;
+
 		glGenVertexArrays(1, &mRenderData.vao_terrain);
 		glBindVertexArray(mRenderData.vao_terrain);
 
@@ -34,20 +37,20 @@ namespace t3d
 
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Float)*terrainVertexData->size(), &(*terrainVertexData)[0], GL_STATIC_DRAW);
+		Uint size = sizeof(Float)*terrainVertexData->size();
+		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
 
 
 		//index data
 		Uint ibo;
 		heightMap.buildIndexData();
-		std::vector<Uint16> *terrainIndexData = heightMap.getIndexData();
+		std::vector<Uint> *terrainIndexData = heightMap.getIndexData();
 		mRenderData.indexCount = terrainIndexData->size();
 
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Uint16)*terrainIndexData->size(), &(*terrainIndexData)[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Uint)*terrainIndexData->size(), &(*terrainIndexData)[0], GL_STATIC_DRAW);
 
-		int size = sizeof(Uint16)*terrainIndexData->size();
 
 		glEnable(GL_PRIMITIVE_RESTART);
 		glPrimitiveRestartIndex(HeightMap::PRIMITIVE_RESTART_INDEX);
@@ -63,6 +66,8 @@ namespace t3d
 		glDepthFunc(GL_LEQUAL);
 
 		glBindVertexArray(0);
+
+		std::cout << "Processed and uploaded terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 	}
 	
 
@@ -92,7 +97,7 @@ namespace t3d
 		glUniformMatrix4fv(mRenderData.uloc_modelMatrix, 1, GL_FALSE, glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
 		glBindVertexArray(mRenderData.vao_terrain);
-		glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_SHORT, 0);
+		glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 

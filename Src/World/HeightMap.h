@@ -20,10 +20,10 @@ namespace t3d
 		Uint mSize;
 
 		std::vector<Float> mVertexData;
-		std::vector<Uint16> mIndexData;
+		std::vector<Uint> mIndexData;
 
 	public:
-		static const Uint16 PRIMITIVE_RESTART_INDEX = 99;
+		static const Uint PRIMITIVE_RESTART_INDEX = 40000000;
 		
 		HeightMap()
 		{
@@ -39,7 +39,7 @@ namespace t3d
 		std::vector<Float> *getVertexData();
 
 		void buildIndexData();
-		std::vector<Uint16> *getIndexData();
+		std::vector<Uint> *getIndexData();
 	};
 };
 

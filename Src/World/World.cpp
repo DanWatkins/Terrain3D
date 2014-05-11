@@ -12,7 +12,9 @@ namespace t3d
 {
 	void World::init()
 	{
-		const int mapSize = 16;
+		sf::Clock clock;
+
+		const int mapSize = 512;
 		mHeightMap.reserve(mapSize);
 		Uint oldHeight = 128;
 		Uint8 lastHeight = 128;
@@ -28,6 +30,8 @@ namespace t3d
 			}
 		}
 
+
+		std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 		return;
 	}
 };

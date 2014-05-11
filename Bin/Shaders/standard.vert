@@ -12,5 +12,6 @@ void main()
 {
 	gl_Position = cameraMatrix * modelMatrix * position;
 
-	shaderColor = vec4(color.y, color.y, color.y, 1.0f);
+	float color = position.y;
+	shaderColor = vec4(color, color, color, 1.0f);
 }

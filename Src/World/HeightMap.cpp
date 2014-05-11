@@ -16,7 +16,7 @@ namespace t3d
 		if (!powerOfTwo)
 		{
 			std::cout << "Error: cannot reserve non-power of two size for HeightMap. Size=" << size << std::endl;
-			return;
+			//return;
 		}
 
 		mSize = size;
@@ -72,8 +72,8 @@ namespace t3d
 
 	void HeightMap::buildIndexData()
 	{
-		Uint16 primitiveRestartCount = mSize - 2;
-		Uint16 indexCount = (mSize * 2 - 2) * mSize + primitiveRestartCount;
+		Uint primitiveRestartCount = mSize - 2;
+		Uint indexCount = (mSize * 2 - 2) * mSize + primitiveRestartCount;
 		mIndexData.clear();
 		mIndexData.reserve(indexCount);
 
@@ -97,7 +97,7 @@ namespace t3d
 	}
 
 
-	std::vector<Uint16> *HeightMap::getIndexData()
+	std::vector<Uint> *HeightMap::getIndexData()
 	{
 		return &mIndexData;
 	}
