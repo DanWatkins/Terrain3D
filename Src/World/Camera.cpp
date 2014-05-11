@@ -106,6 +106,14 @@ namespace t3d
 	}
 
 
+	void Camera::incOrientation(Float rightAngle, Float upAngle)
+	{
+		mHorizontalAngle += rightAngle;
+		mVerticalAngle += upAngle;
+		normalizeAngles();
+	}
+
+
 	void Camera::lookAt(Vec3f position)
 	{
 		if (position == mPosition)

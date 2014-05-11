@@ -36,6 +36,8 @@ namespace t3d
 
 		glUseProgram(0);
 
+		glfwSetInputMode(getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		mWorld.init();
 		mCamera.init(mProgram, &mWorld);
@@ -49,6 +51,14 @@ namespace t3d
 		glClearBufferfv(GL_COLOR, 0, clearColor);
 		glClearBufferfv(GL_DEPTH, 0, one);
 
+
+		//check for mouse changes
+		const Double mouseSensitivity = 0.05f;
+		Double mouseX, mouseY;
+		glfwGetCursorPos(getWindow(), &mouseX, &mouseY);
+		mCamera.incOrientation(mouseSensitivity*mouseX, mouseSensitivity*mouseY);
+		glfwSetCursorPos(getWindow(), 0.0, 0.0);
+
 		glUseProgram(mProgram);
 		mCamera.render();
 	}
@@ -60,7 +70,7 @@ namespace t3d
 		const Float scaleSpeed = 0.01f;
 		const Float zoomSpeed = 0.02f;
 		const Float rotationSpeed = 0.06f;
-		const Float speed = 0.005;
+		const Float speed = 0.08;
 
 		switch (key)
 		{
@@ -69,9 +79,9 @@ namespace t3d
 
 			
 			case GLFW_KEY_W:
-				mCamera.incPosition(speed * -mCamera.getForward()); break;
-			case GLFW_KEY_S:
 				mCamera.incPosition(speed * mCamera.getForward()); break;
+			case GLFW_KEY_S:
+				mCamera.incPosition(speed * -mCamera.getForward()); break;
 			case GLFW_KEY_A:
 				mCamera.incPosition(speed * -mCamera.getRight()); break;
 			case GLFW_KEY_D:

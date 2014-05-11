@@ -32,7 +32,7 @@ namespace t3d
 
 	protected:
 		Uint mProgram;
-
+		GLFWwindow *getWindow() { return mWindow; }
 
 	public:
 		friend GLFWInput;

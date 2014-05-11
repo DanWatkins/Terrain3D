@@ -61,7 +61,7 @@ namespace t3d
 		void setFarPlane(Float farPlane) { mFarPlane = farPlane; }
 		Float getFarPlane() { return mFarPlane; }
 
-		void offsetOrientation(Float upAngle, Float rightAngle);
+		void incOrientation(Float rightAngle, Float upAngle);
 		Mat4 getOrientation();
 		void lookAt(Vec3f position);
 
