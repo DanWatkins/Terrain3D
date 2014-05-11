@@ -60,11 +60,22 @@ namespace t3d
 		const Float scaleSpeed = 0.01f;
 		const Float zoomSpeed = 0.02f;
 		const Float rotationSpeed = 0.06f;
+		const Float speed = 0.005;
 
 		switch (key)
 		{
 			case GLFW_KEY_ESCAPE:
 				terminate(); break;
+
+			
+			case GLFW_KEY_W:
+				mCamera.incPosition(speed * -mCamera.getForward()); break;
+			case GLFW_KEY_S:
+				mCamera.incPosition(speed * mCamera.getForward()); break;
+			case GLFW_KEY_A:
+				mCamera.incPosition(speed * -mCamera.getRight()); break;
+			case GLFW_KEY_D:
+				mCamera.incPosition(speed * mCamera.getRight()); break;
 		}
 	}
 

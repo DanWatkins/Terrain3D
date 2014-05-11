@@ -11,7 +11,7 @@
 namespace t3d
 {
 	Camera::Camera() :
-		mPosition(0, 0, 1),
+		mPosition(0, 0, 3),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),

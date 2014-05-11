@@ -48,6 +48,7 @@ namespace t3d
 		void onTerminate();
 
 		void loadShaders();
+		void updateKeys();
 
 	public:
 		Terrain3D();
