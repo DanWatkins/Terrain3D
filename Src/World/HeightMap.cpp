@@ -38,6 +38,12 @@ namespace t3d
 	}
 
 
+	Uint8 HeightMap::get(Uint indexX, Uint indexY)
+	{
+		return mHeightData.at(indexY*mSize + indexX);
+	}
+
+
 	void HeightMap::buildVertexData()
 	{
 		mVertexData.reserve(mSize*mSize*3);

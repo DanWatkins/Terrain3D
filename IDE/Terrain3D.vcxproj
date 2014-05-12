@@ -22,6 +22,7 @@
     <ClInclude Include="..\src\Terrain3D.h" />
     <ClInclude Include="..\Src\World\Camera.h" />
     <ClInclude Include="..\Src\World\HeightMap.h" />
+    <ClInclude Include="..\Src\World\TerrainGenerator.h" />
     <ClInclude Include="..\Src\World\World.h" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +36,7 @@
     <ClCompile Include="..\src\Terrian3D.cpp" />
     <ClCompile Include="..\Src\World\Camera.cpp" />
     <ClCompile Include="..\Src\World\HeightMap.cpp" />
+    <ClCompile Include="..\Src\World\TerrainGenerator.cpp" />
     <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>

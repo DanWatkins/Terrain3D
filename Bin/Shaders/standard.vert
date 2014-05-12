@@ -19,10 +19,8 @@ void main()
 		color = vec4(0.7f, 0.7f, 0.7f, 1.0f);
 	else if (height > 0.4)
 		color = vec4(0, 0.6f, 0, 1.0f);
-	else if (height > 0.25)
-		color = vec4(0.5f, 0.25f, 0, 1.0f);
 	else
-		color = vec4(0, 0, 0, 1.0f);
+		color = vec4(0.5f, 0.25f, 0, 1.0f);
 
 	shaderColor = color;
 }
