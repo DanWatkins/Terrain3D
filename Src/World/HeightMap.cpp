@@ -38,6 +38,12 @@ namespace t3d
 	}
 
 
+	Uint8 HeightMap::get(Uint index)
+	{
+		return mHeightData.at(index);
+	}
+
+
 	Uint8 HeightMap::get(Uint indexX, Uint indexY)
 	{
 		return mHeightData.at(indexY*mSize + indexX);

@@ -34,6 +34,7 @@ namespace t3d
 		void reserve(Uint size);
 		void set(Uint index, Uint8 height);
 		void set(Uint indexX, Uint indexY, Uint8 height);
+		Uint8 get(Uint index);
 		Uint8 get(Uint indexX, Uint indexY);
 
 		void buildVertexData();

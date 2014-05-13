@@ -24,6 +24,9 @@ namespace t3d
 		void init(Int size);
 		void applyRandomFault(HeightMap &heightMap, Float faultAmount);
 
+		void smoothHeightBand(Uint indexStart, Int stride, Uint length, Float intensity);
+		void smoothHeight(Float intensity);
+
 	public:
 		HeightMap generate(Int size, Int seed);	//TODO return a pointer or something LOL
 	};

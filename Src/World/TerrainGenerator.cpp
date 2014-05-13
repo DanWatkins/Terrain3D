@@ -32,7 +32,7 @@ namespace t3d
 		{
 			for (Float x=0; x<(Float)heightMap.getSize(); x+=1.0f)
 			{
-				Uint8 height = heightMap.get(x, y);
+				Uint8 height = heightMap.get((Uint)x, (Uint)y);
 				Bool isAbove = y > (slope*x + yInt);
 				Bool applyFault = (applyIfAbove == isAbove);
 
@@ -45,18 +45,58 @@ namespace t3d
 	}
 
 
+	void TerrainGenerator::smoothHeightBand(Uint index, Int stride, Uint length, Float intensity)
+	{
+		Float v = mHeightMap.get(index);
+		Int j = stride; 
+		
+		for (Uint i=0; i<length-1; i++)
+		{
+			Float height = (Float)mHeightMap.get(j+index);
+			mHeightMap.set(j+index, intensity*v + (1-intensity) * height);
+
+			v = (Float)mHeightMap.get(j + (Int)index);
+			j += stride;
+		}
+	}
+
+
+	void TerrainGenerator::smoothHeight(Float intensity)
+	{
+		Uint size = mHeightMap.getSize();
+
+		//left to right
+		for (Uint i=0; i<size; i++)
+			smoothHeightBand(size*i, 1, size, intensity);
+
+		//right to left
+		for (Uint i=0; i<size; i++)
+			smoothHeightBand(size*i + size-1, -1, size, intensity);
+
+		//top to bottom
+		for (Uint i=0; i<size; i++)
+			smoothHeightBand(i, size, size, intensity);
+
+		//bottom to top
+		for (Uint i=0; i<size; i++)
+			smoothHeightBand(size*(size-1)+i, -size, size, intensity);
+	}
+
+
 	HeightMap TerrainGenerator::generate(Int size, Int seed)
 	{
 		init(size);
 		std::srand(seed);
 
-		const Int numberOfPasses = 50;
+		const Int numberOfPasses = 400;
 
 		for (Int i=0; i<numberOfPasses; i++)
 		{
 			Float amount = ((mHightBound-mLowBound)*i) / numberOfPasses;
 			applyRandomFault(mHeightMap, amount);
 		}
+
+		smoothHeight(0.65f);
 
 		return mHeightMap;
 	}
