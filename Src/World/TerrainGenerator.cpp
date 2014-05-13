@@ -11,7 +11,6 @@ namespace t3d
 {
 	void TerrainGenerator::init(Int size)
 	{
-		//mHeights = std::vector<Float>(size*size, (mHightBound-mLowBound)/4.0f);
 		mHeightMap.reserve(size);
 	}
 	
@@ -26,6 +25,7 @@ namespace t3d
 
 		Bool applyIfAbove = randBool();
 
+
 		//go through every height and check whether it is on the side of @side
 		//if it is, increase the height by @faultAmount
 		for (Float y=0; y<(Float)heightMap.getSize(); y+=1.0f)
@@ -37,21 +37,25 @@ namespace t3d
 				Bool applyFault = (applyIfAbove == isAbove);
 
 				if (applyFault)
+				{
 					heightMap.set(x, y, height + (Uint8)faultAmount);
+				}
 			}
 		}
 	}
 
 
-	HeightMap TerrainGenerator::generate(Int size)
+	HeightMap TerrainGenerator::generate(Int size, Int seed)
 	{
 		init(size);
+		std::srand(seed);
 
-		const Int numberOfPasses = 10;
+		const Int numberOfPasses = 50;
 
 		for (Int i=0; i<numberOfPasses; i++)
 		{
-			applyRandomFault(mHeightMap, 100/(i+1));
+			Float amount = ((mHightBound-mLowBound)*i) / numberOfPasses;
+			applyRandomFault(mHeightMap, amount);
 		}
 
 		return mHeightMap;

@@ -25,7 +25,7 @@ namespace t3d
 		void applyRandomFault(HeightMap &heightMap, Float faultAmount);
 
 	public:
-		HeightMap generate(Int size);	//TODO return a pointer or something LOL
+		HeightMap generate(Int size, Int seed);	//TODO return a pointer or something LOL
 	};
 };
 

@@ -11,7 +11,7 @@
 namespace t3d
 {
 	Camera::Camera() :
-		mPosition(0, 6, 0),
+		mPosition(-2, 3, -2),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -19,7 +19,7 @@ namespace t3d
 		mFarPlane(600.0f),
 		mAspectRatio(16/9)
 	{
-		lookAt(Vec3f(40, 1.5, 40));
+		lookAt(Vec3f(4, 0.0, 4));
 	}
 
 

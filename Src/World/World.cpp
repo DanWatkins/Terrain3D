@@ -8,6 +8,7 @@
 #include "World.h"
 #include "HeightMap.h"
 #include "TerrainGenerator.h"
+#include <stdio.h>
 
 namespace t3d
 {
@@ -34,7 +35,7 @@ namespace t3d
 		*/
 
 		TerrainGenerator generator;
-		mHeightMap = generator.generate(128);
+		mHeightMap = generator.generate(256, time(NULL));
 
 		std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 		return;

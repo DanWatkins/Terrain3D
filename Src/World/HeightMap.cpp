@@ -21,7 +21,7 @@ namespace t3d
 
 		mSize = size;
 		mHeightData.clear();
-		mHeightData = std::vector<Uint8>(size*size, 50);
+		mHeightData = std::vector<Uint8>(size*size, 0);
 	}
 
 
