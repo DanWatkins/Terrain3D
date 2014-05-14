@@ -55,7 +55,7 @@ namespace t3d
 			Float height = (Float)mHeightMap.get(j+index);
 			mHeightMap.set(j+index, intensity*v + (1-intensity) * height);
 
-			v = (Float)mHeightMap.get(j + (Int)index);
+			v = (Float)mHeightMap.get(j + index);
 			j += stride;
 		}
 	}
@@ -88,15 +88,16 @@ namespace t3d
 		init(size);
 		std::srand(seed);
 
-		const Int numberOfPasses = 400;
+		const Int numberOfPasses = 192;
+		const Int heightGainTweaker = 1;
 
 		for (Int i=0; i<numberOfPasses; i++)
 		{
-			Float amount = ((mHightBound-mLowBound)*i) / numberOfPasses;
+			Float amount = ((mHightBound - mLowBound)*i) / (numberOfPasses / heightGainTweaker);
 			applyRandomFault(mHeightMap, amount);
 		}
 
-		smoothHeight(0.65f);
+		smoothHeight(0.60f);
 
 		return mHeightMap;
 	}
