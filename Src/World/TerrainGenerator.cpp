@@ -88,16 +88,17 @@ namespace t3d
 		init(size);
 		std::srand(seed);
 
-		const Int numberOfPasses = 192;
-		const Int heightGainTweaker = 1;
+		const Float numberOfPasses = 200;
 
 		for (Int i=0; i<numberOfPasses; i++)
 		{
-			Float amount = ((mHightBound - mLowBound)*i) / (numberOfPasses / heightGainTweaker);
+			Float amount = ((mHightBound - mLowBound)) / (numberOfPasses-i);
 			applyRandomFault(mHeightMap, amount);
+
+			std::cout << amount << std::endl;
 		}
 
-		smoothHeight(0.60f);
+		smoothHeight(0.45f);
 
 		return mHeightMap;
 	}
