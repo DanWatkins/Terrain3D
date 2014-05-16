@@ -17,6 +17,19 @@ namespace t3d
 
 	void TerrainGenerator::applyRandomFault(HeightMap &heightMap, Float faultAmount)
 	{
+		//create random bounds inside the map bounds
+		Int size = heightMap.getSize();
+		Float bound_p1w = randInt(0, size/2);
+		Float bound_p1h = randInt(0, size/2);
+		Float bound_p2w = randInt(size/2, heightMap.getSize());
+		Float bound_p2h = randInt(size/2, heightMap.getSize());
+
+		if (bound_p1w < bound_p2w)
+			std::swap(bound_p1w, bound_p2w);
+		if (bound_p1h < bound_p2h)
+			std::swap(bound_p1h, bound_p2h);
+
+		
 		//create the fault line from two random points
 		Vec2f p1((Float)randInt(0, heightMap.getSize()), (Float)randInt(0, heightMap.getSize()));
 		Vec2f p2((Float)randInt(0, heightMap.getSize()), (Float)randInt(0, heightMap.getSize()));
@@ -24,6 +37,7 @@ namespace t3d
 		Float yInt = p1.x*slope;
 
 		Bool applyIfAbove = randBool();
+		int updated = 0;
 
 
 		//go through every height and check whether it is on the side of @side
@@ -32,16 +46,20 @@ namespace t3d
 		{
 			for (Float x=0; x<(Float)heightMap.getSize(); x+=1.0f)
 			{
-				Uint8 height = heightMap.get((Uint)x, (Uint)y);
+				Float height = heightMap.get((Uint)x, (Uint)y);
 				Bool isAbove = y > (slope*x + yInt);
 				Bool applyFault = (applyIfAbove == isAbove);
+				Bool withinBound = (bound_p1w < x < bound_p2w) &&  (bound_p1h < y < bound_p2h);
 
-				if (applyFault)
+				if (applyFault  &&  withinBound)
 				{
-					heightMap.set(x, y, height + (Uint8)faultAmount);
+					heightMap.set(x, y, height + faultAmount);
+					updated++;
 				}
 			}
 		}
+
+		printf("Updated %i     ", updated);
 	}
 
 
@@ -88,17 +106,20 @@ namespace t3d
 		init(size);
 		std::srand(seed);
 
-		const Float numberOfPasses = 200;
+		const Float numberOfPasses = 96;
+		const Float tweaker = 2.0f;
 
 		for (Int i=0; i<numberOfPasses; i++)
 		{
-			Float amount = ((mHightBound - mLowBound)) / (numberOfPasses-i);
+			//Float amount = ((mHightBound - mLowBound)) / (numberOfPasses-i);
+			Float b = (std::numeric_limits<Uint8>::max() / numberOfPasses * 2)*tweaker;
+			Float amount = b - (-b / numberOfPasses * i)*tweaker;
 			applyRandomFault(mHeightMap, amount);
 
 			std::cout << amount << std::endl;
 		}
 
-		smoothHeight(0.45f);
+		smoothHeight(0.65f);
 
 		return mHeightMap;
 	}

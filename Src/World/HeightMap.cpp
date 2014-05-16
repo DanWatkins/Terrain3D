@@ -21,17 +21,17 @@ namespace t3d
 
 		mSize = size;
 		mHeightData.clear();
-		mHeightData = std::vector<Uint8>(size*size, 0);
+		mHeightData = std::vector<Float>(size*size, 0.0f);
 	}
 
 
-	void HeightMap::set(Uint index, Uint8 height)
+	void HeightMap::set(Uint index, Float height)
 	{
 		mHeightData.at(index) = height;
 	}
 
 
-	void HeightMap::set(Uint indexX, Uint indexY, Uint8 height)
+	void HeightMap::set(Uint indexX, Uint indexY, Float height)
 	{
 		Uint index = mSize*indexY + indexX;
 		mHeightData.at(index) = height;
@@ -56,6 +56,8 @@ namespace t3d
 		const Float spacing = 0.1f;
 		std::vector<Float> colorVertexData;
 		colorVertexData.reserve(mSize*mSize*3);
+
+		std::cout << "\nBuilding Vertex Data" << std::endl;
 
 		for (Uint y=0; y<mSize; y++)
 		{
@@ -104,8 +106,6 @@ namespace t3d
 				mIndexData.push_back(PRIMITIVE_RESTART_INDEX);
 			}
 		}
-
-		printf("");
 	}
 
 

@@ -16,7 +16,7 @@ namespace t3d
 	class HeightMap
 	{
 	private:
-		std::vector<Uint8> mHeightData;
+		std::vector<Float> mHeightData;
 		Uint mSize;
 
 		std::vector<Float> mVertexData;
@@ -32,8 +32,8 @@ namespace t3d
 
 
 		void reserve(Uint size);
-		void set(Uint index, Uint8 height);
-		void set(Uint indexX, Uint indexY, Uint8 height);
+		void set(Uint index, Float height);
+		void set(Uint indexX, Uint indexY, Float height);
 		Uint8 get(Uint index);
 		Uint8 get(Uint indexX, Uint indexY);
 

@@ -35,7 +35,7 @@ namespace t3d
 		*/
 
 		TerrainGenerator generator;
-		mHeightMap = generator.generate(64, (Uint)time(NULL));
+		mHeightMap = generator.generate(32, (Uint)time(NULL));
 
 		std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 		return;

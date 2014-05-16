@@ -9,9 +9,7 @@ uniform mat4 modelMatrix;
 out vec4 shaderColor;
 
 void main()
-{
-	gl_Position = cameraMatrix * modelMatrix * position;
-
+{	
 	vec4 color;
 	float height = position.y;
 
@@ -36,6 +34,10 @@ void main()
 	else
 		color = vec4(0.0f, 0.0f, 0.4f, 1.0f);
 
-
 	shaderColor = color;
+
+
+
+	vec4 newPos = vec4(position.x, position.y*1.5f, position.z, position.w);
+	gl_Position = cameraMatrix * modelMatrix * newPos;
 }
