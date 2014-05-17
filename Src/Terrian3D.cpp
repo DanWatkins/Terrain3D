@@ -56,7 +56,7 @@ namespace t3d
 		const Double mouseSensitivity = 0.05f;
 		Double mouseX, mouseY;
 		glfwGetCursorPos(getWindow(), &mouseX, &mouseY);
-		mCamera.incOrientation(mouseSensitivity*mouseX, mouseSensitivity*mouseY);
+		mCamera.incOrientation((Float)(mouseSensitivity*mouseX), (Float)(mouseSensitivity*mouseY));
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		glUseProgram(mProgram);
@@ -70,7 +70,7 @@ namespace t3d
 		const Float scaleSpeed = 0.01f;
 		const Float zoomSpeed = 0.02f;
 		const Float rotationSpeed = 0.06f;
-		const Float speed = 0.08;
+		const Float speed = 0.08f;
 
 		switch (key)
 		{

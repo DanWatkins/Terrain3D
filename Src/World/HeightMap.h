@@ -34,8 +34,8 @@ namespace t3d
 		void reserve(Uint size);
 		void set(Uint index, Float height);
 		void set(Uint indexX, Uint indexY, Float height);
-		Uint8 get(Uint index);
-		Uint8 get(Uint indexX, Uint indexY);
+		Float get(Uint index);
+		Float get(Uint indexX, Uint indexY);
 
 		void buildVertexData();
 		std::vector<Float> *getVertexData();

@@ -23,7 +23,7 @@ namespace t3d
 
 		void init(Int size);
 		void applyRandomFault(HeightMap &heightMap, Float faultAmount);
-
+		void normalizeHeights();
 		void smoothHeightBand(Uint indexStart, Int stride, Uint length, Float intensity);
 		void smoothHeight(Float intensity);
 

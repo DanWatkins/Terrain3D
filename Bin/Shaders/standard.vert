@@ -24,7 +24,7 @@ void main()
 	else if (height > 0.5)
 		color = vec4(0.6f, 0.35f, 0.1f, 1.0f);
 	else if (height > 0.4)
-		color = vec4(0.0f, 0.0f, 0.8, 1.0f);
+		color = vec4(0.8f, 0.8f, 0.6f, 1.0f);
 	else if (height > 0.3)
 		color = vec4(0.0f, 0.0f, 0.7, 1.0f);
 	else if (height > 0.2)
