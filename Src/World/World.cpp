@@ -16,26 +16,8 @@ namespace t3d
 	{
 		sf::Clock clock;
 
-		/*
-		const int mapSize = 512;
-		mHeightMap.reserve(mapSize);
-		Uint oldHeight = 128;
-		Uint8 lastHeight = 128;
-		
-		for (int y=0; y<mapSize; y++)
-		{
-			for (int x=0; x<mapSize; x++)
-			{
-				Uint8 height = randInt(0, 255);
-				mHeightMap.set(x, y, (height+lastHeight+oldHeight)/3);
-				lastHeight = height;
-				oldHeight = lastHeight;
-			}
-		}
-		*/
-
 		TerrainGenerator generator;
-		mHeightMap = generator.generate(32, (Uint)time(NULL));
+		mHeightMap = generator.generate(96, (Uint)time(NULL));
 
 		std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 		return;

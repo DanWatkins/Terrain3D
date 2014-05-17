@@ -17,49 +17,31 @@ namespace t3d
 
 	void TerrainGenerator::applyRandomFault(HeightMap &heightMap, Float faultAmount)
 	{
-		//create random bounds inside the map bounds
-		Int size = heightMap.getSize();
-		Float bound_p1w = randInt(0, size/2);
-		Float bound_p1h = randInt(0, size/2);
-		Float bound_p2w = randInt(size/2, heightMap.getSize());
-		Float bound_p2h = randInt(size/2, heightMap.getSize());
-
-		if (bound_p1w < bound_p2w)
-			std::swap(bound_p1w, bound_p2w);
-		if (bound_p1h < bound_p2h)
-			std::swap(bound_p1h, bound_p2h);
-
-		
 		//create the fault line from two random points
 		Vec2f p1((Float)randInt(0, heightMap.getSize()), (Float)randInt(0, heightMap.getSize()));
-		Vec2f p2((Float)randInt(0, heightMap.getSize()), (Float)randInt(0, heightMap.getSize()));
-		Float slope = (p2.y-p1.y)/(p2.x-p1.x);
-		Float yInt = p1.x*slope;
+		Vec2f p2;
 
-		Bool applyIfAbove = randBool();
-		int updated = 0;
-
-
-		//go through every height and check whether it is on the side of @side
-		//if it is, increase the height by @faultAmount
-		for (Float y=0; y<(Float)heightMap.getSize(); y+=1.0f)
+		do
 		{
-			for (Float x=0; x<(Float)heightMap.getSize(); x+=1.0f)
-			{
-				Float height = heightMap.get((Uint)x, (Uint)y);
-				Bool isAbove = y > (slope*x + yInt);
-				Bool applyFault = (applyIfAbove == isAbove);
-				Bool withinBound = (bound_p1w < x < bound_p2w) &&  (bound_p1h < y < bound_p2h);
+			p2 = Vec2f((Float)randInt(0, heightMap.getSize()), (Float)randInt(0, heightMap.getSize()));
+		} while (p2 == p1);
 
-				if (applyFault  &&  withinBound)
-				{
-					heightMap.set(x, y, height + faultAmount);
-					updated++;
-				}
+		
+		Int dirX1 = p2.x-p1.x;
+		Int dirY1 = p2.y-p1.y;
+		Int size = heightMap.getSize();
+
+		for (Int y=0; y<size; y++)
+		{
+			for (Int x=0; x<size; x++)
+			{
+				Int dirX2 = x-p1.x;
+				Int dirY2 = y-p1.y;
+
+				if ((dirX2*dirY1 - dirX1*dirY2) > 0)
+					heightMap.set(x, y, heightMap.get((Uint)x, (Uint)y) + faultAmount);
 			}
 		}
-
-		printf("Updated %i     ", updated);
 	}
 
 
@@ -106,20 +88,22 @@ namespace t3d
 		init(size);
 		std::srand(seed);
 
-		const Float numberOfPasses = 96;
+		const Float numberOfPasses = 64;
 		const Float tweaker = 2.0f;
 
 		for (Int i=0; i<numberOfPasses; i++)
 		{
-			//Float amount = ((mHightBound - mLowBound)) / (numberOfPasses-i);
-			Float b = (std::numeric_limits<Uint8>::max() / numberOfPasses * 2)*tweaker;
-			Float amount = b - (-b / numberOfPasses * i)*tweaker;
+			const Float maxDelta = 255.0f;
+			const Float minDelta = 0.0f;
+			Float amount = maxDelta - ((maxDelta - minDelta) * i) / size;
+			amount += 15.0f;
+
 			applyRandomFault(mHeightMap, amount);
 
 			std::cout << amount << std::endl;
 		}
 
-		smoothHeight(0.65f);
+		smoothHeight(0.75f);
 
 		return mHeightMap;
 	}
