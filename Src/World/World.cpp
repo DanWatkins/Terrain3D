@@ -17,7 +17,7 @@ namespace t3d
 		sf::Clock clock;
 
 		TerrainGenerator generator;
-		mHeightMap = generator.generate(96, (Uint)time(NULL));
+		mHeightMap = generator.generate(512, (Uint)time(NULL));
 
 		std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 		return;

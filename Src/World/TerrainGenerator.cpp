@@ -88,7 +88,7 @@ namespace t3d
 		init(size);
 		std::srand(seed);
 
-		const Float numberOfPasses = 64;
+		const Float numberOfPasses = 128;
 		const Float tweaker = 2.0f;
 
 		for (Int i=0; i<numberOfPasses; i++)

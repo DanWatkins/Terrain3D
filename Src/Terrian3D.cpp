@@ -86,6 +86,14 @@ namespace t3d
 				mCamera.incPosition(speed * -mCamera.getRight()); break;
 			case GLFW_KEY_D:
 				mCamera.incPosition(speed * mCamera.getRight()); break;
+
+			case GLFW_KEY_R:
+			{
+				mWorld.init();
+				mCamera.init(mProgram, &mWorld);
+
+				break;
+			}
 		}
 	}
 
