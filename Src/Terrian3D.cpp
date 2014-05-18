@@ -22,11 +22,6 @@ namespace t3d
 		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "standard.frag", GL_FRAGMENT_SHADER);
 
 		mProgram = Shader::linkFromShaders(shaders, 2);
-
-		//fetch all the uniform locations
-		//mUniformLocations.matrix_cameraToClip = glGetUniformLocation(mProgram, "matrix_cameraToClip");
-		//mUniformLocations.matrix_modelToWorld = glGetUniformLocation(mProgram, "matrix_modelToWorld");
-		//mUniformLocations.matrix_worldToCamera = glGetUniformLocation(mProgram, "matrix_worldToCamera");
 	}
 
 
@@ -70,7 +65,7 @@ namespace t3d
 		const Float scaleSpeed = 0.01f;
 		const Float zoomSpeed = 0.02f;
 		const Float rotationSpeed = 0.06f;
-		const Float speed = 0.08f;
+		const Float speed = 0.19f;
 
 		switch (key)
 		{

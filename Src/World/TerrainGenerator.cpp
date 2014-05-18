@@ -110,12 +110,11 @@ namespace t3d
 	}
 
 
-	HeightMap TerrainGenerator::generate(Int size, Int seed)
+	HeightMap TerrainGenerator::generate(Int size, Int numberOfPasses, Int seed)
 	{
 		init(size);
 		std::srand(seed);
 
-		const Float numberOfPasses = 256;
 		const Float tweaker = 2.0f;
 
 		for (Int i=0; i<numberOfPasses; i++)
@@ -126,11 +125,9 @@ namespace t3d
 			amount += 15.0f;
 
 			applyRandomFault(mHeightMap, amount);
-
-			std::cout << amount << std::endl;
 		}
 
-		smoothHeight(0.50f);
+		smoothHeight(0.60f);
 		normalizeHeights();
 
 		return mHeightMap;

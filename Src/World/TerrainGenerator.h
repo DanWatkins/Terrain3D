@@ -28,7 +28,7 @@ namespace t3d
 		void smoothHeight(Float intensity);
 
 	public:
-		HeightMap generate(Int size, Int seed);	//TODO return a pointer or something LOL
+		HeightMap generate(Int size, Int numberOfPasses, Int seed);	//TODO return a pointer or something LOL
 	};
 };
 

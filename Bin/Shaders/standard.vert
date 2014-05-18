@@ -10,34 +10,10 @@ out vec4 shaderColor;
 
 void main()
 {	
-	vec4 color;
 	float height = position.y;
 
-	if (height > 0.9)
-		color = vec4(0.7f, 0.7f, 0.7f, 1.0f);
-	else if (height > 0.8)
-		color = vec4(0.5, 0.6f, 0.5, 1.0f);
-	else if (height > 0.7)
-		color = vec4(0.1f, 0.35f, 0.0f, 1.0f);
-	else if (height > 0.6)
-		color = vec4(0.0f, 0.5f, 0.0f, 1.0f);
-	else if (height > 0.5)
-		color = vec4(0.6f, 0.35f, 0.1f, 1.0f);
-	else if (height > 0.4)
-		color = vec4(0.8f, 0.8f, 0.6f, 1.0f);
-	else if (height > 0.3)
-		color = vec4(0.0f, 0.0f, 0.7, 1.0f);
-	else if (height > 0.2)
-		color = vec4(0.0f, 0.0f, 0.6, 1.0f);
-	else if (height > 0.1)
-		color = vec4(0.0f, 0.0f, 0.5, 1.0f);
-	else
-		color = vec4(0.0f, 0.0f, 0.4f, 1.0f);
+	shaderColor = vec4(color.r, color.g, color.b, 1.0f);
 
-	shaderColor = color;
-
-
-
-	vec4 newPos = vec4(position.x, position.y*1.5f, position.z, position.w);
+	vec4 newPos = vec4(position.x, position.y, position.z, position.w);
 	gl_Position = cameraMatrix * modelMatrix * newPos;
 }

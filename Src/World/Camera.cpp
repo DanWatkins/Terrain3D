@@ -11,7 +11,7 @@
 namespace t3d
 {
 	Camera::Camera() :
-		mPosition(-2, 5, -2),
+		mPosition(0, 0, 0),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -19,7 +19,7 @@ namespace t3d
 		mFarPlane(600.0f),
 		mAspectRatio(16/9)
 	{
-		lookAt(Vec3f(2, 1.0, 2));
+		lookAt(Vec3f(1, 0, 1));
 	}
 
 
@@ -58,7 +58,9 @@ namespace t3d
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);	//pos
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)(terrainVertexData->size()*2));	//color
+
+		Int colorOffset = (terrainVertexData->size() / 2 * sizeof(Float));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)colorOffset);	//color
 
 		//glEnable(GL_CULL_FACE);
 
