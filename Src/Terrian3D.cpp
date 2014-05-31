@@ -15,27 +15,13 @@ namespace t3d
 	}
 
 
-	void Terrain3D::loadShaders()
-	{
-		Uint shaders[2];
-		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "standard.vert", GL_VERTEX_SHADER);
-		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "standard.frag", GL_FRAGMENT_SHADER);
-
-		mProgram = Shader::linkFromShaders(shaders, 2);
-	}
-
-
 	void Terrain3D::onStartup()
 	{
-		loadShaders();
-
-		glUseProgram(0);
-
 		glfwSetInputMode(getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		mWorld.init();
-		mCamera.init(mProgram, &mWorld);
+		mCamera.init(&mWorld);
 	}
 
 	
@@ -54,7 +40,6 @@ namespace t3d
 		mCamera.incOrientation((Float)(mouseSensitivity*mouseX), (Float)(mouseSensitivity*mouseY));
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
-		glUseProgram(mProgram);
 		mCamera.render();
 	}
 
@@ -72,7 +57,6 @@ namespace t3d
 			case GLFW_KEY_ESCAPE:
 				terminate(); break;
 
-			
 			case GLFW_KEY_W:
 				mCamera.incPosition(speed * mCamera.getForward()); break;
 			case GLFW_KEY_S:
@@ -85,7 +69,7 @@ namespace t3d
 			case GLFW_KEY_R:
 			{
 				mWorld.init();
-				mCamera.init(mProgram, &mWorld);
+				mCamera.init(&mWorld);
 
 				break;
 			}

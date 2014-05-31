@@ -39,6 +39,7 @@ namespace t3d
 		const Float mMaxVerticalAngle = 85.0f;
 
 	private:
+		void loadShaders();
 		void uploadTerrainData(HeightMap &heightMap);
 		void normalizeAngles();
 
@@ -46,7 +47,7 @@ namespace t3d
 	public:
 		Camera();
 
-		void init(Uint program, World *world);
+		void init(World *world);
 		void render();
 
 		void setPosition(Vec3f position) { mPosition = position; }

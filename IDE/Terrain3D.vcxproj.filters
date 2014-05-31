@@ -90,5 +90,11 @@
     <None Include="..\Bin\Shaders\standard.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\Bin\Shaders\sprite.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Bin\Shaders\sprite.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

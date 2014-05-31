@@ -40,6 +40,8 @@
     <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Bin\Shaders\sprite.frag" />
+    <None Include="..\Bin\Shaders\sprite.vert" />
     <None Include="..\Bin\Shaders\standard.frag" />
     <None Include="..\Bin\Shaders\standard.vert" />
   </ItemGroup>

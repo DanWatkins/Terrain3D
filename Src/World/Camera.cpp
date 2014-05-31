@@ -23,6 +23,16 @@ namespace t3d
 	}
 
 
+	void Camera::loadShaders()
+	{
+		Uint shaders[2];
+		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "camera-vert.glsl", GL_VERTEX_SHADER);
+		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "camera-frag.glsl", GL_FRAGMENT_SHADER);
+
+		mRenderData.program = Shader::linkFromShaders(shaders, 2);
+	}
+
+
 	void Camera::uploadTerrainData(HeightMap &heightMap)
 	{
 		sf::Clock clock;
@@ -39,7 +49,6 @@ namespace t3d
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		Uint size = sizeof(Float)*terrainVertexData->size();
 		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
-
 
 		//index data
 		Uint ibo;
@@ -73,15 +82,15 @@ namespace t3d
 	}
 	
 
-	void Camera::init(Uint program, World *world)
+	void Camera::init(World *world)
 	{
 		mWorld = world;
 
-		glUseProgram(program);
-		mRenderData.program = program;
+		loadShaders();
+		glUseProgram(mRenderData.program);
 
-		mRenderData.uloc_cameraMatrix = glGetUniformLocation(program, "cameraMatrix");		
-		mRenderData.uloc_modelMatrix = glGetUniformLocation(program, "modelMatrix");
+		mRenderData.uloc_cameraMatrix = glGetUniformLocation(mRenderData.program, "cameraMatrix");		
+		mRenderData.uloc_modelMatrix = glGetUniformLocation(mRenderData.program, "modelMatrix");
 
 		uploadTerrainData(world->getHeightMap());
 
@@ -94,13 +103,14 @@ namespace t3d
 	{
 		glUseProgram(mRenderData.program);
 
-
 		glUniformMatrix4fv(mRenderData.uloc_cameraMatrix, 1, GL_FALSE, glm::value_ptr(getTotalMatrix()));
 		glUniformMatrix4fv(mRenderData.uloc_modelMatrix, 1, GL_FALSE, glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
 		glBindVertexArray(mRenderData.vao_terrain);
 		glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
+
+		glUseProgram(0);
 	}
 
 

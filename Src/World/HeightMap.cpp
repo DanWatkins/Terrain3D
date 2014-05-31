@@ -53,7 +53,7 @@ namespace t3d
 	void HeightMap::buildVertexData()
 	{
 		const Float spacing = 0.1f;
-		const Float verticalScale = 7.5f;
+		const Float verticalScale = 4.5f;
 
 		mVertexData.reserve(mSize*mSize*3);
 		std::vector<Float> colorVertexData;

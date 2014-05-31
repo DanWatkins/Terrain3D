@@ -33,10 +33,6 @@ namespace t3d
 	class Terrain3D : public OpenGLWindow
 	{
 	private:
-		Uint mProgram;
-		Uint mVbo, mIbo, mVao;
-		UniformLocations mUniformLocations;
-
 		World mWorld;
 		Camera mCamera;
 
@@ -47,7 +43,7 @@ namespace t3d
 		void onResize(Int width, Int height);
 		void onTerminate();
 
-		void loadShaders();
+		//void loadShaders();
 		void updateKeys();
 
 	public:
