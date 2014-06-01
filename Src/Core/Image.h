@@ -1,33 +1,24 @@
 //=======================================================================================================================|
-// Created 2014.05.31 by Daniel L. Watkins
+// Created 2014.06.01 by Daniel L. Watkins
 //
-// Copyright (C) 2014 Daniel L. Watkins
+// Copyright (C) 2013-2014 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //=======================================================================================================================|
 
-#ifndef _t3d_TEXTURE_H
-#define _t3d_TEXTURE_H
+#ifndef _t3d_IMAGE_H
+#define _t3d_IMAGE_H
 
 #include "../Main.h"
 
 namespace t3d
 {
-	class Texture
+	class Image
 	{
 	private:
-		Uint mProgram;
-		Uint mTexture;
-		Uint mVao;
-
-		void loadShaders();
-		void unloadTexure();
-
+		typedef std::vector<unsigned char> ImageData;
+		
 	public:
-		Texture();
-		~Texture();
-
-		void init();
-		void render();
+		void loadFromFile_PNG(String filepath);
 	};
 };
 

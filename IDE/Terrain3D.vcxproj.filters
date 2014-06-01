@@ -4,14 +4,14 @@
     <Filter Include="Core">
       <UniqueIdentifier>{69520f5b-7b9a-496b-8df9-b695f70d22b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GL">
-      <UniqueIdentifier>{dab2d0e9-1505-4a9a-9ac8-854ab75d0b94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{063c771a-52f3-40c8-8619-77e9f217ac53}</UniqueIdentifier>
     </Filter>
     <Filter Include="World">
       <UniqueIdentifier>{01f679b5-5cca-4a4c-b3c0-2ce844ef9ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ext">
+      <UniqueIdentifier>{dab2d0e9-1505-4a9a-9ac8-854ab75d0b94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +51,12 @@
     <ClInclude Include="..\Src\Core\Texture.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\Core\Image.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Ext\lodepng.h">
+      <Filter>Ext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\GLFWInput.cpp">
@@ -66,7 +72,7 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Ext\GL\gl3w.c">
-      <Filter>GL</Filter>
+      <Filter>Ext</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
@@ -85,7 +91,15 @@
     <ClCompile Include="..\Src\World\TerrainGenerator.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Core\Texture.cpp" />
+    <ClCompile Include="..\Src\Core\Texture.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\Image.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Ext\lodepng.cpp">
+      <Filter>Ext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shaders\standard.frag">

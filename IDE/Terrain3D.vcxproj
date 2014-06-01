@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Ext\lodepng.h" />
     <ClInclude Include="..\Src\Constants.h" />
     <ClInclude Include="..\Src\Core\Core.h" />
     <ClInclude Include="..\Src\Core\GLFWInput.h" />
     <ClInclude Include="..\src\Core\Helper.h" />
+    <ClInclude Include="..\Src\Core\Image.h" />
     <ClInclude Include="..\Src\Core\MatrixStack.h" />
     <ClInclude Include="..\Src\Core\OpenGLWindow.h" />
     <ClInclude Include="..\Src\Core\Shader.h" />
@@ -28,8 +30,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Ext\GL\gl3w.c" />
+    <ClCompile Include="..\Ext\lodepng.cpp" />
     <ClCompile Include="..\Src\Core\GLFWInput.cpp" />
     <ClCompile Include="..\src\Core\Helper.cpp" />
+    <ClCompile Include="..\Src\Core\Image.cpp" />
     <ClCompile Include="..\Src\Core\MatrixStack.cpp" />
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp" />
     <ClCompile Include="..\Src\Core\Shader.cpp" />

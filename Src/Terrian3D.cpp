@@ -8,6 +8,7 @@
 #include "Terrain3D.h"
 #include "./Core/Core.h"
 #include "Core\Texture.h"
+#include "Core\Image.h"
 
 namespace t3d
 {	
@@ -28,6 +29,9 @@ namespace t3d
 		mCamera.init(&mWorld);
 
 		texture.init();
+
+		Image image;
+		image.loadFromFile("./smileFace.png");
 	}
 
 	

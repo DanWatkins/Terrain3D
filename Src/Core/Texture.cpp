@@ -36,15 +36,16 @@ namespace t3d
 
 	Texture::~Texture()
 	{
-
+		glDeleteProgram(mProgram);
+		glDeleteVertexArrays(1, &mVao);
 	}
 
 
 	void Texture::loadShaders()
 	{
 		Uint shaders[2];
-		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "texture.vert", GL_VERTEX_SHADER);
-		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "texture.frag", GL_FRAGMENT_SHADER);
+		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "texture-vert.glsl", GL_VERTEX_SHADER);
+		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "texture-frag.glsl", GL_FRAGMENT_SHADER);
 
 		mProgram = Shader::linkFromShaders(shaders, 2);
 	}
@@ -77,5 +78,11 @@ namespace t3d
 
 		glBindVertexArray(0);
 		glUseProgram(0);
+	}
+
+
+	void Texture::unloadTexure()
+	{
+		glDeleteTextures(1, &mTexture);
 	}
 };
