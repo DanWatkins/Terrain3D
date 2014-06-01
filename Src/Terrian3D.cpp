@@ -28,10 +28,9 @@ namespace t3d
 		mWorld.init();
 		mCamera.init(&mWorld);
 
-		texture.init();
-
 		Image image;
-		image.loadFromFile("./smileFace.png");
+		image.loadFromFile_PNG("./smileFace.png");
+		texture.initWithImage(image);
 	}
 
 	

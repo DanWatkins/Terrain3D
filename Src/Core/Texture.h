@@ -9,6 +9,7 @@
 #define _t3d_TEXTURE_H
 
 #include "../Main.h"
+#include "Image.h"
 
 namespace t3d
 {
@@ -26,7 +27,7 @@ namespace t3d
 		Texture();
 		~Texture();
 
-		void init();
+		void initWithImage(const Image &image);
 		void render();
 	};
 };

@@ -8,23 +8,6 @@
 #include "Texture.h"
 #include "Shader.h"
 
-void genTex(float *data, int width, int height)
-{
-	int x, y;
-
-	for (y = 0; y < height; y++)
-	{
-		for (x = 0; x < width; x++)
-		{
-			data[(y * width + x) * 4 + 0] = (float)((x & y) & 0xFF) / 63.0f;
-			data[(y * width + x) * 4 + 1] = (float)((x | y) & 0xFF) / 255.0f;
-			data[(y * width + x) * 4 + 2] = (float)((x ^ y) & 0xFF) / 127.0f;
-			data[(y * width + x) * 4 + 3] = 1.0f;
-		}
-	}
-}
-
-
 namespace t3d
 {
 	Texture::Texture()
@@ -51,16 +34,12 @@ namespace t3d
 	}
 
 
-	void Texture::init()
+	void Texture::initWithImage(const Image &image)
 	{
 		glGenTextures(1, &mTexture);
 		glBindTexture(GL_TEXTURE_2D, mTexture);
 		glTexStorage2D(GL_TEXTURE_2D, 8, GL_RGBA32F, 256, 256);
-
-		float *data = new float[256*256*4];
-		genTex(data, 256, 256);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 256, 256, GL_RGBA, GL_FLOAT, data);
-		delete[] data;
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
 
 		loadShaders();
 
