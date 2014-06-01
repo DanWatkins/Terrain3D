@@ -7,9 +7,13 @@
 
 #include "Terrain3D.h"
 #include "./Core/Core.h"
+#include "Core\Texture.h"
 
 namespace t3d
 {	
+	Texture texture;
+
+
 	Terrain3D::Terrain3D()
 	{
 	}
@@ -22,6 +26,8 @@ namespace t3d
 
 		mWorld.init();
 		mCamera.init(&mWorld);
+
+		texture.init();
 	}
 
 	
@@ -41,6 +47,7 @@ namespace t3d
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		mCamera.render();
+		texture.render();
 	}
 
 
@@ -85,5 +92,5 @@ namespace t3d
 
 	void Terrain3D::onTerminate()
 	{
-	}	
+	}
 };

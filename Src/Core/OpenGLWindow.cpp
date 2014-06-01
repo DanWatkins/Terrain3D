@@ -11,7 +11,6 @@ namespace t3d
 {
 	OpenGLWindow::OpenGLWindow()
 	{
-		mProgram = -1;
 		mWidth = gDefaultWindowWidth;
 		mHeight = gDefaultWindowHeight;
 		mTitle = gWindowTitle;

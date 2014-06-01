@@ -31,7 +31,6 @@ namespace t3d
 		Bool mShouldTerminate;
 
 	protected:
-		Uint mProgram;
 		GLFWwindow *getWindow() { return mWindow; }
 
 	public:
@@ -40,7 +39,6 @@ namespace t3d
 		OpenGLWindow();
 		Int init(Int width=gDefaultWindowWidth, Int height=gDefaultWindowHeight, String title=gWindowTitle);
 
-		Uint getProgram() { return mProgram; }
 		Int getWidth() { return mWidth; }
 		Int getHeight() { return mHeight; }
 		String getTitle() { return mTitle; }

@@ -48,6 +48,9 @@
     <ClInclude Include="..\Src\World\TerrainGenerator.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\Core\Texture.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\GLFWInput.cpp">
@@ -82,6 +85,7 @@
     <ClCompile Include="..\Src\World\TerrainGenerator.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Core\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shaders\standard.frag">
@@ -90,10 +94,10 @@
     <None Include="..\Bin\Shaders\standard.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\Bin\Shaders\sprite.frag">
+    <None Include="..\Bin\Shaders\texture.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\Bin\Shaders\sprite.vert">
+    <None Include="..\Bin\Shaders\texture.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

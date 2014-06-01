@@ -18,6 +18,7 @@
     <ClInclude Include="..\Src\Core\MatrixStack.h" />
     <ClInclude Include="..\Src\Core\OpenGLWindow.h" />
     <ClInclude Include="..\Src\Core\Shader.h" />
+    <ClInclude Include="..\Src\Core\Texture.h" />
     <ClInclude Include="..\Src\Main.h" />
     <ClInclude Include="..\src\Terrain3D.h" />
     <ClInclude Include="..\Src\World\Camera.h" />
@@ -32,6 +33,7 @@
     <ClCompile Include="..\Src\Core\MatrixStack.cpp" />
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp" />
     <ClCompile Include="..\Src\Core\Shader.cpp" />
+    <ClCompile Include="..\Src\Core\Texture.cpp" />
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
     <ClCompile Include="..\Src\World\Camera.cpp" />
@@ -40,8 +42,8 @@
     <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Bin\Shaders\sprite.frag" />
-    <None Include="..\Bin\Shaders\sprite.vert" />
+    <None Include="..\Bin\Shaders\texture.frag" />
+    <None Include="..\Bin\Shaders\texture.vert" />
     <None Include="..\Bin\Shaders\standard.frag" />
     <None Include="..\Bin\Shaders\standard.vert" />
   </ItemGroup>
