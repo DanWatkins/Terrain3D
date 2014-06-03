@@ -46,10 +46,10 @@
     <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Bin\Shaders\texture.frag" />
-    <None Include="..\Bin\Shaders\texture.vert" />
-    <None Include="..\Bin\Shaders\standard.frag" />
-    <None Include="..\Bin\Shaders\standard.vert" />
+    <None Include="..\Bin\Shaders\camera-frag.glsl" />
+    <None Include="..\Bin\Shaders\camera-vert.glsl" />
+    <None Include="..\Bin\Shaders\texture-frag.glsl" />
+    <None Include="..\Bin\Shaders\texture-vert.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB963AF4-49A3-4D23-B569-72107DF1E12E}</ProjectGuid>

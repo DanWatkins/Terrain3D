@@ -102,16 +102,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Bin\Shaders\standard.frag">
+    <None Include="..\Bin\Shaders\camera-frag.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\Bin\Shaders\standard.vert">
+    <None Include="..\Bin\Shaders\camera-vert.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\Bin\Shaders\texture.frag">
+    <None Include="..\Bin\Shaders\texture-frag.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\Bin\Shaders\texture.vert">
+    <None Include="..\Bin\Shaders\texture-vert.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

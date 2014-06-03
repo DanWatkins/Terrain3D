@@ -1,10 +1,13 @@
 #version 420 core
 
+layout (location = 0) in vec4 pos;
+layout (location = 1) in vec4 texturePos;
+
+out vec2 outTexturePos;
+
 void main()
 {	
-	const vec4 vertices[] = vec4[](	vec4( 0.75, -0.75, 0.5, 1.0),
-									vec4(-0.75, -0.75, 0.5, 1.0),
-									vec4( 0.75,  0.75, 0.5, 1.0));
+	gl_Position = pos;
 
-	gl_Position = vertices[gl_VertexID];
+	outTexturePos = vec2(texturePos.x, texturePos.y);
 }
