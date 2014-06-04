@@ -22,6 +22,8 @@ namespace t3d
 	public:
 		void loadFromFile_PNG(String filepath);
 
+		void flipVertically();
+
 		Int getWidth() const { return mWidth; }
 		Int getHeight() const { return mHeight; }
 		const ImageData& getImageData() const { return mImageData; }

@@ -9,8 +9,9 @@ void main()
 	//color = texture(sampler, gl_FragCoord.xy / textureSize(sampler, 0));
 	//color = texture(sampler, outTexturePos);
 
+	ivec2 txSize = textureSize(sampler, 0);
 	ivec2 pos;
-	pos.x = int(outTexturePos.x * textureSize(sampler, 0).x);
-	pos.y = int(outTexturePos.y * textureSize(sampler, 0).y);
+	pos.x = txSize.x - int(outTexturePos.x * txSize.x) - 1;
+	pos.y = txSize.y - int(outTexturePos.y * txSize.y) - 1;
 	color = texelFetch(sampler, pos, 0);
 }
