@@ -36,6 +36,8 @@ namespace t3d
 
 	void Sprite::initWithImage(const Image &image)
 	{
+		mImage = &image;
+
 		glGenTextures(1, &mTexture);
 		glBindTexture(GL_TEXTURE_2D, mTexture);
 		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
@@ -59,25 +61,12 @@ namespace t3d
 			0.f, 0.f, 0.0f, 1.f,
 			1.f, 1.f, 0.0f, 1.f,
 			0.f, 1.f, 0.0f, 1.f,
-
-
-			0.f, 0.f, 0.f, 0.f,
-			1.f, 0.f, 0.f, 0.f,
-			1.f, 1.f, 0.f, 0.f,
-
-			0.f, 0.f, 0.f, 0.f,
-			1.f, 1.f, 0.f, 0.f,
-			0.f, 1.f, 0.f, 0.f
 		};
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
 		
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
-		
-		glEnableVertexAttribArray(1);
-		int texturePosOffset = sizeof(vertexPositions)/2;
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)texturePosOffset);
 
 		loadShaders();
 
@@ -85,11 +74,21 @@ namespace t3d
 	}
 
 
-	void Sprite::render() const
+	void Sprite::render(const OpenGLWindow &window) const
 	{
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
 		
+		//scale the texture
+		{
+			GLuint loc = glGetUniformLocation(mProgram, "scale");
+			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f;
+			float sy = (float)mImage->getHeight() / window.getHeight() * 2.0f;
+
+			Vec4f scale(sx, sy, 1.0f, 1.0f);
+			glUniform4fv(loc, 1, glm::value_ptr(scale));
+		}
+
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawArrays(GL_TRIANGLES, 3, 3);
 

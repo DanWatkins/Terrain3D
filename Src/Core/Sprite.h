@@ -10,6 +10,7 @@
 
 #include "../Main.h"
 #include "Image.h"
+#include "OpenGLWindow.h"
 
 namespace t3d
 {
@@ -20,6 +21,8 @@ namespace t3d
 		GLuint mTexture;
 		GLuint mVao;
 
+		const Image *mImage;	//TODO we only store a pointer to access the width/height. Maybe just store them?
+
 		void loadShaders();
 		void unloadTexure() const;
 
@@ -28,7 +31,7 @@ namespace t3d
 		~Sprite();
 
 		void initWithImage(const Image &image);
-		void render() const;
+		void render(const OpenGLWindow &window) const;
 	};
 };
 

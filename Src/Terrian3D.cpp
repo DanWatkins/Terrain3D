@@ -13,7 +13,7 @@
 namespace t3d
 {	
 	Sprite texture;
-
+	Image image;
 
 	Terrain3D::Terrain3D()
 	{
@@ -28,7 +28,6 @@ namespace t3d
 		mWorld.init();
 		mCamera.init(&mWorld);
 
-		Image image;
 		image.loadFromFile_PNG("./smileFace.png");
 		texture.initWithImage(image);
 	}
@@ -50,7 +49,7 @@ namespace t3d
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		mCamera.render();
-		texture.render();
+		texture.render(*this);
 	}
 
 
