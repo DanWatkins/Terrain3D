@@ -10,7 +10,9 @@
 
 namespace t3d
 {
-	Sprite::Sprite()
+	Sprite::Sprite() :
+		mPos(0.0f, 0.0f, 0.0f, 0.0f),
+		mScale(1.0f, 1.0f, 1.0f, 1.0f)
 	{
 		mProgram = 0;
 		mTexture = 0;
@@ -79,11 +81,17 @@ namespace t3d
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
 		
+		//apply the offset (pos)
+		{
+			GLuint loc = glGetUniformLocation(mProgram, "offset");
+			glUniform4fv(loc, 1, glm::value_ptr(mPos));
+		}
+
 		//scale the texture
 		{
 			GLuint loc = glGetUniformLocation(mProgram, "scale");
-			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f;
-			float sy = (float)mImage->getHeight() / window.getHeight() * 2.0f;
+			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f * mScale.x;
+			float sy = (float)mImage->getHeight() / window.getHeight() * 2.0f * mScale.y;
 
 			Vec4f scale(sx, sy, 1.0f, 1.0f);
 			glUniform4fv(loc, 1, glm::value_ptr(scale));
