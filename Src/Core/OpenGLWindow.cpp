@@ -21,7 +21,7 @@ namespace t3d
 	}
 
 	
-	Int OpenGLWindow::init(Int width, Int height, String title)
+	Int OpenGLWindow::init(Int width, Int height, const String &title)
 	{
 		mWidth = width;
 		mHeight = height;
@@ -75,7 +75,7 @@ namespace t3d
 	}
 
 
-	void OpenGLWindow::printContextInformation()
+	void OpenGLWindow::printContextInformation() const
 	{
 		std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 		std::cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;

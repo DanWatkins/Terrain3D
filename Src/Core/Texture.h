@@ -21,14 +21,14 @@ namespace t3d
 		Uint mVao;
 
 		void loadShaders();
-		void unloadTexure();
+		void unloadTexure() const;
 
 	public:
 		Texture();
 		~Texture();
 
 		void initWithImage(const Image &image);
-		void render();
+		void render() const;
 	};
 };
 

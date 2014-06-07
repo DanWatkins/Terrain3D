@@ -11,7 +11,7 @@ namespace t3d
 {
 	namespace Shader
 	{
-		GLuint loadShader(String filename, GLenum shaderType)
+		GLuint loadShader(const String &filename, GLenum shaderType)
 		{
 			Uint result = 0;
 			FILE *file;

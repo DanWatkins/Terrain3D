@@ -38,7 +38,7 @@ namespace t3d
 	{
 		glGenTextures(1, &mTexture);
 		glBindTexture(GL_TEXTURE_2D, mTexture);
-		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, 64, 64);
+		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
 
 		glGenVertexArrays(1, &mVao);
@@ -48,17 +48,6 @@ namespace t3d
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		
-		const float old[] =
-		{
-			0.75f, 0.75f, 0.0f, 1.0f,
-			0.75f, -0.75f, 0.0f, 1.0f,
-			-0.75f, -0.75f, 0.0f, 1.0f,
-
-			1.0f, 1.0f, 0.0f, 0.0f,
-			1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 0.0f
-		};
-
 		const float vertexPositions[] =
 		{
 			0.f, 0.f, 0.0f, 1.f,
@@ -94,7 +83,7 @@ namespace t3d
 	}
 
 
-	void Texture::render()
+	void Texture::render() const
 	{
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
@@ -107,7 +96,7 @@ namespace t3d
 	}
 
 
-	void Texture::unloadTexure()
+	void Texture::unloadTexure() const
 	{
 		glDeleteTextures(1, &mTexture);
 	}

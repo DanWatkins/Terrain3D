@@ -37,13 +37,13 @@ namespace t3d
 		friend GLFWInput;
 
 		OpenGLWindow();
-		Int init(Int width=gDefaultWindowWidth, Int height=gDefaultWindowHeight, String title=gWindowTitle);
+		Int init(Int width=gDefaultWindowWidth, Int height=gDefaultWindowHeight, const String &title=gWindowTitle);
 
-		Int getWidth() { return mWidth; }
-		Int getHeight() { return mHeight; }
-		String getTitle() { return mTitle; }
-		Bool isWindow(GLFWwindow *window) { return window == mWindow; }
-		Vec2f getAspectScale() { return mAspectScale; }
+		Int getWidth() const { return mWidth; }
+		Int getHeight() const { return mHeight; }
+		String getTitle() const { return mTitle; }
+		Bool isWindow(GLFWwindow *window) const { return window == mWindow; }
+		Vec2f getAspectScale() const { return mAspectScale; }
 
 		void setZoom(Vec2f zoom);
 		void addZoom(Vec2f zoom);
@@ -57,7 +57,7 @@ namespace t3d
 		virtual void onResize(Int width, Int height) = 0;
 		virtual void onTerminate() = 0;
 
-		void printContextInformation();
+		void printContextInformation() const;
 
 	private:
 		void _onResize(Int width, Int height);

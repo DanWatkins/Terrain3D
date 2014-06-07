@@ -32,7 +32,7 @@ namespace t3d
 	}
 
 
-	void MatrixStack::pixelPerfectOrtho(glm::ivec2 size, Vec2f depthRange, Bool isTopLeft)
+	void MatrixStack::pixelPerfectOrtho(const glm::ivec2 &size, const Vec2f &depthRange, Bool isTopLeft)
 	{
 		if (isTopLeft)
 		{

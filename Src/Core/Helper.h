@@ -19,10 +19,10 @@ namespace t3d
     const Double PI_OVER_180 = 0.0174532925;
     const Double PI_UNDER_180 = 57.29577951;
 
-	Double toDouble(String text);
-    Float toFloat(String text);
-    Int toInt(String text);
-    Bool toBool(String text);
+	Double toDouble(const String &text);
+	Float toFloat(const String &text);
+	Int toInt(const String &text);
+	Bool toBool(const String &text);
 
     Double divideD(Double a, Double b);
     Float divideF(Float a, Float b);
