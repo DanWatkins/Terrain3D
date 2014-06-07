@@ -7,12 +7,12 @@
 
 #include "Terrain3D.h"
 #include "./Core/Core.h"
-#include "Core\Texture.h"
+#include "Core\Sprite.h"
 #include "Core\Image.h"
 
 namespace t3d
 {	
-	Texture texture;
+	Sprite texture;
 
 
 	Terrain3D::Terrain3D()

@@ -20,7 +20,7 @@
     <ClInclude Include="..\Src\Core\MatrixStack.h" />
     <ClInclude Include="..\Src\Core\OpenGLWindow.h" />
     <ClInclude Include="..\Src\Core\Shader.h" />
-    <ClInclude Include="..\Src\Core\Texture.h" />
+    <ClInclude Include="..\Src\Core\Sprite.h" />
     <ClInclude Include="..\Src\Main.h" />
     <ClInclude Include="..\src\Terrain3D.h" />
     <ClInclude Include="..\Src\World\Camera.h" />
@@ -37,7 +37,7 @@
     <ClCompile Include="..\Src\Core\MatrixStack.cpp" />
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp" />
     <ClCompile Include="..\Src\Core\Shader.cpp" />
-    <ClCompile Include="..\Src\Core\Texture.cpp" />
+    <ClCompile Include="..\Src\Core\Sprite.cpp" />
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
     <ClCompile Include="..\Src\World\Camera.cpp" />
@@ -48,8 +48,8 @@
   <ItemGroup>
     <None Include="..\Bin\Shaders\camera-frag.glsl" />
     <None Include="..\Bin\Shaders\camera-vert.glsl" />
-    <None Include="..\Bin\Shaders\texture-frag.glsl" />
-    <None Include="..\Bin\Shaders\texture-vert.glsl" />
+    <None Include="..\Bin\Shaders\sprite-frag.glsl" />
+    <None Include="..\Bin\Shaders\sprite-vert.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB963AF4-49A3-4D23-B569-72107DF1E12E}</ProjectGuid>

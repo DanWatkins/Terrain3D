@@ -19,10 +19,10 @@ namespace t3d
 		ImageData mImageData;
 		GLuint mWidth, mHeight;
 
+		void flipVertically();
+
 	public:
 		void loadFromFile_PNG(String filepath);
-
-		void flipVertically();
 
 		int getWidth() const { return mWidth; }
 		int getHeight() const { return mHeight; }

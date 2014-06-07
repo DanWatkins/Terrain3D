@@ -5,36 +5,36 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "Texture.h"
+#include "Sprite.h"
 #include "Shader.h"
 
 namespace t3d
 {
-	Texture::Texture()
+	Sprite::Sprite()
 	{
 		mProgram = 0;
 		mTexture = 0;
 	}
 
 
-	Texture::~Texture()
+	Sprite::~Sprite()
 	{
 		glDeleteProgram(mProgram);
 		glDeleteVertexArrays(1, &mVao);
 	}
 
 
-	void Texture::loadShaders()
+	void Sprite::loadShaders()
 	{
 		GLuint shaders[2];
-		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "texture-vert.glsl", GL_VERTEX_SHADER);
-		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "texture-frag.glsl", GL_FRAGMENT_SHADER);
+		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "sprite-vert.glsl", GL_VERTEX_SHADER);
+		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "sprite-frag.glsl", GL_FRAGMENT_SHADER);
 
 		mProgram = Shader::linkFromShaders(shaders, 2);
 	}
 
 
-	void Texture::initWithImage(const Image &image)
+	void Sprite::initWithImage(const Image &image)
 	{
 		glGenTextures(1, &mTexture);
 		glBindTexture(GL_TEXTURE_2D, mTexture);
@@ -85,7 +85,7 @@ namespace t3d
 	}
 
 
-	void Texture::render() const
+	void Sprite::render() const
 	{
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
@@ -98,7 +98,7 @@ namespace t3d
 	}
 
 
-	void Texture::unloadTexure() const
+	void Sprite::unloadTexure() const
 	{
 		glDeleteTextures(1, &mTexture);
 	}

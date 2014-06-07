@@ -27,5 +27,28 @@ namespace t3d
 			std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 		else
 			mImageData = data;
+
+		flipVertically();
+	}
+
+	
+	void Image::flipVertically()
+	{
+		int width = getWidth()*4;
+		int height = getHeight();
+		int pos = width * height - width;
+
+		ImageData newData;
+		newData.reserve(mImageData.size());
+		ImageData::iterator oldIter = mImageData.end();
+
+		while (pos >= 0)
+		{
+			oldIter -= width;
+			newData.insert(newData.end(), oldIter, oldIter+width);
+			pos -= width;
+		}
+
+		mImageData.assign(newData.begin(), newData.end());
 	}
 };

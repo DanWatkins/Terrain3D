@@ -48,14 +48,14 @@
     <ClInclude Include="..\Src\World\TerrainGenerator.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Core\Texture.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\Core\Image.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Ext\lodepng.h">
       <Filter>Ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\Sprite.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,14 +91,14 @@
     <ClCompile Include="..\Src\World\TerrainGenerator.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Core\Texture.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\Core\Image.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Ext\lodepng.cpp">
       <Filter>Ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\Sprite.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,10 +108,10 @@
     <None Include="..\Bin\Shaders\camera-vert.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\Bin\Shaders\texture-frag.glsl">
+    <None Include="..\Bin\Shaders\sprite-frag.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\Bin\Shaders\texture-vert.glsl">
+    <None Include="..\Bin\Shaders\sprite-vert.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -5,15 +5,15 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_TEXTURE_H
-#define _t3d_TEXTURE_H
+#ifndef _t3d_SPRITE_H
+#define _t3d_SPRITE_H
 
 #include "../Main.h"
 #include "Image.h"
 
 namespace t3d
 {
-	class Texture
+	class Sprite
 	{
 	private:
 		GLuint mProgram;
@@ -24,8 +24,8 @@ namespace t3d
 		void unloadTexure() const;
 
 	public:
-		Texture();
-		~Texture();
+		Sprite();
+		~Sprite();
 
 		void initWithImage(const Image &image);
 		void render() const;
