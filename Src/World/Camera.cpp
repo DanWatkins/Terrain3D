@@ -43,7 +43,7 @@ namespace t3d
 		//vertex data
 		Uint vbo;
 		heightMap.buildVertexData();
-		std::vector<Float> *terrainVertexData = heightMap.getVertexData();
+		const std::vector<Float> *terrainVertexData = heightMap.getVertexData();
 
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -53,7 +53,7 @@ namespace t3d
 		//index data
 		Uint ibo;
 		heightMap.buildIndexData();
-		std::vector<Uint> *terrainIndexData = heightMap.getIndexData();
+		const std::vector<Uint> *terrainIndexData = heightMap.getIndexData();
 		mRenderData.indexCount = terrainIndexData->size();
 
 		glGenBuffers(1, &ibo);
@@ -114,7 +114,7 @@ namespace t3d
 	}
 
 
-	Mat4 Camera::getOrientation()
+	Mat4 Camera::getOrientation() const
 	{
 		Mat4 orientation;
 		orientation = glm::rotate(orientation, mVerticalAngle, Vec3f(1, 0, 0));
@@ -146,37 +146,37 @@ namespace t3d
 	}
 
 
-	Vec3f Camera::getForward()
+	Vec3f Camera::getForward() const
 	{
 		return Vec3f(glm::inverse(getOrientation()) * Vec4f(0, 0, -1, 1));
 	}
 
 
-	Vec3f Camera::getRight()
+	Vec3f Camera::getRight() const
 	{
 		return Vec3f(glm::inverse(getOrientation()) * Vec4f(1, 0, 0, 1));
 	}
 
 
-	Vec3f Camera::getUp()
+	Vec3f Camera::getUp() const
 	{
 		return Vec3f(glm::inverse(getOrientation()) * Vec4f(0, 1, 0, 1));
 	}
 
 
-	Mat4 Camera::getTotalMatrix()
+	Mat4 Camera::getTotalMatrix() const
 	{
 		return getPerspectiveMatrix() * getViewMatrix();
 	}
 
 
-	Mat4 Camera::getPerspectiveMatrix()
+	Mat4 Camera::getPerspectiveMatrix() const
 	{
 		return glm::perspective(mFieldOfView, mAspectRatio, mNearPlane, mFarPlane);
 	}
 
 
-	Mat4 Camera::getViewMatrix()
+	Mat4 Camera::getViewMatrix() const
 	{
 		return getOrientation() * glm::translate(Mat4(), -mPosition);
 	}

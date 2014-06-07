@@ -38,13 +38,13 @@ namespace t3d
 	}
 
 
-	Float HeightMap::get(Uint index)
+	Float HeightMap::get(Uint index) const
 	{
 		return mHeightData.at(index);
 	}
 
 
-	Float HeightMap::get(Uint indexX, Uint indexY)
+	Float HeightMap::get(Uint indexX, Uint indexY) const
 	{
 		return mHeightData.at(indexY*mSize + indexX);
 	}
@@ -104,12 +104,6 @@ namespace t3d
 	}
 
 
-	std::vector<Float> *HeightMap::getVertexData()
-	{
-		return &mVertexData;
-	}
-
-
 	void HeightMap::buildIndexData()
 	{
 		Uint primitiveRestartCount = mSize - 2;
@@ -132,11 +126,5 @@ namespace t3d
 				mIndexData.push_back(PRIMITIVE_RESTART_INDEX);
 			}
 		}
-	}
-
-
-	std::vector<Uint> *HeightMap::getIndexData()
-	{
-		return &mIndexData;
 	}
 };

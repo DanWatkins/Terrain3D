@@ -52,30 +52,30 @@ namespace t3d
 
 		void setPosition(Vec3f position) { mPosition = position; }
 		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }
-		Vec3f getPosition() { return mPosition; }
+		Vec3f getPosition() const { return mPosition; }
 
 		void setFieldOfView(Float fieldOfView);
-		Float getFieldOfView() { return mFieldOfView; }
+		Float getFieldOfView() const { return mFieldOfView; }
 
 		void setNearPlane(Float nearPlane) { mNearPlane = nearPlane; }
-		Float getNearPlane() { return mNearPlane; }
+		Float getNearPlane() const { return mNearPlane; }
 		void setFarPlane(Float farPlane) { mFarPlane = farPlane; }
-		Float getFarPlane() { return mFarPlane; }
+		Float getFarPlane() const { return mFarPlane; }
 
 		void incOrientation(Float rightAngle, Float upAngle);
-		Mat4 getOrientation();
+		Mat4 getOrientation() const;
 		void lookAt(Vec3f position);
 
 		void setAspectRatio(Float aspectRatio) { mAspectRatio = aspectRatio; }
 		Float getAspectRatio() { return mAspectRatio; }
 
-		Vec3f getForward();
-		Vec3f getRight();
-		Vec3f getUp();
+		Vec3f getForward() const;
+		Vec3f getRight() const;
+		Vec3f getUp() const;
 
-		Mat4 getTotalMatrix();
-		Mat4 getPerspectiveMatrix();
-		Mat4 getViewMatrix();
+		Mat4 getTotalMatrix() const;
+		Mat4 getPerspectiveMatrix() const;
+		Mat4 getViewMatrix() const;
 	};
 };
 

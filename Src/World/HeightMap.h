@@ -34,16 +34,16 @@ namespace t3d
 		void reserve(Uint size);
 		void set(Uint index, Float height);
 		void set(Uint indexX, Uint indexY, Float height);
-		Float get(Uint index);
-		Float get(Uint indexX, Uint indexY);
+		Float get(Uint index) const;
+		Float get(Uint indexX, Uint indexY) const;
 
 		void buildVertexData();
-		std::vector<Float> *getVertexData();
+		const std::vector<Float> *getVertexData() const { return &mVertexData; }
 
 		void buildIndexData();
-		std::vector<Uint> *getIndexData();
+		const std::vector<Uint> *getIndexData() const { return &mIndexData; }
 
-		Uint getSize() { return mSize; }
+		Uint getSize() const { return mSize; }
 	};
 };
 
