@@ -20,19 +20,19 @@ namespace t3d
 	{
 	}
 
-	void MatrixStack::perspective(Float fovDeg, Float aspectRatio, Float zNear, Float zFar)
+	void MatrixStack::perspective(float fovDeg, float aspectRatio, float zNear, float zFar)
 	{
 		mCurrentMatrix *= glm::perspective(fovDeg, aspectRatio, zNear, zFar);
 	}
 
 
-	void MatrixStack::orthographic(Float left, Float right, Float bottom, Float top, Float zNear, Float zFar)
+	void MatrixStack::orthographic(float left, float right, float bottom, float top, float zNear, float zFar)
 	{
 		mCurrentMatrix *=  glm::ortho(left, right, bottom, top, zNear, zFar);
 	}
 
 
-	void MatrixStack::pixelPerfectOrtho(const glm::ivec2 &size, const Vec2f &depthRange, Bool isTopLeft)
+	void MatrixStack::pixelPerfectOrtho(const glm::ivec2 &size, const Vec2f &depthRange, bool isTopLeft)
 	{
 		if (isTopLeft)
 		{

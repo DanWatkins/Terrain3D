@@ -15,20 +15,20 @@ namespace t3d
 	class TerrainGenerator
 	{
 	private:
-		const Float mLowBound = 0.0f;
-		const Float mHightBound = 255.0f;
+		const float mLowBound = 0.0f;
+		const float mHightBound = 255.0f;
 
-		//std::vector<Float> mHeights;
+		//std::vector<float> mHeights;
 		HeightMap mHeightMap;
 
-		void init(Int size);
-		void applyRandomFault(HeightMap &heightMap, Float faultAmount);
+		void init(int size);
+		void applyRandomFault(HeightMap &heightMap, float faultAmount);
 		void normalizeHeights();
-		void smoothHeightBand(Uint indexStart, Int stride, Uint length, Float intensity);
-		void smoothHeight(Float intensity);
+		void smoothHeightBand(GLuint indexStart, int stride, GLuint length, float intensity);
+		void smoothHeight(float intensity);
 
 	public:
-		HeightMap generate(Int size, Int numberOfPasses, Int seed);	//TODO return a pointer or something LOL
+		HeightMap generate(int size, int numberOfPasses, int seed);	//TODO return a pointer or something LOL
 	};
 };
 

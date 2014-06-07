@@ -17,15 +17,15 @@ namespace t3d
 	private:
 		typedef std::vector<unsigned char> ImageData;
 		ImageData mImageData;
-		Uint mWidth, mHeight;
+		GLuint mWidth, mHeight;
 
 	public:
 		void loadFromFile_PNG(String filepath);
 
 		void flipVertically();
 
-		Int getWidth() const { return mWidth; }
-		Int getHeight() const { return mHeight; }
+		int getWidth() const { return mWidth; }
+		int getHeight() const { return mHeight; }
 		const ImageData& getImageData() const { return mImageData; }
 	};
 };

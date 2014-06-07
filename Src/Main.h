@@ -75,19 +75,10 @@ extern "C"
 
 
 //typedef common types
-typedef char				Char;
-typedef GLbyte				Int8;
-typedef GLubyte				Uint8;
-typedef GLshort				Int16;
-typedef GLushort			Uint16;
-typedef GLint				Int;
-typedef GLuint				Uint;
-typedef long long			Int64;
-typedef unsigned long long	Uint64;
 
-typedef GLfloat				Float;
-typedef GLdouble			Double;
-typedef GLboolean			Bool;
+typedef long long			int64;
+typedef unsigned long long	uint64;
+
 
 typedef glm::vec1			Vec1f;
 typedef glm::vec2			Vec2f;
@@ -98,7 +89,7 @@ typedef glm::mat2			Mat2;
 typedef glm::mat3			Mat3;
 typedef glm::mat4			Mat4;
 
-struct Color { Float r, g, b, a; };
+struct Color { float r, g, b, a; };
 
 typedef std::string			String;
 

@@ -21,7 +21,7 @@ namespace t3d
 	}
 
 	
-	Int OpenGLWindow::init(Int width, Int height, const String &title)
+	int OpenGLWindow::init(int width, int height, const String &title)
 	{
 		mWidth = width;
 		mHeight = height;
@@ -62,7 +62,7 @@ namespace t3d
 
 		while (!glfwWindowShouldClose(mWindow)  &&  !mShouldTerminate)
 		{
-			onUpdate((Double)clock.getElapsedTime().asSeconds());
+			onUpdate((double)clock.getElapsedTime().asSeconds());
 
 			glfwSwapBuffers(mWindow);
 			glfwPollEvents();
@@ -106,7 +106,7 @@ namespace t3d
 	}
 
 	
-	void OpenGLWindow::_onResize(Int width, Int height)
+	void OpenGLWindow::_onResize(int width, int height)
 	{
 		mAspectScale = Vec2f((500.0f/width)*mZoom.x, (500.0f/height)*mZoom.y);
 		mWidth = width;

@@ -16,14 +16,14 @@ namespace t3d
 	class HeightMap
 	{
 	private:
-		std::vector<Float> mHeightData;
-		Uint mSize;
+		std::vector<float> mHeightData;
+		GLuint mSize;
 
-		std::vector<Float> mVertexData;
-		std::vector<Uint> mIndexData;
+		std::vector<float> mVertexData;
+		std::vector<GLuint> mIndexData;
 
 	public:
-		static const Uint PRIMITIVE_RESTART_INDEX = 40000000;
+		static const GLuint PRIMITIVE_RESTART_INDEX = 40000000;
 		
 		HeightMap()
 		{
@@ -31,19 +31,19 @@ namespace t3d
 		}
 
 
-		void reserve(Uint size);
-		void set(Uint index, Float height);
-		void set(Uint indexX, Uint indexY, Float height);
-		Float get(Uint index) const;
-		Float get(Uint indexX, Uint indexY) const;
+		void reserve(GLuint size);
+		void set(GLuint index, float height);
+		void set(GLuint indexX, GLuint indexY, float height);
+		float get(GLuint index) const;
+		float get(GLuint indexX, GLuint indexY) const;
 
 		void buildVertexData();
-		const std::vector<Float> *getVertexData() const { return &mVertexData; }
+		const std::vector<float> *getVertexData() const { return &mVertexData; }
 
 		void buildIndexData();
-		const std::vector<Uint> *getIndexData() const { return &mIndexData; }
+		const std::vector<GLuint> *getIndexData() const { return &mIndexData; }
 
-		Uint getSize() const { return mSize; }
+		GLuint getSize() const { return mSize; }
 	};
 };
 

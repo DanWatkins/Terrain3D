@@ -20,9 +20,9 @@ namespace t3d
 {
 	struct UniformLocations
 	{
-		Uint matrix_cameraToClip;
-		Uint matrix_modelToWorld;
-		Uint matrix_worldToCamera;
+		GLuint matrix_cameraToClip;
+		GLuint matrix_modelToWorld;
+		GLuint matrix_worldToCamera;
 
 	};
 
@@ -38,9 +38,9 @@ namespace t3d
 
 	private:
 		void onStartup();
-		void onUpdate(Double currentTime);
-		void onKey(Int key, Int action);
-		void onResize(Int width, Int height);
+		void onUpdate(double currentTime);
+		void onKey(int key, int action);
+		void onResize(int width, int height);
 		void onTerminate();
 
 		//void loadShaders();

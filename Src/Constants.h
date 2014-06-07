@@ -12,8 +12,8 @@
 
 const String		gVersion						= "0.10";
 
-const Int			gDefaultWindowWidth				= 1600;
-const Int			gDefaultWindowHeight			= 900;
+const int			gDefaultWindowWidth				= 1600;
+const int			gDefaultWindowHeight			= 900;
 
 const String		gWindowTitle					= String("Terrain3D ") + gVersion;
 

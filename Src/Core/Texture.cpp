@@ -26,7 +26,7 @@ namespace t3d
 
 	void Texture::loadShaders()
 	{
-		Uint shaders[2];
+		GLuint shaders[2];
 		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "texture-vert.glsl", GL_VERTEX_SHADER);
 		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "texture-frag.glsl", GL_FRAGMENT_SHADER);
 
@@ -44,7 +44,7 @@ namespace t3d
 		glGenVertexArrays(1, &mVao);
 		glBindVertexArray(mVao);
 
-		Uint vbo;
+		GLuint vbo;
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		
@@ -74,7 +74,7 @@ namespace t3d
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
 		
 		glEnableVertexAttribArray(1);
-		Int texturePosOffset = sizeof(vertexPositions)/2;
+		int texturePosOffset = sizeof(vertexPositions)/2;
 		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)texturePosOffset);
 
 		loadShaders();

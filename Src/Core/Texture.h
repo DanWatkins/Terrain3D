@@ -16,9 +16,9 @@ namespace t3d
 	class Texture
 	{
 	private:
-		Uint mProgram;
-		Uint mTexture;
-		Uint mVao;
+		GLuint mProgram;
+		GLuint mTexture;
+		GLuint mVao;
 
 		void loadShaders();
 		void unloadTexure() const;

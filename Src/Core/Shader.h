@@ -14,8 +14,8 @@ namespace t3d
 {
 	namespace Shader
 	{
-		Uint loadShader(const String &filename, GLenum shaderType);
-		Uint linkFromShaders(const Uint *shaders, Int shaderCount);
+		GLuint loadShader(const String &filename, GLenum shaderType);
+		GLuint linkFromShaders(const GLuint *shaders, int shaderCount);
 	};
 };
 

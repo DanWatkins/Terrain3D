@@ -9,7 +9,7 @@
 
 namespace t3d
 {
-	void HeightMap::reserve(Uint size)
+	void HeightMap::reserve(GLuint size)
 	{
 		bool powerOfTwo = !(size == 0) && !(size & (size - 1));
 
@@ -21,30 +21,30 @@ namespace t3d
 
 		mSize = size;
 		mHeightData.clear();
-		mHeightData = std::vector<Float>(size*size, 0.0f);
+		mHeightData = std::vector<float>(size*size, 0.0f);
 	}
 
 
-	void HeightMap::set(Uint index, Float height)
+	void HeightMap::set(GLuint index, float height)
 	{
 		mHeightData.at(index) = height;
 	}
 
 
-	void HeightMap::set(Uint indexX, Uint indexY, Float height)
+	void HeightMap::set(GLuint indexX, GLuint indexY, float height)
 	{
-		Uint index = mSize*indexY + indexX;
+		GLuint index = mSize*indexY + indexX;
 		mHeightData.at(index) = height;
 	}
 
 
-	Float HeightMap::get(Uint index) const
+	float HeightMap::get(GLuint index) const
 	{
 		return mHeightData.at(index);
 	}
 
 
-	Float HeightMap::get(Uint indexX, Uint indexY) const
+	float HeightMap::get(GLuint indexX, GLuint indexY) const
 	{
 		return mHeightData.at(indexY*mSize + indexX);
 	}
@@ -52,23 +52,23 @@ namespace t3d
 
 	void HeightMap::buildVertexData()
 	{
-		const Float spacing = 0.1f;
-		const Float verticalScale = 4.5f;
+		const float spacing = 0.1f;
+		const float verticalScale = 4.5f;
 
 		mVertexData.reserve(mSize*mSize*3);
-		std::vector<Float> colorVertexData;
+		std::vector<float> colorVertexData;
 		colorVertexData.reserve(mSize*mSize*3);
 
 		std::cout << "\nBuilding Vertex Data" << std::endl;
 
-		for (Uint y=0; y<mSize; y++)
+		for (GLuint y=0; y<mSize; y++)
 		{
-			for (Uint x = 0; x<mSize; x++)
+			for (GLuint x = 0; x<mSize; x++)
 			{
-				mVertexData.push_back(spacing*(Float)x);
-				Float height = mHeightData.at(y*mSize + x) / 255.0f;
+				mVertexData.push_back(spacing*(float)x);
+				float height = mHeightData.at(y*mSize + x) / 255.0f;
 				mVertexData.push_back(height * verticalScale);
-				mVertexData.push_back(spacing*(Float)y);
+				mVertexData.push_back(spacing*(float)y);
 
 				Vec3f color;
 
@@ -106,16 +106,16 @@ namespace t3d
 
 	void HeightMap::buildIndexData()
 	{
-		Uint primitiveRestartCount = mSize - 2;
-		Uint indexCount = (mSize * 2 - 2) * mSize + primitiveRestartCount;
+		GLuint primitiveRestartCount = mSize - 2;
+		GLuint indexCount = (mSize * 2 - 2) * mSize + primitiveRestartCount;
 		mIndexData.clear();
 		mIndexData.reserve(indexCount);
 
-		for (Uint y=0; y<mSize-1; y++)
+		for (GLuint y=0; y<mSize-1; y++)
 		{
-			Int indexStart = mSize*y;
+			int indexStart = mSize*y;
 
-			for (Uint x=0; x<mSize; x++)
+			for (GLuint x=0; x<mSize; x++)
 			{
 				mIndexData.push_back(indexStart+x);
 				mIndexData.push_back(indexStart+x+mSize);

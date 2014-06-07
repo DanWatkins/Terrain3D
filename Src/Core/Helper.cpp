@@ -9,31 +9,31 @@
 
 namespace t3d
 {
-	Double toDouble(const String &text)
+	double toDouble(const String &text)
     {
-        Double n;
+        double n;
 		std::stringstream(text) >> n;
         return n;
     }
 
 	
-	Float toFloat(const String &text)
+	float toFloat(const String &text)
     {
-        Float n;
+        float n;
 		std::stringstream(text) >> n;
         return n;
     }
 
 	
-	Int toInt(const String &text)
+	int toInt(const String &text)
     {
-        Int n;
+        int n;
 		std::stringstream(text) >> n;
         return n;
     }
 
 	
-	Bool toBool(const String &text)
+	bool toBool(const String &text)
     {
 		if (text == "0")
 			return false;
@@ -48,7 +48,7 @@ namespace t3d
     }
 
 	
-    Double divideD(Double a, Double b)
+    double divideD(double a, double b)
     {
         if (b != 0.0)
             return a/b;
@@ -57,7 +57,7 @@ namespace t3d
     }
 
 	
-    Float divideF(Float a, Float b)
+    float divideF(float a, float b)
     {
         if (b != 0.0f)
             return a/b;
@@ -66,7 +66,7 @@ namespace t3d
     }
 
 	
-    Int divideI(Int a, Int b)
+    int divideI(int a, int b)
     {
         if (b == 0)
             return 0;
@@ -75,12 +75,12 @@ namespace t3d
 	}
 
 	
-    Int round(Double n)
+    int round(double n)
     {
-        Double result = 0.0;
+        double result = 0.0;
 
         //get the decimal part
-        Double n2 = n - (Int)n;
+        double n2 = n - (int)n;
 
         //see if the decimal part is closer to 0 or 1
         if (1.0-n2 <= 0.0+n2)
@@ -88,77 +88,77 @@ namespace t3d
         else if (1.0-n2 > 0.0+n2)
             result = n-n2;
 
-        return (Int)result;
+        return (int)result;
     }
 
 
-    Int round(Float n)
+    int round(float n)
     {
-        return (Int)round((Double)n);
+        return (int)round((double)n);
     }
 
 
-    Int roundUp(Double n)
+    int roundUp(double n)
     {
-        return (Int)std::ceil(n);
+        return (int)std::ceil(n);
     }
 
 	
-    Int roundUp(Float n)
+    int roundUp(float n)
     {
-        return (Int)std::ceil(n);
+        return (int)std::ceil(n);
     }
 	
 
-    Int roundDown(Double n)
+    int roundDown(double n)
     {
-        return (Int)std::floor(n);
+        return (int)std::floor(n);
     }
 
 	
-    Int roundDown(Float n)
+    int roundDown(float n)
     {
-        return (Int)std::floor(n);
+        return (int)std::floor(n);
     }
 
 	
-    Double degToRad(Double deg)
+    double degToRad(double deg)
     {
         return deg*PI_OVER_180;
     }
 
 	
-    Float degToRad(Float deg)
+    float degToRad(float deg)
     {
-        return deg*(Float)PI_OVER_180;
+        return deg*(float)PI_OVER_180;
     }
 
 	
-    Int degToRad(Int deg)
+    int degToRad(int deg)
     {
-        return round((Double)deg*PI_OVER_180);
+        return round((double)deg*PI_OVER_180);
     }
 	
 
-    Double radToDeg(Double rad)
+    double radToDeg(double rad)
     {
         return rad*PI_UNDER_180;
 	}
 
 	
-    Float radToDeg(Float rad)
+    float radToDeg(float rad)
     {
-        return rad*(Float)PI_UNDER_180;
+        return rad*(float)PI_UNDER_180;
     }
 
 
-    Int radToDeg(Int rad)
+    int radToDeg(int rad)
     {
-        return round((Double)rad*PI_UNDER_180);
+        return round((double)rad*PI_UNDER_180);
 	}
 
 	
-	Bool isEqual(Float a, Float b)
+	bool isEqual(float a, float b)
 	{
 		return fabs(a-b) < 1E-12;
 		/*if (fabs(a-b) < 1E-12)
@@ -168,43 +168,43 @@ namespace t3d
 	}
 
 	
-	Bool isEqual(Double a, Double b)
+	bool isEqual(double a, double b)
 	{
 		return fabs(a-b) < 1E-12;
 	}
 
 
-	Bool randBool()
+	bool randBool()
 	{
 		return randFloat() > 0.5;
 	}
 
 
-	Int randInt()
+	int randInt()
 	{
 		return rand();
 	}
 
 
-	Int randInt(Int a, Int b)
+	int randInt(int a, int b)
 	{
 		return rand() % (b-a+1) + a;
 	}
 
 
-	Double randFloat()
+	double randFloat()
 	{
 		return rand() / (RAND_MAX + 1.0);
 	}
 
 
-	Double randFloat(Double a, Double b)
+	double randFloat(double a, double b)
 	{
 		return a + randFloat() * (b-a);
 	}
 
 
-	Double randClamped()
+	double randClamped()
 	{
 		return randFloat() - randFloat();
 	}

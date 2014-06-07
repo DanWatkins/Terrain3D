@@ -23,7 +23,7 @@ namespace t3d
 	void GLFWInput::addWindow(OpenGLWindow *window)
 	{
 		//ensure @window is not already a registered window
-		for (Uint n=0; n<mWindows.size(); n++)
+		for (GLuint n=0; n<mWindows.size(); n++)
 		{
 			if (window == mWindows[n])
 				return;
@@ -33,17 +33,17 @@ namespace t3d
 	}
 
 	
-	void GLFWInput::keyboardCallback(Int action, Int key, Int a, Int b, Int c)
+	void GLFWInput::keyboardCallback(int action, int key, int a, int b, int c)
 	{
-		for (Uint n=0; n<mWindows.size(); n++)
+		for (GLuint n=0; n<mWindows.size(); n++)
 			mWindows[n]->onKey(key, action);
 	}
 
 	
-	void GLFWInput::windowResizeCallback(GLFWwindow *window, Int width, Int height)
+	void GLFWInput::windowResizeCallback(GLFWwindow *window, int width, int height)
 	{
 		//only tell the window that matches @window there was a resize
-		for (Uint n=0; n<mWindows.size(); n++)
+		for (GLuint n=0; n<mWindows.size(); n++)
 		{
 			if (mWindows[n]->isWindow(window))
 			{

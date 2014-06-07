@@ -10,7 +10,7 @@
 
 using namespace t3d;
 
-Int main()
+int main()
 {
 	Terrain3D *app = new Terrain3D;
 	return app->init(1600, 900, gWindowTitle);

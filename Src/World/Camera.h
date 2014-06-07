@@ -20,23 +20,23 @@ namespace t3d
 	private:
 		struct RenderData
 		{
-			Uint program;
-			Uint vao_terrain;
-			Uint indexCount;
+			GLuint program;
+			GLuint vao_terrain;
+			GLuint indexCount;
 
-			Uint uloc_cameraMatrix;
-			Uint uloc_modelMatrix;
+			GLuint uloc_cameraMatrix;
+			GLuint uloc_modelMatrix;
 		} mRenderData;
 
 		World *mWorld;
 
 		Vec3f mPosition;
-		Float mHorizontalAngle, mVerticalAngle;
-		Float mFieldOfView;
-		Float mNearPlane, mFarPlane;
-		Float mAspectRatio;
+		float mHorizontalAngle, mVerticalAngle;
+		float mFieldOfView;
+		float mNearPlane, mFarPlane;
+		float mAspectRatio;
 
-		const Float mMaxVerticalAngle = 85.0f;
+		const float mMaxVerticalAngle = 85.0f;
 
 	private:
 		void loadShaders();
@@ -54,20 +54,20 @@ namespace t3d
 		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }
 		Vec3f getPosition() const { return mPosition; }
 
-		void setFieldOfView(Float fieldOfView);
-		Float getFieldOfView() const { return mFieldOfView; }
+		void setFieldOfView(float fieldOfView);
+		float getFieldOfView() const { return mFieldOfView; }
 
-		void setNearPlane(Float nearPlane) { mNearPlane = nearPlane; }
-		Float getNearPlane() const { return mNearPlane; }
-		void setFarPlane(Float farPlane) { mFarPlane = farPlane; }
-		Float getFarPlane() const { return mFarPlane; }
+		void setNearPlane(float nearPlane) { mNearPlane = nearPlane; }
+		float getNearPlane() const { return mNearPlane; }
+		void setFarPlane(float farPlane) { mFarPlane = farPlane; }
+		float getFarPlane() const { return mFarPlane; }
 
-		void incOrientation(Float rightAngle, Float upAngle);
+		void incOrientation(float rightAngle, float upAngle);
 		Mat4 getOrientation() const;
 		void lookAt(Vec3f position);
 
-		void setAspectRatio(Float aspectRatio) { mAspectRatio = aspectRatio; }
-		Float getAspectRatio() { return mAspectRatio; }
+		void setAspectRatio(float aspectRatio) { mAspectRatio = aspectRatio; }
+		float getAspectRatio() { return mAspectRatio; }
 
 		Vec3f getForward() const;
 		Vec3f getRight() const;

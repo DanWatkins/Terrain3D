@@ -34,19 +34,19 @@ namespace t3d
 	}
 
 	
-	void Terrain3D::onUpdate(Double timeSinceStartup)
+	void Terrain3D::onUpdate(double timeSinceStartup)
 	{
-		static const Float clearColor[] = { 1.0f, 1.0f, 0.9f, 1.0f };
-		static const Float one[] { 1.0f };
+		static const float clearColor[] = { 1.0f, 1.0f, 0.9f, 1.0f };
+		static const float one[] { 1.0f };
 		glClearBufferfv(GL_COLOR, 0, clearColor);
 		glClearBufferfv(GL_DEPTH, 0, one);
 
 
 		//check for mouse changes
-		const Double mouseSensitivity = 0.05f;
-		Double mouseX, mouseY;
+		const double mouseSensitivity = 0.05f;
+		double mouseX, mouseY;
 		glfwGetCursorPos(getWindow(), &mouseX, &mouseY);
-		mCamera.incOrientation((Float)(mouseSensitivity*mouseX), (Float)(mouseSensitivity*mouseY));
+		mCamera.incOrientation((float)(mouseSensitivity*mouseX), (float)(mouseSensitivity*mouseY));
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		mCamera.render();
@@ -54,13 +54,13 @@ namespace t3d
 	}
 
 
-	void Terrain3D::onKey(Int key, Int action)
+	void Terrain3D::onKey(int key, int action)
 	{
-		const Float translationSpeed = 0.02f;
-		const Float scaleSpeed = 0.01f;
-		const Float zoomSpeed = 0.02f;
-		const Float rotationSpeed = 0.06f;
-		const Float speed = 0.19f;
+		const float translationSpeed = 0.02f;
+		const float scaleSpeed = 0.01f;
+		const float zoomSpeed = 0.02f;
+		const float rotationSpeed = 0.06f;
+		const float speed = 0.19f;
 
 		switch (key)
 		{
@@ -87,7 +87,7 @@ namespace t3d
 	}
 
 	
-	void Terrain3D::onResize(Int width, Int height)
+	void Terrain3D::onResize(int width, int height)
 	{
 		glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 	}

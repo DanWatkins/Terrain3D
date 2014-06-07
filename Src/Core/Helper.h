@@ -12,45 +12,45 @@
 
 namespace t3d
 {
-	const Double PI = 3.141592654;
-	const Double TWO_PI = PI * 2.0;
-	const Double PI_OVER_TWO = PI / 2.0;
-	const Double THREE_PI_OVER_TWO = 3.0 * PI / 2.0;
-    const Double PI_OVER_180 = 0.0174532925;
-    const Double PI_UNDER_180 = 57.29577951;
+	const double PI = 3.141592654;
+	const double TWO_PI = PI * 2.0;
+	const double PI_OVER_TWO = PI / 2.0;
+	const double THREE_PI_OVER_TWO = 3.0 * PI / 2.0;
+    const double PI_OVER_180 = 0.0174532925;
+    const double PI_UNDER_180 = 57.29577951;
 
-	Double toDouble(const String &text);
-	Float toFloat(const String &text);
-	Int toInt(const String &text);
-	Bool toBool(const String &text);
+	double toDouble(const String &text);
+	float toFloat(const String &text);
+	int toInt(const String &text);
+	bool toBool(const String &text);
 
-    Double divideD(Double a, Double b);
-    Float divideF(Float a, Float b);
-    Int divideI(Int a, Int b);
+    double divideD(double a, double b);
+    float divideF(float a, float b);
+    int divideI(int a, int b);
 
-    Int round(Double n);
-    Int round(Float n);
-    Int roundUp(Double n);
-    Int roundUp(Float n);
-    Int roundDown(Double n);
-    Int roundDown(Float n);
+    int round(double n);
+    int round(float n);
+    int roundUp(double n);
+    int roundUp(float n);
+    int roundDown(double n);
+    int roundDown(float n);
 
-    Double degToRad(Double deg);
-    Float degToRad(Float deg);
-    Int degToRad(Int deg);
-    Double radToDeg(Double rad);
-    Float radToDeg(Float rad);
-    Int radToDeg(Int rad);
+    double degToRad(double deg);
+    float degToRad(float deg);
+    int degToRad(int deg);
+    double radToDeg(double rad);
+    float radToDeg(float rad);
+    int radToDeg(int rad);
 
-	Bool isEqual(Float a, Float b);
-	Bool isEqual(Double a, Double b);
+	bool isEqual(float a, float b);
+	bool isEqual(double a, double b);
 
-	Bool randBool();
-	Int randInt();
-	Int randInt(Int a, Int b);
-	Double randFloat();
-	Double randFloat(Double a, Double b);
-	Double randClamped();
+	bool randBool();
+	int randInt();
+	int randInt(int a, int b);
+	double randFloat();
+	double randFloat(double a, double b);
+	double randClamped();
 };
 
 

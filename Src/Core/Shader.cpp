@@ -13,7 +13,7 @@ namespace t3d
 	{
 		GLuint loadShader(const String &filename, GLenum shaderType)
 		{
-			Uint result = 0;
+			GLuint result = 0;
 			FILE *file;
 			char *data;
 			size_t filesize;
@@ -49,7 +49,7 @@ namespace t3d
 
 
 			//check for errors
-			Int status = 0;
+			int status = 0;
 			glGetShaderiv(result, GL_COMPILE_STATUS, &status);
 
 			if (!status)
@@ -66,19 +66,19 @@ namespace t3d
 		}
 
 		
-		Uint linkFromShaders(const Uint *shaders, Int shaderCount)
+		GLuint linkFromShaders(const GLuint *shaders, int shaderCount)
 		{
-			Uint program;
+			GLuint program;
 			program = glCreateProgram();
 
-			for (Int n = 0; n < shaderCount; n++)
+			for (int n = 0; n < shaderCount; n++)
 				glAttachShader(program, shaders[n]);
 
 			glLinkProgram(program);
 
 
 			//check for errors
-			Int status;
+			int status;
 			glGetProgramiv(program, GL_LINK_STATUS, &status);
 
 			if (!status)
@@ -93,7 +93,7 @@ namespace t3d
 
 
 			//delete shaders
-			for (Int n = 0; n < shaderCount; n++)
+			for (int n = 0; n < shaderCount; n++)
 				glDeleteShader(shaders[n]);
 
 			return program;

@@ -25,7 +25,7 @@ namespace t3d
 
 	void Camera::loadShaders()
 	{
-		Uint shaders[2];
+		GLuint shaders[2];
 		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "camera-vert.glsl", GL_VERTEX_SHADER);
 		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "camera-frag.glsl", GL_FRAGMENT_SHADER);
 
@@ -41,24 +41,24 @@ namespace t3d
 		glBindVertexArray(mRenderData.vao_terrain);
 
 		//vertex data
-		Uint vbo;
+		GLuint vbo;
 		heightMap.buildVertexData();
-		const std::vector<Float> *terrainVertexData = heightMap.getVertexData();
+		const std::vector<float> *terrainVertexData = heightMap.getVertexData();
 
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		Uint size = sizeof(Float)*terrainVertexData->size();
+		GLuint size = sizeof(float)*terrainVertexData->size();
 		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
 
 		//index data
-		Uint ibo;
+		GLuint ibo;
 		heightMap.buildIndexData();
-		const std::vector<Uint> *terrainIndexData = heightMap.getIndexData();
+		const std::vector<GLuint> *terrainIndexData = heightMap.getIndexData();
 		mRenderData.indexCount = terrainIndexData->size();
 
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Uint)*terrainIndexData->size(), &(*terrainIndexData)[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*terrainIndexData->size(), &(*terrainIndexData)[0], GL_STATIC_DRAW);
 
 
 		glEnable(GL_PRIMITIVE_RESTART);
@@ -68,7 +68,7 @@ namespace t3d
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);	//pos
 
-		Int colorOffset = (terrainVertexData->size() / 2 * sizeof(Float));
+		int colorOffset = (terrainVertexData->size() / 2 * sizeof(float));
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)colorOffset);	//color
 
 		//glEnable(GL_CULL_FACE);
@@ -123,7 +123,7 @@ namespace t3d
 	}
 
 
-	void Camera::incOrientation(Float rightAngle, Float upAngle)
+	void Camera::incOrientation(float rightAngle, float upAngle)
 	{
 		mHorizontalAngle += rightAngle;
 		mVerticalAngle += upAngle;
