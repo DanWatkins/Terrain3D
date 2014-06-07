@@ -1,9 +1,9 @@
-//=======================================================================================================================|
+//==================================================================================================================|
 // Created 2014.04.27 by Daniel L. Watkins
 //
 // Copyright (C) 2014 Daniel L. Watkins
 // This file is licensed under the MIT License.
-//=======================================================================================================================|
+//==================================================================================================================|
 
 #ifndef _GL_MATRIX_STACK_H
 #define _GL_MATRIX_STACK_H
@@ -44,7 +44,10 @@ namespace t3d
 		void translate(float dx, float dy, float dz) { translate(Vec3f(dx, dy, dz)); }
 
 		//helpers
-		void lookAt(const Vec3f &cameraPos, const Vec3f &lookatPos, const Vec3f &upDir) { mCurrentMatrix *= glm::lookAt(cameraPos, lookatPos, upDir); }
+		void lookAt(const Vec3f &cameraPos, const Vec3f &lookatPos, const Vec3f &upDir)
+		{
+			mCurrentMatrix *= glm::lookAt(cameraPos, lookatPos, upDir);
+		}
 		void perspective(float fovDeg, float aspectRatio, float zNear, float zFar);
 		void orthographic(float left, float right, float bottom, float top, float zNear=1.0f, float zFar=1.0f);
 		void pixelPerfectOrtho(const glm::ivec2 &size, const Vec2f &depthRange, bool isTopLeft = true);

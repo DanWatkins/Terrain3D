@@ -1,9 +1,9 @@
-//=======================================================================================================================|
+//==================================================================================================================|
 // Created 2014.04.29 by Daniel L. Watkins
 //
 // Copyright (C) 2013-2014 Daniel L. Watkins
 // This file is licensed under the MIT License.
-//=======================================================================================================================|
+//==================================================================================================================|
 
 #include "Camera.h"
 #include "../Core/MatrixStack.h"
@@ -58,7 +58,9 @@ namespace t3d
 
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*terrainIndexData->size(), &(*terrainIndexData)[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+						sizeof(GLuint)*terrainIndexData->size(),
+						&(*terrainIndexData)[0], GL_STATIC_DRAW);
 
 
 		glEnable(GL_PRIMITIVE_RESTART);
@@ -78,7 +80,10 @@ namespace t3d
 
 		glBindVertexArray(0);
 
-		std::cout << "Processed and uploaded terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
+		std::cout << "Processed and uploaded terrain data in "
+					<< clock.getElapsedTime().asSeconds()
+					<< " seconds"
+					<< std::endl;
 	}
 	
 
@@ -104,7 +109,8 @@ namespace t3d
 		glUseProgram(mRenderData.program);
 
 		glUniformMatrix4fv(mRenderData.uloc_cameraMatrix, 1, GL_FALSE, glm::value_ptr(getTotalMatrix()));
-		glUniformMatrix4fv(mRenderData.uloc_modelMatrix, 1, GL_FALSE, glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
+		glUniformMatrix4fv(mRenderData.uloc_modelMatrix, 1, GL_FALSE,
+							glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
 		glBindVertexArray(mRenderData.vao_terrain);
 		glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_INT, 0);

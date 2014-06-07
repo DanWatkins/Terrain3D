@@ -1,9 +1,9 @@
-//=======================================================================================================================|
+//==================================================================================================================|
 // Created 2014.04.29 by Daniel L. Watkins
 //
 // Copyright (C) 2013-2014 Daniel L. Watkins
 // This file is licensed under the MIT License.
-//=======================================================================================================================|
+//==================================================================================================================|
 
 #ifndef _t3d_CAMERA_H
 #define _t3d_CAMERA_H
@@ -15,6 +15,10 @@
 
 namespace t3d
 {
+	/**
+	 * Represents an all-in-one World instance visualizer. It uses the style of a first person shooter camera. It can
+	 * move forward/backward and left/right. It can also rotate up/down and left/right.
+	 */
 	class Camera
 	{
 	private:
@@ -36,7 +40,7 @@ namespace t3d
 		float mNearPlane, mFarPlane;
 		float mAspectRatio;
 
-		const float mMaxVerticalAngle = 85.0f;
+		const float mMaxVerticalAngle = 95.0f;
 
 	private:
 		void loadShaders();
