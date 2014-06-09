@@ -21,8 +21,9 @@ namespace t3d
 		GLuint mTexture;
 		GLuint mVao;
 
-		Vec4f mPos;
-		Vec4f mScale;
+		Vec3f mOffset;
+		Vec3f mScale;
+		Vec3f mRotation;
 		const Image *mImage;	//TODO we only store a pointer to access the width/height. Maybe just store them?
 
 		void loadShaders();
@@ -35,11 +36,12 @@ namespace t3d
 		void initWithImage(const Image &image);
 		void render(const OpenGLWindow &window) const;
 
-		void setPos(Vec2f pos) { mPos.x = pos.x; mPos.y = pos.y; }
-		void addPos(Vec2f pos) { mPos.x += pos.x; mPos.y += pos.y; }
-
-		void setScale(Vec2f scale) { mScale.x = scale.x; mScale.y = scale.y; }
-		void addScale(Vec2f scale) { mScale.x += scale.x; mScale.y += scale.y; }
+		void setOffset(Vec3f offset) { mOffset = offset; }
+		void addOffset(Vec3f offset) { mOffset += offset; }
+		void setScale(Vec3f scale) { mScale = scale; }
+		void addScale(Vec3f scale) { mScale += scale; }
+		void setRotation(Vec3f rotation) { mRotation = rotation; }
+		void addRotation(Vec3f rotation) { mRotation += rotation; }
 	};
 };
 

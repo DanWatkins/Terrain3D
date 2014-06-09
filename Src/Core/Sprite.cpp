@@ -11,8 +11,9 @@
 namespace t3d
 {
 	Sprite::Sprite() :
-		mPos(0.0f, 0.0f, 0.0f, 0.0f),
-		mScale(1.0f, 1.0f, 1.0f, 1.0f)
+		mOffset(0.0f, 0.0f, 0.0f),
+		mScale(1.0f, 1.0f, 1.0f),
+		mRotation(0.0f, 0.0f, 0.0f)
 	{
 		mProgram = 0;
 		mTexture = 0;
@@ -23,6 +24,7 @@ namespace t3d
 	{
 		glDeleteProgram(mProgram);
 		glDeleteVertexArrays(1, &mVao);
+		unloadTexure();
 	}
 
 
@@ -81,20 +83,28 @@ namespace t3d
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
 		
-		//apply the offset (pos)
+		//apply the transformation
 		{
-			GLuint loc = glGetUniformLocation(mProgram, "offset");
-			glUniform4fv(loc, 1, glm::value_ptr(mPos));
-		}
+			Mat4 transformation(1.0f);
 
-		//scale the texture
-		{
-			GLuint loc = glGetUniformLocation(mProgram, "scale");
+			//translate
+			transformation *= glm::translate(mOffset);
+			
+			//scale
 			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f * mScale.x;
 			float sy = (float)mImage->getHeight() / window.getHeight() * 2.0f * mScale.y;
+			Vec3f actualScale(sx, sy, mScale.z);
+			transformation *= glm::scale(transformation, actualScale);
 
-			Vec4f scale(sx, sy, 1.0f, 1.0f);
-			glUniform4fv(loc, 1, glm::value_ptr(scale));
+			//rotation
+			Mat4 rotation(1.0f);
+			rotation = glm::rotate(rotation, mRotation.x, Vec3f(1, 0, 0));
+			rotation = glm::rotate(rotation, mRotation.y, Vec3f(0, 1, 0));
+			rotation = glm::rotate(rotation, mRotation.z, Vec3f(0, 0, 1));
+			transformation *= rotation;
+
+			GLuint loc = glGetUniformLocation(mProgram, "transformation");
+			glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(transformation));
 		}
 
 		glDrawArrays(GL_TRIANGLES, 0, 3);

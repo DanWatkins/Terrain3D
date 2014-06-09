@@ -40,7 +40,6 @@ namespace t3d
 		glClearBufferfv(GL_COLOR, 0, clearColor);
 		glClearBufferfv(GL_DEPTH, 0, one);
 
-
 		//check for mouse changes
 		const double mouseSensitivity = 0.05f;
 		double mouseX, mouseY;
@@ -50,6 +49,10 @@ namespace t3d
 
 		mCamera.render();
 		texture.render(*this);
+
+		texture.addOffset(Vec3f(-0.00002, -0.00002, 0));
+		texture.addScale(Vec3f(0.0001, 0.0001, 0));
+		texture.addRotation(Vec3f(0.01, 0.01, 0));
 	}
 
 

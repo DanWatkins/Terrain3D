@@ -73,8 +73,6 @@ namespace t3d
 		int colorOffset = (terrainVertexData->size() / 2 * sizeof(float));
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)colorOffset);	//color
 
-		//glEnable(GL_CULL_FACE);
-
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
 
