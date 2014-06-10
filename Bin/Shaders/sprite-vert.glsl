@@ -3,16 +3,13 @@
 layout (location = 0) in vec4 pos;
 
 uniform mat4 transformation;
-vec2 subBottomLeft;
-vec2 subSize;
+uniform vec2 subBottomLeft;
+uniform vec2 subSize;
 
 out vec2 outTexturePos;
 
 void main()
 {
-	subBottomLeft = vec2(0.5, 0.5);
-	subSize = vec2(0.5, 0.5);
-
 	vec2 subUpRight = subBottomLeft + subSize;
 
 	//clamp to the sub-rect

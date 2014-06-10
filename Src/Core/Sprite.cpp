@@ -35,6 +35,19 @@ namespace t3d
 		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "sprite-frag.glsl", GL_FRAGMENT_SHADER);
 
 		mProgram = Shader::linkFromShaders(shaders, 2);
+
+		glUseProgram(mProgram);
+		setSubRect({0,0,1,1});
+		glUseProgram(0);
+	}
+
+
+	void Sprite::setSubRect(const Rect2f &subRect) const
+	{
+		GLuint loc = glGetUniformLocation(mProgram, "subBottomLeft");
+		glUniform2f(loc, subRect.x, subRect.y);
+		loc = glGetUniformLocation(mProgram, "subSize");
+		glUniform2f(loc, subRect.width, subRect.height);
 	}
 
 
@@ -78,18 +91,15 @@ namespace t3d
 	}
 
 
-	void Sprite::render(const OpenGLWindow &window) const
+	void Sprite::renderWithoutBinding(const OpenGLWindow &window) const
 	{
-		glUseProgram(mProgram);
-		glBindVertexArray(mVao);
-		
-		//apply the transformation
+		//upload the transformation
 		{
 			Mat4 transformation(1.0f);
 
 			//translate
 			transformation *= glm::translate(mOffset);
-			
+
 			//scale
 			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f * mScale.x;
 			float sy = (float)mImage->getHeight() / window.getHeight() * 2.0f * mScale.y;
@@ -103,15 +113,44 @@ namespace t3d
 			rotation = glm::rotate(rotation, mRotation.z, Vec3f(0, 0, 1));
 			transformation *= rotation;
 
+			//TODO prequery the locations
 			GLuint loc = glGetUniformLocation(mProgram, "transformation");
 			glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(transformation));
 		}
 
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawArrays(GL_TRIANGLES, 3, 3);
+	}
 
+
+	void Sprite::bindForRender() const
+	{
+		glUseProgram(mProgram);
+		glBindVertexArray(mVao);
+	}
+
+
+	void Sprite::unbindAfterRender() const
+	{
 		glBindVertexArray(0);
 		glUseProgram(0);
+	}
+
+
+	void Sprite::render(const OpenGLWindow &window) const
+	{
+		bindForRender();
+		renderWithoutBinding(window);
+		unbindAfterRender();
+	}
+
+
+	void Sprite::renderSubRect(const OpenGLWindow &window, const Rect2f &subRect) const
+	{
+		bindForRender();
+		setSubRect(subRect);
+		renderWithoutBinding(window);
+		unbindAfterRender();
 	}
 
 

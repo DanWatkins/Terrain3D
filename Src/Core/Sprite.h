@@ -29,13 +29,19 @@ namespace t3d
 		void loadShaders();
 		void unloadTexure() const;
 
+		void renderWithoutBinding(const OpenGLWindow &window) const;
+		void bindForRender() const;
+		void unbindAfterRender() const;
+
+
 	public:
 		Sprite();
 		~Sprite();
 
 		void initWithImage(const Image &image);
+		void setSubRect(const Rect2f &subRect) const;
 		void render(const OpenGLWindow &window) const;
-		void renderSubImage(const OpenGLWindow &window, const Vec2f &subImageP1, const Vec2f &subImageP2);
+		void renderSubRect(const OpenGLWindow &window, const Rect2f &subRect) const;
 
 		void setOffset(Vec3f offset) { mOffset = offset; }
 		void addOffset(Vec3f offset) { mOffset += offset; }

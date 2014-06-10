@@ -12,6 +12,18 @@
 
 namespace t3d
 {
+	template<typename T>
+	struct Rect2
+	{
+		T x, y;
+		T width, height;
+	};
+
+	typedef Rect2<int> Rect2i;
+	typedef Rect2<float> Rect2f;
+	typedef Rect2<double> Rect2d;
+
+
 	const double PI = 3.141592654;
 	const double TWO_PI = PI * 2.0;
 	const double PI_OVER_TWO = PI / 2.0;
