@@ -35,6 +35,7 @@ namespace t3d
 
 		void initWithImage(const Image &image);
 		void render(const OpenGLWindow &window) const;
+		void renderSubImage(const OpenGLWindow &window, const Vec2f &subImageP1, const Vec2f &subImageP2);
 
 		void setOffset(Vec3f offset) { mOffset = offset; }
 		void addOffset(Vec3f offset) { mOffset += offset; }
