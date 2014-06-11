@@ -21,7 +21,7 @@ namespace t3d
 		GLuint mTexture;
 		GLuint mVao;
 
-		Vec3f mOffset;
+		Vec3f mScreenPos;
 		Vec3f mScale;
 		Vec3f mRotation;
 		const Image *mImage;	//TODO we only store a pointer to access the width/height. Maybe just store them?
@@ -33,7 +33,6 @@ namespace t3d
 		void bindForRender() const;
 		void unbindAfterRender() const;
 
-
 	public:
 		Sprite();
 		~Sprite();
@@ -43,8 +42,8 @@ namespace t3d
 		void render(const OpenGLWindow &window) const;
 		void renderSubRect(const OpenGLWindow &window, const Rect2f &subRect) const;
 
-		void setOffset(Vec3f offset) { mOffset = offset; }
-		void addOffset(Vec3f offset) { mOffset += offset; }
+		void setScreenPos(Vec3f screenPos) { mScreenPos = screenPos; }
+		void addScreenPos(Vec3f screenPos) { mScreenPos += screenPos; }
 		void setScale(Vec3f scale) { mScale = scale; }
 		void addScale(Vec3f scale) { mScale += scale; }
 		void setRotation(Vec3f rotation) { mRotation = rotation; }

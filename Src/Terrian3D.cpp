@@ -47,22 +47,9 @@ namespace t3d
 		mCamera.incOrientation((float)(mouseSensitivity*mouseX), (float)(mouseSensitivity*mouseY));
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
-		mCamera.render();
+		//mCamera.render();
 
-
-		//Randomly draw section of the sprite
-		//texture.render(*this);
-		static Vec2f prev(1.0f, 1.0f);
-		Vec2f cur(randFloat(0, 1), randFloat(0, 1));
-		Vec2f avg = (prev+cur) / 2.0f;
-		prev = cur;
-
-		texture.renderSubRect(*this, { avg.x, avg.y, 0.5, 0.5});
-
-		//gradually translate the sprite
-		texture.addOffset(Vec3f(-0.00002, -0.00002, 0));
-		texture.addScale(Vec3f(0.0001, 0.0001, 0));
-		texture.addRotation(Vec3f(0.01, 0.01, 0));
+		texture.render(*this);
 	}
 
 

@@ -11,7 +11,7 @@
 namespace t3d
 {
 	Sprite::Sprite() :
-		mOffset(0.0f, 0.0f, 0.0f),
+		mScreenPos(0.0f, 0.0f, 0.0f),
 		mScale(1.0f, 1.0f, 1.0f),
 		mRotation(0.0f, 0.0f, 0.0f)
 	{
@@ -74,7 +74,7 @@ namespace t3d
 			0.f, 0.f, 0.0f, 1.f,
 			1.f, 0.f, 0.0f, 1.f,
 			1.f, 1.f, 0.0f, 1.f,
-			
+
 			0.f, 0.f, 0.0f, 1.f,
 			1.f, 1.f, 0.0f, 1.f,
 			0.f, 1.f, 0.0f, 1.f,
@@ -93,12 +93,22 @@ namespace t3d
 
 	void Sprite::renderWithoutBinding(const OpenGLWindow &window) const
 	{
+		//TODO This method does way too much on the CPU. Consider moving it to the GPU if it would increase performance
+		//Also consider eliminating logic here
+
+		//calculate an offset so the sprite is drawn in the upper left corner of the window by default
+		Vec3f offset(	-(window.getWidth() / 2.0f),
+						(window.getHeight() / 2.0f) - (mImage->getHeight()), 0.0f);
+
+		offset += mScreenPos;
+		offset /= Vec3f(window.getWidth(), window.getHeight(), 1.0f);
+
 		//upload the transformation
 		{
 			Mat4 transformation(1.0f);
 
 			//translate
-			transformation *= glm::translate(mOffset);
+			transformation *= glm::translate(offset);
 
 			//scale
 			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f * mScale.x;
