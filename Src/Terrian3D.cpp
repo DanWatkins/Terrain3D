@@ -9,11 +9,14 @@
 #include "./Core/Core.h"
 #include "Core\Sprite.h"
 #include "Core\Image.h"
+#include "Core/SpriteSheet.h"
 
 namespace t3d
 {	
 	Sprite texture;
+	SpriteSheet sheet;
 	Image image;
+	Image sheetImage;
 
 	Terrain3D::Terrain3D()
 	{
@@ -30,6 +33,9 @@ namespace t3d
 
 		image.loadFromFile_PNG("./smileFace.png");
 		texture.initWithImage(image);
+
+		sheetImage.loadFromFile_PNG("./spriteSheet.png");
+		sheet.init(sheetImage, 2, 2);
 	}
 
 	
@@ -49,7 +55,8 @@ namespace t3d
 
 		//mCamera.render();
 
-		texture.render(*this);
+		//texture.render(*this);
+		sheet.render(*this, 0);
 	}
 
 

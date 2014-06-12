@@ -42,6 +42,8 @@ namespace t3d
 		void render(const OpenGLWindow &window) const;
 		void renderSubRect(const OpenGLWindow &window, const Rect2f &subRect) const;
 
+		const Image *getImage() const { return mImage; }
+
 		void setScreenPos(Vec3f screenPos) { mScreenPos = screenPos; }
 		void addScreenPos(Vec3f screenPos) { mScreenPos += screenPos; }
 		void setScale(Vec3f scale) { mScale = scale; }

@@ -21,6 +21,7 @@
     <ClInclude Include="..\Src\Core\OpenGLWindow.h" />
     <ClInclude Include="..\Src\Core\Shader.h" />
     <ClInclude Include="..\Src\Core\Sprite.h" />
+    <ClInclude Include="..\Src\Core\SpriteSheet.h" />
     <ClInclude Include="..\Src\Main.h" />
     <ClInclude Include="..\src\Terrain3D.h" />
     <ClInclude Include="..\Src\World\Camera.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp" />
     <ClCompile Include="..\Src\Core\Shader.cpp" />
     <ClCompile Include="..\Src\Core\Sprite.cpp" />
+    <ClCompile Include="..\Src\Core\SpriteSheet.cpp" />
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />
     <ClCompile Include="..\Src\World\Camera.cpp" />
