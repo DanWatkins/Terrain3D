@@ -35,6 +35,10 @@ namespace t3d
 	
 	void GLFWInput::keyboardCallback(int action, int key, int a, int b, int c)
 	{
+		a;
+		b;	//TODO Need to use these for something
+		c;
+
 		for (GLuint n=0; n<mWindows.size(); n++)
 			mWindows[n]->onKey(key, action);
 	}

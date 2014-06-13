@@ -31,6 +31,9 @@
 #include <cstdio>
 #include <cstdlib>
 
+#define WIN32_LEAN_AND_MEAN 1
+
+//Lua Includes
 extern "C"
 {
 	#include <lua/lua.h>
@@ -38,14 +41,21 @@ extern "C"
 	#include <lua/lauxlib.h>
 }
 
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
 
+//GLM Includes
+#pragma warning(push)
+#pragma warning(disable:4201)
+	#include <glm/glm.hpp>
+	#include <glm/ext.hpp>
+#pragma warning(pop)
+
+
+//SFML Includes
 #define SFML_STATIC
 #include <SFML/System.hpp>
 
-#define WIN32_LEAN_AND_MEAN 1
 
+//Linkage
 #ifdef WIN32
 	#pragma once
 
@@ -68,6 +78,7 @@ extern "C"
 #endif
 
 
+//GLFW Includes
 #define GLFW_NO_GLU 1
 #define GLFW_INCLUDE_GLCOREARB 1
 #include "GL/glfw3.h"
@@ -75,7 +86,6 @@ extern "C"
 
 
 //typedef common types
-
 typedef long long			int64;
 typedef unsigned long long	uint64;
 
@@ -105,6 +115,8 @@ typedef std::string			String;
 	#include <memory>
 #endif
 
+
+//Project Includes
 #include "Constants.h"
 #include "./Core/Helper.h"
 

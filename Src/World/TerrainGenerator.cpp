@@ -115,8 +115,6 @@ namespace t3d
 		init(size);
 		std::srand(seed);
 
-		const float tweaker = 2.0f;
-
 		for (int i=0; i<numberOfPasses; i++)
 		{
 			const float maxDelta = 255.0f;

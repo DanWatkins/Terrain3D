@@ -20,8 +20,8 @@ namespace t3d
 	{
 		mNumberOfFramesX = numberOfFramesX;
 		mNumberOfFramesY = numberOfFramesY;
-		mFrameSize.x = mSprite.getImage()->getWidth() / numberOfFramesX;
-		mFrameSize.y = mSprite.getImage()->getHeight() / numberOfFramesY;
+		mFrameSize.x = mSprite.getImage()->getWidth() / (float)numberOfFramesX;
+		mFrameSize.y = mSprite.getImage()->getHeight() / (float)numberOfFramesY;
 	}
 
 

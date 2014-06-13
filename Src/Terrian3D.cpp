@@ -62,10 +62,6 @@ namespace t3d
 
 	void Terrain3D::onKey(int key, int action)
 	{
-		const float translationSpeed = 0.02f;
-		const float scaleSpeed = 0.01f;
-		const float zoomSpeed = 0.02f;
-		const float rotationSpeed = 0.06f;
 		const float speed = 0.19f;
 
 		switch (key)
