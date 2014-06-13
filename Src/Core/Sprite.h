@@ -21,6 +21,13 @@ namespace t3d
 		GLuint mTexture;
 		GLuint mVao;
 
+		struct UniformLocations
+		{
+			GLuint subBottomLeft;
+			GLuint subSize;
+			GLuint transformation;
+		} mUniformLocations;
+
 		Vec3f mScreenPos;
 		Vec3f mScale;
 		Vec3f mRotation;

@@ -31,23 +31,30 @@ namespace t3d
 	void Sprite::loadShaders()
 	{
 		GLuint shaders[2];
-		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "sprite-vert.glsl", GL_VERTEX_SHADER);
-		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "sprite-frag.glsl", GL_FRAGMENT_SHADER);
+		shaders[0] = Shader::loadShader(gDefaultPathShaders + "sprite-vert.glsl", GL_VERTEX_SHADER);
+		shaders[1] = Shader::loadShader(gDefaultPathShaders + "sprite-frag.glsl", GL_FRAGMENT_SHADER);
 
 		mProgram = Shader::linkFromShaders(shaders, 2);
 
 		glUseProgram(mProgram);
+
+		mUniformLocations.subBottomLeft = glGetUniformLocation(mProgram, "subBottomLeft");
+		mUniformLocations.subSize = glGetUniformLocation(mProgram, "subSize");
+		mUniformLocations.transformation = glGetUniformLocation(mProgram, "transformation");
+
 		setSubRect({0,0,1,1});
+
 		glUseProgram(0);
 	}
 
 
 	void Sprite::setSubRect(const Rect2f &subRect) const
 	{
-		GLuint loc = glGetUniformLocation(mProgram, "subBottomLeft");
-		glUniform2f(loc, subRect.x, subRect.y);
-		loc = glGetUniformLocation(mProgram, "subSize");
-		glUniform2f(loc, subRect.width, subRect.height);
+		//TODO not sure about marking something like this as const. Sure, it's not changing instance data, but it
+		//is changing data in the shader
+		//TODO as you can see, we have to convert to NDC here. Pretty gross
+		glUniform2f(mUniformLocations.subBottomLeft, subRect.x / mImage->getWidth(), subRect.y / mImage->getHeight());
+		glUniform2f(mUniformLocations.subSize, subRect.width / mImage->getWidth(), subRect.height / mImage->getHeight());
 	}
 
 
@@ -124,8 +131,7 @@ namespace t3d
 			transformation *= rotation;
 
 			//TODO prequery the locations
-			GLuint loc = glGetUniformLocation(mProgram, "transformation");
-			glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(transformation));
+			glUniformMatrix4fv(mUniformLocations.transformation, 1, GL_FALSE, glm::value_ptr(transformation));
 		}
 
 		glDrawArrays(GL_TRIANGLES, 0, 3);
