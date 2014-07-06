@@ -13,6 +13,7 @@
 
 namespace t3d
 {
+
 	class SpriteSheet
 	{
 	private:
