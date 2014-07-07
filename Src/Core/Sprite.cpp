@@ -24,7 +24,7 @@ namespace t3d
 	{
 		glDeleteProgram(mProgram);
 		glDeleteVertexArrays(1, &mVao);
-		unloadTexure();
+		glDeleteTextures(1, &mTexture);
 	}
 
 
@@ -110,7 +110,7 @@ namespace t3d
 		offset += mScreenPos;
 		offset /= Vec3f(window.getWidth(), window.getHeight(), 1.0f);
 
-		//upload the transformation
+		//compute and upload the transformation
 		{
 			Mat4 transformation(1.0f);
 
@@ -167,11 +167,5 @@ namespace t3d
 		setSubRect(subRect);
 		renderWithoutBinding(window);
 		unbindAfterRender();
-	}
-
-
-	void Sprite::unloadTexure() const
-	{
-		glDeleteTextures(1, &mTexture);
 	}
 };
