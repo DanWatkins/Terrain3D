@@ -102,12 +102,37 @@ namespace t3d
 		 */
 		const Image *getImage() const { return mImage; }
 
-		void setScreenPos(Vec3f screenPos) { mScreenPos = screenPos; }
-		void addScreenPos(Vec3f screenPos) { mScreenPos += screenPos; }
-		void setScale(Vec3f scale) { mScale = scale; }
-		void addScale(Vec3f scale) { mScale += scale; }
-		void setRotation(Vec3f rotation) { mRotation = rotation; }
-		void addRotation(Vec3f rotation) { mRotation += rotation; }
+
+
+		/**
+		 * Sets the screen position in window space
+		 */
+		void setScreenPos(const Vec3f &screenPos) { mScreenPos = screenPos; }
+
+		/**
+		 * @return Screen position in window space
+		 */
+		void addScreenPos(const Vec3f &screenPos) { mScreenPos += screenPos; }
+
+		/**
+		 * Sets the scale where each component represents the factor for each axis
+		 */
+		void setScale(const Vec3f &scale) { mScale = scale; }
+
+		/**
+		 * Adds a scale amount where each component represents the additional factor for each axis
+		 */
+		void addScale(const Vec3f &scale) { mScale += scale; }
+
+		/**
+		 * //TODO what unit are the rotations in?
+		 */
+		void setRotation(const Vec3f &rotation) { mRotation = rotation; }
+
+		/**
+		 * //TODO what unit are the rotations in
+		 */
+		void addRotation(const Vec3f &rotation) { mRotation += rotation; }
 	};
 };
 
