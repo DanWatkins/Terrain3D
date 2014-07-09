@@ -98,7 +98,7 @@ namespace t3d
 	}
 
 
-	void Sprite::renderWithoutBinding(const OpenGLWindow &window) const
+	void Sprite::drawWithoutBinding(const OpenGLWindow &window) const
 	{
 		//TODO This method does way too much on the CPU. Consider moving it to the GPU if it would increase performance
 		//Also consider eliminating logic here
@@ -139,33 +139,33 @@ namespace t3d
 	}
 
 
-	void Sprite::bindForRender() const
+	void Sprite::bindForDraw() const
 	{
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
 	}
 
 
-	void Sprite::unbindAfterRender() const
+	void Sprite::unbindAfterDraw() const
 	{
 		glBindVertexArray(0);
 		glUseProgram(0);
 	}
 
 
-	void Sprite::render(const OpenGLWindow &window) const
+	void Sprite::draw(const OpenGLWindow &window) const
 	{
-		bindForRender();
-		renderWithoutBinding(window);
-		unbindAfterRender();
+		bindForDraw();
+		drawWithoutBinding(window);
+		unbindAfterDraw();
 	}
 
 
-	void Sprite::renderSubRect(const OpenGLWindow &window, const Rect2f &subRect) const
+	void Sprite::drawSubRect(const OpenGLWindow &window, const Rect2f &subRect) const
 	{
-		bindForRender();
+		bindForDraw();
 		setSubRect(subRect);
-		renderWithoutBinding(window);
-		unbindAfterRender();
+		drawWithoutBinding(window);
+		unbindAfterDraw();
 	}
 };

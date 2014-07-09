@@ -12,6 +12,5 @@ using namespace t3d;
 
 int main()
 {
-	Terrain3D *app = new Terrain3D;
-	return app->init(1600, 900, gWindowTitle);
+	return (new Terrain3D)->init(1600, 900, gWindowTitle);
 }

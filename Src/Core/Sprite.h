@@ -14,6 +14,9 @@
 
 namespace t3d
 {
+	/**
+	 * \brief Manages the drawing and transformation of two textured quads (rectangle).
+	 */
 	class Sprite
 	{
 	private:
@@ -39,21 +42,21 @@ namespace t3d
 		void loadShaders();
 
 		/**
-		 * Renders the sprite without binding or unbinding any states.
+		 * Draws the sprite without binding or unbinding any states.
 		 *
-		 * @param window Where the sprite should be rendered.
+		 * @param window Where the sprite should be drawn.
 		 */
-		void renderWithoutBinding(const OpenGLWindow &window) const;
+		void drawWithoutBinding(const OpenGLWindow &window) const;
 
 		/**
-		 * Binds the appropriate states for rendering.
+		 * Binds the appropriate states for drawing.
 		 */
-		void bindForRender() const;
+		void bindForDraw() const;
 
 		/**
-		 * Unbinds the states used for rendering.
+		 * Unbinds the states used for drawing.
 		 */
-		void unbindAfterRender() const;
+		void unbindAfterDraw() const;
 
 	public:
 		Sprite();
@@ -73,32 +76,31 @@ namespace t3d
 
 
 		/**
-		 * Sets the render boundaries of the source image to be rendered. This boundary is uploaded to a uniform on
+		 * Sets the draw boundaries of the source image to be drawn. This boundary is uploaded to a uniform on
 		 * the GPU.
 		 * TODO decide what coordinate system is used here
 		 *
-		 * @param subRect The render boundaries of the source image.
+		 * @param subRect The draw boundaries of the source image.
 		 */
 		void setSubRect(const Rect2f &subRect) const;
 
 		/**
-		 * TODO establish the difference between RENDER and DRAW
 		 * Draws the sprite on the specified window. All necessary bindings and unbindings are performed internally.
 		 *
 		 * @param window OpenGLWindow to draw the sprite on.
 		 */
-		void render(const OpenGLWindow &window) const;
+		void draw(const OpenGLWindow &window) const;
 
 		/**
 		 * Draws the sprite on the specified window using the specified sub rectangle. No bindings are performed.
 		 *
 		 * @param window OpenGLWindow to draw the sprite on.
-		 * @param subRect The render boundaries of the source image.
+		 * @param subRect The draw boundaries of the source image.
 		 */
-		void renderSubRect(const OpenGLWindow &window, const Rect2f &subRect) const;
+		void drawSubRect(const OpenGLWindow &window, const Rect2f &subRect) const;
 
 		/**
-		 * Returns a constant reference to the internal image used for rendering.
+		 * Returns a constant reference to the internal image used for drawing.
 		 */
 		const Image *getImage() const { return mImage; }
 
@@ -138,3 +140,27 @@ namespace t3d
 
 #endif
 
+
+/**
+ \class t3d::Sprite
+
+ A pointer to a valid Image object is stored internally. The image must persist for the Sprite to work.
+
+ Basic usage example:
+ \code
+
+ Image image;
+ image.loadFromFile_PNG("./smileFace.png");
+
+ Sprite texture;
+ texture.initWithImage(image);
+
+ \endcode
+
+ A sprite can have a sub rect set to draw only a portion of the source image.
+
+ Sub-rect example:
+ \code
+ \endcode
+
+ */

@@ -32,6 +32,6 @@ namespace t3d
 		subRect.y = int(frameIndex / mNumberOfFramesY) * mFrameSize.y;
 		subRect.width = mFrameSize.x;
 		subRect.height = mFrameSize.y;
-		mSprite.renderSubRect(window, subRect);
+		mSprite.drawSubRect(window, subRect);
 	}
 };
