@@ -11,7 +11,7 @@ namespace t3d
 {
 	namespace Shader
 	{
-		GLuint loadShader(const String &filename, GLenum shaderType)
+		GLuint loadShader(const String &filepath, GLenum shaderType)
 		{
 			GLuint result = 0;
 			FILE *file;
@@ -19,7 +19,7 @@ namespace t3d
 			size_t filesize;
 
 
-			file = fopen(filename.c_str(), "rb");
+			file = fopen(filepath.c_str(), "rb");
 
 			if (!file)
 				return 0;
@@ -57,7 +57,7 @@ namespace t3d
 				char buffer[8192];
 				glGetShaderInfoLog(result, 8192, NULL, buffer);
 
-				std::cout << filename << ":" << buffer << std::endl;
+				std::cout << filepath << ":" << buffer << std::endl;
 
 				glDeleteShader(result);
 			}

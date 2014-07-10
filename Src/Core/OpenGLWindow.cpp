@@ -41,8 +41,6 @@ namespace t3d
 			return -1;
 		}
 
-	
-
 		glfwMakeContextCurrent(mWindow);
 		gl3wInit();
 		printContextInformation();
@@ -88,8 +86,10 @@ namespace t3d
 	{
 		mZoom = zoom;
 
-		if (mZoom.x < 0.0) mZoom.x = 0.0;
-		if (mZoom.y < 0.0) mZoom.y = 0.0;
+		if (mZoom.x < 0.0)
+			mZoom.x = 0.0;
+		if (mZoom.y < 0.0)
+			mZoom.y = 0.0;
 
 		_onResize(mWidth, mHeight);
 	}
@@ -99,8 +99,10 @@ namespace t3d
 	{
 		mZoom += zoom;
 
-		if (mZoom.x < 0.0) mZoom.x = 0.0;
-		if (mZoom.y < 0.0) mZoom.y = 0.0;
+		if (mZoom.x < 0.0)
+			mZoom.x = 0.0;
+		if (mZoom.y < 0.0)
+			mZoom.y = 0.0;
 
 		_onResize(mWidth, mHeight);
 	}
