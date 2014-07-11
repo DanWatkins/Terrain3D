@@ -10,7 +10,7 @@
 
 namespace t3d
 {
-	void Image::loadFromFile_PNG(String filepath)
+	bool Image::loadFromFile_PNG(const String &filepath)
 	{
 		ImageData png;
 		ImageData data; //the raw pixels
@@ -24,11 +24,18 @@ namespace t3d
 		unsigned error = lodepng::decode(data, mWidth, mHeight, state, png);
 
 		if (error)
+		{
 			std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+			return false;
+		}
 		else
+		{
 			mImageData = data;
+		}
 
 		flipVertically();
+
+		return true;
 	}
 
 	

@@ -24,6 +24,10 @@ namespace t3d
 		GLuint mTexture;
 		GLuint mVao;
 
+
+		/**
+		 * \brief Groups the various uniform locations for the sprite shader
+		 */
 		struct UniformLocations
 		{
 			GLuint subBottomLeft;
@@ -104,8 +108,6 @@ namespace t3d
 		 */
 		const Image *getImage() const { return mImage; }
 
-
-
 		/**
 		 * Sets the screen position in window space
 		 */
@@ -127,12 +129,12 @@ namespace t3d
 		void addScale(const Vec3f &scale) { mScale += scale; }
 
 		/**
-		 * //TODO what unit are the rotations in?
+		 * /todo what unit are the rotations in?
 		 */
 		void setRotation(const Vec3f &rotation) { mRotation = rotation; }
 
 		/**
-		 * //TODO what unit are the rotations in
+		 * /todo what unit are the rotations in
 		 */
 		void addRotation(const Vec3f &rotation) { mRotation += rotation; }
 	};
