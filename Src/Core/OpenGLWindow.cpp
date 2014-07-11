@@ -21,14 +21,14 @@ namespace t3d
 	}
 
 	
-	int OpenGLWindow::init(int width, int height, const String &title)
+	bool OpenGLWindow::init(int width, int height, const String &title)
 	{
 		mWidth = width;
 		mHeight = height;
 		mTitle = title;
 
 		if (!glfwInit())
-			return -1;
+			return false;
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -38,7 +38,7 @@ namespace t3d
 		{
 			terminate();
 			glfwTerminate();
-			return -1;
+			return false;
 		}
 
 		glfwMakeContextCurrent(mWindow);
@@ -51,11 +51,10 @@ namespace t3d
 		glfwSetKeyCallback(mWindow, reinterpret_cast<GLFWkeyfun>(GLFWInput::keyboardCallback));
 		glfwSetWindowSizeCallback(mWindow, GLFWInput::windowResizeCallback);
 		GLFWInput::instance().addWindow(this);
+		_onResize(mWidth, mHeight);
 
 		onStartup();
 
-		//get the aspect scale adjusted
-		_onResize(mWidth, mHeight);
 		sf::Clock clock;
 
 		while (!glfwWindowShouldClose(mWindow)  &&  !mShouldTerminate)
@@ -69,7 +68,7 @@ namespace t3d
 		onTerminate();
 		glfwTerminate();
 
-		return 0;
+		return true;
 	}
 
 

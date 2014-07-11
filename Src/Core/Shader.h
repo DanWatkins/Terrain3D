@@ -17,18 +17,18 @@ namespace t3d
 		/**
 		 * Creates and compiles an OpenGL shader object.
 		 *
-		 * @param filepath The path to the source file
-		 * @param shaderType The type of OpenGL shader to create
+		 * \param filepath The path to the source file
+		 * \param shaderType The type of OpenGL shader to create
 		 */
 		GLuint loadShader(const String &filepath, GLenum shaderType);
 
 		/**
 		 * Links the shader objects to a new OpenGL program object. The old shader objects are deleted.
 		 *
-		 * @param shaders Array of shader objects to link
-		 * @param shaderCount Number of elements in the shaders array
+		 * \param shaders Array of shader objects to link
+		 * \param shaderCount Number of elements in the shaders array
 		 *
-		 * @returns The new OpenGL program object
+		 * \returns The new OpenGL program object
 		 */
 		GLuint linkFromShaders(const GLuint *shaders, int shaderCount);
 	};

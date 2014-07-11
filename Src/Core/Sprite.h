@@ -44,7 +44,7 @@ namespace t3d
 		/**
 		 * Draws the sprite without binding or unbinding any states.
 		 *
-		 * @param window Where the sprite should be drawn.
+		 * \param window Where the sprite should be drawn.
 		 */
 		void drawWithoutBinding(const OpenGLWindow &window) const;
 
@@ -70,7 +70,7 @@ namespace t3d
 		 * Creates various OpenGL objects and uploads the image to the GPU for textured drawing. Also creates and
 		 * uploads vertex data that represents two triangles where the texture is mapped.
 		 *
-		 * @param image Image data used for the texture.
+		 * \param image Image data used for the texture.
 		 */
 		void initWithImage(const Image &image);
 
@@ -80,22 +80,22 @@ namespace t3d
 		 * the GPU.
 		 * TODO decide what coordinate system is used here
 		 *
-		 * @param subRect The draw boundaries of the source image.
+		 * \param subRect The draw boundaries of the source image.
 		 */
 		void setSubRect(const Rect2f &subRect) const;
 
 		/**
 		 * Draws the sprite on the specified window. All necessary bindings and unbindings are performed internally.
 		 *
-		 * @param window OpenGLWindow to draw the sprite on.
+		 * \param window OpenGLWindow to draw the sprite on.
 		 */
 		void draw(const OpenGLWindow &window) const;
 
 		/**
 		 * Draws the sprite on the specified window using the specified sub rectangle. No bindings are performed.
 		 *
-		 * @param window OpenGLWindow to draw the sprite on.
-		 * @param subRect The draw boundaries of the source image.
+		 * \param window OpenGLWindow to draw the sprite on.
+		 * \param subRect The draw boundaries of the source image.
 		 */
 		void drawSubRect(const OpenGLWindow &window, const Rect2f &subRect) const;
 
