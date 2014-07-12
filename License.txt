@@ -3,3 +3,5 @@ files under the directory ./Ext/ are licensed individually.
 
 All source code under the directory ./Src/ is licensed under the MIT license found in  
 "./Doc/Mit License.txt"
+
+The style sheets in ./Doc/Style are based on styles from the SFML project.

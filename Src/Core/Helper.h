@@ -12,6 +12,9 @@
 
 namespace t3d
 {
+	/**
+	 * \brief Represents a 2D rectangle with a point and size
+	 */
 	template<typename T>
 	struct Rect2
 	{
@@ -31,7 +34,16 @@ namespace t3d
     const double PI_OVER_180 = 0.0174532925;
     const double PI_UNDER_180 = 57.29577951;
 
+
+	/**
+	 * \brief Does stuff
+	 * \returns A double parsed from the input string.
+	 */
 	double toDouble(const String &text);
+
+	/**
+	 * \see toDouble
+	 */
 	float toFloat(const String &text);
 	int toInt(const String &text);
 	bool toBool(const String &text);

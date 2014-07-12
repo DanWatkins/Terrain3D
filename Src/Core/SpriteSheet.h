@@ -13,7 +13,10 @@
 
 namespace t3d
 {
-
+	/**
+	 * \brief A specialized sprite that can draw regular sized sub-rects easily.
+	 */
+	//TODO it would be better to have a RawSprite base class that Sprite and SpriteSheet both inherit
 	class SpriteSheet
 	{
 	private:
@@ -22,6 +25,9 @@ namespace t3d
 		Vec2f mFrameSize;
 
 	public:
+		/**
+		 * Tells the sprite to use the specified image. Also configures the 
+		 */
 		void init(const Image &image, int numberOfFramesX, int numberOfFramesY);
 		void setNumberOfFrames(int numberOfFramesX, int numberOfFramesY);
 
