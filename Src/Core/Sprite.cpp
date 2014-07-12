@@ -42,7 +42,7 @@ namespace t3d
 		mUniformLocations.subSize = glGetUniformLocation(mProgram, "subSize");
 		mUniformLocations.transformation = glGetUniformLocation(mProgram, "transformation");
 
-		setSubRect({0,0,1,1});
+		setSubRect({0,0,mImage->getWidth(), mImage->getHeight()});
 
 		glUseProgram(0);
 	}
