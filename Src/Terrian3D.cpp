@@ -41,8 +41,6 @@ namespace t3d
 	
 	void Terrain3D::onUpdate(double timeSinceStartup)
 	{
-		std::cout << timeSinceStartup << std::endl;
-
 		static const float clearColor[] = { 1.0f, 1.0f, 0.9f, 1.0f };
 		static const float one[] { 1.0f };
 		glClearBufferfv(GL_COLOR, 0, clearColor);
@@ -55,10 +53,11 @@ namespace t3d
 		mCamera.incOrientation((float)(mouseSensitivity*mouseX), (float)(mouseSensitivity*mouseY));
 		glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
-		mCamera.render();
+		//mCamera.render();
 
 		//texture.render(*this);
-		sheet.render(*this, 0);
+
+		sheet.render(*this, 1);
 	}
 
 

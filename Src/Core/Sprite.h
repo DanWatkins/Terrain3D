@@ -78,7 +78,6 @@ namespace t3d
 		 */
 		void initWithImage(const Image &image);
 
-
 		/**
 		 * Sets the draw boundaries of the source image to be drawn. This boundary is uploaded to a uniform on
 		 * the GPU.

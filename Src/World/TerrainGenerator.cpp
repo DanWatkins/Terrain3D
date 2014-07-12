@@ -125,7 +125,7 @@ namespace t3d
 			applyRandomFault(mHeightMap, amount);
 		}
 
-		smoothHeight(0.65f);
+		smoothHeight(0.55f);
 		normalizeHeights();
 
 		return mHeightMap;

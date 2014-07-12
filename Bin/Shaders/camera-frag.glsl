@@ -1,4 +1,4 @@
-#version 420 core
+#version 330 core
 
 in vec4 shaderColor;
 out vec4 color;

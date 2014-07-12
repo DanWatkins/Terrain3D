@@ -26,11 +26,30 @@ namespace t3d
 
 	public:
 		/**
-		 * Tells the sprite to use the specified image. Also configures the 
+		 * Tells the sprite to use the specified image and configures the size used for frames.
+		 *
+		 * \param image The image data to use. This data must persist externally as a pointer is stored.
+		 * \param numberOfFramesX The number of frames to split the sprite into horizontally.
+		 * \param numberOfFramesY The number of frames to split the sprite into vertically.
 		 */
 		void init(const Image &image, int numberOfFramesX, int numberOfFramesY);
+
+		/**
+		 * Configures the size used for frames.
+		 *
+		 * \param numberOfFramesX The number of frames to split the sprite into horizontally.
+		 * \param numberOfFramesY The number of frames to split the sprite into vertically.
+		 */
 		void setNumberOfFrames(int numberOfFramesX, int numberOfFramesY);
 
+		/**
+		 * Draws the specified frame index onto the window. The first frame starts with index 0 and is the
+		 * upper-left section of the image. All frames drawn are shifted over appropriately so they a drawn
+		 * starting at (0,0) relative to the overall position.
+		 *
+		 * \param window The window to draw to.
+		 * \param frameIndex The index of the frame of the entire image to draw.
+		 */
 		void render(const OpenGLWindow &window, int frameIndex);
 	};
 };

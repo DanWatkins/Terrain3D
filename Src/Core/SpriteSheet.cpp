@@ -29,7 +29,7 @@ namespace t3d
 	{
 		Rect2f subRect;
 		subRect.x = (frameIndex % mNumberOfFramesX) * mFrameSize.x;
-		subRect.y = int(frameIndex / mNumberOfFramesY) * mFrameSize.y;
+		subRect.y = mFrameSize.y - ((frameIndex / mNumberOfFramesY) * mFrameSize.y);
 		subRect.width = mFrameSize.x;
 		subRect.height = mFrameSize.y;
 		mSprite.drawSubRect(window, subRect);
