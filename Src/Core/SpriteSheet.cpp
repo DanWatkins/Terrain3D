@@ -9,29 +9,40 @@
 
 namespace t3d
 {
-	void SpriteSheet::init(const Image &image, int numberOfFramesX, int numberOfFramesY)
+	SpriteSheet::SpriteSheet()
 	{
-		mSprite.initWithImage(image);
+		mNumberOfFramesX = 1;
+		mNumberOfFramesY = 1;
+	}
+
+
+	void SpriteSheet::init(const Image &image, unsigned numberOfFramesX, unsigned numberOfFramesY)
+	{
+		Sprite::init(image);
 		setNumberOfFrames(numberOfFramesX, numberOfFramesY);
 	}
 
 
-	void SpriteSheet::setNumberOfFrames(int numberOfFramesX, int numberOfFramesY)
+	void SpriteSheet::setNumberOfFrames(unsigned numberOfFramesX, unsigned numberOfFramesY)
 	{
+		numberOfFramesX = std::max(1U, numberOfFramesX);
+		numberOfFramesY = std::max(1U, numberOfFramesY);
+
 		mNumberOfFramesX = numberOfFramesX;
 		mNumberOfFramesY = numberOfFramesY;
-		mFrameSize.x = mSprite.getImage()->getWidth() / (float)numberOfFramesX;
-		mFrameSize.y = mSprite.getImage()->getHeight() / (float)numberOfFramesY;
+		mFrameSize.x = getImage()->getWidth() / (float)numberOfFramesX;
+		mFrameSize.y = getImage()->getHeight() / (float)numberOfFramesY;
 	}
 
 
-	void SpriteSheet::render(const OpenGLWindow &window, int frameIndex)
+	void SpriteSheet::drawFrame(const OpenGLWindow &window, unsigned frameIndex)
 	{
 		Rect2f subRect;
 		subRect.x = (frameIndex % mNumberOfFramesX) * mFrameSize.x;
 		subRect.y = mFrameSize.y - ((frameIndex / mNumberOfFramesY) * mFrameSize.y);
 		subRect.width = mFrameSize.x;
 		subRect.height = mFrameSize.y;
-		mSprite.drawSubRect(window, subRect);
+
+		drawSubRect(window, subRect);
 	}
 };

@@ -32,10 +32,11 @@ namespace t3d
 		mCamera.init(&mWorld);
 
 		image.loadFromFile_PNG("./smileFace.png");
-		texture.initWithImage(image);
+		texture.init(image);
 
 		sheetImage.loadFromFile_PNG("./spriteSheet.png");
 		sheet.init(sheetImage, 2, 2);
+		sheet.setRotation(Vec3f(3.0f, 0, 0));
 	}
 
 	
@@ -55,9 +56,8 @@ namespace t3d
 
 		//mCamera.render();
 
-		//texture.render(*this);
-
-		sheet.render(*this, 1);
+		texture.draw(*this);
+		//sheet.drawFrame(*this, 2);
 	}
 
 

@@ -8,7 +8,6 @@
 #ifndef _t3d_SPRITE_SHEET
 #define _t3d_SPRITE_SHEET
 
-#include "../Main.h"
 #include "Sprite.h"
 
 namespace t3d
@@ -17,14 +16,18 @@ namespace t3d
 	 * \brief A specialized sprite that can draw regular sized sub-rects easily.
 	 */
 	//TODO it would be better to have a RawSprite base class that Sprite and SpriteSheet both inherit
-	class SpriteSheet
+	class SpriteSheet : public Sprite
 	{
 	private:
-		Sprite mSprite;
 		int mNumberOfFramesX, mNumberOfFramesY;
 		Vec2f mFrameSize;
 
 	public:
+		/**
+		 * Default constructor
+		 */
+		SpriteSheet();
+
 		/**
 		 * Tells the sprite to use the specified image and configures the size used for frames.
 		 *
@@ -32,7 +35,7 @@ namespace t3d
 		 * \param numberOfFramesX The number of frames to split the sprite into horizontally.
 		 * \param numberOfFramesY The number of frames to split the sprite into vertically.
 		 */
-		void init(const Image &image, int numberOfFramesX, int numberOfFramesY);
+		void init(const Image &image, unsigned numberOfFramesX, unsigned numberOfFramesY);
 
 		/**
 		 * Configures the size used for frames.
@@ -40,7 +43,7 @@ namespace t3d
 		 * \param numberOfFramesX The number of frames to split the sprite into horizontally.
 		 * \param numberOfFramesY The number of frames to split the sprite into vertically.
 		 */
-		void setNumberOfFrames(int numberOfFramesX, int numberOfFramesY);
+		void setNumberOfFrames(unsigned numberOfFramesX, unsigned numberOfFramesY);
 
 		/**
 		 * Draws the specified frame index onto the window. The first frame starts with index 0 and is the
@@ -50,7 +53,7 @@ namespace t3d
 		 * \param window The window to draw to.
 		 * \param frameIndex The index of the frame of the entire image to draw.
 		 */
-		void render(const OpenGLWindow &window, int frameIndex);
+		void drawFrame(const OpenGLWindow &window, unsigned frameIndex);
 	};
 };
 

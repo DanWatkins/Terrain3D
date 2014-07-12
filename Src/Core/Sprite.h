@@ -76,7 +76,7 @@ namespace t3d
 		 *
 		 * \param image Image data used for the texture.
 		 */
-		void initWithImage(const Image &image);
+		void init(const Image &image);
 
 		/**
 		 * Sets the draw boundaries of the source image to be drawn. This boundary is uploaded to a uniform on

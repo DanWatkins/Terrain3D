@@ -58,7 +58,7 @@ namespace t3d
 	}
 
 
-	void Sprite::initWithImage(const Image &image)
+	void Sprite::init(const Image &image)
 	{
 		mImage = &image;
 
