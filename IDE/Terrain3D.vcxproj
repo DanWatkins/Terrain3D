@@ -14,6 +14,7 @@
     <ClInclude Include="..\Ext\lodepng.h" />
     <ClInclude Include="..\Src\Constants.h" />
     <ClInclude Include="..\Src\Core\Core.h" />
+    <ClInclude Include="..\Src\Core\Font.h" />
     <ClInclude Include="..\Src\Core\GLFWInput.h" />
     <ClInclude Include="..\src\Core\Helper.h" />
     <ClInclude Include="..\Src\Core\Image.h" />
@@ -42,6 +43,7 @@
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
+    <ClCompile Include="..\Src\Core\Font.cpp" />
     <ClCompile Include="..\Src\Core\GLFWInput.cpp" />
     <ClCompile Include="..\src\Core\Helper.cpp" />
     <ClCompile Include="..\Src\Core\Image.cpp" />

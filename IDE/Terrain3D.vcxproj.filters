@@ -60,6 +60,9 @@
     <ClInclude Include="..\Src\Core\SpriteSheet.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\Core\Font.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\GLFWInput.cpp">
@@ -106,6 +109,7 @@
     <ClCompile Include="..\Src\Core\SpriteSheet.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Core\Font.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shaders\camera-frag.glsl">
