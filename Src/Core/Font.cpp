@@ -32,10 +32,13 @@ namespace t3d
 		//load the image
 		mImage.loadFromFile_PNG((containingDirectoryPath + "/" + fontname + ".png"));
 		mSpriteSheet.init(mImage, 16, 16);
+
+		return true;
 	}
 
 
 	void Font::print(const OpenGLWindow &window, const String &text, const Vec2f &pos) const
 	{
+		mSpriteSheet.draw(window);
 	}
 };

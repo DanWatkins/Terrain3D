@@ -109,7 +109,9 @@
     <ClCompile Include="..\Src\Core\SpriteSheet.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Core\Font.cpp" />
+    <ClCompile Include="..\Src\Core\Font.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shaders\camera-frag.glsl">

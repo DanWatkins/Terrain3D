@@ -14,7 +14,7 @@
 namespace t3d
 {
 	/**
-	 *
+	 * \brief Renders text
 	 */
 	class Font
 	{
@@ -26,7 +26,6 @@ namespace t3d
 
 	public:
 		Font();
-		~Font();
 
 		bool load(const String &fontname, const String &containingDirectoryPath);
 		void print(const OpenGLWindow &window, const String &text, const Vec2f &pos) const;

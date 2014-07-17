@@ -10,6 +10,7 @@
 #include "Core\Sprite.h"
 #include "Core\Image.h"
 #include "Core/SpriteSheet.h"
+#include "Core/Font.h"
 
 namespace t3d
 {	
@@ -17,6 +18,7 @@ namespace t3d
 	SpriteSheet sheet;
 	Image image;
 	Image sheetImage;
+	Font font;
 
 	Terrain3D::Terrain3D()
 	{
@@ -36,6 +38,8 @@ namespace t3d
 
 		sheetImage.loadFromFile_PNG("./spriteSheet.png");
 		sheet.init(sheetImage, 2, 2);
+
+		font.load("consolas", "./Fonts/");
 	}
 
 	
@@ -57,6 +61,8 @@ namespace t3d
 
 		//texture.draw(*this);
 		sheet.drawFrame(*this, 2);
+
+		font.print(*this, "Message in a bottle", Vec2f(25.f,25.f));
 	}
 
 
