@@ -54,6 +54,11 @@ namespace t3d
 		 * \param frameIndex The index of the frame of the entire image to draw.
 		 */
 		void drawFrame(const OpenGLWindow &window, unsigned frameIndex);
+
+		/**
+		 * \returns The frame size
+		 */
+		Vec2f getFrameSize() const { return mFrameSize; }
 	};
 };
 

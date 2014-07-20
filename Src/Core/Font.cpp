@@ -25,6 +25,11 @@ namespace t3d
 		if (!file.is_open())
 			return false;
 
+		file.read((char*)&buffer, 512);
+
+		if (file.bad())
+			return false;
+
 		//convert from raw data to width data
 		for (int n=0; n<256; n++)
 			mWidths[n] = (int)buffer[n*2];
@@ -37,8 +42,22 @@ namespace t3d
 	}
 
 
-	void Font::print(const OpenGLWindow &window, const String &text, const Vec2f &pos) const
+	void Font::print(const OpenGLWindow &window, const String &text, const Vec2f &pos)
 	{
-		mSpriteSheet.draw(window);
+		float x = pos.x;
+		float y = pos.y;
+
+		if (text.size() > 0)
+		{
+			char firstChar = text[0];
+			x -= (mSpriteSheet.getFrameSize().x - mWidths[firstChar]) / 2.0f;
+
+			for (unsigned n=0; n<text.size(); ++n)
+			{
+				unsigned frame = text[n];
+				mSpriteSheet.drawFrame(window, frame);
+				x += static_cast<float>(mWidths[frame]);
+			}
+		}
 	}
 };

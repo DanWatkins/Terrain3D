@@ -28,7 +28,9 @@ namespace t3d
 		Font();
 
 		bool load(const String &fontname, const String &containingDirectoryPath);
-		void print(const OpenGLWindow &window, const String &text, const Vec2f &pos) const;
+
+		//TODO get this const someday
+		void print(const OpenGLWindow &window, const String &text, const Vec2f &pos);
 	};
 };
 

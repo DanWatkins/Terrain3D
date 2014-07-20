@@ -36,8 +36,8 @@ namespace t3d
 		//image.loadFromFile_PNG("./smileFace.png");
 		//texture.init(image);
 
-		sheetImage.loadFromFile_PNG("./spriteSheet.png");
-		sheet.init(sheetImage, 2, 2);
+		//sheetImage.loadFromFile_PNG("./spriteSheet.png");
+		//sheet.init(sheetImage, 4, 4);
 
 		font.load("consolas", "./Fonts/");
 	}
@@ -60,9 +60,9 @@ namespace t3d
 		//mCamera.render();
 
 		//texture.draw(*this);
-		sheet.drawFrame(*this, 2);
+		//sheet.drawFrame(*this, 2);
 
-		font.print(*this, "Message in a bottle", Vec2f(25.f,25.f));
+		font.print(*this, "A", Vec2f(25.f,25.f));
 	}
 
 
