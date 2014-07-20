@@ -39,16 +39,11 @@ namespace t3d
 	{
 		Rect2f subRect;
 		subRect.x = (frameIndex % mNumberOfFramesX) * mFrameSize.x;
-		subRect.y = mFrameSize.y - ((frameIndex / mNumberOfFramesY) * mFrameSize.y);
+		subRect.y = getImage()->getHeight() - (frameIndex/mNumberOfFramesY + 1) * mFrameSize.y;
 		subRect.width = mFrameSize.x;
 		subRect.height = mFrameSize.y;
 
-		//snap the sub-rect to the top left (TODO perform this in the shader instead)
-		Vec3f offset(-subRect.x, mFrameSize.y-subRect.y, 0.0f);
-		addScreenPos(offset);
-
 		//draw the sub-rect and then pop the temporary offset
 		drawSubRect(window, subRect);
-		addScreenPos(-offset);
 	}
 };

@@ -14,11 +14,9 @@
 
 namespace t3d
 {	
-	Sprite texture;
-	SpriteSheet sheet;
 	Image image;
-	Image sheetImage;
-	Font font;
+	SpriteSheet spriteSheet;
+
 
 	Terrain3D::Terrain3D()
 	{
@@ -33,13 +31,11 @@ namespace t3d
 		mWorld.init();
 		mCamera.init(&mWorld);
 
-		//image.loadFromFile_PNG("./smileFace.png");
-		//texture.init(image);
+		image.loadFromFile_PNG("spriteSheet2.png");
+		spriteSheet.init(image, 4, 4);
 
-		//sheetImage.loadFromFile_PNG("./spriteSheet.png");
-		//sheet.init(sheetImage, 4, 4);
-
-		font.load("consolas", "./Fonts/");
+		//image.loadFromFile_PNG("spriteSheet.png");
+		//spriteSheet.init(image, 2, 2);
 	}
 
 	
@@ -59,10 +55,7 @@ namespace t3d
 
 		//mCamera.render();
 
-		//texture.draw(*this);
-		//sheet.drawFrame(*this, 2);
-
-		font.print(*this, "A", Vec2f(25.f,25.f));
+		spriteSheet.drawFrame(*this, i);
 	}
 
 
