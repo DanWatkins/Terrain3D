@@ -18,6 +18,6 @@ void main()
 						pos.z,
 						pos.w);
 
-	gl_Position = transformation * trimmed;
+	gl_Position = (transformation * trimmed) - vec4(1, 1, 0, 0);
 	outTexturePos = trimmed.xy;
 }

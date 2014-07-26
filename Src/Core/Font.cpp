@@ -55,7 +55,7 @@ namespace t3d
 			for (unsigned n=0; n<text.size(); ++n)
 			{
 				unsigned frame = text[n];
-				mSpriteSheet.drawFrame(window, frame);
+				mSpriteSheet.drawFrame(window, 0);
 				x += static_cast<float>(mWidths[frame]);
 			}
 		}

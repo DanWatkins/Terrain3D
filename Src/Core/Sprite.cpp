@@ -103,19 +103,14 @@ namespace t3d
 		//TODO This method does way too much on the CPU. Consider moving it to the GPU if it would increase performance
 		//Also consider eliminating logic here
 
-		//calculate an offset so the sprite is drawn in the upper left corner of the window by default
-		Vec3f offset(	-(window.getWidth() / 2.0f),
-						(window.getHeight() / 2.0f) - (mImage->getHeight()), 0.0f);
 
-		offset += mScreenPos;
-		offset /= Vec3f(window.getWidth(), window.getHeight(), 1.0f);
 
 		//compute and upload the transformation
 		{
 			Mat4 transformation(1.0f);
 
 			//translate
-			transformation *= glm::translate(offset);
+			//transformation *= glm::translate(offset);
 
 			//scale
 			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f * mScale.x;
@@ -129,7 +124,7 @@ namespace t3d
 			rotation = glm::rotate(rotation, mRotation.y, Vec3f(0, 1, 0));
 			rotation = glm::rotate(rotation, mRotation.z, Vec3f(0, 0, 1));
 			transformation *= rotation;
-
+			
 			//TODO prequery the locations
 			glUniformMatrix4fv(mUniformLocations.transformation, 1, GL_FALSE, glm::value_ptr(transformation));
 		}

@@ -39,7 +39,7 @@ namespace t3d
 	{
 		Rect2f subRect;
 		subRect.x = (frameIndex % mNumberOfFramesX) * mFrameSize.x;
-		subRect.y = getImage()->getHeight() - (frameIndex/mNumberOfFramesY + 1) * mFrameSize.y;
+		subRect.y = (frameIndex/mNumberOfFramesY + 1) * mFrameSize.y;
 		subRect.width = mFrameSize.x;
 		subRect.height = mFrameSize.y;
 
