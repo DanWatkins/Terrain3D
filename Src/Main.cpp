@@ -10,7 +10,18 @@
 
 using namespace t3d;
 
-int main()
+int main(int argc, char *argv[])
 {
-	return (new Terrain3D)->init(1600, 900, gWindowTitle);
+	QGuiApplication app(argc, argv);
+	QSurfaceFormat format;
+	format.setSamples(16);
+
+	Terrain3D window;
+	window.setFormat(format);
+	window.resize(800, 600);
+	window.show();
+
+	window.setAnimating(true);
+
+	return app.exec();
 }

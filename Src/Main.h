@@ -31,16 +31,11 @@
 #include <cstdio>
 #include <cstdlib>
 
+#include <QtGui\QtGui>
+#include <QtWidgets\QMainWindow>
+#include <QtGui\QOpenGLFunctions_4_3_Core>
+
 #define WIN32_LEAN_AND_MEAN 1
-
-//Lua Includes
-extern "C"
-{
-	#include <lua/lua.h>
-	#include <lua/lualib.h>
-	#include <lua/lauxlib.h>
-}
-
 
 //GLM Includes
 #pragma warning(push)
@@ -56,14 +51,14 @@ extern "C"
 
 
 //Linkage
-#ifdef WIN32
+#if _MSC_VER >= 1310
 	#pragma once
 
 	#include <Windows.h>
 
 	#ifdef _DEBUG
-		#pragma comment (lib, "glfw3-d.lib")
-		#pragma comment (lib, "lua-d.lib")
+		#pragma comment (lib, "Qt5Guid.lib")
+		#pragma comment (lib, "Qt5Cored.lib")
 		#pragma comment (lib, "sfml-system-d.lib")
 		//#pragma comment (lib, "sfml-main-d.lib")
 	#else
@@ -72,17 +67,10 @@ extern "C"
 		#pragma comment (lib, "sfml-system-r.lib")
 	#endif
 
-	#pragma comment (lib, "OpenGL32.lib")
+	//#pragma comment (lib, "OpenGL32.lib")
 #else
 	#error "Non Windows toolchain detected"
 #endif
-
-
-//GLFW Includes
-#define GLFW_NO_GLU 1
-#define GLFW_INCLUDE_GLCOREARB 1
-#include "GL/glfw3.h"
-#include "GL/gl3w.h"
 
 
 //typedef common types

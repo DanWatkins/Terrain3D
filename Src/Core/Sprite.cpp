@@ -31,10 +31,10 @@ namespace t3d
 	void Sprite::loadShaders()
 	{
 		GLuint shaders[2];
-		shaders[0] = Shader::loadShader(gDefaultPathShaders + "sprite-vert.glsl", GL_VERTEX_SHADER);
-		shaders[1] = Shader::loadShader(gDefaultPathShaders + "sprite-frag.glsl", GL_FRAGMENT_SHADER);
+		shaders[0] = Shader().loadShader(gDefaultPathShaders + "sprite-vert.glsl", GL_VERTEX_SHADER);
+		shaders[1] = Shader().loadShader(gDefaultPathShaders + "sprite-frag.glsl", GL_FRAGMENT_SHADER);
 
-		mProgram = Shader::linkFromShaders(shaders, 2);
+		mProgram = Shader().linkFromShaders(shaders, 2);
 
 		glUseProgram(mProgram);
 
@@ -48,7 +48,7 @@ namespace t3d
 	}
 
 
-	void Sprite::setSubRect(const Rect2f &subRect) const
+	void Sprite::setSubRect(const Rect2f &subRect)
 	{
 		//TODO not sure about marking something like this as const. Sure, it's not changing instance data, but it
 		//is changing data in the shader
@@ -98,7 +98,7 @@ namespace t3d
 	}
 
 
-	void Sprite::drawWithoutBinding(const OpenGLWindow &window) const
+	void Sprite::drawWithoutBinding(const OpenGLWindow &window)
 	{
 		//TODO This method does way too much on the CPU. Consider moving it to the GPU if it would increase performance
 		//Also consider eliminating logic here
@@ -134,21 +134,21 @@ namespace t3d
 	}
 
 
-	void Sprite::bindForDraw() const
+	void Sprite::bindForDraw()
 	{
 		glUseProgram(mProgram);
 		glBindVertexArray(mVao);
 	}
 
 
-	void Sprite::unbindAfterDraw() const
+	void Sprite::unbindAfterDraw()
 	{
 		glBindVertexArray(0);
 		glUseProgram(0);
 	}
 
 
-	void Sprite::draw(const OpenGLWindow &window) const
+	void Sprite::draw(const OpenGLWindow &window)
 	{
 		bindForDraw();
 		drawWithoutBinding(window);
@@ -156,7 +156,7 @@ namespace t3d
 	}
 
 
-	void Sprite::drawSubRect(const OpenGLWindow &window, const Rect2f &subRect) const
+	void Sprite::drawSubRect(const OpenGLWindow &window, const Rect2f &subRect)
 	{
 		bindForDraw();
 		setSubRect(subRect);

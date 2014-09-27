@@ -12,8 +12,9 @@
 
 namespace t3d
 {
-	namespace Shader
+	class Shader : protected QOpenGLFunctions_4_3_Core
 	{
+	public:
 		/**
 		 * Creates and compiles an OpenGL shader object.
 		 *

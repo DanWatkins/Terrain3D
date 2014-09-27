@@ -17,7 +17,7 @@ namespace t3d
 	/**
 	 * \brief Manages the drawing and transformation of two textured quads (rectangle).
 	 */
-	class Sprite
+	class Sprite : protected QOpenGLFunctions_4_3_Core
 	{
 	private:
 		GLuint mProgram;
@@ -50,17 +50,17 @@ namespace t3d
 		 *
 		 * \param window Where the sprite should be drawn.
 		 */
-		void drawWithoutBinding(const OpenGLWindow &window) const;
+		void drawWithoutBinding(const OpenGLWindow &window);
 
 		/**
 		 * Binds the appropriate states for drawing.
 		 */
-		void bindForDraw() const;
+		void bindForDraw();
 
 		/**
 		 * Unbinds the states used for drawing.
 		 */
-		void unbindAfterDraw() const;
+		void unbindAfterDraw();
 
 	public:
 		Sprite();
@@ -85,14 +85,14 @@ namespace t3d
 		 *
 		 * \param subRect The draw boundaries of the source image.
 		 */
-		void setSubRect(const Rect2f &subRect) const;
+		void setSubRect(const Rect2f &subRect);
 
 		/**
 		 * Draws the sprite on the specified window. All necessary bindings and unbindings are performed internally.
 		 *
 		 * \param window OpenGLWindow to draw the sprite on.
 		 */
-		void draw(const OpenGLWindow &window) const;
+		void draw(const OpenGLWindow &window);
 
 		/**
 		 * Draws the sprite on the specified window using the specified sub rectangle. No bindings are performed.
@@ -100,7 +100,7 @@ namespace t3d
 		 * \param window OpenGLWindow to draw the sprite on.
 		 * \param subRect The draw boundaries of the source image.
 		 */
-		void drawSubRect(const OpenGLWindow &window, const Rect2f &subRect) const;
+		void drawSubRect(const OpenGLWindow &window, const Rect2f &subRect);
 
 		/**
 		 * Returns a constant reference to the internal image used for drawing.

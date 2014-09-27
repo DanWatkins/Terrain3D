@@ -18,9 +18,6 @@
     <ClInclude Include="..\Src\Core\Core.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Core\GLFWInput.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\Core\OpenGLWindow.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -65,9 +62,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Src\Core\GLFWInput.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -76,9 +70,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Core\Helper.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Ext\GL\gl3w.c">
-      <Filter>Ext</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\Main.cpp" />
     <ClCompile Include="..\src\Terrian3D.cpp" />

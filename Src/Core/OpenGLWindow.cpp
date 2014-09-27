@@ -7,112 +7,112 @@
 
 #include "OpenGLWindow.h"
 
-namespace t3d
+OpenGLWindow::OpenGLWindow(QWindow *parent)
+	: QWindow(parent),
+	  mUpdatePending(false),
+	  mAnimating(false),
+	  mContext(0),
+	  mDevice(0)
 {
-	OpenGLWindow::OpenGLWindow()
+	setSurfaceType(QWindow::OpenGLSurface);
+}
+
+
+void OpenGLWindow::render(QPainter *painter)
+{
+	Q_UNUSED(painter);
+}
+
+
+void OpenGLWindow::initialize()
+{
+}
+
+
+void OpenGLWindow::render()
+{
+	if (!mDevice)
+		mDevice = new QOpenGLPaintDevice;
+
+	mDevice->setSize(size());
+
+	QPainter painter(mDevice);
+	render(&painter);
+}
+
+
+void OpenGLWindow::renderLater()
+{
+	if (!mUpdatePending)
 	{
-		mWidth = gDefaultWindowWidth;
-		mHeight = gDefaultWindowHeight;
-		mTitle = gWindowTitle;
-		mWindow = NULL;
-		mAspectScale = Vec2f(1.0f, 1.0f);
-		mZoom = Vec2f(1.0f, 1.0f);
-		mShouldTerminate = false;
+		mUpdatePending = true;
+		QCoreApplication::postEvent(this, new QEvent(QEvent::UpdateRequest));
 	}
+}
 
-	
-	bool OpenGLWindow::init(int width, int height, const String &title)
+
+bool OpenGLWindow::event(QEvent *event)
+{
+	switch (event->type())
 	{
-		mWidth = width;
-		mHeight = height;
-		mTitle = title;
-
-		if (!glfwInit())
-			return false;
-
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-
-		mWindow = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-		if (!mWindow)
+		case QEvent::UpdateRequest:
 		{
-			terminate();
-			glfwTerminate();
-			return false;
+			mUpdatePending = false;
+			renderNow();
+			return true;
 		}
-
-		glfwMakeContextCurrent(mWindow);
-		gl3wInit();
-		printContextInformation();
-
-		//if (gl3wIsSupported(4, 4) == false)
-		//	printf("Bad OpenGL version.\n");
-		GLFWInput::instance();
-		glfwSetKeyCallback(mWindow, reinterpret_cast<GLFWkeyfun>(GLFWInput::keyboardCallback));
-		glfwSetWindowSizeCallback(mWindow, GLFWInput::windowResizeCallback);
-		GLFWInput::instance().addWindow(this);
-		_onResize(mWidth, mHeight);
-
-		onStartup();
-
-		sf::Clock clock;
-
-		while (!glfwWindowShouldClose(mWindow)  &&  !mShouldTerminate)
+		default:
 		{
-			onUpdate((double)clock.getElapsedTime().asSeconds());
-
-			glfwSwapBuffers(mWindow);
-			glfwPollEvents();
+			return QWindow::event(event);
 		}
+	}
+}
 
-		onTerminate();
-		glfwTerminate();
 
-		return true;
+void OpenGLWindow::exposeEvent(QExposeEvent *event)
+{
+	Q_UNUSED(event);
+
+	if (isExposed())
+		renderNow();
+}
+
+
+void OpenGLWindow::renderNow()
+{
+	if (!isExposed())
+		return;
+
+	bool needsInitialize = false;
+
+	if (!mContext) {
+		mContext = new QOpenGLContext(this);
+		mContext->setFormat(requestedFormat());
+		mContext->create();
+
+		needsInitialize = true;
 	}
 
+	mContext->makeCurrent(this);
 
-	void OpenGLWindow::printContextInformation() const
-	{
-		std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
-		std::cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-		std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
-		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
+	if (needsInitialize) {
+		initializeOpenGLFunctions();
+		initialize();
 	}
 
+	render();
 
-	void OpenGLWindow::setZoom(Vec2f zoom)
-	{
-		mZoom = zoom;
+	mContext->swapBuffers(this);
 
-		if (mZoom.x < 0.0)
-			mZoom.x = 0.0;
-		if (mZoom.y < 0.0)
-			mZoom.y = 0.0;
-
-		_onResize(mWidth, mHeight);
-	}
+	if (mAnimating)
+		renderLater();
+}
 
 
-	void OpenGLWindow::addZoom(Vec2f zoom)
-	{
-		mZoom += zoom;
+void OpenGLWindow::setAnimating(bool animating)
+{
+	mAnimating = animating;
 
-		if (mZoom.x < 0.0)
-			mZoom.x = 0.0;
-		if (mZoom.y < 0.0)
-			mZoom.y = 0.0;
-
-		_onResize(mWidth, mHeight);
-	}
-
-	
-	void OpenGLWindow::_onResize(int width, int height)
-	{
-		mAspectScale = Vec2f((500.0f/width)*mZoom.x, (500.0f/height)*mZoom.y);
-		mWidth = width;
-		mHeight = height;
-
-		onResize(width, height);
-	}
-};
+	if (animating)
+		renderLater();
+}

@@ -25,8 +25,8 @@ namespace t3d
 
 	void Terrain3D::onStartup()
 	{
-		glfwSetInputMode(getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		glfwSetCursorPos(getWindow(), 0.0, 0.0);
+		//glfwSetInputMode(getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		//glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		mWorld.init();
 		mCamera.init(&mWorld);
@@ -48,9 +48,9 @@ namespace t3d
 		//check for mouse changes
 		const double mouseSensitivity = 0.05f;
 		double mouseX, mouseY;
-		glfwGetCursorPos(getWindow(), &mouseX, &mouseY);
+		//glfwGetCursorPos(getWindow(), &mouseX, &mouseY);
 		mCamera.incOrientation((float)(mouseSensitivity*mouseX), (float)(mouseSensitivity*mouseY));
-		glfwSetCursorPos(getWindow(), 0.0, 0.0);
+		//glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		//mCamera.render();
 
@@ -64,7 +64,7 @@ namespace t3d
 	{
 		const float speed = 0.19f;
 
-		switch (key)
+		/*switch (key)
 		{
 			case GLFW_KEY_ESCAPE:
 				terminate(); break;
@@ -85,7 +85,7 @@ namespace t3d
 
 				break;
 			}
-		}
+		}*/
 	}
 
 	

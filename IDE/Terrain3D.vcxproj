@@ -15,7 +15,6 @@
     <ClInclude Include="..\Src\Constants.h" />
     <ClInclude Include="..\Src\Core\Core.h" />
     <ClInclude Include="..\Src\Core\Font.h" />
-    <ClInclude Include="..\Src\Core\GLFWInput.h" />
     <ClInclude Include="..\src\Core\Helper.h" />
     <ClInclude Include="..\Src\Core\Image.h" />
     <ClInclude Include="..\Src\Core\MatrixStack.h" />
@@ -31,12 +30,6 @@
     <ClInclude Include="..\Src\World\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Ext\GL\gl3w.c">
-      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWarningAsError>
-      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWarningAsError>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
-    </ClCompile>
     <ClCompile Include="..\Ext\lodepng.cpp">
       <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWarningAsError>
       <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWarningAsError>
@@ -44,7 +37,6 @@
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <ClCompile Include="..\Src\Core\Font.cpp" />
-    <ClCompile Include="..\Src\Core\GLFWInput.cpp" />
     <ClCompile Include="..\src\Core\Helper.cpp" />
     <ClCompile Include="..\Src\Core\Image.cpp" />
     <ClCompile Include="..\Src\Core\MatrixStack.cpp" />
@@ -96,15 +88,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Ext;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>..\Ext;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <IncludePath>$(QTPATH)/include;;..\Ext;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(QTPATH)/lib;..\Ext;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <OutDir>..\Bin\</OutDir>
     <IntDir>.\Obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Ext;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>..\Ext;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <IncludePath>$(QTPATH)/include;;..\Ext;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(QTPATH)/lib;..\Ext;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <OutDir>..\Bin\</OutDir>
     <IntDir>.\Obj\</IntDir>
   </PropertyGroup>

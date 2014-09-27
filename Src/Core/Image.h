@@ -22,7 +22,7 @@ namespace t3d
 	private:
 		typedef std::vector<unsigned char> ImageData;
 		ImageData mImageData;
-		GLuint mWidth, mHeight;
+		unsigned mWidth, mHeight;
 
 		/**
 		 * Flips the image about the x-axis
@@ -41,12 +41,12 @@ namespace t3d
 		/**
 		 * \returns Width of the image in pixels
 		 */
-		int getWidth() const { return mWidth; }
+		unsigned getWidth() const { return mWidth; }
 
 		/**
 		 * \returns Height of the image in pixels
 		 */
-		int getHeight() const { return mHeight; }
+		unsigned getHeight() const { return mHeight; }
 
 		/**
 		 * \returns Pointer to the internal image data.

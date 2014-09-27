@@ -19,7 +19,7 @@ namespace t3d
 	 * Represents an all-in-one World instance visualizer. It uses the style of a first person shooter camera. It can
 	 * move forward/backward and left/right. It can also rotate up/down and left/right.
 	 */
-	class Camera
+	class Camera : protected QOpenGLFunctions_4_3_Core
 	{
 	private:
 		struct RenderData

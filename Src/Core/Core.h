@@ -11,7 +11,6 @@
 #include "../Main.h"
 
 #include "OpenGLWindow.h"
-#include "GLFWInput.h"
 #include "Shader.h"
 
 #endif

@@ -7,6 +7,7 @@
 
 #include "Camera.h"
 #include "../Core/MatrixStack.h"
+#include "../Core/Shader.h"
 
 namespace t3d
 {
@@ -26,10 +27,10 @@ namespace t3d
 	void Camera::loadShaders()
 	{
 		GLuint shaders[2];
-		shaders[0] = Shader::loadShader(String(gDefaultPathShaders) + "camera-vert.glsl", GL_VERTEX_SHADER);
-		shaders[1] = Shader::loadShader(String(gDefaultPathShaders) + "camera-frag.glsl", GL_FRAGMENT_SHADER);
+		shaders[0] = Shader().loadShader(String(gDefaultPathShaders) + "camera-vert.glsl", GL_VERTEX_SHADER);
+		shaders[1] = Shader().loadShader(String(gDefaultPathShaders) + "camera-frag.glsl", GL_FRAGMENT_SHADER);
 
-		mRenderData.program = Shader::linkFromShaders(shaders, 2);
+		mRenderData.program = Shader().linkFromShaders(shaders, 2);
 	}
 
 
