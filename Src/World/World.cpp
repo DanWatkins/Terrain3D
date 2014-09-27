@@ -14,12 +14,10 @@ namespace t3d
 {
 	void World::init()
 	{
-		sf::Clock clock;
-
 		TerrainGenerator generator;
 		mHeightMap = generator.generate(256, 64, (GLuint)time(NULL));
 
-		std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
+		//std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 		return;
 	}
 };

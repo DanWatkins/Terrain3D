@@ -24,8 +24,6 @@ namespace t3d
 	private:
 		struct RenderData
 		{
-			GLuint program;
-			GLuint vao_terrain;
 			GLuint indexCount;
 
 			GLuint uloc_cameraMatrix;
@@ -33,6 +31,8 @@ namespace t3d
 		} mRenderData;
 
 		World *mWorld;
+		QOpenGLShaderProgram mProgram;
+		QOpenGLVertexArrayObject mVao;
 
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;
@@ -49,7 +49,7 @@ namespace t3d
 
 
 	public:
-		Camera();
+		Camera(OpenGLWindow *window);
 
 		void init(World *world);
 		void render();

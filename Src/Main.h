@@ -44,12 +44,6 @@
 	#include <glm/ext.hpp>
 #pragma warning(pop)
 
-
-//SFML Includes
-#define SFML_STATIC
-#include <SFML/System.hpp>
-
-
 //Linkage
 #if _MSC_VER >= 1310
 	#pragma once
@@ -59,12 +53,9 @@
 	#ifdef _DEBUG
 		#pragma comment (lib, "Qt5Guid.lib")
 		#pragma comment (lib, "Qt5Cored.lib")
-		#pragma comment (lib, "sfml-system-d.lib")
-		//#pragma comment (lib, "sfml-main-d.lib")
 	#else
-		#pragma comment (lib, "glfw3-r.lib")
-		#pragma comment (lib, "lua-r.lib")
-		#pragma comment (lib, "sfml-system-r.lib")
+		#pragma comment (lib, "Qt5Gui.lib")
+		#pragma comment (lib, "Qt5Core.lib")
 	#endif
 
 	//#pragma comment (lib, "OpenGL32.lib")

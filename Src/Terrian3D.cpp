@@ -13,54 +13,47 @@
 #include "Core/Font.h"
 
 namespace t3d
-{	
-	Font font;
-	Image image;
-	Sprite sprite;
-
-	Terrain3D::Terrain3D()
+{
+	Terrain3D::Terrain3D() :
+		mCamera(this)
 	{
 	}
 
 
-	void Terrain3D::onStartup()
+	void Terrain3D::initialize()
 	{
 		//glfwSetInputMode(getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		//glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
 		mWorld.init();
 		mCamera.init(&mWorld);
-
-		//font.load("consolas", "./Fonts/");
-
-		image.loadFromFile_PNG("smileFace.png");
-		sprite.init(image);
 	}
 
 	
-	void Terrain3D::onUpdate(double timeSinceStartup)
+	void Terrain3D::render()
 	{
+		OpenGLWindow::render();
+
 		static const float clearColor[] = { 1.0f, 1.0f, 0.9f, 1.0f };
 		static const float one[] { 1.0f };
 		glClearBufferfv(GL_COLOR, 0, clearColor);
 		glClearBufferfv(GL_DEPTH, 0, one);
 
+		const qreal retinaScale = devicePixelRatio();
+		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
+
 		//check for mouse changes
 		const double mouseSensitivity = 0.05f;
 		double mouseX, mouseY;
 		//glfwGetCursorPos(getWindow(), &mouseX, &mouseY);
-		mCamera.incOrientation((float)(mouseSensitivity*mouseX), (float)(mouseSensitivity*mouseY));
+		//mCamera.incOrientation((float)(mouseSensitivity*mouseX), (float)(mouseSensitivity*mouseY));
 		//glfwSetCursorPos(getWindow(), 0.0, 0.0);
 
-		//mCamera.render();
-
-		sprite.draw(*this);
-
-		//font.print(*this, "Hey", Vec2f(0, 0));
+		mCamera.render();
 	}
 
 
-	void Terrain3D::onKey(int key, int action)
+	void onKey(int key, int action)
 	{
 		const float speed = 0.19f;
 
@@ -89,13 +82,13 @@ namespace t3d
 	}
 
 	
-	void Terrain3D::onResize(int width, int height)
+	void onResize(int width, int height)
 	{
-		glViewport(0, 0, (GLsizei)width, (GLsizei)height);
+		//glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 	}
 
 
-	void Terrain3D::onTerminate()
+	void onTerminate()
 	{
 	}
 };

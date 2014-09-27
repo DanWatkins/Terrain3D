@@ -37,14 +37,8 @@ namespace t3d
 		Camera mCamera;
 
 	private:
-		void onStartup();
-		void onUpdate(double currentTime);
-		void onKey(int key, int action);
-		void onResize(int width, int height);
-		void onTerminate();
-
-		//void loadShaders();
-		void updateKeys();
+		void initialize();
+		void render();
 
 	public:
 		Terrain3D();

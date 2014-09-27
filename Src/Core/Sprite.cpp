@@ -113,8 +113,8 @@ namespace t3d
 			//transformation *= glm::translate(offset);
 
 			//scale
-			float sx = (float)mImage->getWidth() / window.getWidth() * 2.0f * mScale.x;
-			float sy = (float)mImage->getHeight() / window.getHeight() * 2.0f * mScale.y;
+			float sx = (float)mImage->getWidth() / 500 * 2.0f * mScale.x;
+			float sy = (float)mImage->getHeight() / 500 * 2.0f * mScale.y;
 			Vec3f actualScale(sx, sy, mScale.z);
 			transformation *= glm::scale(transformation, actualScale);
 
