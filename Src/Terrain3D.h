@@ -39,6 +39,10 @@ namespace t3d
 	private:
 		void initialize();
 		void render();
+		void keyPressEvent(QKeyEvent *ev);
+
+		QVector2D cursorDelta();
+		void resetCursor();
 
 	public:
 		Terrain3D();

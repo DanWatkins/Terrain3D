@@ -7,8 +7,8 @@
 
 #include "Terrain3D.h"
 #include "./Core/Core.h"
-#include "Core\Sprite.h"
-#include "Core\Image.h"
+#include "Core/Sprite.h"
+#include "Core/Image.h"
 #include "Core/SpriteSheet.h"
 #include "Core/Font.h"
 
@@ -22,11 +22,9 @@ namespace t3d
 
 	void Terrain3D::initialize()
 	{
-		//glfwSetInputMode(getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		//glfwSetCursorPos(getWindow(), 0.0, 0.0);
-
 		mWorld.init();
 		mCamera.init(&mWorld);
+		resetCursor();
 	}
 
 	
@@ -44,51 +42,55 @@ namespace t3d
 
 		//check for mouse changes
 		const double mouseSensitivity = 0.05f;
-		double mouseX, mouseY;
-		//glfwGetCursorPos(getWindow(), &mouseX, &mouseY);
-		//mCamera.incOrientation((float)(mouseSensitivity*mouseX), (float)(mouseSensitivity*mouseY));
-		//glfwSetCursorPos(getWindow(), 0.0, 0.0);
+		
+		QVector2D delta = cursorDelta();
+		mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+		resetCursor();
 
 		mCamera.render();
 	}
 
 
-	void onKey(int key, int action)
+	void Terrain3D::keyPressEvent(QKeyEvent *ev)
 	{
 		const float speed = 0.19f;
 
-		/*switch (key)
+		switch (ev->key())
 		{
-			case GLFW_KEY_ESCAPE:
-				terminate(); break;
+			case Qt::Key_Escape:
+				close(); break;
 
-			case GLFW_KEY_W:
+			case Qt::Key_W:
 				mCamera.incPosition(speed * mCamera.getForward()); break;
-			case GLFW_KEY_S:
+			case Qt::Key_S:
 				mCamera.incPosition(speed * -mCamera.getForward()); break;
-			case GLFW_KEY_A:
+			case Qt::Key_A:
 				mCamera.incPosition(speed * -mCamera.getRight()); break;
-			case GLFW_KEY_D:
+			case Qt::Key_D:
 				mCamera.incPosition(speed * mCamera.getRight()); break;
 
-			case GLFW_KEY_R:
+			case Qt::Key_R:
 			{
 				mWorld.init();
 				mCamera.init(&mWorld);
 
 				break;
 			}
-		}*/
-	}
-
-	
-	void onResize(int width, int height)
-	{
-		//glViewport(0, 0, (GLsizei)width, (GLsizei)height);
+		}
 	}
 
 
-	void onTerminate()
+	QVector2D Terrain3D::cursorDelta()
 	{
+		double deltaX = QCursor::pos().x() - width()/2;
+		double deltaY = QCursor::pos().y() - height()/2;
+
+		return QVector2D(deltaX, deltaY);
+	}
+
+
+	void Terrain3D::resetCursor()
+	{
+		QCursor::setPos(width()/2, height()/2);
 	}
 };
