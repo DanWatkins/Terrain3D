@@ -17,7 +17,7 @@ namespace t3d
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
 		mNearPlane(0.01f),
-		mFarPlane(600.0f),
+		mFarPlane(50),
 		mAspectRatio(16/9),
 		mProgram(window)
 	{
@@ -79,9 +79,6 @@ namespace t3d
 
 			int colorOffset = (terrainVertexData->size() / 2 * sizeof(float));
 			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)colorOffset);	//color
-
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LEQUAL);
 		}
 		mVao.release();
 

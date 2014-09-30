@@ -32,10 +32,12 @@ namespace t3d
 	{
 		OpenGLWindow::render();
 
-		static const float clearColor[] = { 1.0f, 1.0f, 0.9f, 1.0f };
-		static const float one[] { 1.0f };
-		glClearBufferfv(GL_COLOR, 0, clearColor);
-		glClearBufferfv(GL_DEPTH, 0, one);
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glDepthFunc(GL_LEQUAL);
+		glDepthRange(0.0f, 1.0f);
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 		const qreal retinaScale = devicePixelRatio();
 		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
@@ -49,11 +51,12 @@ namespace t3d
 
 		mCamera.render();
 	}
-
+	 
 
 	void Terrain3D::keyPressEvent(QKeyEvent *ev)
 	{
 		const float speed = 0.19f;
+		const float adj = 0.5f;
 
 		switch (ev->key())
 		{
@@ -68,6 +71,16 @@ namespace t3d
 				mCamera.incPosition(speed * -mCamera.getRight()); break;
 			case Qt::Key_D:
 				mCamera.incPosition(speed * mCamera.getRight()); break;
+
+			case Qt::Key_Up:
+				mCamera.setNearPlane(mCamera.getNearPlane() + adj); break;
+			case Qt::Key_Down:
+				mCamera.setNearPlane(mCamera.getNearPlane() - adj); break;
+			case Qt::Key_Left:
+				mCamera.setFarPlane(mCamera.getFarPlane() - adj); break;
+			case Qt::Key_Right:
+				mCamera.setFarPlane(mCamera.getFarPlane() + adj); break;
+
 
 			case Qt::Key_R:
 			{
