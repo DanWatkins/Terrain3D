@@ -37,7 +37,7 @@ namespace t3d
 		float get(GLuint index) const;
 		float get(GLuint indexX, GLuint indexY) const;
 
-		void buildVertexData();
+		void buildVertexData(float spacing);
 		const std::vector<float> *getVertexData() const { return &mVertexData; }
 
 		void buildIndexData();

@@ -8,32 +8,30 @@
 #include "Camera.h"
 #include "../Core/MatrixStack.h"
 #include "../Core/Shader.h"
+#include "../Core/Image.h"
 
 namespace t3d
 {
 	Camera::Camera(OpenGLWindow *window) :
-		mPosition(0, 0, 0),
+		mPosition(-10, 25, -10),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
 		mNearPlane(0.01f),
-		mFarPlane(50),
+		mFarPlane(1500),
 		mAspectRatio(16/9),
-		mProgram(window)
+		mProgram(window),
+		mSpacing(0.5f),
+		mHeightScale(20.0f)
 	{
-		lookAt(Vec3f(1, 8, 1));
+		lookAt(Vec3f(20, 0, 20));
 	}
 
 
 	void Camera::loadShaders()
 	{
-		GLuint shaders[2];
-		//shaders[0] = Shader().loadShader(String(gDefaultPathShaders) + "camera-vert.glsl", GL_VERTEX_SHADER);
-		//shaders[1] = Shader().loadShader(String(gDefaultPathShaders) + "camera-frag.glsl", GL_FRAGMENT_SHADER);
-
 		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (String(gDefaultPathShaders) + "camera-vert.glsl").c_str());
-	mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (String(gDefaultPathShaders) + "camera-frag.glsl").c_str());
-
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (String(gDefaultPathShaders) + "camera-frag.glsl").c_str());
 
 		if (mProgram.link() == false)
 			printf("Problem linking shaders\n");
@@ -44,48 +42,55 @@ namespace t3d
 
 	void Camera::uploadTerrainData(HeightMap &heightMap)
 	{
-		mVao.create();
-		mVao.bind();
-		{
-			//vertex data
-			GLuint vbo;
-			heightMap.buildVertexData();
-			const std::vector<float> *terrainVertexData = heightMap.getVertexData();
+		//vertex data
+		GLuint vbo;
+		heightMap.buildVertexData(mSpacing);
+		mProgram.setUniformValue(mRenderData.uloc_spacing, mSpacing);
+		mProgram.setUniformValue(mRenderData.uloc_heightScale, mHeightScale);
+		const std::vector<float> *terrainVertexData = heightMap.getVertexData();
 
-			glGenBuffers(1, &vbo);
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
-			GLuint size = sizeof(float)*terrainVertexData->size();
-			glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		GLuint size = sizeof(float)*terrainVertexData->size();
+		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
 
-			//index data
-			GLuint ibo;
-			heightMap.buildIndexData();
-			const std::vector<GLuint> *terrainIndexData = heightMap.getIndexData();
-			mRenderData.indexCount = terrainIndexData->size();
+		//index data
+		GLuint ibo;
+		heightMap.buildIndexData();
+		const std::vector<GLuint> *terrainIndexData = heightMap.getIndexData();
+		mRenderData.indexCount = terrainIndexData->size();
 
-			glGenBuffers(1, &ibo);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-							sizeof(GLuint)*terrainIndexData->size(),
-							&(*terrainIndexData)[0], GL_STATIC_DRAW);
+		glGenBuffers(1, &ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+						sizeof(GLuint)*terrainIndexData->size(),
+						&(*terrainIndexData)[0], GL_STATIC_DRAW);
 
 
-			glEnable(GL_PRIMITIVE_RESTART);
-			glPrimitiveRestartIndex(HeightMap::PRIMITIVE_RESTART_INDEX);
+		glEnable(GL_PRIMITIVE_RESTART);
+		glPrimitiveRestartIndex(HeightMap::PRIMITIVE_RESTART_INDEX);
 
-			glEnableVertexAttribArray(0);
-			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);	//pos
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);	//pos
 
-			int colorOffset = (terrainVertexData->size() / 2 * sizeof(float));
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)colorOffset);	//color
-		}
-		mVao.release();
+		int colorOffset = (terrainVertexData->size() / 2 * sizeof(float));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)colorOffset);	//color
+	}
 
-		/*std::cout << "Processed and uploaded terrain data in "
-					<< clock.getElapsedTime().asSeconds()
-					<< " seconds"
-					<< std::endl;*/
+
+	void Camera::loadTextures()
+	{
+		Image image;
+		image.loadFromFile_PNG("grid.png");
+		
+
+		glGenTextures(1, &mTexture);
+		glBindTexture(GL_TEXTURE_2D, mTexture);
+		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
+
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(),
+						GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
 	}
 	
 
@@ -100,8 +105,16 @@ namespace t3d
 		{
 			mRenderData.uloc_cameraMatrix = mProgram.uniformLocation("cameraMatrix");
 			mRenderData.uloc_modelMatrix = mProgram.uniformLocation("modelMatrix");
+			mRenderData.uloc_spacing = mProgram.uniformLocation("spacing");
+			mRenderData.uloc_heightScale = mProgram.uniformLocation("heightScale");
 
-			uploadTerrainData(world->getHeightMap());
+			mVao.create();
+			mVao.bind();
+			{
+				uploadTerrainData(world->getHeightMap());
+				loadTextures();
+			}
+			mVao.release();
 		}
 		mProgram.release();
 	}

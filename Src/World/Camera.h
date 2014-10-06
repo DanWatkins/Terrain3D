@@ -28,11 +28,14 @@ namespace t3d
 
 			GLuint uloc_cameraMatrix;
 			GLuint uloc_modelMatrix;
+			GLuint uloc_spacing;
+			GLuint uloc_heightScale;
 		} mRenderData;
 
 		World *mWorld;
 		QOpenGLShaderProgram mProgram;
 		QOpenGLVertexArrayObject mVao;
+		GLuint mTexture;
 
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;
@@ -40,11 +43,14 @@ namespace t3d
 		float mNearPlane, mFarPlane;
 		float mAspectRatio;
 
+		float mSpacing, mHeightScale;
+
 		const float mMaxVerticalAngle = 95.0f;
 
 	private:
 		void loadShaders();
 		void uploadTerrainData(HeightMap &heightMap);
+		void loadTextures();
 		void normalizeAngles();
 
 

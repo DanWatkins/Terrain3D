@@ -50,11 +50,8 @@ namespace t3d
 	}
 
 
-	void HeightMap::buildVertexData()
+	void HeightMap::buildVertexData(float spacing)
 	{
-		const float spacing = 0.1f;
-		const float verticalScale = 4.5f;
-
 		mVertexData.reserve(mSize*mSize*3);
 		std::vector<float> colorVertexData;
 		colorVertexData.reserve(mSize*mSize*3);
@@ -67,7 +64,7 @@ namespace t3d
 			{
 				mVertexData.push_back(spacing*(float)x);
 				float height = mHeightData.at(y*mSize + x) / 255.0f;
-				mVertexData.push_back(height * verticalScale);
+				mVertexData.push_back(height);
 				mVertexData.push_back(spacing*(float)y);
 
 				Vec3f color;
