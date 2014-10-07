@@ -51,12 +51,6 @@
     <ClCompile Include="..\Src\World\TerrainGenerator.cpp" />
     <ClCompile Include="..\Src\World\World.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Bin\Shaders\camera-frag.glsl" />
-    <None Include="..\Bin\Shaders\camera-vert.glsl" />
-    <None Include="..\Bin\Shaders\sprite-frag.glsl" />
-    <None Include="..\Bin\Shaders\sprite-vert.glsl" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB963AF4-49A3-4D23-B569-72107DF1E12E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -108,6 +102,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,6 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

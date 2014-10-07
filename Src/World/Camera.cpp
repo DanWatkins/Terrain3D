@@ -71,11 +71,7 @@ namespace t3d
 		glPrimitiveRestartIndex(HeightMap::PRIMITIVE_RESTART_INDEX);
 
 		glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);	//pos
-
-		int colorOffset = (terrainVertexData->size() / 2 * sizeof(float));
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)colorOffset);	//color
 	}
 
 
@@ -84,7 +80,6 @@ namespace t3d
 		Image image;
 		image.loadFromFile_PNG("grid.png");
 		
-
 		glGenTextures(1, &mTexture);
 		glBindTexture(GL_TEXTURE_2D, mTexture);
 		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());

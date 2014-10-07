@@ -4,9 +4,6 @@
     <Filter Include="Core">
       <UniqueIdentifier>{69520f5b-7b9a-496b-8df9-b695f70d22b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{063c771a-52f3-40c8-8619-77e9f217ac53}</UniqueIdentifier>
-    </Filter>
     <Filter Include="World">
       <UniqueIdentifier>{01f679b5-5cca-4a4c-b3c0-2ce844ef9ed0}</UniqueIdentifier>
     </Filter>
@@ -103,19 +100,5 @@
     <ClCompile Include="..\Src\Core\Font.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Bin\Shaders\camera-frag.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\Bin\Shaders\camera-vert.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\Bin\Shaders\sprite-frag.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\Bin\Shaders\sprite-vert.glsl">
-      <Filter>Shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>

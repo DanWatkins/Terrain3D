@@ -53,8 +53,6 @@ namespace t3d
 	void HeightMap::buildVertexData(float spacing)
 	{
 		mVertexData.reserve(mSize*mSize*3);
-		std::vector<float> colorVertexData;
-		colorVertexData.reserve(mSize*mSize*3);
 
 		std::cout << "\nBuilding Vertex Data" << std::endl;
 
@@ -66,38 +64,8 @@ namespace t3d
 				float height = mHeightData.at(y*mSize + x) / 255.0f;
 				mVertexData.push_back(height);
 				mVertexData.push_back(spacing*(float)y);
-
-				Vec3f color;
-
-				//determine the color
-				if (height > 0.9)
-					color = Vec3f(0.7f, 0.7f, 0.7f);
-				else if (height > 0.8)
-					color = Vec3f(0.5, 0.6f, 0.5);
-				else if (height > 0.7)
-					color = Vec3f(0.1f, 0.35f, 0.0f);
-				else if (height > 0.6)
-					color = Vec3f(0.0f, 0.5f, 0.0f);
-				else if (height > 0.5)
-					color = Vec3f(0.6f, 0.35f, 0.1f);
-				else if (height > 0.4)
-					color = Vec3f(0.8f, 0.8f, 0.6f);
-				else if (height > 0.3)
-					color = Vec3f(0.0f, 0.0f, 0.7);
-				else if (height > 0.2)
-					color = Vec3f(0.0f, 0.0f, 0.6);
-				else if (height > 0.1)
-					color = Vec3f(0.0f, 0.0f, 0.5);
-				else
-					color = Vec3f(0.0f, 0.0f, 0.0f);
-
-				colorVertexData.push_back(color.r);
-				colorVertexData.push_back(color.g);
-				colorVertexData.push_back(color.b);
 			}
 		}
-
-		mVertexData.insert(mVertexData.end(), colorVertexData.begin(), colorVertexData.end());
 	}
 
 

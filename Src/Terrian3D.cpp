@@ -43,7 +43,7 @@ namespace t3d
 		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 
 		//check for mouse changes
-		const double mouseSensitivity = 0.05f;
+		const double mouseSensitivity = 0.02f;
 		
 		QVector2D delta = cursorDelta();
 		mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
