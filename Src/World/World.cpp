@@ -15,12 +15,8 @@ namespace t3d
 	void World::init()
 	{
 		TerrainGenerator generator;
-		mHeightMap = generator.generate(128, 32, (GLuint)time(NULL));
+		mHeightMap = generator.generate(64, 32, (GLuint)time(NULL));
 
-		double r = fmod(50.0, 11.0);
-
-
-		//std::cout << "Generated terrain data in " << clock.getElapsedTime().asSeconds() << " seconds" << std::endl;
 		return;
 	}
 };

@@ -94,7 +94,7 @@ namespace t3d
 		//sand texture
 		{
 			Image image;
-			image.loadFromFile_PNG("./Textures/sand.png");
+			image.loadFromFile_PNG("./Textures/water.png");
 
 			glGenTextures(1, &mTextureSand);
 			glBindTexture(GL_TEXTURE_2D, mTexture);

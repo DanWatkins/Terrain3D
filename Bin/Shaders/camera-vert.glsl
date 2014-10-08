@@ -8,9 +8,7 @@ uniform float heightScale = 10.0f;
 uniform float spacing;
 
 out vec4 shaderColor;
-out vec4 outPosition;
-
-out vec2 tc;
+smooth out vec2 tc;
 
 //terrain layers
 const int TerrainLayer_Water = 0;
@@ -38,14 +36,13 @@ vec4 terrainColor(int layer)
 
 
 void main()
-{	
-	tc.x = position.x / spacing / spacing;
-	tc.y = position.z / spacing / spacing;
+{
+	tc.x = position.x / spacing / 700.0f * 20;
+	tc.y = position.z / spacing / 700.0f * 20;
 
 	shaderColor = terrainColor(terrainLayer(position.y));
 
 	vec4 scaledPosition = vec4(position.x, position.y*heightScale, position.z, position.w);
-	outPosition = scaledPosition;
 
 	gl_Position = cameraMatrix * modelMatrix * scaledPosition;
 }
