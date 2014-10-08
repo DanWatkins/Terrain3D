@@ -13,7 +13,7 @@
 namespace t3d
 {
 	Camera::Camera(OpenGLWindow *window) :
-		mPosition(-10, 25, -10),
+		mPosition(-10, 40, -10),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -21,10 +21,10 @@ namespace t3d
 		mFarPlane(1500),
 		mAspectRatio(16/9),
 		mProgram(window),
-		mSpacing(0.5f),
+		mSpacing(1.0),
 		mHeightScale(20.0f)
 	{
-		lookAt(Vec3f(20, 0, 20));
+		lookAt(Vec3f(30, 5, 30));
 	}
 
 
@@ -77,15 +77,32 @@ namespace t3d
 
 	void Camera::loadTextures()
 	{
-		Image image;
-		image.loadFromFile_PNG("grid.png");
+		//grid texture
+		/*{
+			Image image;
+			image.loadFromFile_PNG("grid.png");
 		
-		glGenTextures(1, &mTexture);
-		glBindTexture(GL_TEXTURE_2D, mTexture);
-		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
+			glGenTextures(1, &mTexture);
+			glBindTexture(GL_TEXTURE_2D, mTexture);
+			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
 
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(),
-						GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(),
+							GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+		}*/
+
+
+		//sand texture
+		{
+			Image image;
+			image.loadFromFile_PNG("./Textures/sand.png");
+
+			glGenTextures(1, &mTextureSand);
+			glBindTexture(GL_TEXTURE_2D, mTexture);
+			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
+
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(),
+							GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+		}
 	}
 	
 

@@ -37,6 +37,8 @@ namespace t3d
 		QOpenGLVertexArrayObject mVao;
 		GLuint mTexture;
 
+		GLuint mTextureSand;
+
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;
 		float mFieldOfView;
