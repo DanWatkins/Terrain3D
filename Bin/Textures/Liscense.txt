@@ -1,0 +1,6 @@
+Hey,
+
+The following images were obtained from CGTextures:
+
+sand.png
+water.png

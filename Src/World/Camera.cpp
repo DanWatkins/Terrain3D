@@ -22,7 +22,7 @@ namespace t3d
 		mAspectRatio(16/9),
 		mProgram(window),
 		mSpacing(0.4f),
-		mHeightScale(20.0f)
+		mHeightScale(45.0f)
 	{
 		lookAt(Vec3f(30, 5, 30));
 	}
@@ -78,31 +78,30 @@ namespace t3d
 
 	void Camera::loadTextures()
 	{
-		//grid texture
-		/*{
-			Image image;
-			image.loadFromFile_PNG("grid.png");
-		
-			glGenTextures(1, &mTexture);
-			glBindTexture(GL_TEXTURE_2D, mTexture);
-			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
-
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(),
-							GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
-		}*/
-
-
 		//sand texture
 		{
-			Image image;
-			image.loadFromFile_PNG("./Textures/water.png");
+			Image imageWater;
+			imageWater.loadFromFile_PNG("./Textures/water.png");
+
+			Image imageSand;
+			imageSand.loadFromFile_PNG("./Textures/sand.png");
+
+			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
 			glGenTextures(1, &mTextureSand);
-			glBindTexture(GL_TEXTURE_2D, mTexture);
-			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, image.getWidth(), image.getHeight());
+			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
+			glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, imageSize, imageSize, 2);
 
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(),
-							GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 0,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
+
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 1,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
 		}
 	}
 	

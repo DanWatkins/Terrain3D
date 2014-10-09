@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	Terrain3D window;
 	window.setFormat(format);
-	window.resize(800, 600);
+	window.resize(1600, 900);
 	window.show();
 
 	window.setAnimating(true);
