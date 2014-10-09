@@ -6,6 +6,7 @@ uniform mat4 cameraMatrix;
 uniform mat4 modelMatrix;
 uniform float heightScale = 10.0f;
 uniform float spacing;
+uniform float blockSize;
 
 out vec4 shaderColor;
 smooth out vec2 tc;
@@ -37,8 +38,8 @@ vec4 terrainColor(int layer)
 
 void main()
 {
-	tc.x = position.x / spacing / 700.0f * 20;
-	tc.y = position.z / spacing / 700.0f * 20;
+	tc.x = (position.x / spacing / blockSize);
+	tc.y = (position.z / spacing / blockSize);
 
 	shaderColor = terrainColor(terrainLayer(position.y));
 

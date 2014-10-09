@@ -21,7 +21,7 @@ namespace t3d
 		mFarPlane(1500),
 		mAspectRatio(16/9),
 		mProgram(window),
-		mSpacing(1.0),
+		mSpacing(0.4f),
 		mHeightScale(20.0f)
 	{
 		lookAt(Vec3f(30, 5, 30));
@@ -47,6 +47,7 @@ namespace t3d
 		heightMap.buildVertexData(mSpacing);
 		mProgram.setUniformValue(mRenderData.uloc_spacing, mSpacing);
 		mProgram.setUniformValue(mRenderData.uloc_heightScale, mHeightScale);
+		mProgram.setUniformValue(mRenderData.uloc_blockSize, GLfloat(heightMap.getSize()));
 		const std::vector<float> *terrainVertexData = heightMap.getVertexData();
 
 		glGenBuffers(1, &vbo);
@@ -119,6 +120,7 @@ namespace t3d
 			mRenderData.uloc_modelMatrix = mProgram.uniformLocation("modelMatrix");
 			mRenderData.uloc_spacing = mProgram.uniformLocation("spacing");
 			mRenderData.uloc_heightScale = mProgram.uniformLocation("heightScale");
+			mRenderData.uloc_blockSize = mProgram.uniformLocation("blockSize");
 
 			mVao.create();
 			mVao.bind();

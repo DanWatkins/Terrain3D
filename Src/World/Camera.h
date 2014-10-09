@@ -30,6 +30,7 @@ namespace t3d
 			GLuint uloc_modelMatrix;
 			GLuint uloc_spacing;
 			GLuint uloc_heightScale;
+			GLuint uloc_blockSize;
 		} mRenderData;
 
 		World *mWorld;
