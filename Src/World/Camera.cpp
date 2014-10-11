@@ -58,7 +58,7 @@ namespace t3d
 		//index data
 		GLuint ibo;
 		heightMap.buildIndexData();
-		const std::vector<GLuint> *terrainIndexData = heightMap.getIndexData();
+		const IndexData *terrainIndexData = heightMap.getIndexData();
 		mRenderData.indexCount = terrainIndexData->size();
 
 		glGenBuffers(1, &ibo);
