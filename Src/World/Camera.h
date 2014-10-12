@@ -21,46 +21,6 @@ namespace t3d
 	 */
 	class Camera : protected QOpenGLFunctions_4_3_Core
 	{
-	private:
-		struct RenderData
-		{
-			GLuint indexCount;
-
-			GLuint uloc_cameraMatrix;
-			GLuint uloc_modelMatrix;
-			GLuint uloc_spacing;
-			GLuint uloc_heightScale;
-			GLuint uloc_blockSize;
-		} mRenderData;
-
-		World *mWorld;
-		QOpenGLShaderProgram mProgram;
-		QOpenGLVertexArrayObject mVao;
-		GLuint mTexture;
-
-		GLuint mTextureSand;
-
-		Vec3f mPosition;
-		float mHorizontalAngle, mVerticalAngle;
-		float mFieldOfView;
-		float mNearPlane, mFarPlane;
-		float mAspectRatio;
-		const float mMaxVerticalAngle = 95.0f;
-
-		float mSpacing, mHeightScale;
-		int mBlockSize;
-
-	private:
-		void loadShaders();
-		void uploadTerrainData(HeightMap &heightMap);
-		void loadTextures();
-		void normalizeAngles();
-
-		static const GLuint PRIMITIVE_RESTART_INDEX = 40000000;
-		typedef std::vector<GLuint> IndexData;
-		IndexData mIndexData;
-		void buildIndexData();
-
 	public:
 		Camera(OpenGLWindow *window);
 
@@ -73,7 +33,6 @@ namespace t3d
 
 		void setFieldOfView(float fieldOfView);
 		float getFieldOfView() const { return mFieldOfView; }
-
 		void setNearPlane(float nearPlane) { mNearPlane = nearPlane; }
 		float getNearPlane() const { return mNearPlane; }
 		void setFarPlane(float farPlane) { mFarPlane = farPlane; }
@@ -81,18 +40,56 @@ namespace t3d
 
 		void incOrientation(float rightAngle, float upAngle);
 		Mat4 getOrientation() const;
-		void lookAt(Vec3f position);
-
 		void setAspectRatio(float aspectRatio) { mAspectRatio = aspectRatio; }
 		float getAspectRatio() { return mAspectRatio; }
 
+		void lookAt(Vec3f position);
 		Vec3f getForward() const;
 		Vec3f getRight() const;
 		Vec3f getUp() const;
 
-		Mat4 getTotalMatrix() const;
+
+	private:
+		struct RenderData
+		{
+			GLuint matrixCamera;
+			GLuint matrixModel;
+			GLuint spacing;
+			GLuint heightScale;
+			GLuint blockSize;
+		} mUniforms;
+
+		World *mWorld;
+		QOpenGLShaderProgram mProgram;
+		QOpenGLVertexArrayObject mVao;
+		GLuint mTexture;
+		GLuint mTextureSand;
+
+		Vec3f mPosition;
+		float mHorizontalAngle, mVerticalAngle;
+		float mFieldOfView;
+		float mNearPlane, mFarPlane;
+		float mAspectRatio;
+		float mMaxVerticalAngle;
+
+		float mSpacing, mHeightScale;
+		int mBlockSize;
+		static const GLuint PrimitiveRestartIndex = 900000000;
+		typedef std::vector<GLuint> IndexData;
+		IndexData mIndexData;
+
+
+	private:
+		void loadShaders();
+		void loadTextures();
+		void buildIndexData();
+		void uploadTerrainData();
+		
+		void normalizeAngles();
+		
 		Mat4 getPerspectiveMatrix() const;
 		Mat4 getViewMatrix() const;
+		Mat4 getTotalMatrix() const;
 	};
 };
 

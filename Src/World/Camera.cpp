@@ -20,6 +20,7 @@ namespace t3d
 		mNearPlane(0.01f),
 		mFarPlane(1500),
 		mAspectRatio(16/9),
+		mMaxVerticalAngle(95.0f),
 		mProgram(window),
 		mSpacing(1.0f),
 		mHeightScale(45.0f),
@@ -28,83 +29,6 @@ namespace t3d
 		lookAt(Vec3f(30, 5, 30));
 	}
 
-
-	void Camera::loadShaders()
-	{
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (String(gDefaultPathShaders) + "camera-vert.glsl").c_str());
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (String(gDefaultPathShaders) + "camera-frag.glsl").c_str());
-
-		if (mProgram.link() == false)
-			printf("Problem linking shaders\n");
-		else
-			printf("Initialized shaders\n");
-	}
-
-
-	void Camera::uploadTerrainData(HeightMap &heightMap)
-	{
-		//vertex data
-		GLuint vbo;
-		heightMap.buildVertexData(mSpacing);
-		mProgram.setUniformValue(mRenderData.uloc_spacing, mSpacing);
-		mProgram.setUniformValue(mRenderData.uloc_heightScale, mHeightScale);
-		mProgram.setUniformValue(mRenderData.uloc_blockSize, GLfloat(heightMap.getSize()));
-		const std::vector<float> *terrainVertexData = heightMap.getVertexData();
-
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		GLuint size = sizeof(float)*terrainVertexData->size();
-		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
-
-		//index data
-		GLuint ibo;
-		buildIndexData();
-		mRenderData.indexCount = mIndexData.size();
-
-		glGenBuffers(1, &ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-						sizeof(GLuint)*mIndexData.size(),
-						&mIndexData[0], GL_STATIC_DRAW);
-
-
-		glEnable(GL_PRIMITIVE_RESTART);
-		glPrimitiveRestartIndex(PRIMITIVE_RESTART_INDEX);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);	//pos
-	}
-
-
-	void Camera::loadTextures()
-	{
-		//sand texture
-		{
-			Image imageWater;
-			imageWater.loadFromFile_PNG("./Textures/water.png");
-
-			Image imageSand;
-			imageSand.loadFromFile_PNG("./Textures/sand.png");
-
-			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
-
-			glGenTextures(1, &mTextureSand);
-			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
-			glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, imageSize, imageSize, 2);
-
-
-			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-							0, 0, 0,
-							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
-
-			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-							0, 0, 1,
-							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
-		}
-	}
-	
 
 	void Camera::init(World *world)
 	{
@@ -115,16 +39,16 @@ namespace t3d
 		
 		mProgram.bind();
 		{
-			mRenderData.uloc_cameraMatrix = mProgram.uniformLocation("cameraMatrix");
-			mRenderData.uloc_modelMatrix = mProgram.uniformLocation("modelMatrix");
-			mRenderData.uloc_spacing = mProgram.uniformLocation("spacing");
-			mRenderData.uloc_heightScale = mProgram.uniformLocation("heightScale");
-			mRenderData.uloc_blockSize = mProgram.uniformLocation("blockSize");
+			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
+			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
+			mUniforms.spacing = mProgram.uniformLocation("spacing");
+			mUniforms.heightScale = mProgram.uniformLocation("heightScale");
+			mUniforms.blockSize = mProgram.uniformLocation("blockSize");
 
 			mVao.create();
 			mVao.bind();
 			{
-				uploadTerrainData(world->getHeightMap());
+				uploadTerrainData();
 				loadTextures();
 			}
 			mVao.release();
@@ -133,13 +57,12 @@ namespace t3d
 	}
 
 
-
 	void Camera::render()
 	{
 		mProgram.bind();
 		{
-			glUniformMatrix4fv(mRenderData.uloc_cameraMatrix, 1, GL_FALSE, glm::value_ptr(getTotalMatrix()));
-			glUniformMatrix4fv(mRenderData.uloc_modelMatrix, 1, GL_FALSE,
+			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(getTotalMatrix()));
+			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
 								glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
 			mVao.bind();
@@ -156,11 +79,10 @@ namespace t3d
 						int offsetX = x*mBlockSize;
 						int baseVertex = offsetX+offsetY;
 
-						glDrawElementsBaseVertex(GL_LINE_STRIP, mRenderData.indexCount,
+						glDrawElementsBaseVertex(GL_LINE_STRIP, mIndexData.size(),
 										 GL_UNSIGNED_INT, 0, baseVertex);
 					}
 				}
-
 			}
 			mVao.release();
 		}
@@ -218,34 +140,47 @@ namespace t3d
 	}
 
 
-	Mat4 Camera::getTotalMatrix() const
+	///// PRIVATE
+
+	void Camera::loadShaders()
 	{
-		return getPerspectiveMatrix() * getViewMatrix();
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (String(gDefaultPathShaders) + "camera-vert.glsl").c_str());
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (String(gDefaultPathShaders) + "camera-frag.glsl").c_str());
+
+		if (mProgram.link() == false)
+			printf("Problem linking shaders\n");
+		else
+			printf("Initialized shaders\n");
 	}
 
 
-	Mat4 Camera::getPerspectiveMatrix() const
+	void Camera::loadTextures()
 	{
-		return glm::perspective(mFieldOfView, mAspectRatio, mNearPlane, mFarPlane);
-	}
+		//sand texture
+		{
+			Image imageWater;
+			imageWater.loadFromFile_PNG("./Textures/water.png");
+
+			Image imageSand;
+			imageSand.loadFromFile_PNG("./Textures/sand.png");
+
+			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
+
+			glGenTextures(1, &mTextureSand);
+			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
+			glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, imageSize, imageSize, 2);
 
 
-	Mat4 Camera::getViewMatrix() const
-	{
-		return getOrientation() * glm::translate(Mat4(), -mPosition);
-	}
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 0,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
 
-
-	void Camera::normalizeAngles()
-	{
-		mHorizontalAngle = fmodf(mHorizontalAngle, 360.0f);
-		if (mHorizontalAngle < 0.0f)
-			mHorizontalAngle += 360.0f;
-
-		if (mVerticalAngle > mMaxVerticalAngle)
-			mVerticalAngle = mMaxVerticalAngle;
-		else if (mVerticalAngle < -mMaxVerticalAngle)
-			mVerticalAngle = -mMaxVerticalAngle;
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 1,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
+		}
 	}
 
 
@@ -269,9 +204,75 @@ namespace t3d
 				mIndexData.push_back(x+mapSizeVertex + offset);
 			}
 
-			mIndexData.push_back(PRIMITIVE_RESTART_INDEX);
+			mIndexData.push_back(PrimitiveRestartIndex);
 		}
 
 		std::cout << "Finished generating index data" << std::endl;
+	}
+
+
+	void Camera::uploadTerrainData()
+	{
+		HeightMap &heightMap = mWorld->getHeightMap();
+
+		//vertex data
+		GLuint vbo;
+		heightMap.buildVertexData(mSpacing);
+		mProgram.setUniformValue(mUniforms.spacing, mSpacing);
+		mProgram.setUniformValue(mUniforms.heightScale, mHeightScale);
+		mProgram.setUniformValue(mUniforms.blockSize, GLfloat(heightMap.getSize()));
+		const std::vector<float> *terrainVertexData = heightMap.getVertexData();
+
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		GLuint size = sizeof(float)*terrainVertexData->size();
+		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
+
+		//index data
+		GLuint ibo;
+		buildIndexData();
+
+		glGenBuffers(1, &ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+						sizeof(GLuint)*mIndexData.size(),
+						&mIndexData[0], GL_STATIC_DRAW);
+
+		glEnable(GL_PRIMITIVE_RESTART);
+		glPrimitiveRestartIndex(PrimitiveRestartIndex);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	}
+
+
+	void Camera::normalizeAngles()
+	{
+		mHorizontalAngle = fmodf(mHorizontalAngle, 360.0f);
+		if (mHorizontalAngle < 0.0f)
+			mHorizontalAngle += 360.0f;
+
+		if (mVerticalAngle > mMaxVerticalAngle)
+			mVerticalAngle = mMaxVerticalAngle;
+		else if (mVerticalAngle < -mMaxVerticalAngle)
+			mVerticalAngle = -mMaxVerticalAngle;
+	}
+
+
+	Mat4 Camera::getPerspectiveMatrix() const
+	{
+		return glm::perspective(mFieldOfView, mAspectRatio, mNearPlane, mFarPlane);
+	}
+
+
+	Mat4 Camera::getViewMatrix() const
+	{
+		return getOrientation() * glm::translate(Mat4(), -mPosition);
+	}
+
+
+	Mat4 Camera::getTotalMatrix() const
+	{
+		return getPerspectiveMatrix() * getViewMatrix();
 	}
 };
