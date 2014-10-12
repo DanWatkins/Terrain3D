@@ -13,8 +13,6 @@
 
 namespace t3d
 {
-	typedef std::vector<GLuint> IndexData;
-
 	class HeightMap
 	{
 	private:
@@ -22,11 +20,8 @@ namespace t3d
 		GLuint mSize;
 
 		std::vector<float> mVertexData;
-		IndexData mIndexData;
 
 	public:
-		static const GLuint PRIMITIVE_RESTART_INDEX = 40000000;
-		
 		HeightMap()
 		{
 			mSize = 0;
@@ -41,9 +36,6 @@ namespace t3d
 
 		void buildVertexData(float spacing);
 		const std::vector<float> *getVertexData() const { return &mVertexData; }
-
-		void buildIndexData();
-		const IndexData *getIndexData() const { return &mIndexData; }
 
 		GLuint getSize() const { return mSize; }
 	};

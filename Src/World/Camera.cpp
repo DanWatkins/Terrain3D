@@ -21,8 +21,9 @@ namespace t3d
 		mFarPlane(1500),
 		mAspectRatio(16/9),
 		mProgram(window),
-		mSpacing(0.4f),
-		mHeightScale(45.0f)
+		mSpacing(1.0f),
+		mHeightScale(45.0f),
+		mBlockSize(4)
 	{
 		lookAt(Vec3f(30, 5, 30));
 	}
@@ -57,19 +58,18 @@ namespace t3d
 
 		//index data
 		GLuint ibo;
-		heightMap.buildIndexData();
-		const IndexData *terrainIndexData = heightMap.getIndexData();
-		mRenderData.indexCount = terrainIndexData->size();
+		buildIndexData();
+		mRenderData.indexCount = mIndexData.size();
 
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-						sizeof(GLuint)*terrainIndexData->size(),
-						&(*terrainIndexData)[0], GL_STATIC_DRAW);
+						sizeof(GLuint)*mIndexData.size(),
+						&mIndexData[0], GL_STATIC_DRAW);
 
 
 		glEnable(GL_PRIMITIVE_RESTART);
-		glPrimitiveRestartIndex(HeightMap::PRIMITIVE_RESTART_INDEX);
+		glPrimitiveRestartIndex(PRIMITIVE_RESTART_INDEX);
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);	//pos
@@ -144,8 +144,23 @@ namespace t3d
 
 			mVao.bind();
 			{
-				glDrawElements(GL_TRIANGLE_STRIP, mRenderData.indexCount, GL_UNSIGNED_INT, 0);
-				glBindVertexArray(0);
+				int heightMapSize = mWorld->getHeightMap().getSize();
+				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mBlockSize));
+
+				for (int y=0; y<numberOfBlocksOnASide; y++)
+				{
+					int offsetY = y * (mBlockSize*numberOfBlocksOnASide + 1)*mBlockSize;
+
+					for (int x=0; x<numberOfBlocksOnASide; x++)
+					{
+						int offsetX = x*mBlockSize;
+						int baseVertex = offsetX+offsetY;
+
+						glDrawElementsBaseVertex(GL_LINE_STRIP, mRenderData.indexCount,
+										 GL_UNSIGNED_INT, 0, baseVertex);
+					}
+				}
+
 			}
 			mVao.release();
 		}
@@ -231,5 +246,32 @@ namespace t3d
 			mVerticalAngle = mMaxVerticalAngle;
 		else if (mVerticalAngle < -mMaxVerticalAngle)
 			mVerticalAngle = -mMaxVerticalAngle;
+	}
+
+
+	void Camera::buildIndexData()
+	{
+		int heightMapSize = mWorld->getHeightMap().getSize();
+
+		int mapSize = ceil(double(heightMapSize-1) / double(mBlockSize));
+		int mapSizeVertex = mapSize*mBlockSize + 1;
+
+		mIndexData.clear();
+		mIndexData.reserve((mBlockSize+1) * ((mBlockSize+1)*2 + 1));
+
+		for (int y=0; y<mBlockSize; y++)
+		{
+			int offset = y*mapSizeVertex;
+
+			for (int x=0; x<mBlockSize+1; x++)
+			{
+				mIndexData.push_back(x+offset);
+				mIndexData.push_back(x+mapSizeVertex + offset);
+			}
+
+			mIndexData.push_back(PRIMITIVE_RESTART_INDEX);
+		}
+
+		std::cout << "Finished generating index data" << std::endl;
 	}
 };

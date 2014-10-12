@@ -45,10 +45,10 @@ namespace t3d
 		float mFieldOfView;
 		float mNearPlane, mFarPlane;
 		float mAspectRatio;
+		const float mMaxVerticalAngle = 95.0f;
 
 		float mSpacing, mHeightScale;
-
-		const float mMaxVerticalAngle = 95.0f;
+		int mBlockSize;
 
 	private:
 		void loadShaders();
@@ -56,6 +56,10 @@ namespace t3d
 		void loadTextures();
 		void normalizeAngles();
 
+		static const GLuint PRIMITIVE_RESTART_INDEX = 40000000;
+		typedef std::vector<GLuint> IndexData;
+		IndexData mIndexData;
+		void buildIndexData();
 
 	public:
 		Camera(OpenGLWindow *window);

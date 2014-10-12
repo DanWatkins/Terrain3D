@@ -21,7 +21,7 @@ namespace t3d
 
 		mSize = size;
 		mHeightData.clear();
-		mHeightData = std::vector<float>(size*size, 0.4f);
+		mHeightData = std::vector<float>(size*size, 50.0f);
 	}
 
 
@@ -66,32 +66,5 @@ namespace t3d
 				mVertexData.push_back(spacing*(float)y);
 			}
 		}
-	}
-
-
-	void HeightMap::buildIndexData()
-	{
-		const int blockSize = 4;
-		int mapSize = ceil(double(mSize-1) / double(blockSize));
-		int mapSizeVertex = mapSize*blockSize + 1;
-
-		GLuint indexData[blockSize+1][(blockSize+1)*2 + 1];
-		mIndexData.clear();
-		mIndexData.reserve((blockSize+1) * ((blockSize+1)*2 + 1));
-
-		for (int y=0; y<blockSize+1; y++)
-		{
-			int offset = y*mapSizeVertex;
-
-			for (int x=0; x<blockSize+1; x++)
-			{
-				mIndexData.push_back(x+offset);
-				mIndexData.push_back(x+mapSizeVertex + offset);
-			}
-
-			mIndexData.push_back(PRIMITIVE_RESTART_INDEX);
-		}
-
-		std::cout << "Finished generating index data" << std::endl;
 	}
 };
