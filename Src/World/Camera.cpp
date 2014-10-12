@@ -13,7 +13,7 @@
 namespace t3d
 {
 	Camera::Camera(OpenGLWindow *window) :
-		mPosition(-10, 40, -10),
+		mPosition(-10, 20, -10),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -24,9 +24,9 @@ namespace t3d
 		mProgram(window),
 		mSpacing(1.0f),
 		mHeightScale(45.0f),
-		mBlockSize(4)
+		mBlockSize(32)
 	{
-		lookAt(Vec3f(30, 5, 30));
+		lookAt(Vec3f(20, 0, 20));
 	}
 
 
@@ -44,6 +44,7 @@ namespace t3d
 			mUniforms.spacing = mProgram.uniformLocation("spacing");
 			mUniforms.heightScale = mProgram.uniformLocation("heightScale");
 			mUniforms.blockSize = mProgram.uniformLocation("blockSize");
+			mUniforms.blockIndex = mProgram.uniformLocation("blockIndex");
 
 			mVao.create();
 			mVao.bind();
@@ -70,6 +71,8 @@ namespace t3d
 				int heightMapSize = mWorld->getHeightMap().getSize();
 				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mBlockSize));
 
+				GLenum mode = GL_TRIANGLE_STRIP;
+
 				for (int y=0; y<numberOfBlocksOnASide; y++)
 				{
 					int offsetY = y * (mBlockSize*numberOfBlocksOnASide + 1)*mBlockSize;
@@ -79,8 +82,9 @@ namespace t3d
 						int offsetX = x*mBlockSize;
 						int baseVertex = offsetX+offsetY;
 
-						glDrawElementsBaseVertex(GL_LINE_STRIP, mIndexData.size(),
-										 GL_UNSIGNED_INT, 0, baseVertex);
+						glUniform2i(mUniforms.blockIndex, x, y);
+						glDrawElementsBaseVertex(mode, mIndexData.size(),
+												 GL_UNSIGNED_INT, 0, baseVertex);
 					}
 				}
 			}
@@ -220,7 +224,7 @@ namespace t3d
 		heightMap.buildVertexData(mSpacing);
 		mProgram.setUniformValue(mUniforms.spacing, mSpacing);
 		mProgram.setUniformValue(mUniforms.heightScale, mHeightScale);
-		mProgram.setUniformValue(mUniforms.blockSize, GLfloat(heightMap.getSize()));
+		mProgram.setUniformValue(mUniforms.blockSize, float(mBlockSize));
 		const std::vector<float> *terrainVertexData = heightMap.getVertexData();
 
 		glGenBuffers(1, &vbo);

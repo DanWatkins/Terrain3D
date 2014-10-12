@@ -57,6 +57,7 @@ namespace t3d
 			GLuint spacing;
 			GLuint heightScale;
 			GLuint blockSize;
+			GLuint blockIndex;
 		} mUniforms;
 
 		World *mWorld;
