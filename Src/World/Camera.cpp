@@ -190,8 +190,9 @@ namespace t3d
 
 			glGenTextures(1, &mTextureSand);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
-			glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, imageSize, imageSize, 4);
 
+			int mipLevels = 8;
+			glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
 
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
 							0, 0, 0,
@@ -213,8 +214,9 @@ namespace t3d
 							imageSize, imageSize, 1,
 							GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
 
-			glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
+			glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		}
 	}
 
