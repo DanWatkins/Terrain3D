@@ -72,14 +72,11 @@ namespace t3d
 			case Qt::Key_D:
 				mCamera.incPosition(speed * mCamera.getRight()); break;
 
-			case Qt::Key_Up:
-				mCamera.setNearPlane(mCamera.getNearPlane() + adj); break;
-			case Qt::Key_Down:
-				mCamera.setNearPlane(mCamera.getNearPlane() - adj); break;
-			case Qt::Key_Left:
-				mCamera.setFarPlane(mCamera.getFarPlane() - adj); break;
-			case Qt::Key_Right:
-				mCamera.setFarPlane(mCamera.getFarPlane() + adj); break;
+			case Qt::Key_Z:
+				mCamera.setMode(Camera::Mode::Normal); break;
+			case Qt::Key_X:
+				mCamera.setMode(Camera::Mode::WireFrame); break;
+			
 
 
 			case Qt::Key_R:

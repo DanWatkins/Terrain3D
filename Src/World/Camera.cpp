@@ -24,7 +24,8 @@ namespace t3d
 		mProgram(window),
 		mSpacing(1.0f),
 		mHeightScale(80.0f),
-		mBlockSize(16)
+		mBlockSize(16),
+		mMode(Mode::Normal)
 	{
 		lookAt(Vec3f(20, 0, 20));
 	}
@@ -71,7 +72,18 @@ namespace t3d
 				int heightMapSize = mWorld->getHeightMap().getSize();
 				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mBlockSize));
 
-				GLenum mode = GL_TRIANGLE_STRIP;
+				GLenum openglMode;
+
+				switch (mMode)
+				{
+				case Mode::Normal:
+					openglMode = GL_TRIANGLE_STRIP;
+					break;
+
+				case Mode::WireFrame:
+					openglMode = GL_LINE_STRIP;
+					break;
+				}
 
 				for (int y=0; y<numberOfBlocksOnASide; y++)
 				{
@@ -83,7 +95,7 @@ namespace t3d
 						int baseVertex = offsetX+offsetY;
 
 						glUniform2i(mUniforms.blockIndex, x, y);
-						glDrawElementsBaseVertex(mode, mIndexData.size(),
+						glDrawElementsBaseVertex(openglMode, mIndexData.size(),
 												 GL_UNSIGNED_INT, 0, baseVertex);
 					}
 				}

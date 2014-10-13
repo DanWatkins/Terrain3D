@@ -48,6 +48,14 @@ namespace t3d
 		Vec3f getRight() const;
 		Vec3f getUp() const;
 
+		enum class Mode
+		{
+			Normal,
+			WireFrame
+		};
+
+		void setMode(Mode mode) { mMode = mode; }
+		Mode getMode() { return mMode; }
 
 	private:
 		struct RenderData
@@ -65,6 +73,7 @@ namespace t3d
 		QOpenGLVertexArrayObject mVao;
 		GLuint mTexture;
 		GLuint mTextureSand;
+		Mode mMode;
 
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;
