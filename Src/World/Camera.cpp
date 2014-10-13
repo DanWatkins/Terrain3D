@@ -23,8 +23,8 @@ namespace t3d
 		mMaxVerticalAngle(95.0f),
 		mProgram(window),
 		mSpacing(1.0f),
-		mHeightScale(45.0f),
-		mBlockSize(32)
+		mHeightScale(80.0f),
+		mBlockSize(16)
 	{
 		lookAt(Vec3f(20, 0, 20));
 	}
@@ -168,11 +168,17 @@ namespace t3d
 			Image imageSand;
 			imageSand.loadFromFile_PNG("./Textures/sand.png");
 
+			Image imageGrass;
+			imageGrass.loadFromFile_PNG("./Textures/grass.png");
+
+			Image imageMountain;
+			imageMountain.loadFromFile_PNG("./Textures/mountain.png");
+
 			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
 			glGenTextures(1, &mTextureSand);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
-			glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, imageSize, imageSize, 2);
+			glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, imageSize, imageSize, 4);
 
 
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
@@ -184,6 +190,16 @@ namespace t3d
 							0, 0, 1,
 							imageSize, imageSize, 1,
 							GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
+
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 2,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageGrass.getImageData()[0]);
+
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 3,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
 		}
 	}
 

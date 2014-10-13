@@ -10,25 +10,19 @@ uniform float spacing;
 //terrain layers
 const int TerrainLayer_Water = 0;
 const int TerrainLayer_Sand = 1;
+const int TerrainLayer_Grass = 2;
+const int TerrainLayer_Mountain = 3;
 
 int terrainLayer(float height)
 {
-	if (height > 0.5f)
+	if (height > 0.8f)
+		return TerrainLayer_Mountain;
+	else if (height > 0.6f)
+		return TerrainLayer_Grass;
+	else if (height > 0.35f)
 		return TerrainLayer_Sand;
 	else if (height > 0.0f)
 		return TerrainLayer_Water;
-}
-
-
-vec4 terrainColor(int layer)
-{
-	switch (layer)
-	{
-	case TerrainLayer_Water:
-		return vec4(0.0f, 0.0f, 0.6f, 1.0f);
-	case TerrainLayer_Sand:
-		return vec4(0.8f, 0.8f, 0.6f, 1.0f);
-	}
 }
 
 
