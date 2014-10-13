@@ -28,12 +28,10 @@ int terrainLayer(float height)
 
 void main()
 {
-	ivec3 txSize = textureSize(sampler, 0);
-	ivec3 pos;
-	
-	pos.x = int(tc.x * txSize);
-	pos.y = int(tc.y * txSize);
+	vec3 pos;
+	pos.x = tc.x;
+	pos.y = tc.y;
 	pos.z = terrainLayer(outPosition.y);
-	
-	color = texelFetch(sampler, pos, 0);
+
+	color = texture(sampler, pos);
 }

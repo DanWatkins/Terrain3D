@@ -19,12 +19,12 @@ namespace t3d
 		mFieldOfView(50.0f),
 		mNearPlane(0.01f),
 		mFarPlane(1500),
-		mAspectRatio(16/9),
+		mAspectRatio(16/9), 
 		mMaxVerticalAngle(95.0f),
 		mProgram(window),
 		mSpacing(1.0f),
 		mHeightScale(80.0f),
-		mBlockSize(16),
+		mBlockSize(4),
 		mMode(Mode::Normal)
 	{
 		lookAt(Vec3f(20, 0, 20));
@@ -212,6 +212,9 @@ namespace t3d
 							0, 0, 3,
 							imageSize, imageSize, 1,
 							GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
+
+			glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		}
 	}
 
