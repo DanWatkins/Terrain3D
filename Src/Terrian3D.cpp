@@ -24,6 +24,7 @@ namespace t3d
 	{
 		mWorld.init();
 		mCamera.init(&mWorld);
+		mCamera.resize(width(), height());
 		resetCursor();
 	}
 

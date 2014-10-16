@@ -26,6 +26,7 @@ namespace t3d
 
 		void init(World *world);
 		void render();
+		void resize(unsigned windowWidth, unsigned windowHeight);
 
 		void setPosition(Vec3f position) { mPosition = position; }
 		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }

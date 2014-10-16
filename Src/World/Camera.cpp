@@ -19,12 +19,12 @@ namespace t3d
 		mFieldOfView(50.0f),
 		mNearPlane(0.01f),
 		mFarPlane(1500),
-		mAspectRatio(16/9), 
+		mAspectRatio(1), 
 		mMaxVerticalAngle(95.0f),
 		mProgram(window),
 		mSpacing(1.0f),
-		mHeightScale(80.0f),
-		mBlockSize(4),
+		mHeightScale(100.0f),
+		mBlockSize(16),
 		mMode(Mode::Normal)
 	{
 		lookAt(Vec3f(20, 0, 20));
@@ -103,6 +103,12 @@ namespace t3d
 			mVao.release();
 		}
 		mProgram.release();
+	}
+
+
+	void Camera::resize(unsigned windowWidth, unsigned windowHeight)
+	{
+		mAspectRatio = (float)windowWidth / (float)windowHeight;
 	}
 
 
