@@ -36,13 +36,16 @@ namespace t3d
 		World mWorld;
 		Camera mCamera;
 
+		QVector2D mPendingCursorDelta;
+
 	private:
 		void initialize();
 		void render();
-		void keyPressEvent(QKeyEvent *ev);
 
-		QVector2D cursorDelta();
-		void resetCursor();
+		QVector2D consumeCursorDelta();
+
+		void keyPressEvent(QKeyEvent *ev);
+		void mouseMoveEvent(QMouseEvent *ev);
 
 	public:
 		Terrain3D();

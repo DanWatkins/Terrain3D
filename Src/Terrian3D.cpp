@@ -25,9 +25,9 @@ namespace t3d
 		mWorld.init();
 		mCamera.init(&mWorld);
 		mCamera.resize(width(), height());
-		resetCursor();
+		QCursor::setPos(width()/2, height()/2);
 	}
-
+	 
 	
 	void Terrain3D::render()
 	{
@@ -43,16 +43,22 @@ namespace t3d
 		const qreal retinaScale = devicePixelRatio();
 		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 
-		//check for mouse changes
-		const double mouseSensitivity = 0.02f;
-		
-		QVector2D delta = cursorDelta();
-		mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
-		resetCursor();
-
 		mCamera.render();
+
+		const double mouseSensitivity = 0.2f;
+		QVector2D delta = consumeCursorDelta();
+		mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 	}
 	 
+
+	QVector2D Terrain3D::consumeCursorDelta()
+	{
+		QVector2D current = mPendingCursorDelta;
+		mPendingCursorDelta.setX(0.0f);
+		mPendingCursorDelta.setY(0.0f);
+		return current;
+	}
+
 
 	void Terrain3D::keyPressEvent(QKeyEvent *ev)
 	{
@@ -77,7 +83,6 @@ namespace t3d
 				mCamera.setMode(Camera::Mode::Normal); break;
 			case Qt::Key_X:
 				mCamera.setMode(Camera::Mode::WireFrame); break;
-			
 
 
 			case Qt::Key_R:
@@ -91,17 +96,12 @@ namespace t3d
 	}
 
 
-	QVector2D Terrain3D::cursorDelta()
+	void Terrain3D::mouseMoveEvent(QMouseEvent *ev)
 	{
-		double deltaX = QCursor::pos().x() - width()/2;
-		double deltaY = QCursor::pos().y() - height()/2;
-
-		return QVector2D(deltaX, deltaY);
-	}
-
-
-	void Terrain3D::resetCursor()
-	{
+		mPendingCursorDelta.setX(mPendingCursorDelta.x() + (ev->globalX() - width()/2 ));
+		mPendingCursorDelta.setY(mPendingCursorDelta.y() + (ev->globalY() - height()/2));
 		QCursor::setPos(width()/2, height()/2);
+
+		QWindow::mouseMoveEvent(ev);
 	}
 };
