@@ -23,7 +23,6 @@ namespace t3d
 		GLuint matrix_cameraToClip;
 		GLuint matrix_modelToWorld;
 		GLuint matrix_worldToCamera;
-
 	};
 
 
@@ -36,16 +35,11 @@ namespace t3d
 		World mWorld;
 		Camera mCamera;
 
-		QVector2D mPendingCursorDelta;
-
 	private:
 		void initialize();
 		void render();
 
-		QVector2D consumeCursorDelta();
-
 		void keyPressEvent(QKeyEvent *ev);
-		void mouseMoveEvent(QMouseEvent *ev);
 
 	public:
 		Terrain3D();

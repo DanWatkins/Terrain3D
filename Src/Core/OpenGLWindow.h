@@ -28,8 +28,10 @@ public slots:
 
 protected:
 	bool event(QEvent *event);
-
 	void exposeEvent(QExposeEvent *event);
+
+	QVector2D getCursorDelta();
+	void resetCursorPosition();
 
 private:
 	bool mUpdatePending;

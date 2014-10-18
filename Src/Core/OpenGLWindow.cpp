@@ -116,3 +116,34 @@ void OpenGLWindow::setAnimating(bool animating)
 	if (animating)
 		renderLater();
 }
+
+
+const float mouseDeltaOffsetX = 100.0f;
+const float mouseDeltaOffsetY = 100.0f;
+
+QVector2D OpenGLWindow::getCursorDelta()
+{
+	QVector2D delta;
+
+#ifdef WIN32
+	POINT pos;
+	GetCursorPos(&pos);
+	pos.x -= mouseDeltaOffsetX;
+	pos.y -= mouseDeltaOffsetY;
+	delta = QVector2D(float(pos.x), float(pos.y));
+#else
+	#error No mouse delta function for this platform.
+#endif
+
+	return delta;
+}
+
+
+void OpenGLWindow::resetCursorPosition()
+{
+#ifdef WIN32
+	SetCursorPos(mouseDeltaOffsetX, mouseDeltaOffsetY);
+#else
+	#error No mouse delta function for this platform
+#endif
+}

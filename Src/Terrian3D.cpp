@@ -25,7 +25,7 @@ namespace t3d
 		mWorld.init();
 		mCamera.init(&mWorld);
 		mCamera.resize(width(), height());
-		QCursor::setPos(width()/2, height()/2);
+		resetCursorPosition();
 	}
 	 
 	
@@ -45,18 +45,10 @@ namespace t3d
 
 		mCamera.render();
 
-		const double mouseSensitivity = 0.2f;
-		QVector2D delta = consumeCursorDelta();
+		const double mouseSensitivity = 0.1f;
+		QVector2D delta = getCursorDelta();
 		mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
-	}
-	 
-
-	QVector2D Terrain3D::consumeCursorDelta()
-	{
-		QVector2D current = mPendingCursorDelta;
-		mPendingCursorDelta.setX(0.0f);
-		mPendingCursorDelta.setY(0.0f);
-		return current;
+		resetCursorPosition();		
 	}
 
 
@@ -93,15 +85,5 @@ namespace t3d
 				break;
 			}
 		}
-	}
-
-
-	void Terrain3D::mouseMoveEvent(QMouseEvent *ev)
-	{
-		mPendingCursorDelta.setX(mPendingCursorDelta.x() + (ev->globalX() - width()/2 ));
-		mPendingCursorDelta.setY(mPendingCursorDelta.y() + (ev->globalY() - height()/2));
-		QCursor::setPos(width()/2, height()/2);
-
-		QWindow::mouseMoveEvent(ev);
 	}
 };
