@@ -12,7 +12,7 @@
 
 namespace t3d
 {
-#define LOD 3
+	static int LOD = 3;
 
 
 	Camera::Camera(OpenGLWindow *window) :
@@ -88,6 +88,25 @@ namespace t3d
 					break;
 				}
 
+				//compute the index buffer offset and count for rendering
+				int startOffset = 0;
+				int count = 0;
+
+				for (int i=0; i<mIndexDataList.size(); i++)
+				{
+					if (LOD == i)
+					{
+						count = mIndexDataList[i].size();
+						break;
+					}
+					else
+					{
+						startOffset += mIndexDataList[i].size()*sizeof(GLuint);
+					}
+				}
+
+
+				//render all of the blocks
 				for (int y=0; y<numberOfBlocksOnASide; y++)
 				{
 					int offsetY = y * (mBlockSize*numberOfBlocksOnASide + 1)*mBlockSize;
@@ -98,8 +117,7 @@ namespace t3d
 						int baseVertex = offsetX+offsetY;
 
 						glUniform2i(mUniforms.blockIndex, x, y);
-						glDrawElementsBaseVertex(openglMode, mIndexDataList[LOD].size(),
-												 GL_UNSIGNED_INT, 0, baseVertex);
+						glDrawElementsBaseVertex(openglMode, count, GL_UNSIGNED_INT, (void*)startOffset, baseVertex);
 					}
 				}
 			}
@@ -300,13 +318,24 @@ namespace t3d
 		GLuint ibo;
 		buildIndexData();
 
+		int reserve = 0;
+		for (int i=0; i<mIndexDataList.size(); i++)
+			reserve += mIndexDataList[i].size()*sizeof(GLuint);
+
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, reserve, NULL, GL_STATIC_DRAW);
 
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-						sizeof(GLuint)*mIndexDataList[LOD].size(),
-						&mIndexDataList[LOD][0], GL_STATIC_DRAW);
+		int previousOffset = 0;
+		for (int i=0; i<mIndexDataList.size(); i++)
+		{
+			IndexData *indexData = &mIndexDataList[i];
+			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, previousOffset, sizeof(GLuint)*mIndexDataList[LOD].size(), &mIndexDataList[LOD][0]);
 
+			previousOffset += indexData->size() * sizeof(GLuint);
+		}
+
+		
 		glEnable(GL_PRIMITIVE_RESTART);
 		glPrimitiveRestartIndex(PrimitiveRestartIndex);
 
