@@ -18,7 +18,6 @@ namespace t3d
 		const float mLowBound = 0.0f;
 		const float mHightBound = 255.0f;
 
-		//std::vector<float> mHeights;
 		HeightMap mHeightMap;
 
 		void init(int size);

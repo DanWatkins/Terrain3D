@@ -11,14 +11,6 @@ namespace t3d
 {
 	void HeightMap::reserve(GLuint size)
 	{
-		bool powerOfTwo = !(size == 0) && !(size & (size - 1));
-
-		if (!powerOfTwo)
-		{
-			std::cout << "Error: cannot reserve non-power of two size for HeightMap. Size=" << size << std::endl;
-			//return;
-		}
-
 		mSize = size;
 		mHeightData.clear();
 		mHeightData = std::vector<float>(size*size, 50.0f);

@@ -75,8 +75,9 @@ namespace t3d
 	double randFloat();
 	double randFloat(double a, double b);
 	double randClamped();
-};
 
+	bool isPowerOfTwo(int value);
+};
 
 #endif
 

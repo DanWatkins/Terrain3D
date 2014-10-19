@@ -208,4 +208,10 @@ namespace t3d
 	{
 		return randFloat() - randFloat();
 	}
+
+
+	bool isPowerOfTwo(int value)
+	{
+		return !(value == 0) && !(value & (value - 1));
+	}
 };
