@@ -14,7 +14,6 @@ namespace t3d
 {
 	static int LOD = 3;
 
-
 	Camera::Camera(OpenGLWindow *window) :
 		mPosition(-10, 100, -10),
 		mHorizontalAngle(0.0f),
@@ -299,22 +298,35 @@ namespace t3d
 
 	void Camera::uploadTerrainData()
 	{
-		HeightMap &heightMap = mWorld->getHeightMap();
+		uploadVertexData();
+		uploadIndexData();
 
-		//vertex data
+		glEnable(GL_PRIMITIVE_RESTART);
+		glPrimitiveRestartIndex(PrimitiveRestartIndex);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	}
+
+
+	void Camera::uploadVertexData()
+	{
 		GLuint vbo;
-		heightMap.buildVertexData(mSpacing);
+		mWorld->getHeightMap().buildVertexData(mSpacing);
 		mProgram.setUniformValue(mUniforms.spacing, mSpacing);
 		mProgram.setUniformValue(mUniforms.heightScale, mHeightScale);
 		mProgram.setUniformValue(mUniforms.blockSize, float(mBlockSize));
-		const std::vector<float> *terrainVertexData = heightMap.getVertexData();
+		const std::vector<float> *terrainVertexData = mWorld->getHeightMap().getVertexData();
 
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		GLuint size = sizeof(float)*terrainVertexData->size();
 		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
+	}
 
-		//index data
+
+	void Camera::uploadIndexData()
+	{
 		GLuint ibo;
 		buildIndexData();
 
@@ -334,13 +346,6 @@ namespace t3d
 
 			previousOffset += indexData->size() * sizeof(GLuint);
 		}
-
-		
-		glEnable(GL_PRIMITIVE_RESTART);
-		glPrimitiveRestartIndex(PrimitiveRestartIndex);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	}
 
 

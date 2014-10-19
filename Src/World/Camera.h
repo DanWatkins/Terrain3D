@@ -96,7 +96,10 @@ namespace t3d
 
 		void buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize);
 		void buildIndexData();
+
 		void uploadTerrainData();
+		void uploadVertexData();
+		void uploadIndexData();
 		
 		void normalizeAngles();
 		
