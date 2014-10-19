@@ -87,12 +87,14 @@ namespace t3d
 		int mBlockSize;
 		static const GLuint PrimitiveRestartIndex = 900000000;
 		typedef std::vector<GLuint> IndexData;
-		IndexData mIndexData;
+		std::list<IndexData> mIndexDataList;
 
 
 	private:
 		void loadShaders();
 		void loadTextures();
+
+		void buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize);
 		void buildIndexData();
 		void uploadTerrainData();
 		

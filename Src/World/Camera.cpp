@@ -95,7 +95,7 @@ namespace t3d
 						int baseVertex = offsetX+offsetY;
 
 						glUniform2i(mUniforms.blockIndex, x, y);
-						glDrawElementsBaseVertex(openglMode, mIndexData.size(),
+						glDrawElementsBaseVertex(openglMode, mIndexDataList.back().size(),
 												 GL_UNSIGNED_INT, 0, baseVertex);
 					}
 				}
@@ -178,79 +178,98 @@ namespace t3d
 
 	void Camera::loadTextures()
 	{
-		//sand texture
+		Image imageWater;
+		imageWater.loadFromFile_PNG("./Textures/water.png");
+
+		Image imageSand;
+		imageSand.loadFromFile_PNG("./Textures/sand.png");
+
+		Image imageGrass;
+		imageGrass.loadFromFile_PNG("./Textures/grass.png");
+
+		Image imageMountain;
+		imageMountain.loadFromFile_PNG("./Textures/mountain.png");
+
+		int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
+
+		glGenTextures(1, &mTextureSand);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
+
+		int mipLevels = 8;
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 0,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 1,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 2,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageGrass.getImageData()[0]);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 3,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
+
+		glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
+		glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	}
+
+
+	void Camera::buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize)
+	{
+		int mapSize = ceil(double(heightMapSize-1) / double(mBlockSize));
+		int mapSizeVertex = mapSize*blockSize + 1;
+
+		indexData.clear();
+		indexData.reserve((blockSize+1) * ((blockSize+1)*2 + 1));
+
+		for (int y=0; y<blockSize; y++)
 		{
-			Image imageWater;
-			imageWater.loadFromFile_PNG("./Textures/water.png");
+			int offset = y*mapSizeVertex;
 
-			Image imageSand;
-			imageSand.loadFromFile_PNG("./Textures/sand.png");
+			for (int x=0; x<blockSize+1; x++)
+			{
+				indexData.push_back(x+offset);
+				indexData.push_back(x+mapSizeVertex + offset);
+			}
 
-			Image imageGrass;
-			imageGrass.loadFromFile_PNG("./Textures/grass.png");
-
-			Image imageMountain;
-			imageMountain.loadFromFile_PNG("./Textures/mountain.png");
-
-			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
-
-			glGenTextures(1, &mTextureSand);
-			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
-
-			int mipLevels = 8;
-			glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
-
-			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-							0, 0, 0,
-							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
-
-			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-							0, 0, 1,
-							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
-
-			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-							0, 0, 2,
-							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageGrass.getImageData()[0]);
-
-			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-							0, 0, 3,
-							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
-
-			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
-			glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			indexData.push_back(PrimitiveRestartIndex);
 		}
+	}
+
+
+	int maxLevelsOfDetail(int blockSize)
+	{
+		return 1 + int(std::log10(blockSize)/std::log10(2));
+	}
+
+	int sizeForLod(int lod)
+	{
+		return std::pow(2, lod);
 	}
 
 
 	void Camera::buildIndexData()
 	{
+		std::cout << "Generating index data set" << std::endl;
+
 		int heightMapSize = mWorld->getHeightMap().getSize();
+		int lod = maxLevelsOfDetail(mBlockSize);
 
-		int mapSize = ceil(double(heightMapSize-1) / double(mBlockSize));
-		int mapSizeVertex = mapSize*mBlockSize + 1;
-
-		mIndexData.clear();
-		mIndexData.reserve((mBlockSize+1) * ((mBlockSize+1)*2 + 1));
-
-		for (int y=0; y<mBlockSize; y++)
+		for (int i=0; i<lod; i++)
 		{
-			int offset = y*mapSizeVertex;
-
-			for (int x=0; x<mBlockSize+1; x++)
-			{
-				mIndexData.push_back(x+offset);
-				mIndexData.push_back(x+mapSizeVertex + offset);
-			}
-
-			mIndexData.push_back(PrimitiveRestartIndex);
+			mIndexDataList.push_back(IndexData());
+			buildIndexBlock(mIndexDataList.back(), heightMapSize, sizeForLod(i));
 		}
-
-		std::cout << "Finished generating index data" << std::endl;
 	}
 
 
@@ -277,9 +296,10 @@ namespace t3d
 
 		glGenBuffers(1, &ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-						sizeof(GLuint)*mIndexData.size(),
-						&mIndexData[0], GL_STATIC_DRAW);
+						sizeof(GLuint)*mIndexDataList.back().size(),
+						&mIndexDataList.back()[0], GL_STATIC_DRAW);
 
 		glEnable(GL_PRIMITIVE_RESTART);
 		glPrimitiveRestartIndex(PrimitiveRestartIndex);
