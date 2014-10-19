@@ -12,8 +12,11 @@
 
 namespace t3d
 {
+#define LOD 3
+
+
 	Camera::Camera(OpenGLWindow *window) :
-		mPosition(-10, 20, -10),
+		mPosition(-10, 100, -10),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -23,11 +26,11 @@ namespace t3d
 		mMaxVerticalAngle(95.0f),
 		mProgram(window),
 		mSpacing(1.0f),
-		mHeightScale(100.0f),
-		mBlockSize(16),
+		mHeightScale(75.0f),
+		mBlockSize(8),
 		mMode(Mode::Normal)
 	{
-		lookAt(Vec3f(20, 0, 20));
+		lookAt(Vec3f(100, 10, 100));
 	}
 
 
@@ -95,7 +98,7 @@ namespace t3d
 						int baseVertex = offsetX+offsetY;
 
 						glUniform2i(mUniforms.blockIndex, x, y);
-						glDrawElementsBaseVertex(openglMode, mIndexDataList.back().size(),
+						glDrawElementsBaseVertex(openglMode, mIndexDataList[LOD].size(),
 												 GL_UNSIGNED_INT, 0, baseVertex);
 					}
 				}
@@ -227,19 +230,21 @@ namespace t3d
 	void Camera::buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize)
 	{
 		int mapSize = ceil(double(heightMapSize-1) / double(mBlockSize));
-		int mapSizeVertex = mapSize*blockSize + 1;
+		int mapSizeVertex = mapSize*mBlockSize + 1;
 
 		indexData.clear();
 		indexData.reserve((blockSize+1) * ((blockSize+1)*2 + 1));
 
 		for (int y=0; y<blockSize; y++)
 		{
-			int offset = y*mapSizeVertex;
+			int scale = mBlockSize / blockSize;
+			int offset = y*mapSizeVertex*scale;
+			
 
 			for (int x=0; x<blockSize+1; x++)
 			{
-				indexData.push_back(x+offset);
-				indexData.push_back(x+mapSizeVertex + offset);
+				indexData.push_back(x*scale + offset);
+				indexData.push_back(x*scale + mapSizeVertex*scale + offset);
 			}
 
 			indexData.push_back(PrimitiveRestartIndex);
@@ -251,6 +256,7 @@ namespace t3d
 	{
 		return 1 + int(std::log10(blockSize)/std::log10(2));
 	}
+
 
 	int sizeForLod(int lod)
 	{
@@ -298,8 +304,8 @@ namespace t3d
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-						sizeof(GLuint)*mIndexDataList.back().size(),
-						&mIndexDataList.back()[0], GL_STATIC_DRAW);
+						sizeof(GLuint)*mIndexDataList[LOD].size(),
+						&mIndexDataList[LOD][0], GL_STATIC_DRAW);
 
 		glEnable(GL_PRIMITIVE_RESTART);
 		glPrimitiveRestartIndex(PrimitiveRestartIndex);

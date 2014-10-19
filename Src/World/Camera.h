@@ -87,7 +87,7 @@ namespace t3d
 		int mBlockSize;
 		static const GLuint PrimitiveRestartIndex = 900000000;
 		typedef std::vector<GLuint> IndexData;
-		std::list<IndexData> mIndexDataList;
+		std::vector<IndexData> mIndexDataList;
 
 
 	private:
