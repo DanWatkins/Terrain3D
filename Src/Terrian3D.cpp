@@ -15,7 +15,7 @@
 namespace t3d
 {
 	Terrain3D::Terrain3D() :
-		mCamera(this)
+		mCamera(this, &mWorld)
 	{
 	}
 
@@ -23,7 +23,7 @@ namespace t3d
 	void Terrain3D::initialize()
 	{
 		mWorld.init();
-		mCamera.init(&mWorld);
+		mCamera.init();
 		mCamera.resize(width(), height());
 		resetCursorPosition();
 	}
@@ -72,18 +72,9 @@ namespace t3d
 				mCamera.incPosition(speed * mCamera.getRight()); break;
 
 			case Qt::Key_Z:
-				mCamera.setMode(Camera::Mode::Normal); break;
+				mCamera.setMode(Mode::Normal); break;
 			case Qt::Key_X:
-				mCamera.setMode(Camera::Mode::WireFrame); break;
-
-
-			case Qt::Key_R:
-			{
-				mWorld.init();
-				mCamera.init(&mWorld);
-
-				break;
-			}
+				mCamera.setMode(Mode::WireFrame); break;
 		}
 	}
 };

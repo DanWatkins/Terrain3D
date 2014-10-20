@@ -1,4 +1,4 @@
-#version 330 core
+#version 430 core
 
 smooth in vec2 tc;
 smooth in vec4 outPosition;

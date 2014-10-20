@@ -12,6 +12,7 @@
 #include "../Core/OpenGLWindow.h"
 #include "HeightMap.h"
 #include "World.h"
+#include "TerrainRenderer.h"
 
 namespace t3d
 {
@@ -22,11 +23,14 @@ namespace t3d
 	class Camera : protected QOpenGLFunctions_4_3_Core
 	{
 	public:
-		Camera(OpenGLWindow *window);
+		Camera(OpenGLWindow *window, World *world);
 
-		void init(World *world);
+		void init();
 		void render();
 		void resize(unsigned windowWidth, unsigned windowHeight);
+
+		OpenGLWindow *getWindow() { return mWindow; }
+		World *getWorld() { return mWorld; }
 
 		void setPosition(Vec3f position) { mPosition = position; }
 		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }
@@ -49,32 +53,14 @@ namespace t3d
 		Vec3f getRight() const;
 		Vec3f getUp() const;
 
-		enum class Mode
-		{
-			Normal,
-			WireFrame
-		};
-
-		void setMode(Mode mode) { mMode = mode; }
-		Mode getMode() { return mMode; }
+		void setMode(Mode mode) { mTerrainRenderer.setMode(mode); }
+		Mode getMode() { return mTerrainRenderer.getMode(); }
 
 	private:
-		struct RenderData
-		{
-			GLuint matrixCamera;
-			GLuint matrixModel;
-			GLuint spacing;
-			GLuint heightScale;
-			GLuint blockSize;
-			GLuint blockIndex;
-		} mUniforms;
-
+		OpenGLWindow *mWindow;
 		World *mWorld;
-		QOpenGLShaderProgram mProgram;
-		QOpenGLVertexArrayObject mVao;
-		GLuint mTexture;
-		GLuint mTextureSand;
-		Mode mMode;
+
+		TerrainRenderer mTerrainRenderer;
 
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;
@@ -83,29 +69,11 @@ namespace t3d
 		float mAspectRatio;
 		float mMaxVerticalAngle;
 
-		float mSpacing, mHeightScale;
-		int mBlockSize;
-		static const GLuint PrimitiveRestartIndex = 900000000;
-		typedef std::vector<GLuint> IndexData;
-		std::vector<IndexData> mIndexDataList;
-
-
 	private:
-		void loadShaders();
-		void loadTextures();
-
-		void buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize);
-		void buildIndexData();
-
-		void uploadTerrainData();
-		void uploadVertexData();
-		void uploadIndexData();
-		
-		void normalizeAngles();
-		
+		Mat4 getTotalMatrix() const;
 		Mat4 getPerspectiveMatrix() const;
 		Mat4 getViewMatrix() const;
-		Mat4 getTotalMatrix() const;
+		void normalizeAngles();
 	};
 };
 
