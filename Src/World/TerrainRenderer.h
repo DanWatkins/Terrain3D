@@ -67,6 +67,14 @@ namespace t3d
 		void uploadTerrainData();
 		void uploadVertexData();
 		void uploadIndexData();
+
+		struct LodIndexBlock
+		{
+			int count, offset;
+			LodIndexBlock() : count(0), offset(0) {}
+		};
+
+		LodIndexBlock lodIndexBlockForLod(int lod);
 	};
 };
 

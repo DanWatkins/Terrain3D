@@ -10,14 +10,12 @@
 
 namespace t3d
 {
-	static int LOD = 3;
-
 	TerrainRenderer::TerrainRenderer(OpenGLWindow *window, World *world) :
 		mWorld(world),
 		mProgram(window),
 		mSpacing(1.0f),
 		mHeightScale(75.0f),
-		mBlockSize(8),
+		mBlockSize(16),
 		mMode(Mode::Normal)
 	{
 	}
@@ -48,6 +46,27 @@ namespace t3d
 	}
 
 
+	TerrainRenderer::LodIndexBlock TerrainRenderer::lodIndexBlockForLod(int lod)
+	{
+		LodIndexBlock lib;
+
+		for (int i=0; i<mIndexDataList.size(); i++)
+		{
+			if (lod == i)
+			{
+				lib.count = mIndexDataList[i].size();
+				break;
+			}
+			else
+			{
+				lib.offset += mIndexDataList[i].size()*sizeof(GLuint);
+			}
+		}
+
+		return lib;
+	}
+
+
 	void TerrainRenderer::render(Mat4 totalMatrix)
 	{
 		mProgram.bind();
@@ -74,24 +93,6 @@ namespace t3d
 					break;
 				}
 
-				//compute the index buffer offset and count for rendering
-				int startOffset = 0;
-				int count = 0;
-
-				for (int i=0; i<mIndexDataList.size(); i++)
-				{
-					if (LOD == i)
-					{
-						count = mIndexDataList[i].size();
-						break;
-					}
-					else
-					{
-						startOffset += mIndexDataList[i].size()*sizeof(GLuint);
-					}
-				}
-
-
 				//render all of the blocks
 				for (int y=0; y<numberOfBlocksOnASide; y++)
 				{
@@ -103,7 +104,8 @@ namespace t3d
 						int baseVertex = offsetX+offsetY;
 
 						glUniform2i(mUniforms.blockIndex, x, y);
-						glDrawElementsBaseVertex(openglMode, count, GL_UNSIGNED_INT, (void*)startOffset, baseVertex);
+						LodIndexBlock lib = lodIndexBlockForLod(x%2);
+						glDrawElementsBaseVertex(openglMode, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
 					}
 				}
 			}
@@ -273,7 +275,7 @@ namespace t3d
 		for (int i=0; i<mIndexDataList.size(); i++)
 		{
 			IndexData *indexData = &mIndexDataList[i];
-			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, previousOffset, sizeof(GLuint)*mIndexDataList[LOD].size(), &mIndexDataList[LOD][0]);
+			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, previousOffset, sizeof(GLuint)*mIndexDataList[i].size(), &mIndexDataList[i][0]);
 
 			previousOffset += indexData->size() * sizeof(GLuint);
 		}
