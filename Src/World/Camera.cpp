@@ -38,7 +38,7 @@ namespace t3d
 
 	void Camera::render()
 	{
-		mTerrainRenderer.render(getTotalMatrix());
+		mTerrainRenderer.render(mPosition, getTotalMatrix());
 	}
 
 

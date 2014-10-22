@@ -26,7 +26,7 @@ namespace t3d
 		TerrainRenderer(OpenGLWindow *window, World *world);
 
 		void init();
-		void render(Mat4 totalMatrix);
+		void render(Vec3f cameraPos, Mat4 totalMatrix);
 
 		void setMode(Mode mode) { mMode = mode; }
 		Mode getMode() { return mMode; }
@@ -75,6 +75,7 @@ namespace t3d
 		};
 
 		LodIndexBlock lodIndexBlockForLod(int lod);
+		Vec2i cameraPosToBlockPosition(Vec3f cameraPos);
 	};
 };
 

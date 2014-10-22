@@ -15,7 +15,7 @@ namespace t3d
 		mProgram(window),
 		mSpacing(1.0f),
 		mHeightScale(75.0f),
-		mBlockSize(16),
+		mBlockSize(8),
 		mMode(Mode::Normal)
 	{
 	}
@@ -58,7 +58,7 @@ namespace t3d
 				break;
 			}
 			else
-			{
+			{ 
 				lib.offset += mIndexDataList[i].size()*sizeof(GLuint);
 			}
 		}
@@ -67,7 +67,41 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::render(Mat4 totalMatrix)
+	Vec2i TerrainRenderer::cameraPosToBlockPosition(Vec3f cameraPos)
+	{
+		double mapSize = mWorld->getHeightMap().getSize();
+		double blocksPerMapEdge = mapSize / mBlockSize;
+
+		Vec2i pos;
+		pos.x = int(cameraPos.x / mapSize * blocksPerMapEdge + 0.5) - 1;
+		pos.y = int(cameraPos.z / mapSize * blocksPerMapEdge + 0.5) - 1;
+
+		return pos;
+	}
+
+
+	double blockDistanceBetweenPos(Vec2i a, Vec2i b)
+	{
+		Vec2i net(a.x-b.x, a.y-b.y);
+
+		return std::sqrt(net.x*net.x + net.y*net.y);
+	}
+
+
+	int lodForDistance(double distance)
+	{
+		if (distance > 10.0)
+			return 0;
+		if (distance > 5.0)
+			return 1;
+		if (distance > 2.0)
+			return 2;
+
+		return 3;
+	}
+
+
+	void TerrainRenderer::render(Vec3f cameraPos, Mat4 totalMatrix)
 	{
 		mProgram.bind();
 		{
@@ -104,7 +138,7 @@ namespace t3d
 						int baseVertex = offsetX+offsetY;
 
 						glUniform2i(mUniforms.blockIndex, x, y);
-						LodIndexBlock lib = lodIndexBlockForLod(x%2);
+						LodIndexBlock lib = lodIndexBlockForLod(lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y))));
 						glDrawElementsBaseVertex(openglMode, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
 					}
 				}
