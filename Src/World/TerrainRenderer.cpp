@@ -70,11 +70,11 @@ namespace t3d
 	Vec2i TerrainRenderer::cameraPosToBlockPosition(Vec3f cameraPos)
 	{
 		double mapSize = mWorld->getHeightMap().getSize();
-		double blocksPerMapEdge = mapSize / mBlockSize;
+		double blocksPerMapEdge = mBlockSize;
 
 		Vec2i pos;
-		pos.x = int(cameraPos.x / mapSize * blocksPerMapEdge + 0.5) - 1;
-		pos.y = int(cameraPos.z / mapSize * blocksPerMapEdge + 0.5) - 1;
+		pos.x = int(cameraPos.x / blocksPerMapEdge + 0.5) - 1;
+		pos.y = int(cameraPos.z / blocksPerMapEdge + 0.5) - 1;
 
 		return pos;
 	}
