@@ -46,11 +46,11 @@ namespace t3d
 	}
 
 
-	TerrainRenderer::LodIndexBlock TerrainRenderer::lodIndexBlockForLod(int lod)
+	TerrainRenderer::LodIndexBlock TerrainRenderer::lodIndexBlockForLod(unsigned lod)
 	{
 		LodIndexBlock lib;
 
-		for (int i=0; i<mIndexDataList.size(); i++)
+		for (unsigned i=0; i<mIndexDataList.size(); i++)
 		{
 			if (lod == i)
 			{
@@ -69,7 +69,6 @@ namespace t3d
 
 	Vec2i TerrainRenderer::cameraPosToBlockPosition(Vec3f cameraPos)
 	{
-		double mapSize = mWorld->getHeightMap().getSize();
 		double blocksPerMapEdge = mBlockSize;
 
 		Vec2i pos;
@@ -114,7 +113,7 @@ namespace t3d
 				int heightMapSize = mWorld->getHeightMap().getSize();
 				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mBlockSize));
 
-				GLenum openglMode;
+				GLenum openglMode = GL_TRIANGLE_STRIP;
 
 				switch (mMode)
 				{
@@ -298,7 +297,7 @@ namespace t3d
 		buildIndexData();
 
 		int reserve = 0;
-		for (int i=0; i<mIndexDataList.size(); i++)
+		for (unsigned i=0; i<mIndexDataList.size(); i++)
 			reserve += mIndexDataList[i].size()*sizeof(GLuint);
 
 		glGenBuffers(1, &ibo);
@@ -306,7 +305,7 @@ namespace t3d
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, reserve, NULL, GL_STATIC_DRAW);
 
 		int previousOffset = 0;
-		for (int i=0; i<mIndexDataList.size(); i++)
+		for (unsigned i=0; i<mIndexDataList.size(); i++)
 		{
 			IndexData *indexData = &mIndexDataList[i];
 			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, previousOffset, sizeof(GLuint)*mIndexDataList[i].size(), &mIndexDataList[i][0]);

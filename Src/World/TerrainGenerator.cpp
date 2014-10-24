@@ -9,6 +9,13 @@
 
 namespace t3d
 {
+	TerrainGenerator::TerrainGenerator() :
+		mLowBound(0.0f),
+		mHightBound(255.0f)
+	{
+	}
+
+
 	void TerrainGenerator::init(int size)
 	{
 		mHeightMap.reserve(size);

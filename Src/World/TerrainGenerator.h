@@ -15,9 +15,8 @@ namespace t3d
 	class TerrainGenerator
 	{
 	private:
-		const float mLowBound = 0.0f;
-		const float mHightBound = 255.0f;
-
+		float mLowBound;
+		float mHightBound;
 		HeightMap mHeightMap;
 
 		void init(int size);
@@ -27,6 +26,7 @@ namespace t3d
 		void smoothHeight(float intensity);
 
 	public:
+		TerrainGenerator();
 		HeightMap generate(int size, int numberOfPasses, int seed);	//TODO return a pointer or something LOL
 	};
 };

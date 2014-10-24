@@ -40,6 +40,7 @@
 //GLM Includes
 #pragma warning(push)
 #pragma warning(disable:4201)
+#pragma warning(disable:4996)
 	#include <glm/glm.hpp>
 	#include <glm/ext.hpp>
 #pragma warning(pop)

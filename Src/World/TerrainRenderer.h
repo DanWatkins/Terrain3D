@@ -74,7 +74,7 @@ namespace t3d
 			LodIndexBlock() : count(0), offset(0) {}
 		};
 
-		LodIndexBlock lodIndexBlockForLod(int lod);
+		LodIndexBlock lodIndexBlockForLod(unsigned lod);
 		Vec2i cameraPosToBlockPosition(Vec3f cameraPos);
 	};
 };

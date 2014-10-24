@@ -45,7 +45,6 @@ namespace t3d
 	void Font::print(const OpenGLWindow &window, const String &text, const Vec2f &pos)
 	{
 		float x = pos.x;
-		float y = pos.y;
 
 		if (text.size() > 0)
 		{

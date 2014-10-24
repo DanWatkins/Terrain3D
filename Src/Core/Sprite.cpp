@@ -103,7 +103,7 @@ namespace t3d
 		//TODO This method does way too much on the CPU. Consider moving it to the GPU if it would increase performance
 		//Also consider eliminating logic here
 
-
+		window;
 
 		//compute and upload the transformation
 		{
