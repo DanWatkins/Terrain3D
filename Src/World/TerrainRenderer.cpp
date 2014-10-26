@@ -89,11 +89,11 @@ namespace t3d
 
 	int lodForDistance(double distance)
 	{
-		if (distance > 10.0)
+		if (distance > 30.0)
 			return 0;
-		if (distance > 5.0)
+		if (distance > 20.0)
 			return 1;
-		if (distance > 2.0)
+		if (distance > 10.0)
 			return 2;
 
 		return 3;
@@ -112,18 +112,19 @@ namespace t3d
 			{
 				int heightMapSize = mWorld->getHeightMap().getSize();
 				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mBlockSize));
-
-				GLenum openglMode = GL_TRIANGLE_STRIP;
-
 				switch (mMode)
 				{
-				case Mode::Normal:
-					openglMode = GL_TRIANGLE_STRIP;
-					break;
+					case Mode::Normal:
+					{
+						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+						break;
+					}
 
-				case Mode::WireFrame:
-					openglMode = GL_LINE_STRIP;
-					break;
+					case Mode::WireFrame:
+					{
+						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+						break;
+					}
 				}
 
 				//render all of the blocks
@@ -138,7 +139,7 @@ namespace t3d
 
 						glUniform2i(mUniforms.blockIndex, x, y);
 						LodIndexBlock lib = lodIndexBlockForLod(lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y))));
-						glDrawElementsBaseVertex(openglMode, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
+						glDrawElementsBaseVertex(GL_TRIANGLE_STRIP, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
 					}
 				}
 			}
