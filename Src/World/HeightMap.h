@@ -8,7 +8,7 @@
 #ifndef _t3d_HEIGHT_MAP_H
 #define _t3d_HEIGHT_MAP_H
 
-#include "../Main.h"
+#include <Main.h>
 #include <vector>
 
 namespace t3d

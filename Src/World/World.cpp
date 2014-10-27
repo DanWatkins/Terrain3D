@@ -6,8 +6,8 @@
 //==================================================================================================================|
 
 #include "World.h"
-#include "HeightMap.h"
-#include "TerrainGenerator.h"
+#include <World/HeightMap.h>
+#include <World/TerrainGenerator.h>
 #include <stdio.h>
 
 namespace t3d

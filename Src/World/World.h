@@ -8,7 +8,7 @@
 #ifndef _t3d_WORLD_H
 #define _t3d_WORLD_H
 
-#include "HeightMap.h"
+#include <World/HeightMap.h>
 
 namespace t3d
 {

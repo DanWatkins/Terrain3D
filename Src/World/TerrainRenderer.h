@@ -8,9 +8,9 @@
 #ifndef _t3d_TERRAIN_RENDERER_H
 #define _t3d_TERRAIN_RENDERER_H
 
-#include "../Main.h"
-#include "../Core/OpenGLWindow.h"
-#include "World.h"
+#include <Main.h>
+#include <Core/OpenGLWindow.h>
+#include <World/World.h>
 
 namespace t3d
 {

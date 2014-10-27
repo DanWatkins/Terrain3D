@@ -8,11 +8,11 @@
 #ifndef _GL_TERRAIN3D_H
 #define _GL_TERRAIN3D_H
 
-#include "Main.h"
-#include "./Core/OpenGLWindow.h"
-#include "./World/World.h"
-#include "./World/Camera.h"
-#include "World/HeightMap.h"
+#include <Main.h>
+#include <Core/OpenGLWindow.h>
+#include <World/World.h>
+#include <World/Camera.h>
+#include <World\HeightMap.h>
 
 #define ARRAY_COUNT( array ) (sizeof( array ) / (sizeof( array[0] ) * (sizeof( array ) != sizeof(void*) || sizeof( array[0] ) <= sizeof(void*))))
 

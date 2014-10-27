@@ -30,18 +30,6 @@
     <ClInclude Include="..\Src\Core\MatrixStack.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\World\World.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\World\HeightMap.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\World\Camera.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\World\TerrainGenerator.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\Core\Image.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -57,7 +45,19 @@
     <ClInclude Include="..\Src\Core\Font.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\World\Camera.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\World\HeightMap.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\World\TerrainGenerator.h">
+      <Filter>World</Filter>
+    </ClInclude>
     <ClInclude Include="..\Src\World\TerrainRenderer.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\World\World.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
@@ -76,18 +76,6 @@
     <ClCompile Include="..\Src\Core\MatrixStack.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\World\World.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\World\Camera.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\World\HeightMap.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\World\TerrainGenerator.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\Core\Image.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -103,7 +91,19 @@
     <ClCompile Include="..\Src\Core\Font.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\World\HeightMap.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\TerrainGenerator.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
     <ClCompile Include="..\Src\World\TerrainRenderer.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\Camera.cpp">
       <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>

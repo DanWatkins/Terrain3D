@@ -8,7 +8,7 @@
 #ifndef _TERRAIN_GENERATOR_H
 #define _TERRAIN_GENERATOR_H
 
-#include "HeightMap.h"
+#include <World/HeightMap.h>
 
 namespace t3d
 {

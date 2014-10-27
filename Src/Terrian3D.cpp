@@ -5,12 +5,15 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "Terrain3D.h"
+/*#include "Terrain3D.h"
 #include "./Core/Core.h"
 #include "Core/Sprite.h"
 #include "Core/Image.h"
 #include "Core/SpriteSheet.h"
-#include "Core/Font.h"
+#include "Core/Font.h"*/
+
+#include "Terrain3D.h"
+#include <Core\Core.h>
 
 namespace t3d
 {

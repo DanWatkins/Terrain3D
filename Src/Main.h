@@ -58,8 +58,6 @@
 		#pragma comment (lib, "Qt5Gui.lib")
 		#pragma comment (lib, "Qt5Core.lib")
 	#endif
-
-	//#pragma comment (lib, "OpenGL32.lib")
 #else
 	#error "Non Windows toolchain detected"
 #endif
@@ -97,8 +95,8 @@ typedef std::string			String;
 
 
 //Project Includes
-#include "Constants.h"
-#include "./Core/Helper.h"
+#include <Constants.h>
+#include <Core/Helper.h>
 
 #endif
 

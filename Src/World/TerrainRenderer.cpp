@@ -6,7 +6,7 @@
 //==================================================================================================================|
 
 #include "TerrainRenderer.h"
-#include "../Core/Image.h"
+#include <Core/Image.h>
 
 namespace t3d
 {

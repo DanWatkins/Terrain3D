@@ -8,11 +8,11 @@
 #ifndef _t3d_CAMERA_H
 #define _t3d_CAMERA_H
 
-#include "../Main.h"
-#include "../Core/OpenGLWindow.h"
-#include "HeightMap.h"
-#include "World.h"
-#include "TerrainRenderer.h"
+#include <Main.h>
+#include <Core/OpenGLWindow.h>
+#include <World/HeightMap.h>
+#include <World/World.h>
+#include <World/TerrainRenderer.h>
 
 namespace t3d
 {
