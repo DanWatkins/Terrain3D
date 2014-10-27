@@ -8,7 +8,7 @@
 #ifndef _OPENGL_WINDOW_H
 #define _OPENGL_WINDOW_H
 
-#include "../Main.h"
+#include <Main.h>
 
 class OpenGLWindow : public QWindow, protected QOpenGLFunctions_4_3_Core
 {

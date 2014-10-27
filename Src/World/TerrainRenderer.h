@@ -20,10 +20,13 @@ namespace t3d
 		WireFrame
 	};
 
+	class TerrainRenderData;
+
 	class TerrainRenderer : protected QOpenGLFunctions_4_3_Core
 	{
 	public:
 		TerrainRenderer(OpenGLWindow *window, World *world);
+		~TerrainRenderer() {}
 
 		void init();
 		void render(Vec3f cameraPos, Mat4 totalMatrix);
@@ -32,16 +35,8 @@ namespace t3d
 		Mode getMode() { return mMode; }
 
 	private:
-		struct RenderData
-		{
-			GLuint matrixCamera;
-			GLuint matrixModel;
-			GLuint spacing;
-			GLuint heightScale;
-			GLuint blockSize;
-			GLuint blockIndex;
-		} mUniforms;
-		
+		std::shared_ptr<TerrainRenderData> mRenderData;
+
 		World *mWorld;
 		QOpenGLShaderProgram mProgram;
 		QOpenGLVertexArrayObject mVao;
@@ -50,31 +45,11 @@ namespace t3d
 
 		Mode mMode;
 
-		float mSpacing, mHeightScale;
-		int mBlockSize;
-		static const GLuint PrimitiveRestartIndex = 900000000;
-		typedef std::vector<GLuint> IndexData;
-		std::vector<IndexData> mIndexDataList;
-
+		
 
 	private:
 		void loadShaders();
 		void loadTextures();
-
-		void buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize);
-		void buildIndexData();
-
-		void uploadTerrainData();
-		void uploadVertexData();
-		void uploadIndexData();
-
-		struct LodIndexBlock
-		{
-			int count, offset;
-			LodIndexBlock() : count(0), offset(0) {}
-		};
-
-		LodIndexBlock lodIndexBlockForLod(unsigned lod);
 		Vec2i cameraPosToBlockPosition(Vec3f cameraPos);
 	};
 };

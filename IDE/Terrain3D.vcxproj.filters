@@ -10,6 +10,9 @@
     <Filter Include="Ext">
       <UniqueIdentifier>{dab2d0e9-1505-4a9a-9ac8-854ab75d0b94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World\private">
+      <UniqueIdentifier>{9d58d184-c965-40cb-9170-a642bbdee13c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Core\Core.h">
@@ -60,6 +63,9 @@
     <ClInclude Include="..\Src\World\World.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\World\private\TerrainRenderData.h">
+      <Filter>World\private</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp">
@@ -105,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="..\Src\World\Camera.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\private\TerrainRenderData.cpp">
+      <Filter>World\private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
