@@ -5,11 +5,12 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_TERRAIN_RENDER_DATA_H
-#define _t3d_TERRAIN_RENDER_DATA_H
+#ifndef _t3d_TERRAIN_RENDERER_RENDER_DATA_H
+#define _t3d_TERRAIN_RENDERER_RENDER_DATA_H
 
 #include <Main.h>
 #include <World/World.h>
+#include <World/TerrainRenderer.h>
 
 namespace t3d
 {
@@ -19,11 +20,10 @@ namespace t3d
 		LodIndexBlock() : count(0), offset(0) {}
 	};
 
-
-	class TerrainRenderData : protected QOpenGLFunctions_4_3_Core
+	class TerrainRenderer::RenderData : protected QOpenGLFunctions_4_3_Core
 	{
 	public:
-		TerrainRenderData(World *world, QOpenGLShaderProgram *program);
+		RenderData(World *world, QOpenGLShaderProgram *program);
 
 		void queryUniforms();
 		void uploadTerrainData();
@@ -34,7 +34,7 @@ namespace t3d
 		int blockSize() { return mBlockSize; }
 
 	private:
-		TerrainRenderData();
+		RenderData();
 
 		World *mWorld;
 		QOpenGLShaderProgram *mProgram;

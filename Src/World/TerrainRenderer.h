@@ -20,13 +20,12 @@ namespace t3d
 		WireFrame
 	};
 
-	class TerrainRenderData;
 
 	class TerrainRenderer : protected QOpenGLFunctions_4_3_Core
 	{
 	public:
 		TerrainRenderer(OpenGLWindow *window, World *world);
-		~TerrainRenderer() {}
+		~TerrainRenderer();
 
 		void init();
 		void render(Vec3f cameraPos, Mat4 totalMatrix);
@@ -35,17 +34,16 @@ namespace t3d
 		Mode getMode() { return mMode; }
 
 	private:
-		std::shared_ptr<TerrainRenderData> mRenderData;
+		Q_DISABLE_COPY(TerrainRenderer)
+		class RenderData;
+		std::unique_ptr<RenderData> mRenderData;
 
 		World *mWorld;
 		QOpenGLShaderProgram mProgram;
 		QOpenGLVertexArrayObject mVao;
 		GLuint mTexture;
 		GLuint mTextureSand;
-
 		Mode mMode;
-
-		
 
 	private:
 		void loadShaders();

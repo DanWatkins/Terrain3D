@@ -13,6 +13,9 @@
     <Filter Include="World\private">
       <UniqueIdentifier>{9d58d184-c965-40cb-9170-a642bbdee13c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World\private\TerrainRenderer">
+      <UniqueIdentifier>{2d664a98-7c50-412b-86c8-2fcb6cdccd44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Core\Core.h">
@@ -63,8 +66,8 @@
     <ClInclude Include="..\Src\World\World.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\World\private\TerrainRenderData.h">
-      <Filter>World\private</Filter>
+    <ClInclude Include="..\Src\World\private\TerrainRenderer\RenderData.h">
+      <Filter>World\private\TerrainRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,8 +115,8 @@
     <ClCompile Include="..\Src\World\Camera.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\World\private\TerrainRenderData.cpp">
-      <Filter>World\private</Filter>
+    <ClCompile Include="..\Src\World\private\TerrainRenderer\RenderData.cpp">
+      <Filter>World\private\TerrainRenderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

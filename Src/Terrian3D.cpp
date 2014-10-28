@@ -57,7 +57,7 @@ namespace t3d
 
 	void Terrain3D::keyPressEvent(QKeyEvent *ev)
 	{
-		const float speed = 3.0f;
+		const float speed = 1.5f;
 
 		switch (ev->key())
 		{

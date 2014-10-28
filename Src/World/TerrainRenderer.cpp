@@ -6,7 +6,7 @@
 //==================================================================================================================|
 
 #include "TerrainRenderer.h"
-#include "private/TerrainRenderData.h"
+#include "private/TerrainRenderer/RenderData.h"
 #include <Core/Image.h>
 
 namespace t3d
@@ -16,8 +16,14 @@ namespace t3d
 		mProgram(window),
 		mMode(Mode::Normal)
 	{
-		mRenderData = std::shared_ptr<TerrainRenderData>(new TerrainRenderData(mWorld, &mProgram));
+		mRenderData = std::unique_ptr<RenderData>(new RenderData(mWorld, &mProgram));
 	}
+
+
+	TerrainRenderer::~TerrainRenderer()
+	{
+	}
+
 
 	void TerrainRenderer::init()
 	{

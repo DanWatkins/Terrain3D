@@ -5,11 +5,11 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "TerrainRenderData.h"
+#include "RenderData.h"
 
 namespace t3d
 {
-	TerrainRenderData::TerrainRenderData() :
+	TerrainRenderer::RenderData::RenderData() :
 		mWorld(nullptr),
 		mProgram(nullptr),
 		mSpacing(1.0f),
@@ -18,15 +18,15 @@ namespace t3d
 	{
 	}
 
-	TerrainRenderData::TerrainRenderData(World *world, QOpenGLShaderProgram *program) :
-		TerrainRenderData()
+	TerrainRenderer::RenderData::RenderData(World *world, QOpenGLShaderProgram *program) :
+		RenderData()
 	{
 		mWorld = world;
 		mProgram = program;
 	}
 
 
-	void TerrainRenderData::queryUniforms()
+	void TerrainRenderer::RenderData::queryUniforms()
 	{
 		initializeOpenGLFunctions();
 
@@ -39,7 +39,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderData::updateTotalMatrix(Mat4 totalMatrix)
+	void TerrainRenderer::RenderData::updateTotalMatrix(Mat4 totalMatrix)
 	{
 		glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
 		glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
@@ -47,13 +47,13 @@ namespace t3d
 	}
 
 
-	void TerrainRenderData::updateBlockIndex(int x, int y)
+	void TerrainRenderer::RenderData::updateBlockIndex(int x, int y)
 	{
 		glUniform2i(mUniforms.blockIndex, x, y);
 	}
 
 
-	LodIndexBlock TerrainRenderData::lodIndexBlockForLod(unsigned lod)
+	LodIndexBlock TerrainRenderer::RenderData::lodIndexBlockForLod(unsigned lod)
 	{
 		LodIndexBlock lib;
 
@@ -74,7 +74,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderData::buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize)
+	void TerrainRenderer::RenderData::buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize)
 	{
 		int mapSize = ceil(double(heightMapSize-1) / double(mBlockSize));
 		int mapSizeVertex = mapSize*mBlockSize + 1;
@@ -111,7 +111,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderData::buildIndexData()
+	void TerrainRenderer::RenderData::buildIndexData()
 	{
 		std::cout << "Generating index data set" << std::endl;
 
@@ -126,7 +126,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderData::uploadTerrainData()
+	void TerrainRenderer::RenderData::uploadTerrainData()
 	{
 		uploadVertexData();
 		uploadIndexData();
@@ -139,7 +139,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderData::uploadVertexData()
+	void TerrainRenderer::RenderData::uploadVertexData()
 	{
 		GLuint vbo;
 		mWorld->getHeightMap().buildVertexData(mSpacing);
@@ -155,7 +155,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderData::uploadIndexData()
+	void TerrainRenderer::RenderData::uploadIndexData()
 	{
 		GLuint ibo;
 		buildIndexData();
