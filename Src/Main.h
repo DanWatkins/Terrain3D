@@ -33,7 +33,7 @@
 
 #include <QtGui\QtGui>
 #include <QtWidgets\QMainWindow>
-#include <QtGui\QOpenGLFunctions_4_3_Core>
+#include <Core/OpenGLFunctions.h>
 
 #define WIN32_LEAN_AND_MEAN 1
 

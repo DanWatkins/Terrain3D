@@ -12,7 +12,7 @@
 
 namespace t3d
 {
-	class Shader : protected QOpenGLFunctions_4_3_Core
+	class Shader : protected OpenGLFunctions
 	{
 	public:
 		/**

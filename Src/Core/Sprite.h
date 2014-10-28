@@ -17,7 +17,7 @@ namespace t3d
 	/**
 	 * \brief Manages the drawing and transformation of two textured quads (rectangle).
 	 */
-	class Sprite : protected QOpenGLFunctions_4_3_Core
+	class Sprite : protected OpenGLFunctions
 	{
 	private:
 		GLuint mProgram;

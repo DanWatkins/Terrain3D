@@ -10,7 +10,7 @@
 
 #include <Main.h>
 
-class OpenGLWindow : public QWindow, protected QOpenGLFunctions_4_3_Core
+class OpenGLWindow : public QWindow, protected QOpenGLFunctions
 {
 public:
 	explicit OpenGLWindow(QWindow *parent = 0);

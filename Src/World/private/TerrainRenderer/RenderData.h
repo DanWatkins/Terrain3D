@@ -20,7 +20,7 @@ namespace t3d
 		LodIndexBlock() : count(0), offset(0) {}
 	};
 
-	class TerrainRenderer::RenderData : protected QOpenGLFunctions_4_3_Core
+	class TerrainRenderer::RenderData : protected OpenGLFunctions
 	{
 	public:
 		RenderData(World *world, QOpenGLShaderProgram *program);

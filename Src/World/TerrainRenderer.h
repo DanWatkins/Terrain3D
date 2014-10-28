@@ -21,7 +21,7 @@ namespace t3d
 	};
 
 
-	class TerrainRenderer : protected QOpenGLFunctions_4_3_Core
+	class TerrainRenderer : protected OpenGLFunctions
 	{
 	public:
 		TerrainRenderer(OpenGLWindow *window, World *world);

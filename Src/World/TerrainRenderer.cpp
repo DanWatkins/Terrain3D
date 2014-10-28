@@ -17,6 +17,7 @@ namespace t3d
 		mMode(Mode::Normal)
 	{
 		mRenderData = std::unique_ptr<RenderData>(new RenderData(mWorld, &mProgram));
+		
 	}
 
 

@@ -69,6 +69,9 @@
     <ClInclude Include="..\Src\World\private\TerrainRenderer\RenderData.h">
       <Filter>World\private\TerrainRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Src\Core\OpenGLFunctions.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\Core\OpenGLWindow.cpp">
