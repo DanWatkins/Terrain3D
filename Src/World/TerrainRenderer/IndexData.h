@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_TERRAIN_RENDERER_RENDER_DATA_H
-#define _t3d_TERRAIN_RENDERER_RENDER_DATA_H
+#ifndef _t3d_TERRAIN_RENDERER_INDEX_DATA_H
+#define _t3d_TERRAIN_RENDERER_INDEX_DATA_H
 
 #include <Main.h>
 #include <World/World.h>
@@ -20,47 +20,37 @@ namespace t3d
 		LodIndexBlock() : count(0), offset(0) {}
 	};
 
-	class TerrainRenderer::RenderData : protected OpenGLFunctions
+
+	class TerrainRenderer::IndexData : protected OpenGLFunctions
 	{
 	public:
-		RenderData(World *world, QOpenGLShaderProgram *program);
+		IndexData(World *world, QOpenGLShaderProgram *program);
 
 		void queryUniforms();
-		void uploadTerrainData();
 		LodIndexBlock lodIndexBlockForLod(unsigned lod);
-		void updateTotalMatrix(Mat4 totalMatrix);
-		void updateBlockIndex(int x, int y);
+		void uploadIndexData();
 
+		float spacing() { return mSpacing; }
+		float heightScale() { return mHeightScale; }
 		int blockSize() { return mBlockSize; }
 
+		GLuint primitiveRestartIndex() { return PrimitiveRestartIndex; }
+
 	private:
-		RenderData();
+		IndexData();
 
 		World *mWorld;
 		QOpenGLShaderProgram *mProgram;
 
-		typedef std::vector<GLuint> IndexData;
-		std::vector<IndexData> mIndexDataList;
+		typedef std::vector<GLuint> RawIndicies;
+		std::vector<RawIndicies> mIndexDataList;
 		static const GLuint PrimitiveRestartIndex = 900000000;
 
 		float mSpacing, mHeightScale;
 		int mBlockSize;
 
-		struct Uniforms
-		{
-			GLuint matrixCamera;
-			GLuint matrixModel;
-			GLuint spacing;
-			GLuint heightScale;
-			GLuint blockSize;
-			GLuint blockIndex;
-		} mUniforms;
-
-		void buildIndexBlock(IndexData &indexData, int heightMapSize, int blockSize);
+		void buildIndexBlock(RawIndicies &rawIndicies, int heightMapSize, int blockSize);
 		void buildIndexData();
-		
-		void uploadVertexData();
-		void uploadIndexData();
 	};
 }
 

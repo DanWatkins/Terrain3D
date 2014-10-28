@@ -35,8 +35,8 @@ namespace t3d
 
 	private:
 		Q_DISABLE_COPY(TerrainRenderer)
-		class RenderData;
-		std::unique_ptr<RenderData> mRenderData;
+		class IndexData;
+		std::unique_ptr<IndexData> mRenderData;
 
 		World *mWorld;
 		QOpenGLShaderProgram mProgram;
@@ -45,10 +45,23 @@ namespace t3d
 		GLuint mTextureSand;
 		Mode mMode;
 
+		struct Uniforms
+		{
+			GLuint matrixCamera;
+			GLuint matrixModel;
+			GLuint spacing;
+			GLuint heightScale;
+			GLuint blockSize;
+			GLuint blockIndex;
+		} mUniforms;
+
 	private:
 		void loadShaders();
 		void loadTextures();
 		Vec2i cameraPosToBlockPosition(Vec3f cameraPos);
+
+		void uploadTerrainData();
+		void uploadVertexData();
 	};
 };
 

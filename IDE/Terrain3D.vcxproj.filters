@@ -10,11 +10,11 @@
     <Filter Include="Ext">
       <UniqueIdentifier>{dab2d0e9-1505-4a9a-9ac8-854ab75d0b94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="World\private">
-      <UniqueIdentifier>{9d58d184-c965-40cb-9170-a642bbdee13c}</UniqueIdentifier>
+    <Filter Include="World\TerrainRenderer">
+      <UniqueIdentifier>{959afa1f-52a3-4976-b3a8-50474763e4f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="World\private\TerrainRenderer">
-      <UniqueIdentifier>{2d664a98-7c50-412b-86c8-2fcb6cdccd44}</UniqueIdentifier>
+    <Filter Include="World\TerrainGenerator">
+      <UniqueIdentifier>{8aa77b8b-ca15-45b0-b6fa-50d698f0d846}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,17 +60,17 @@
     <ClInclude Include="..\Src\World\TerrainGenerator.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\World\TerrainRenderer.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\World\World.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\World\private\TerrainRenderer\RenderData.h">
-      <Filter>World\private\TerrainRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\Core\OpenGLFunctions.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\World\TerrainRenderer.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\World\TerrainRenderer\IndexData.h">
+      <Filter>World\TerrainRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -106,20 +106,20 @@
     <ClCompile Include="..\Src\World\HeightMap.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\World\TerrainGenerator.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\World\TerrainRenderer.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\World\World.cpp">
       <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\World\Camera.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\World\private\TerrainRenderer\RenderData.cpp">
-      <Filter>World\private\TerrainRenderer</Filter>
+    <ClCompile Include="..\Src\World\TerrainRenderer\TerrainRenderer.cpp">
+      <Filter>World\TerrainRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\TerrainGenerator\TerrainGenerator.cpp">
+      <Filter>World\TerrainGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\World\TerrainRenderer\IndexData.cpp">
+      <Filter>World\TerrainRenderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,9 +5,9 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "TerrainRenderer.h"
-#include "private/TerrainRenderer/RenderData.h"
 #include <Core/Image.h>
+#include <World/TerrainRenderer.h>
+#include "IndexData.h"
 
 namespace t3d
 {
@@ -16,7 +16,7 @@ namespace t3d
 		mProgram(window),
 		mMode(Mode::Normal)
 	{
-		mRenderData = std::unique_ptr<RenderData>(new RenderData(mWorld, &mProgram));
+		mRenderData = std::unique_ptr<IndexData>(new IndexData(mWorld, &mProgram));
 		
 	}
 
@@ -33,12 +33,18 @@ namespace t3d
 		
 		mProgram.bind();
 		{
+			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
+			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
+			mUniforms.spacing = mProgram.uniformLocation("spacing");
+			mUniforms.heightScale = mProgram.uniformLocation("heightScale");
+			mUniforms.blockSize = mProgram.uniformLocation("blockSize");
+			mUniforms.blockIndex = mProgram.uniformLocation("blockIndex");
 			mRenderData->queryUniforms();
 
 			mVao.create();
 			mVao.bind();
 			{
-				mRenderData->uploadTerrainData();
+				uploadTerrainData();
 				loadTextures();
 			}
 			mVao.release();
@@ -84,7 +90,9 @@ namespace t3d
 	{
 		mProgram.bind();
 		{
-			mRenderData->updateTotalMatrix(totalMatrix);
+			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
+			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
+							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
 			mVao.bind();
 			{
@@ -115,7 +123,7 @@ namespace t3d
 						int offsetX = x*mRenderData->blockSize();
 						int baseVertex = offsetX+offsetY;
 
-						mRenderData->updateBlockIndex(x, y);
+						glUniform2i(mUniforms.blockIndex, x, y);
 						LodIndexBlock lib = mRenderData->lodIndexBlockForLod(lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y))));
 						glDrawElementsBaseVertex(GL_TRIANGLE_STRIP, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
 					}
@@ -186,5 +194,34 @@ namespace t3d
 		glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 		glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	}
+
+
+	void TerrainRenderer::uploadTerrainData()
+	{
+		uploadVertexData();
+		mRenderData->uploadIndexData();
+
+		glEnable(GL_PRIMITIVE_RESTART);
+		glPrimitiveRestartIndex(mRenderData->primitiveRestartIndex());
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	}
+
+
+	void TerrainRenderer::uploadVertexData()
+	{
+		GLuint vbo;
+		mWorld->getHeightMap().buildVertexData(mRenderData->spacing());
+		mProgram.setUniformValue(mUniforms.spacing, mRenderData->spacing());
+		mProgram.setUniformValue(mUniforms.heightScale, mRenderData->heightScale());
+		mProgram.setUniformValue(mUniforms.blockSize, float(mRenderData->blockSize()));
+		const std::vector<float> *terrainVertexData = mWorld->getHeightMap().getVertexData();
+
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		GLuint size = sizeof(float)*terrainVertexData->size();
+		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
 	}
 };
