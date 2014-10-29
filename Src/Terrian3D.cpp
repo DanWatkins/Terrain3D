@@ -47,6 +47,15 @@ namespace t3d
 
 		mCamera.render();
 
+		updateCursorPos();
+	}
+
+
+	void Terrain3D::updateCursorPos()
+	{
+		if (mouseButtonLeftPressed() == false)
+			return;
+
 		if (QWindow::isActive())
 		{
 			if (!mPreviouslyHadFocus)
@@ -56,8 +65,9 @@ namespace t3d
 			else
 			{
 				const double mouseSensitivity = 0.1f;
-				QVector2D delta = getCursorDelta();
+				QVector2D delta = consumeCursorDelta();
 				mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+
 				resetCursorPosition();
 			}
 

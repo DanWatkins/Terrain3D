@@ -34,18 +34,21 @@ namespace t3d
 	private:
 		World mWorld;
 		Camera mCamera;
+
 		bool mPreviouslyHadFocus;
 
 	private:
 		void initialize();
 		void render();
 
+		void updateCursorPos();
+
 		void keyPressEvent(QKeyEvent *ev);
 
 	public:
 		Terrain3D();
 	};
-};
+}
 
 #endif
 

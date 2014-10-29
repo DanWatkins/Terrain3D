@@ -30,12 +30,20 @@ protected:
 	bool event(QEvent *event);
 	void exposeEvent(QExposeEvent *event);
 
-	QVector2D getCursorDelta();
+	void mousePressEvent(QMouseEvent *ev);
+	void mouseReleaseEvent(QMouseEvent *ev);
+
+	QVector2D consumeCursorDelta();
 	void resetCursorPosition();
+
+	bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
 
 private:
 	bool mUpdatePending;
 	bool mAnimating;
+	bool mCaptureCursor;
+	Vec2i mLastCursorPos;
+	bool mMouseButtonLeftPressed;
 
 	QOpenGLContext *mContext;
 	QOpenGLPaintDevice *mDevice;
