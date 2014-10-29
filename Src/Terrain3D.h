@@ -34,6 +34,7 @@ namespace t3d
 	private:
 		World mWorld;
 		Camera mCamera;
+		bool mPreviouslyHadFocus;
 
 	private:
 		void initialize();

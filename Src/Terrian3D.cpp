@@ -18,7 +18,8 @@
 namespace t3d
 {
 	Terrain3D::Terrain3D() :
-		mCamera(this, &mWorld)
+		mCamera(this, &mWorld),
+		mPreviouslyHadFocus(false)
 	{
 	}
 
@@ -28,7 +29,6 @@ namespace t3d
 		mWorld.init();
 		mCamera.init();
 		mCamera.resize(width(), height());
-		resetCursorPosition();
 	}
 	 
 	
@@ -47,10 +47,26 @@ namespace t3d
 
 		mCamera.render();
 
-		const double mouseSensitivity = 0.1f;
-		QVector2D delta = getCursorDelta();
-		mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
-		resetCursorPosition();		
+		if (QWindow::isActive())
+		{
+			if (!mPreviouslyHadFocus)
+			{
+				resetCursorPosition();
+			}
+			else
+			{
+				const double mouseSensitivity = 0.1f;
+				QVector2D delta = getCursorDelta();
+				mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+				resetCursorPosition();
+			}
+
+			mPreviouslyHadFocus = true;
+		}
+		else
+		{
+			mPreviouslyHadFocus = false;
+		}
 	}
 
 
