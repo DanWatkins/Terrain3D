@@ -97,7 +97,11 @@ namespace t3d
 				mCamera.setMode(Mode::WireFrame); break;
 
 			case Qt::Key_F1:
-				setCapturesCursor(!capturesCursor());
+				setCapturesCursor(!capturesCursor()); break;
+			case Qt::Key_F2:
+				QWindow::showNormal(); break;
+			case Qt::Key_F3:
+				QWindow::showFullScreen(); break;
 		}
 	}
 }
