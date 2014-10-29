@@ -80,7 +80,7 @@ namespace t3d
 
 	int maxLevelsOfDetail(int blockSize)
 	{
-		return 1 + int(std::log10(blockSize)/std::log10(2));
+		return 1 + int(std::log10(blockSize)/std::log10(2) + 0.5);
 	}
 
 
