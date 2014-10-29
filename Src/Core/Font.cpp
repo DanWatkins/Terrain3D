@@ -48,7 +48,7 @@ namespace t3d
 
 		if (text.size() > 0)
 		{
-			char firstChar = text[0];
+			unsigned char firstChar = text[0];
 			x -= (mSpriteSheet.getFrameSize().x - mWidths[firstChar]) / 2.0f;
 
 			for (unsigned n=0; n<text.size(); ++n)

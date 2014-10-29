@@ -42,7 +42,7 @@ namespace t3d
 		mUniformLocations.subSize = glGetUniformLocation(mProgram, "subSize");
 		mUniformLocations.transformation = glGetUniformLocation(mProgram, "transformation");
 
-		setSubRect({0,0,mImage->getWidth(), mImage->getHeight()});
+		setSubRect({0,0,static_cast<float>(mImage->getWidth()), static_cast<float>(mImage->getHeight())});
 
 		glUseProgram(0);
 	}
@@ -103,8 +103,6 @@ namespace t3d
 		//TODO This method does way too much on the CPU. Consider moving it to the GPU if it would increase performance
 		//Also consider eliminating logic here
 
-		window;
-
 		//compute and upload the transformation
 		{
 			Mat4 transformation(1.0f);
@@ -113,8 +111,8 @@ namespace t3d
 			//transformation *= glm::translate(offset);
 
 			//scale
-			float sx = (float)mImage->getWidth() / 500 * 2.0f * mScale.x;
-			float sy = (float)mImage->getHeight() / 500 * 2.0f * mScale.y;
+			float sx = (float)mImage->getWidth() / window.width() * 2.0f * mScale.x;
+			float sy = (float)mImage->getHeight() / window.height() * 2.0f * mScale.y;
 			Vec3f actualScale(sx, sy, mScale.z);
 			transformation *= glm::scale(transformation, actualScale);
 
