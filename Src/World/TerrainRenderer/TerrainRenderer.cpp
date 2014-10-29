@@ -203,7 +203,7 @@ namespace t3d
 		mRenderData->uploadIndexData();
 
 		glEnable(GL_PRIMITIVE_RESTART);
-		glPrimitiveRestartIndex(mRenderData->primitiveRestartIndex());
+		glPrimitiveRestartIndex(PrimitiveRestartIndex);
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);

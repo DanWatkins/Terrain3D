@@ -20,6 +20,7 @@ namespace t3d
 		LodIndexBlock() : count(0), offset(0) {}
 	};
 
+	const GLuint PrimitiveRestartIndex = 900000000;
 
 	class TerrainRenderer::IndexData : protected OpenGLFunctions
 	{
@@ -34,8 +35,6 @@ namespace t3d
 		float heightScale() { return mHeightScale; }
 		int blockSize() { return mBlockSize; }
 
-		GLuint primitiveRestartIndex() { return PrimitiveRestartIndex; }
-
 	private:
 		IndexData();
 
@@ -44,7 +43,6 @@ namespace t3d
 
 		typedef std::vector<GLuint> RawIndicies;
 		std::vector<RawIndicies> mIndexDataList;
-		static const GLuint PrimitiveRestartIndex = 900000000;
 
 		float mSpacing, mHeightScale;
 		int mBlockSize;

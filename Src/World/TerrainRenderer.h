@@ -63,7 +63,7 @@ namespace t3d
 		void uploadTerrainData();
 		void uploadVertexData();
 	};
-};
+}
 
 #endif
 

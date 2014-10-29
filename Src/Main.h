@@ -31,8 +31,8 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include <QtGui\QtGui>
-#include <QtWidgets\QMainWindow>
+#include <QtGui/QtGui>
+#include <QtWidgets/QMainWindow>
 #include <Core/OpenGLFunctions.h>
 
 #define WIN32_LEAN_AND_MEAN 1
@@ -46,6 +46,8 @@
 #pragma warning(pop)
 
 //Linkage
+#define QT_CREATOR 1	//temporary hack
+
 #if _MSC_VER >= 1310
 	#pragma once
 
@@ -58,6 +60,8 @@
 		#pragma comment (lib, "Qt5Gui.lib")
 		#pragma comment (lib, "Qt5Core.lib")
 	#endif
+#elif QT_CREATOR
+	//Do nothing, linking is set in .pro
 #else
 	#error "Non Windows toolchain detected"
 #endif
