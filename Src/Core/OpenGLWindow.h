@@ -36,12 +36,14 @@ protected:
 	QVector2D consumeCursorDelta();
 	void resetCursorPosition();
 
+	void setCapturesCursor(bool capturesCursor) { mCapturesCursor = capturesCursor; }
+	bool capturesCursor() { return mCapturesCursor; }
 	bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
 
 private:
 	bool mUpdatePending;
 	bool mAnimating;
-	bool mCaptureCursor;
+	bool mCapturesCursor;
 	Vec2i mLastCursorPos;
 	bool mMouseButtonLeftPressed;
 

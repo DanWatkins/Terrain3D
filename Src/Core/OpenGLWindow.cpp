@@ -13,7 +13,7 @@ OpenGLWindow::OpenGLWindow(QWindow *parent)
 	  mAnimating(false),
 	  mContext(0),
 	  mDevice(0),
-	  mCaptureCursor(false),
+	  mCapturesCursor(false),
 	  mMouseButtonLeftPressed(false)
 {
 	setSurfaceType(QWindow::OpenGLSurface);
@@ -124,11 +124,14 @@ void OpenGLWindow::mousePressEvent(QMouseEvent *ev)
 {
 	std::cout << "Mouse press" << std::endl;
 
-	if (ev->button() == Qt::LeftButton)
+	if (QWindow::isActive())
 	{
-		//force the last cursor position to update (zero it out)
-		consumeCursorDelta();
-		mMouseButtonLeftPressed = true;
+		if (ev->button() == Qt::LeftButton)
+		{
+			//force the last cursor position to update (zero it out)
+			consumeCursorDelta();
+			mMouseButtonLeftPressed = true;
+		}
 	}
 }
 
@@ -137,9 +140,12 @@ void OpenGLWindow::mouseReleaseEvent(QMouseEvent *ev)
 {
 	std::cout << "Mouse release" << std::endl;
 
-	if (ev->button() == Qt::LeftButton)
+	if (QWindow::isActive())
 	{
-		mMouseButtonLeftPressed = false;
+		if (ev->button() == Qt::LeftButton)
+		{
+			mMouseButtonLeftPressed = false;
+		}
 	}
 }
 
@@ -166,7 +172,7 @@ QVector2D OpenGLWindow::consumeCursorDelta()
 
 void OpenGLWindow::resetCursorPosition()
 {
-	if (mCaptureCursor == false)
+	if (mCapturesCursor == false)
 		return;
 
 #ifdef WIN32
@@ -174,4 +180,6 @@ void OpenGLWindow::resetCursorPosition()
 #else
 	#error No mouse delta function for this platform
 #endif
+
+	mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
 }
