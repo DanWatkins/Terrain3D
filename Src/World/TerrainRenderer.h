@@ -55,6 +55,20 @@ namespace t3d
 			GLuint blockIndex;
 		} mUniforms;
 
+		struct Block
+		{
+			int x, y;
+			int lod, baseVertex;
+
+			struct NeighborLod
+			{
+				int top, right, bottom, left;
+				NeighborLod() : top(0), right(0), bottom(0), left(0) {}
+			} neighborLod;
+
+			Block() : x(0), y(0), lod(0), baseVertex(0) {}
+		};
+
 	private:
 		void loadShaders();
 		void loadTextures();
@@ -62,6 +76,7 @@ namespace t3d
 
 		void uploadTerrainData();
 		void uploadVertexData();
+		void renderBlock(const Block &block);
 	};
 }
 

@@ -32,7 +32,7 @@ namespace t3d
 	}
 
 
-	LodIndexBlock TerrainRenderer::IndexData::lodIndexBlockForLod(unsigned lod)
+	LodIndexBlock TerrainRenderer::IndexData::lodIndexBlockForLod(unsigned lod, VertexEliminations vertexEliminations)
 	{
 		LodIndexBlock lib;
 

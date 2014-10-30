@@ -121,11 +121,18 @@ namespace t3d
 					for (int x=0; x<numberOfBlocksOnASide; x++)
 					{
 						int offsetX = x*mRenderData->blockSize();
-						int baseVertex = offsetX+offsetY;
 
-						glUniform2i(mUniforms.blockIndex, x, y);
-						LodIndexBlock lib = mRenderData->lodIndexBlockForLod(lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y))));
-						glDrawElementsBaseVertex(GL_TRIANGLE_STRIP, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
+						Block block;
+						block.x = x;
+						block.y = y;
+						block.lod = lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y)));
+						block.baseVertex = offsetX+offsetY;
+
+						//TODO compute levels of detail for neighbor blocks
+						//for now, pretend all neighbors are the same level of detail (will cause cracks)
+						block.neighborLod.top = block.neighborLod.right = block.neighborLod.bottom = block.neighborLod.left = block.lod;
+
+						renderBlock(block);
 					}
 				}
 			}
@@ -224,4 +231,14 @@ namespace t3d
 		GLuint size = sizeof(float)*terrainVertexData->size();
 		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
 	}
-};
+
+
+	void TerrainRenderer::renderBlock(const Block &block)
+	{
+		glUniform2i(mUniforms.blockIndex, block.x, block.y);
+
+		int patchesPerEdge = mRenderData->blockSize() / (std::pow(2, block.lod+1));
+
+		//glDrawElementsBaseVertex(GL_TRIANGLE_STRIP, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
+	}
+}

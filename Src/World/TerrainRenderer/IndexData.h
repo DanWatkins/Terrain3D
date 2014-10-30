@@ -14,13 +14,26 @@
 
 namespace t3d
 {
+	const GLuint PrimitiveRestartIndex = 900000000;
+
+	typedef GLubyte VertexEliminations;
+
+	enum class VertexElimination
+	{
+		None	= 0x0000,
+		Top		= 0x0001,
+		Right	= 0x0010,
+		Bottom	= 0x0100,
+		Left	= 0x1000
+	};
+
+
 	struct LodIndexBlock
 	{
 		int count, offset;
 		LodIndexBlock() : count(0), offset(0) {}
 	};
 
-	const GLuint PrimitiveRestartIndex = 900000000;
 
 	class TerrainRenderer::IndexData : protected OpenGLFunctions
 	{
@@ -28,7 +41,7 @@ namespace t3d
 		IndexData(World *world, QOpenGLShaderProgram *program);
 
 		void queryUniforms();
-		LodIndexBlock lodIndexBlockForLod(unsigned lod);
+		LodIndexBlock lodIndexBlockForLod(unsigned lod, VertexEliminations vertexEliminations);
 		void uploadIndexData();
 
 		float spacing() { return mSpacing; }

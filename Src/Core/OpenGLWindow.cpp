@@ -122,8 +122,6 @@ void OpenGLWindow::setAnimating(bool animating)
 
 void OpenGLWindow::mousePressEvent(QMouseEvent *ev)
 {
-	std::cout << "Mouse press" << std::endl;
-
 	if (QWindow::isActive())
 	{
 		if (ev->button() == Qt::LeftButton)
@@ -138,8 +136,6 @@ void OpenGLWindow::mousePressEvent(QMouseEvent *ev)
 
 void OpenGLWindow::mouseReleaseEvent(QMouseEvent *ev)
 {
-	std::cout << "Mouse release" << std::endl;
-
 	if (QWindow::isActive())
 	{
 		if (ev->button() == Qt::LeftButton)
