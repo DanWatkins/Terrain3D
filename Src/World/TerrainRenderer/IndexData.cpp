@@ -53,28 +53,46 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::IndexData::buildIndexBlock(RawIndicies &rawIndicies, int heightMapSize, int blockSize)
+	bool is(VertexEliminations ve, VertexElimination ves)
 	{
-		int mapSize = ceil(double(heightMapSize-1) / double(mBlockSize));
-		int mapSizeVertex = mapSize*mBlockSize + 1;
+		return (static_cast<GLubyte>(ve) & static_cast<GLubyte>(ves)) == static_cast<GLubyte>(ves);
+	}
 
+
+	void TerrainRenderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexEliminations vertexEliminations)
+	{
 		rawIndicies.clear();
-		rawIndicies.reserve((blockSize+1) * ((blockSize+1)*2 + 1));
+		rawIndicies.reserve(5 + int(is(vertexEliminations, VertexElimination::Top))
+							+ int(is(vertexEliminations, VertexElimination::Right))
+							+ int(is(vertexEliminations, VertexElimination::Bottom))
+							+ int(is(vertexEliminations, VertexElimination::Left)));
 
-		for (int y=0; y<blockSize; y++)
-		{
-			int scale = mBlockSize / blockSize;
-			int offset = y*mapSizeVertex*scale;
-			
+		int scale = patchSize/2;
+		int scaledMapSize = scale*heightMapSize;
 
-			for (int x=0; x<blockSize+1; x++)
-			{
-				rawIndicies.push_back(x*scale + offset);
-				rawIndicies.push_back(x*scale + mapSizeVertex*scale + offset);
-			}
+		int center = scaledMapSize + scale;
+		rawIndicies.push_back(center);
 
-			rawIndicies.push_back(PrimitiveRestartIndex);
-		}
+		if (is(vertexEliminations, VertexElimination::Right))
+			rawIndicies.push_back(center+scale);
+
+		rawIndicies.push_back(center+scale+scaledMapSize);
+
+		if (is(vertexEliminations, VertexElimination::Bottom))
+			rawIndicies.push_back(center + scaledMapSize);
+
+		rawIndicies.push_back(center - scale + scaledMapSize);
+
+		if (is(vertexEliminations, VertexElimination::Left))
+			rawIndicies.push_back(center-scale);
+
+		rawIndicies.push_back(center - scale - scaledMapSize);
+
+		if (is(vertexEliminations, VertexElimination::Top))
+			rawIndicies.push_back(center - scaledMapSize);
+
+		rawIndicies.push_back(center + scale - scaledMapSize);
+		rawIndicies.push_back(PrimitiveRestartIndex);
 	}
 
 
@@ -100,7 +118,7 @@ namespace t3d
 		for (int i=0; i<lod; i++)
 		{
 			mIndexDataList.push_back(RawIndicies());
-			buildIndexBlock(mIndexDataList.back(), heightMapSize, sizeForLod(i));
+			buildIndexPatch(mIndexDataList.back(), heightMapSize, sizeForLod(i), GLubyte(VertexElimination::None));
 		}
 	}
 

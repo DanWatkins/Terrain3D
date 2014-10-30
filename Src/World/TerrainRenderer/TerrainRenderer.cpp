@@ -239,6 +239,17 @@ namespace t3d
 
 		int patchesPerEdge = mRenderData->blockSize() / (std::pow(2, block.lod+1));
 
-		//glDrawElementsBaseVertex(GL_TRIANGLE_STRIP, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
+		//render all the patches (triangle fans) that make up this block
+		for (int y=0; y<patchesPerEdge; y++)
+		{
+			for (int x=0; x<patchesPerEdge; x++)
+			{
+				LodIndexBlock lib;
+				lib = mRenderData->lodIndexBlockForLod(block.lod, GLubyte(VertexElimination::None));
+				int baseVertex = block.baseVertex;
+
+				glDrawElementsBaseVertex(GL_TRIANGLE_STRIP, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
+			}
+		}
 	}
 }

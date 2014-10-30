@@ -60,7 +60,7 @@ namespace t3d
 		float mSpacing, mHeightScale;
 		int mBlockSize;
 
-		void buildIndexBlock(RawIndicies &rawIndicies, int heightMapSize, int blockSize);
+		void buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexEliminations vertexEliminations);
 		void buildIndexData();
 	};
 }
