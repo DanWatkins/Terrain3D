@@ -33,7 +33,7 @@ namespace t3d
 	}
 
 
-	LodIndexBlock TerrainRenderer::IndexData::lodIndexBlockForLod(unsigned lod, VertexEliminations vertexEliminations)
+	LodIndexBlock TerrainRenderer::IndexData::lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations)
 	{
 		LodIndexBlock lib;
 
@@ -54,21 +54,21 @@ namespace t3d
 	}
 
 
-	bool is(VertexEliminations ve, VertexElimination ves)
+	bool is(VertexElimination ve, VertexElimination ves)
 	{
 		return (static_cast<GLubyte>(ve) & static_cast<GLubyte>(ves)) == static_cast<GLubyte>(ves);
 	}
 
 
-	void TerrainRenderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexEliminations vertexEliminations)
+	void TerrainRenderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations)
 	{
 		std::cout << "    Building Index Patch: size=" << patchSize << " eliminating=";
 
 		rawIndicies.clear();
-		rawIndicies.reserve(5 + int(!is(vertexEliminations, VertexElimination::Top))
-							+ int(!is(vertexEliminations, VertexElimination::Right))
-							+ int(!is(vertexEliminations, VertexElimination::Bottom))
-							+ int(!is(vertexEliminations, VertexElimination::Left)));
+		rawIndicies.reserve(5 + int(!is(vertexEliminations, VertexEliminationTop))
+							+ int(!is(vertexEliminations, VertexEliminationRight))
+							+ int(!is(vertexEliminations, VertexEliminationBottom))
+							+ int(!is(vertexEliminations, VertexEliminationLeft)));
 
 		int scale = patchSize/2;
 		int scaledMapSize = scale*heightMapSize;
@@ -76,22 +76,22 @@ namespace t3d
 		int center = scaledMapSize + scale;
 		rawIndicies.push_back(center);
 
-		if (!is(vertexEliminations, VertexElimination::Right))
+		if (!is(vertexEliminations, VertexEliminationRight))
 			rawIndicies.push_back(center+scale);
 
 		rawIndicies.push_back(center+scale+scaledMapSize);
 
-		if (!is(vertexEliminations, VertexElimination::Bottom))
+		if (!is(vertexEliminations, VertexEliminationBottom))
 			rawIndicies.push_back(center + scaledMapSize);
 
 		rawIndicies.push_back(center - scale + scaledMapSize);
 
-		if (!is(vertexEliminations, VertexElimination::Left))
+		if (!is(vertexEliminations, VertexEliminationLeft))
 			rawIndicies.push_back(center-scale);
 
 		rawIndicies.push_back(center - scale - scaledMapSize);
 
-		if (!is(vertexEliminations, VertexElimination::Top))
+		if (!is(vertexEliminations, VertexEliminationTop))
 			rawIndicies.push_back(center - scaledMapSize);
 
 		rawIndicies.push_back(center + scale - scaledMapSize);

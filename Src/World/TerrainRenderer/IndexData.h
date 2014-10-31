@@ -16,16 +16,13 @@ namespace t3d
 {
 	const GLuint PrimitiveRestartIndex = 900000000;
 
-	typedef GLubyte VertexEliminations;
+	typedef GLubyte VertexElimination;
 
-	enum class VertexElimination
-	{
-		None	= 0x0000, // b2 0000
-		Top		= 0x0001, // b2 0001
-		Right	= 0x0002, // b2 0010
-		Bottom	= 0x0004, // b2 0100
-		Left	= 0x0008  // b2 1000
-	};
+	const GLubyte VertexEliminationNone		= 0x0000; // b2 0000
+	const GLubyte VertexEliminationTop		= 0x0001; // b2 0001
+	const GLubyte VertexEliminationRight	= 0x0002; // b2 0010
+	const GLubyte VertexEliminationBottom	= 0x0004; // b2 0100
+	const GLubyte VertexEliminationLeft		= 0x0008;  // b2 1000
 
 
 	struct LodIndexBlock
@@ -41,7 +38,7 @@ namespace t3d
 		IndexData(World *world, QOpenGLShaderProgram *program);
 
 		void queryUniforms();
-		LodIndexBlock lodIndexBlockForLod(unsigned lod, VertexEliminations vertexEliminations);
+		LodIndexBlock lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations);
 		void uploadIndexData();
 
 		float spacing() { return mSpacing; }
@@ -60,7 +57,7 @@ namespace t3d
 		float mSpacing, mHeightScale;
 		int mBlockSize;
 
-		void buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexEliminations vertexEliminations);
+		void buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations);
 		void buildIndexData();
 	};
 }

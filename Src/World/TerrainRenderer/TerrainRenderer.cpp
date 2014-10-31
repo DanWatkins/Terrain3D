@@ -228,8 +228,20 @@ namespace t3d
 
 			for (int x=0; x<patchesPerEdge; x++)
 			{
+				VertexElimination ve = VertexEliminationNone;
+
+				//request elimination of vertecies to blend with a higher lod neighbor
+				if (x == 0  &&  block.neighborLod.left > block.lod)
+					ve = ve | VertexEliminationLeft;
+				if (x == patchesPerEdge-1  &&  block.neighborLod.right > block.lod)
+					ve = ve | VertexEliminationRight;
+				if (y == 0  &&  block.neighborLod.top > block.lod)
+					ve = ve | VertexEliminationTop;
+				if (y == patchesPerEdge-1  &&  block.neighborLod.bottom > block.lod)
+					ve = ve | VertexEliminationBottom;
+
 				LodIndexBlock lib;
-				lib = mRenderData->lodIndexBlockForLod(block.lod, GLubyte(VertexElimination::None));
+				lib = mRenderData->lodIndexBlockForLod(block.lod, GLubyte(ve));
 
 				int offsetX = x * patchSize;
 				int baseVertex = block.baseVertex+offsetX+offsetY;
