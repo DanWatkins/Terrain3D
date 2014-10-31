@@ -217,16 +217,22 @@ namespace t3d
 	{
 		glUniform2i(mUniforms.blockIndex, block.x, block.y);
 
-		int patchesPerEdge = mRenderData->blockSize() / (std::pow(2, block.lod+1));
+		int patchSize = std::pow(2, block.lod+1);
+		int patchesPerEdge = mRenderData->blockSize() / patchSize;
+		int heightMapSize = mWorld->getHeightMap().getSize();
 
 		//render all the patches (triangle fans) that make up this block
 		for (int y=0; y<patchesPerEdge; y++)
 		{
+			int offsetY = y * patchSize * heightMapSize;
+
 			for (int x=0; x<patchesPerEdge; x++)
 			{
 				LodIndexBlock lib;
 				lib = mRenderData->lodIndexBlockForLod(block.lod, GLubyte(VertexElimination::None));
-				int baseVertex = block.baseVertex;
+
+				int offsetX = x * patchSize;
+				int baseVertex = block.baseVertex+offsetX+offsetY;
 
 				glDrawElementsBaseVertex(GL_TRIANGLE_FAN, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
 			}
