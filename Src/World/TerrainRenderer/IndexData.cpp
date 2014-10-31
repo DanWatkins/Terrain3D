@@ -36,10 +36,11 @@ namespace t3d
 	LodIndexBlock TerrainRenderer::IndexData::lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations)
 	{
 		LodIndexBlock lib;
+		unsigned searchIndex = lod*VertexEliminationCombinations + vertexEliminations;
 
 		for (unsigned i=0; i<mIndexDataList.size(); i++)
 		{
-			if (lod == i)
+			if (searchIndex == i)
 			{
 				lib.count = mIndexDataList[i].size();
 				break;
@@ -62,7 +63,7 @@ namespace t3d
 
 	void TerrainRenderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations)
 	{
-		std::cout << "    Building Index Patch: size=" << patchSize << " eliminating=";
+		std::cout << "    Building Index Patch: size=" << patchSize << std::endl;
 
 		rawIndicies.clear();
 		rawIndicies.reserve(5 + int(!is(vertexEliminations, VertexEliminationTop))
@@ -108,7 +109,6 @@ namespace t3d
 
 		for (int i=0; i<lod; i++)
 		{
-			const GLubyte VertexEliminationCombinations = 16;
 			std::cout << "  Building Index Data: lod=" << i << std::endl;
 
 			for (GLubyte j=0; j<VertexEliminationCombinations; j++)
@@ -124,7 +124,6 @@ namespace t3d
 	{
 		GLuint ibo;
 		buildIndexData();
-
 
 		int reserve = 0;
 		for (unsigned i=0; i<mIndexDataList.size(); i++)

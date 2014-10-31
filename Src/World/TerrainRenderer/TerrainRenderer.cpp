@@ -78,6 +78,7 @@ namespace t3d
 			{
 				int heightMapSize = mWorld->getHeightMap().getSize();
 				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mRenderData->blockSize()));
+
 				switch (mMode)
 				{
 					case Mode::Normal:
@@ -93,6 +94,17 @@ namespace t3d
 					}
 				}
 
+				//calculate the lod for every block
+				std::vector<std::vector<int>> blockLod(numberOfBlocksOnASide, std::vector<int>(numberOfBlocksOnASide, 0));
+
+				for (int y=0; y<numberOfBlocksOnASide; y++)
+				{
+					for (int x=0; x<numberOfBlocksOnASide; x++)
+					{
+						blockLod[x][y] = lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y)));
+					}
+				}
+
 				//render all of the blocks
 				for (int y=0; y<numberOfBlocksOnASide; y++)
 				{
@@ -105,12 +117,13 @@ namespace t3d
 						Block block;
 						block.x = x;
 						block.y = y;
-						block.lod = lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y)));
+						block.lod = blockLod[x][y];
 						block.baseVertex = offsetX+offsetY;
 
-						//TODO compute levels of detail for neighbor blocks
-						//for now, pretend all neighbors are the same level of detail (will cause cracks)
-						block.neighborLod.top = block.neighborLod.right = block.neighborLod.bottom = block.neighborLod.left = block.lod;
+						block.neighborLod.left = blockLod[std::max(x-1, 0)][y];
+						block.neighborLod.right = blockLod[std::min(x+1, int(blockLod.size())-1)][y];
+						block.neighborLod.top = blockLod[x][std::max(y-1, 0)];
+						block.neighborLod.bottom = blockLod[x][std::min(y+1, int(blockLod[x].size())-1)];
 
 						renderBlock(block);
 					}

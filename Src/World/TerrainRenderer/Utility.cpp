@@ -31,6 +31,9 @@ namespace t3d
 
 	int lodForDistance(double distance)
 	{
+		if (distance > 1.0)
+			return 1;
+
 		return 0;
 	}
 }

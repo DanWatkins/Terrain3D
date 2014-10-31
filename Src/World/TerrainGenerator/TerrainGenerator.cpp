@@ -137,4 +137,4 @@ namespace t3d
 
 		return mHeightMap;
 	}
-};
+}

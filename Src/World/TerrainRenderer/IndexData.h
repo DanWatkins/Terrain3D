@@ -15,6 +15,7 @@
 namespace t3d
 {
 	const GLuint PrimitiveRestartIndex = 900000000;
+	const GLubyte VertexEliminationCombinations = 16;
 
 	typedef GLubyte VertexElimination;
 
