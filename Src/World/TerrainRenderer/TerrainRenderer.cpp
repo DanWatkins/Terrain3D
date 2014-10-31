@@ -8,6 +8,7 @@
 #include <Core/Image.h>
 #include <World/TerrainRenderer.h>
 #include "IndexData.h"
+#include "Utility.h"
 
 namespace t3d
 {
@@ -62,20 +63,6 @@ namespace t3d
 		pos.y = int(cameraPos.z / blocksPerMapEdge + 0.5) - 1;
 
 		return pos;
-	}
-
-
-	double blockDistanceBetweenPos(Vec2i a, Vec2i b)
-	{
-		Vec2i net(a.x-b.x, a.y-b.y);
-
-		return std::sqrt(net.x*net.x + net.y*net.y);
-	}
-
-
-	int lodForDistance(double distance)
-	{
-		return 0;
 	}
 
 

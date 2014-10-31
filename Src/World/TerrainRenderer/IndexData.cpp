@@ -6,6 +6,7 @@
 //==================================================================================================================|
 
 #include "IndexData.h"
+#include "Utility.h"
 
 namespace t3d
 {
@@ -95,18 +96,6 @@ namespace t3d
 
 		rawIndicies.push_back(center + scale - scaledMapSize);
 		rawIndicies.push_back(PrimitiveRestartIndex);
-	}
-
-
-	int maxLevelsOfDetail(int blockSize)
-	{
-		return int(std::log10(blockSize)/std::log10(2) + 0.5);
-	}
-
-
-	int sizeForLod(int lod)
-	{
-		return std::pow(2, lod+1);
 	}
 
 

@@ -29,7 +29,8 @@ SOURCES += \
     ../Src/World/World.cpp \
     ../Src/Main.cpp \
     ../Src/Terrian3D.cpp \
-    ../Ext/lodepng.cpp
+    ../Ext/lodepng.cpp \
+    ../Src/World/TerrainRenderer/Utility.cpp
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -57,4 +58,5 @@ HEADERS += \
     ../Src/Constants.h \
     ../Src/Main.h \
     ../Src/Terrain3D.h \
-    ../Ext/lodepng.h
+    ../Ext/lodepng.h \
+    ../Src/World/TerrainRenderer/Utility.h
