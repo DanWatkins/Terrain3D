@@ -66,7 +66,7 @@ namespace t3d
 		std::cout << "    Building Index Patch: size=" << patchSize << std::endl;
 
 		rawIndicies.clear();
-		rawIndicies.reserve(5 + int(!is(vertexEliminations, VertexEliminationTop))
+		rawIndicies.reserve(6 + int(!is(vertexEliminations, VertexEliminationTop))
 							+ int(!is(vertexEliminations, VertexEliminationRight))
 							+ int(!is(vertexEliminations, VertexEliminationBottom))
 							+ int(!is(vertexEliminations, VertexEliminationLeft)));
@@ -96,6 +96,7 @@ namespace t3d
 			rawIndicies.push_back(center - scaledMapSize);
 
 		rawIndicies.push_back(center + scale - scaledMapSize);
+		rawIndicies.push_back(rawIndicies[1]);
 		rawIndicies.push_back(PrimitiveRestartIndex);
 	}
 
