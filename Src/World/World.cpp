@@ -15,7 +15,7 @@ namespace t3d
 	void World::init()
 	{
 		TerrainGenerator generator;
-		mHeightMap = generator.generate(257, 80, 123456); //(GLuint)time(NULL));
+		mHeightMap = generator.generate(9, 0, 123456); //(GLuint)time(NULL));
 
 		return;
 	}

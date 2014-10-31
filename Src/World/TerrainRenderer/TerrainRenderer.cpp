@@ -75,14 +75,7 @@ namespace t3d
 
 	int lodForDistance(double distance)
 	{
-		if (distance > 30.0)
-			return 0;
-		if (distance > 20.0)
-			return 1;
-		if (distance > 10.0)
-			return 2;
-
-		return 3;
+		return 0;
 	}
 
 
@@ -248,7 +241,7 @@ namespace t3d
 				lib = mRenderData->lodIndexBlockForLod(block.lod, GLubyte(VertexElimination::None));
 				int baseVertex = block.baseVertex;
 
-				glDrawElementsBaseVertex(GL_TRIANGLE_STRIP, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
+				glDrawElementsBaseVertex(GL_TRIANGLE_FAN, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
 			}
 		}
 	}

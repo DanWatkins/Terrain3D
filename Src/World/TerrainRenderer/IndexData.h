@@ -20,11 +20,11 @@ namespace t3d
 
 	enum class VertexElimination
 	{
-		None	= 0x0000,
-		Top		= 0x0001,
-		Right	= 0x0010,
-		Bottom	= 0x0100,
-		Left	= 0x1000
+		None	= 0x0000, // b2 0000
+		Top		= 0x0001, // b2 0001
+		Right	= 0x0002, // b2 0010
+		Bottom	= 0x0004, // b2 0100
+		Left	= 0x0008  // b2 1000
 	};
 
 

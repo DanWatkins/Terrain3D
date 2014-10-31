@@ -61,11 +61,13 @@ namespace t3d
 
 	void TerrainRenderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexEliminations vertexEliminations)
 	{
+		std::cout << "    Building Index Patch: size=" << patchSize << " eliminating=";
+
 		rawIndicies.clear();
-		rawIndicies.reserve(5 + int(is(vertexEliminations, VertexElimination::Top))
-							+ int(is(vertexEliminations, VertexElimination::Right))
-							+ int(is(vertexEliminations, VertexElimination::Bottom))
-							+ int(is(vertexEliminations, VertexElimination::Left)));
+		rawIndicies.reserve(5 + int(!is(vertexEliminations, VertexElimination::Top))
+							+ int(!is(vertexEliminations, VertexElimination::Right))
+							+ int(!is(vertexEliminations, VertexElimination::Bottom))
+							+ int(!is(vertexEliminations, VertexElimination::Left)));
 
 		int scale = patchSize/2;
 		int scaledMapSize = scale*heightMapSize;
@@ -73,22 +75,22 @@ namespace t3d
 		int center = scaledMapSize + scale;
 		rawIndicies.push_back(center);
 
-		if (is(vertexEliminations, VertexElimination::Right))
+		if (!is(vertexEliminations, VertexElimination::Right))
 			rawIndicies.push_back(center+scale);
 
 		rawIndicies.push_back(center+scale+scaledMapSize);
 
-		if (is(vertexEliminations, VertexElimination::Bottom))
+		if (!is(vertexEliminations, VertexElimination::Bottom))
 			rawIndicies.push_back(center + scaledMapSize);
 
 		rawIndicies.push_back(center - scale + scaledMapSize);
 
-		if (is(vertexEliminations, VertexElimination::Left))
+		if (!is(vertexEliminations, VertexElimination::Left))
 			rawIndicies.push_back(center-scale);
 
 		rawIndicies.push_back(center - scale - scaledMapSize);
 
-		if (is(vertexEliminations, VertexElimination::Top))
+		if (!is(vertexEliminations, VertexElimination::Top))
 			rawIndicies.push_back(center - scaledMapSize);
 
 		rawIndicies.push_back(center + scale - scaledMapSize);
@@ -98,13 +100,13 @@ namespace t3d
 
 	int maxLevelsOfDetail(int blockSize)
 	{
-		return 1 + int(std::log10(blockSize)/std::log10(2) + 0.5);
+		return int(std::log10(blockSize)/std::log10(2) + 0.5);
 	}
 
 
 	int sizeForLod(int lod)
 	{
-		return std::pow(2, lod);
+		return std::pow(2, lod+1);
 	}
 
 
@@ -117,8 +119,14 @@ namespace t3d
 
 		for (int i=0; i<lod; i++)
 		{
-			mIndexDataList.push_back(RawIndicies());
-			buildIndexPatch(mIndexDataList.back(), heightMapSize, sizeForLod(i), GLubyte(VertexElimination::None));
+			const GLubyte VertexEliminationCombinations = 16;
+			std::cout << "  Building Index Data: lod=" << i << std::endl;
+
+			for (GLubyte j=0; j<VertexEliminationCombinations; j++)
+			{
+				mIndexDataList.push_back(RawIndicies());
+				buildIndexPatch(mIndexDataList.back(), heightMapSize, sizeForLod(i), j);
+			}
 		}
 	}
 
@@ -127,6 +135,7 @@ namespace t3d
 	{
 		GLuint ibo;
 		buildIndexData();
+
 
 		int reserve = 0;
 		for (unsigned i=0; i<mIndexDataList.size(); i++)
