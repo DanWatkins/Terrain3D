@@ -60,3 +60,9 @@ HEADERS += \
     ../Src/Terrain3D.h \
     ../Ext/lodepng.h \
     ../Src/World/TerrainRenderer/Utility.h
+
+OTHER_FILES += \
+    ../Bin/Shaders/camera-frag.glsl \
+    ../Bin/Shaders/camera-vert.glsl \
+    ../Bin/Shaders/sprite-frag.glsl \
+    ../Bin/Shaders/sprite-vert.glsl
