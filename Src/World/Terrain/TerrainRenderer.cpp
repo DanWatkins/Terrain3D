@@ -1,0 +1,266 @@
+//==================================================================================================================|
+// Created 2014.10.19 by Daniel L. Watkins
+//
+// Copyright (C) 2013-2014 Daniel L. Watkins
+// This file is licensed under the MIT License.
+//==================================================================================================================|
+
+#include <Core/Image.h>
+#include <World/TerrainRenderer.h>
+#include "IndexData.h"
+#include "Utility.h"
+
+namespace t3d
+{
+	TerrainRenderer::TerrainRenderer(OpenGLWindow *window, TerrainData *terrainData) :
+		mTerrainData(terrainData),
+		mProgram(window),
+		mMode(Mode::Normal)
+	{
+		mRenderData = std::unique_ptr<IndexData>(new IndexData(mTerrainData, &mProgram));
+		
+	}
+
+
+	TerrainRenderer::~TerrainRenderer()
+	{
+	}
+
+
+	void TerrainRenderer::init()
+	{
+		initializeOpenGLFunctions();
+		loadShaders();
+		
+		mProgram.bind();
+		{
+			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
+			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
+			mUniforms.spacing = mProgram.uniformLocation("spacing");
+			mUniforms.heightScale = mProgram.uniformLocation("heightScale");
+			mUniforms.blockSize = mProgram.uniformLocation("blockSize");
+			mUniforms.blockIndex = mProgram.uniformLocation("blockIndex");
+			mRenderData->queryUniforms();
+
+			mVao.create();
+			mVao.bind();
+			{
+				uploadTerrainData();
+				loadTextures();
+			}
+			mVao.release();
+		}
+		mProgram.release();
+	}
+
+
+	Vec2i TerrainRenderer::cameraPosToBlockPosition(Vec3f cameraPos)
+	{
+		double blocksPerMapEdge = mRenderData->blockSize();
+
+		Vec2i pos;
+		pos.x = int(cameraPos.x / blocksPerMapEdge + 0.5) - 1;
+		pos.y = int(cameraPos.z / blocksPerMapEdge + 0.5) - 1;
+
+		return pos;
+	}
+
+
+	void TerrainRenderer::render(Vec3f cameraPos, Mat4 totalMatrix)
+	{
+		mProgram.bind();
+		{
+			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
+			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
+							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
+
+			mVao.bind();
+			{
+				int heightMapSize = mTerrainData->heightMap().getSize();
+				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mRenderData->blockSize()));
+
+				switch (mMode)
+				{
+					case Mode::Normal:
+					{
+						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+						break;
+					}
+
+					case Mode::WireFrame:
+					{
+						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+						break;
+					}
+				}
+
+				//calculate the lod for every block
+				std::vector<std::vector<int>> blockLod(numberOfBlocksOnASide, std::vector<int>(numberOfBlocksOnASide, 0));
+
+				for (int y=0; y<numberOfBlocksOnASide; y++)
+				{
+					for (int x=0; x<numberOfBlocksOnASide; x++)
+					{
+						blockLod[x][y] = lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y)));
+					}
+				}
+
+				//render all of the blocks
+				for (int y=0; y<numberOfBlocksOnASide; y++)
+				{
+					int offsetY = y * (mRenderData->blockSize()*numberOfBlocksOnASide + 1)*mRenderData->blockSize();
+
+					for (int x=0; x<numberOfBlocksOnASide; x++)
+					{
+						int offsetX = x*mRenderData->blockSize();
+
+						Block block;
+						block.x = x;
+						block.y = y;
+						block.lod = blockLod[x][y];
+						block.baseVertex = offsetX+offsetY;
+
+						block.neighborLod.left = blockLod[std::max(x-1, 0)][y];
+						block.neighborLod.right = blockLod[std::min(x+1, int(blockLod.size())-1)][y];
+						block.neighborLod.top = blockLod[x][std::max(y-1, 0)];
+						block.neighborLod.bottom = blockLod[x][std::min(y+1, int(blockLod[x].size())-1)];
+
+						renderBlock(block);
+					}
+				}
+			}
+			mVao.release();
+		}
+		mProgram.release();
+	}
+
+
+///// PRIVATE
+
+	void TerrainRenderer::loadShaders()
+	{
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (String(gDefaultPathShaders) + "camera-vert.glsl").c_str());
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (String(gDefaultPathShaders) + "camera-frag.glsl").c_str());
+
+		if (mProgram.link() == false)
+			printf("Problem linking shaders\n");
+		else
+			printf("Initialized shaders\n");
+	}
+
+
+	void TerrainRenderer::loadTextures()
+	{
+		Image imageWater;
+		imageWater.loadFromFile_PNG("./Textures/water.png");
+
+		Image imageSand;
+		imageSand.loadFromFile_PNG("./Textures/sand.png");
+
+		Image imageGrass;
+		imageGrass.loadFromFile_PNG("./Textures/grass.png");
+
+		Image imageMountain;
+		imageMountain.loadFromFile_PNG("./Textures/mountain.png");
+
+		int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
+
+		glGenTextures(1, &mTextureSand);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
+
+		int mipLevels = 8;
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 0,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 1,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 2,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageGrass.getImageData()[0]);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+						0, 0, 3,
+						imageSize, imageSize, 1,
+						GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
+
+		glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
+		glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	}
+
+
+	void TerrainRenderer::uploadTerrainData()
+	{
+		uploadVertexData();
+		mRenderData->uploadIndexData();
+
+		glEnable(GL_PRIMITIVE_RESTART);
+		glPrimitiveRestartIndex(PrimitiveRestartIndex);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	}
+
+
+	void TerrainRenderer::uploadVertexData()
+	{
+		GLuint vbo;
+		mTerrainData->heightMap().buildVertexData(mRenderData->spacing());
+		mProgram.setUniformValue(mUniforms.spacing, mRenderData->spacing());
+		mProgram.setUniformValue(mUniforms.heightScale, mRenderData->heightScale());
+		mProgram.setUniformValue(mUniforms.blockSize, float(mRenderData->blockSize()));
+		const std::vector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();
+
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		GLuint size = sizeof(float)*terrainVertexData->size();
+		glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
+	}
+
+
+	void TerrainRenderer::renderBlock(const Block &block)
+	{
+		glUniform2i(mUniforms.blockIndex, block.x, block.y);
+
+		int patchSize = std::pow(2, block.lod+1);
+		int patchesPerEdge = mRenderData->blockSize() / patchSize;
+		int heightMapSize = mTerrainData->heightMap().getSize();
+
+		//render all the patches (triangle fans) that make up this block
+		for (int y=0; y<patchesPerEdge; y++)
+		{
+			int offsetY = y * patchSize * heightMapSize;
+
+			for (int x=0; x<patchesPerEdge; x++)
+			{
+				VertexElimination ve = VertexEliminationNone;
+
+				//request elimination of vertecies to blend with a higher lod neighbor
+				if (x == 0  &&  block.neighborLod.left > block.lod)
+					ve = ve | VertexEliminationLeft;
+				if (x == patchesPerEdge-1  &&  block.neighborLod.right > block.lod)
+					ve = ve | VertexEliminationRight;
+				if (y == 0  &&  block.neighborLod.top > block.lod)
+					ve = ve | VertexEliminationTop;
+				if (y == patchesPerEdge-1  &&  block.neighborLod.bottom > block.lod)
+					ve = ve | VertexEliminationBottom;
+
+				LodIndexBlock lib;
+				lib = mRenderData->lodIndexBlockForLod(block.lod, GLubyte(ve));
+
+				int offsetX = x * patchSize;
+				int baseVertex = block.baseVertex+offsetX+offsetY;
+
+				glDrawElementsBaseVertex(GL_TRIANGLE_FAN, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
+			}
+		}
+	}
+}
