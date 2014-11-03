@@ -12,7 +12,6 @@
 #include <Core/OpenGLWindow.h>
 #include <World/World.h>
 #include <World/Camera.h>
-#include <World/HeightMap.h>
 
 #define ARRAY_COUNT( array ) (sizeof( array ) / (sizeof( array[0] ) * (sizeof( array ) != sizeof(void*) || sizeof( array[0] ) <= sizeof(void*))))
 
@@ -42,7 +41,6 @@ namespace t3d
 		void render();
 
 		void updateCursorPos();
-
 		void keyPressEvent(QKeyEvent *ev);
 
 	public:

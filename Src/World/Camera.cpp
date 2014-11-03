@@ -20,7 +20,7 @@ namespace t3d
 		mAspectRatio(1), 
 		mMaxVerticalAngle(95.0f),
 		mWorld(world),
-		mTerrainRenderer(window, world)
+		mTerrainRenderer(window, &world->terrainData())
 	{
 		lookAt(Vec3f(100, 10, 100));
 	}

@@ -21,16 +21,18 @@ SOURCES += \
     ../Src/Core/Shader.cpp \
     ../Src/Core/Sprite.cpp \
     ../Src/Core/SpriteSheet.cpp \
-    ../Src/World/TerrainGenerator/TerrainGenerator.cpp \
-    ../Src/World/TerrainRenderer/IndexData.cpp \
-    ../Src/World/TerrainRenderer/TerrainRenderer.cpp \
+    ../Src/World/Terrain/HeightMap.cpp \
+    ../Src/World/Terrain/IndexData.cpp \
+    ../Src/World/Terrain/TerrainData.cpp \
+    ../Src/World/Terrain/TerrainGenerator.cpp \
+    ../Src/World/Terrain/TerrainRenderer.cpp \
+    ../Src/World/Terrain/Utility.cpp \
     ../Src/World/Camera.cpp \
-    ../Src/World/HeightMap.cpp \
     ../Src/World/World.cpp \
     ../Src/Main.cpp \
     ../Src/Terrian3D.cpp \
-    ../Ext/lodepng.cpp \
-    ../Src/World/TerrainRenderer/Utility.cpp
+    ../Ext/lodepng.cpp
+
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -49,17 +51,18 @@ HEADERS += \
     ../Src/Core/Shader.h \
     ../Src/Core/Sprite.h \
     ../Src/Core/SpriteSheet.h \
-    ../Src/World/TerrainRenderer/IndexData.h \
+    ../Src/World/Terrain/HeightMap.h \
+    ../Src/World/Terrain/IndexData.h \
+    ../Src/World/Terrain/Utility.h \
     ../Src/World/Camera.h \
-    ../Src/World/HeightMap.h \
+    ../Src/World/TerrainData.h \
     ../Src/World/TerrainGenerator.h \
     ../Src/World/TerrainRenderer.h \
     ../Src/World/World.h \
     ../Src/Constants.h \
     ../Src/Main.h \
     ../Src/Terrain3D.h \
-    ../Ext/lodepng.h \
-    ../Src/World/TerrainRenderer/Utility.h
+    ../Ext/lodepng.h
 
 OTHER_FILES += \
     ../Bin/Shaders/camera-frag.glsl \

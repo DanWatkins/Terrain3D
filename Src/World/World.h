@@ -8,19 +8,19 @@
 #ifndef _t3d_WORLD_H
 #define _t3d_WORLD_H
 
-#include <World/HeightMap.h>
+#include <World/TerrainData.h>
 
 namespace t3d
 {
 	class World
 	{
 	private:
-		HeightMap mHeightMap;
+		TerrainData mTerrainData;
 
 	public:
 		void init();
 
-		HeightMap& getHeightMap() { return mHeightMap; }
+		TerrainData& terrainData() { return mTerrainData; }
 	};
 };
 

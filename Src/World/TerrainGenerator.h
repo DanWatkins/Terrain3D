@@ -8,7 +8,8 @@
 #ifndef _TERRAIN_GENERATOR_H
 #define _TERRAIN_GENERATOR_H
 
-#include <World/HeightMap.h>
+#include <Main.h>
+#include <World/TerrainData.h>
 
 namespace t3d
 {
@@ -17,17 +18,13 @@ namespace t3d
 	private:
 		float mLowBound;
 		float mHightBound;
-		HeightMap mHeightMap;
+		TerrainData *mTerrainData;
 
 		void init(int size);
-		void applyRandomFault(HeightMap &heightMap, float faultAmount);
-		void normalizeHeights();
-		void smoothHeightBand(GLuint indexStart, int stride, GLuint length, float intensity);
-		void smoothHeight(float intensity);
 
 	public:
 		TerrainGenerator();
-		HeightMap generate(int size, int numberOfPasses, int seed);	//TODO return a pointer or something LOL
+		void generate(TerrainData &terrainData, int size, int numberOfPasses, int seed);
 	};
 };
 

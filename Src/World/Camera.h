@@ -10,8 +10,9 @@
 
 #include <Main.h>
 #include <Core/OpenGLWindow.h>
-#include <World/HeightMap.h>
 #include <World/World.h>
+
+#include <World/TerrainData.h>
 #include <World/TerrainRenderer.h>
 
 namespace t3d

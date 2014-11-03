@@ -6,7 +6,6 @@
 //==================================================================================================================|
 
 #include "World.h"
-#include <World/HeightMap.h>
 #include <World/TerrainGenerator.h>
 #include <stdio.h>
 
@@ -15,7 +14,7 @@ namespace t3d
 	void World::init()
 	{
 		TerrainGenerator generator;
-		mHeightMap = generator.generate(257, 90, 123456); //(GLuint)time(NULL));
+		generator.generate(mTerrainData, 257, 90, 123456); //(GLuint)time(NULL));
 
 		return;
 	}

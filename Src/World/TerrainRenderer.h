@@ -10,7 +10,7 @@
 
 #include <Main.h>
 #include <Core/OpenGLWindow.h>
-#include <World/World.h>
+#include <World/TerrainData.h>
 
 namespace t3d
 {
@@ -24,7 +24,7 @@ namespace t3d
 	class TerrainRenderer : protected OpenGLFunctions
 	{
 	public:
-		TerrainRenderer(OpenGLWindow *window, World *world);
+		TerrainRenderer(OpenGLWindow *window, TerrainData *terrainData);
 		~TerrainRenderer();
 
 		void init();
@@ -38,7 +38,7 @@ namespace t3d
 		class IndexData;
 		std::unique_ptr<IndexData> mRenderData;
 
-		World *mWorld;
+		TerrainData *mTerrainData;
 		QOpenGLShaderProgram mProgram;
 		QOpenGLVertexArrayObject mVao;
 		GLuint mTexture;

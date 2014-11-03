@@ -6,6 +6,7 @@
 //==================================================================================================================|
 
 #include <World/TerrainGenerator.h>
+#include "HeightMap.h"
 
 namespace t3d
 {
@@ -22,21 +23,21 @@ namespace t3d
 	}
 	
 
-	void TerrainGenerator::applyRandomFault(float faultAmount)
+	void applyRandomFault(HeightMap &heightMap, float faultAmount)
 	{
 		//create the fault line from two random points
-		Vec2f p1((float)randInt(0, mTerrainData->heightMap().getSize()), (float)randInt(0, mTerrainData->heightMap().getSize()));
+		Vec2f p1((float)randInt(0, heightMap.getSize()), (float)randInt(0, heightMap.getSize()));
 		Vec2f p2;
 
 		do
 		{
-			p2 = Vec2f((float)randInt(0, mTerrainData->heightMap().getSize()), (float)randInt(0, mTerrainData->heightMap().getSize()));
+			p2 = Vec2f((float)randInt(0, heightMap.getSize()), (float)randInt(0, heightMap.getSize()));
 		} while (p2 == p1);
 
-		
+
 		float dirX1 = p2.x-p1.x;
 		float dirY1 = p2.y - p1.y;
-		int size = mTerrainData->heightMap().getSize();
+		int size = heightMap.getSize();
 
 		for (int y=0; y<size; y++)
 		{
@@ -46,24 +47,24 @@ namespace t3d
 				float dirY2 = y - p1.y;
 
 				if ((dirX2*dirY1 - dirX1*dirY2) > 0)
-					mTerrainData->heightMap().set(x, y, mTerrainData->heightMap().get((GLuint)x, (GLuint)y) + faultAmount);
+					heightMap.set(x, y, heightMap.get((GLuint)x, (GLuint)y) + faultAmount);
 			}
 		}
 	}
 
 
-	void TerrainGenerator::normalizeHeights()
+	void normalizeHeights(HeightMap &heightMap)
 	{
-		float min = mTerrainData->heightMap().get(0);
-		float max = mTerrainData->heightMap().get(0);
-		int size = mTerrainData->heightMap().getSize();
+		float min = heightMap.get(0);
+		float max = heightMap.get(0);
+		int size = heightMap.getSize();
 
 		for (int i=1; i<size*size; i++)
 		{
-			if (mTerrainData->heightMap().get(i) > max)
-				max = mTerrainData->heightMap().get(i);
-			else if (mTerrainData->heightMap().get(i) < min)
-				min = mTerrainData->heightMap().get(i);
+			if (heightMap.get(i) > max)
+				max = heightMap.get(i);
+			else if (heightMap.get(i) < min)
+				min = heightMap.get(i);
 		}
 
 
@@ -74,46 +75,46 @@ namespace t3d
 
 		for (int i=0; i<size*size; i++)
 		{
-			mTerrainData->heightMap().set(i, (mTerrainData->heightMap().get(i)-min) / height * 255.0f);
+			heightMap.set(i, (heightMap.get(i)-min) / height * 255.0f);
 		}
 	}
 
 
-	void TerrainGenerator::smoothHeightBand(GLuint index, int stride, GLuint length, float intensity)
+	void smoothHeightBand(HeightMap &heightMap, GLuint index, int stride, GLuint length, float intensity)
 	{
-		float v = mTerrainData->heightMap().get(index);
+		float v = heightMap.get(index);
 		int j = stride; 
 		
 		for (GLuint i=0; i<length-1; i++)
 		{
-			float height = (float)mTerrainData->heightMap().get(j+index);
-			mTerrainData->heightMap().set(j+index, intensity*v + (1-intensity) * height);
+			float height = (float)heightMap.get(j+index);
+			heightMap.set(j+index, intensity*v + (1-intensity) * height);
 
-			v = (float)mTerrainData->heightMap().get(j + index);
+			v = (float)heightMap.get(j + index);
 			j += stride;
 		}
 	}
 
 
-	void TerrainGenerator::smoothHeight(float intensity)
+	void smoothHeight(HeightMap &heightMap, float intensity)
 	{
-		int size = mTerrainData->heightMap().getSize();
+		int size = heightMap.getSize();
 
 		//left to right
 		for (int i = 0; i<size; i++)
-			smoothHeightBand(size*i, 1, size, intensity);
+			smoothHeightBand(heightMap, size*i, 1, size, intensity);
 
 		//right to left
 		for (int i = 0; i<size; i++)
-			smoothHeightBand(size*i + size-1, -1, size, intensity);
+			smoothHeightBand(heightMap, size*i + size-1, -1, size, intensity);
 
 		//top to bottom
 		for (int i = 0; i<size; i++)
-			smoothHeightBand(i, size, size, intensity);
+			smoothHeightBand(heightMap, i, size, size, intensity);
 
 		//bottom to top
 		for (int i = 0; i<size; i++)
-			smoothHeightBand(size*(size-1)+i, -size, size, intensity);
+			smoothHeightBand(heightMap, size*(size-1)+i, -size, size, intensity);
 	}
 
 
@@ -130,10 +131,10 @@ namespace t3d
 			float amount = maxDelta - ((maxDelta - minDelta) * i) / size;
 			amount += 15.0f;
 
-			applyRandomFault(amount);
+			applyRandomFault(mTerrainData->heightMap(), amount);
 		}
 
-		smoothHeight(0.55f);
-		normalizeHeights();
+		smoothHeight(mTerrainData->heightMap(), 0.55f);
+		normalizeHeights(mTerrainData->heightMap());
 	}
 }
