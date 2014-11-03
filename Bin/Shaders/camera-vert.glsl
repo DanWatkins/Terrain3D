@@ -19,6 +19,7 @@ void main()
 	tc.y = (position.z/spacing - float(blockIndex.y)*blockSize) / blockSize;
 	vec4 scaledPosition = vec4(position.x, position.y*heightScale, position.z, position.w);
 
-	outTextureIndex = 2;
+	outTextureIndex = inTextureIndex;
+
 	gl_Position = cameraMatrix * modelMatrix * scaledPosition;
 }

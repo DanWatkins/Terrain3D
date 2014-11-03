@@ -21,6 +21,7 @@ namespace t3d
 		TerrainData *mTerrainData;
 
 		void init(int size);
+		void computeTextureIndicies();
 
 	public:
 		TerrainGenerator();

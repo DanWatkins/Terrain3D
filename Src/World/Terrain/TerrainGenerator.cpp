@@ -118,6 +118,34 @@ namespace t3d
 	}
 
 
+	void TerrainGenerator::computeTextureIndicies()
+	{
+		int size = mTerrainData->heightMap().getSize();
+		mTerrainData->textureIndicies().resize(size*size);
+
+		for (int y=0; y<size; ++y)
+		{
+			for (int x=0; x<size; ++x)
+			{
+				float height = mTerrainData->heightMap().get(x + y*size) / 255.0f;
+				int index = 0;
+
+				//which texture should we use?
+				if (height > 0.8f) //mountain
+					index = 3;
+				else if (height > 0.4f) //grass
+					index = 2;
+				else if (height > 0.2f) //sand
+					index = 1;
+				else                    //water
+					index = 0;
+
+				mTerrainData->textureIndicies()[x + y*size] = index;
+			}
+		}
+	}
+
+
 	void TerrainGenerator::generate(TerrainData &terrainData, int size, int numberOfPasses, int seed)
 	{
 		mTerrainData = &terrainData;
@@ -136,5 +164,6 @@ namespace t3d
 
 		smoothHeight(mTerrainData->heightMap(), 0.55f);
 		normalizeHeights(mTerrainData->heightMap());
+		computeTextureIndicies();
 	}
 }

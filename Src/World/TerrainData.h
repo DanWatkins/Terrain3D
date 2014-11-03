@@ -19,9 +19,12 @@ namespace t3d
 		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
 
+		typedef std::vector<GLint> TextureIndicies;
+		TextureIndicies& textureIndicies() { return mTextureIndicies; }
+
 	private:
 		HeightMap mHeightMap;
-
+		TextureIndicies mTextureIndicies;
 	};
 }
 
