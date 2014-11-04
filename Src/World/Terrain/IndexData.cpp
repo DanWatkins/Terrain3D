@@ -63,8 +63,6 @@ namespace t3d
 
 	void TerrainRenderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations)
 	{
-		std::cout << "    Building Index Patch: size=" << patchSize << std::endl;
-
 		rawIndicies.clear();
 		rawIndicies.reserve(6 + int(!is(vertexEliminations, VertexEliminationTop))
 							+ int(!is(vertexEliminations, VertexEliminationRight))
@@ -103,15 +101,11 @@ namespace t3d
 
 	void TerrainRenderer::IndexData::buildIndexData()
 	{
-		std::cout << "Generating index data set" << std::endl;
-
 		int heightMapSize = mTerrainData->heightMap().getSize();
 		int lod = maxLevelsOfDetail(mBlockSize);
 
 		for (int i=0; i<lod; i++)
 		{
-			std::cout << "  Building Index Data: lod=" << i << std::endl;
-
 			for (GLubyte j=0; j<VertexEliminationCombinations; j++)
 			{
 				mIndexDataList.push_back(RawIndicies());

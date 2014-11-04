@@ -209,35 +209,24 @@ namespace t3d
 
 	void TerrainRenderer::uploadVertexData()
 	{
-		GLuint vbo[2];
+		GLuint vbo;
 		mTerrainData->heightMap().buildVertexData(mRenderData->spacing());
 		mProgram.setUniformValue(mUniforms.spacing, mRenderData->spacing());
 		mProgram.setUniformValue(mUniforms.heightScale, mRenderData->heightScale());
 		mProgram.setUniformValue(mUniforms.blockSize, float(mRenderData->blockSize()));
 		const std::vector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();
 
-		glGenBuffers(2, vbo);
+		glGenBuffers(1, &vbo);
 
 		//vertex data
 		{
-			glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 			GLuint size = sizeof(float)*terrainVertexData->size();
 			glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
 
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 			glEnableVertexAttribArray(0);
-		}
-
-		//texture index data
-		{
-			glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-
-			GLuint size = sizeof(GLint)*mTerrainData->textureIndicies().size();
-			glBufferData(GL_ARRAY_BUFFER, size, &mTerrainData->textureIndicies()[0], GL_STATIC_DRAW);
-
-			glVertexAttribIPointer(1, 1, GL_INT, 0, NULL);
-			glEnableVertexAttribArray(1);
 		}
 	}
 
