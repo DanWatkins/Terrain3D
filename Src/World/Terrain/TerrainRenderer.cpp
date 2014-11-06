@@ -151,20 +151,18 @@ namespace t3d
 
 	void TerrainRenderer::loadTextures()
 	{
-		glActiveTexture(GL_TEXTURE0);
+		glGenTextures(1, &mTexture[0]);
+		glBindTexture(GL_TEXTURE_BUFFER, mTexture[0]);
 		{
-			glGenTextures(1, &mTexture[0]);
-			glBindTexture(GL_TEXTURE_1D, mTexture[0]);
+			GLuint buffer;
+			glGenBuffers(1, &buffer);
+			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
 			{
-				glTexImage1D(GL_TEXTURE_1D, 0, GL_R8UI, mTerrainData->textureIndicies().size(), 0,
-							 GL_RED_INTEGER, GL_UNSIGNED_BYTE, &mTerrainData->textureIndicies()[0]);
-
-				//glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_BASE_LEVEL, 0);
-				glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAX_LEVEL, 0);
-				//glSamplerParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-				//glSamplerParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				glBufferData(GL_TEXTURE_BUFFER, sizeof(GLubyte)*mTerrainData->textureIndicies().size(), &mTerrainData->textureIndicies()[0], GL_STATIC_DRAW);
+				glTexBuffer(GL_TEXTURE_BUFFER, GL_R8UI, buffer);
 			}
 		}
+
 
 		glActiveTexture(GL_TEXTURE1);
 		{

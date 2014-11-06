@@ -3,7 +3,7 @@
 smooth in vec2 tc;
 out vec4 color;
 
-layout (binding = 0) uniform usampler1D buffer;
+layout (binding = 0) uniform usamplerBuffer buffer;
 layout (binding = 1) uniform sampler2DArray sampler;
 uniform float spacing;
 
@@ -14,7 +14,7 @@ void main()
 	pos.x = tc.x;
 	pos.y = tc.y;
 
-	pos.z = texelFetch(buffer, 0, 0).r;
+	pos.z = texelFetch(buffer, 0).r;
 
 
 	color = texture(sampler, pos);
