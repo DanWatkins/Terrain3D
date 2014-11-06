@@ -151,49 +151,67 @@ namespace t3d
 
 	void TerrainRenderer::loadTextures()
 	{
-		Image imageWater;
-		imageWater.loadFromFile_PNG("./Textures/water.png");
+		glActiveTexture(GL_TEXTURE0);
+		{
+			glGenTextures(1, &mTexture[0]);
+			glBindTexture(GL_TEXTURE_1D, mTexture[0]);
+			{
+				glTexImage1D(GL_TEXTURE_1D, 0, GL_R8UI, mTerrainData->textureIndicies().size(), 0,
+							 GL_RED_INTEGER, GL_UNSIGNED_BYTE, &mTerrainData->textureIndicies()[0]);
 
-		Image imageSand;
-		imageSand.loadFromFile_PNG("./Textures/sand.png");
+				//glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_BASE_LEVEL, 0);
+				glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAX_LEVEL, 0);
+				//glSamplerParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				//glSamplerParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			}
+		}
 
-		Image imageGrass;
-		imageGrass.loadFromFile_PNG("./Textures/grass.png");
+		glActiveTexture(GL_TEXTURE1);
+		{
+			Image imageWater;
+			imageWater.loadFromFile_PNG("./Textures/water.png");
 
-		Image imageMountain;
-		imageMountain.loadFromFile_PNG("./Textures/mountain.png");
+			Image imageSand;
+			imageSand.loadFromFile_PNG("./Textures/sand.png");
 
-		int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
+			Image imageGrass;
+			imageGrass.loadFromFile_PNG("./Textures/grass.png");
 
-		glGenTextures(1, &mTextureSand);
-		glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture);
+			Image imageMountain;
+			imageMountain.loadFromFile_PNG("./Textures/mountain.png");
 
-		int mipLevels = 8;
-		glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
+			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-						0, 0, 0,
-						imageSize, imageSize, 1,
-						GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
+			glGenTextures(1, &mTexture[1]);
+			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture[1]);
 
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-						0, 0, 1,
-						imageSize, imageSize, 1,
-						GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
+			int mipLevels = 8;
+			glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
 
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-						0, 0, 2,
-						imageSize, imageSize, 1,
-						GL_RGBA, GL_UNSIGNED_BYTE, &imageGrass.getImageData()[0]);
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 0,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
 
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-						0, 0, 3,
-						imageSize, imageSize, 1,
-						GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 1,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
 
-		glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
-		glSamplerParameteri(mTextureSand, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glSamplerParameteri(mTextureSand, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 2,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageGrass.getImageData()[0]);
+
+			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
+							0, 0, 3,
+							imageSize, imageSize, 1,
+							GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
+
+			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
+			glSamplerParameteri(mTexture[1], GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glSamplerParameteri(mTexture[1], GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		}
 	}
 
 
@@ -263,6 +281,8 @@ namespace t3d
 
 				int offsetX = x * patchSize;
 				int baseVertex = block.baseVertex+offsetX+offsetY;
+
+
 
 				glDrawElementsBaseVertex(GL_TRIANGLE_FAN, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
 			}

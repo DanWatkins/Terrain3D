@@ -14,7 +14,7 @@ namespace t3d
 	void World::init()
 	{
 		TerrainGenerator generator;
-		generator.generate(mTerrainData, 257, 100, 123456); //(GLuint)time(NULL));
+		generator.generate(mTerrainData, 65, 0, 123456); //(GLuint)time(NULL));
 
 		return;
 	}

@@ -140,7 +140,7 @@ namespace t3d
 				else                    //water
 					index = 0;
 
-				mTerrainData->textureIndicies()[x + y*size] = index;
+				mTerrainData->textureIndicies()[x + y*size] = 1;
 			}
 		}
 	}

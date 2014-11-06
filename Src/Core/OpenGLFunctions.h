@@ -8,7 +8,7 @@
 #ifndef _t3d_OPENGL_FUNCTIONS_H
 #define _t3d_OPENGL_FUNCTIONS_H
 
-#include <QtGui/qopenglfunctions_4_3_core.h>
+#include <QtGui/qopenglfunctions_4_2_core.h>
 
 namespace t3d
 {
@@ -16,7 +16,7 @@ namespace t3d
 	 * Inherit from this class protectedly to access all of the standard OpenGL functions. Call
 	 * OpenGLFunctions::initializeOpenGLFunctions() before using any of the actual OpenGL functions such as glEnable().
 	 */
-	class OpenGLFunctions : protected QOpenGLFunctions_4_3_Core
+	class OpenGLFunctions : protected QOpenGLFunctions_4_2_Core
 	{
 	};
 }

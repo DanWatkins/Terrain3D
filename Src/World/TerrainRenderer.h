@@ -41,8 +41,7 @@ namespace t3d
 		TerrainData *mTerrainData;
 		QOpenGLShaderProgram mProgram;
 		QOpenGLVertexArrayObject mVao;
-		GLuint mTexture;
-		GLuint mTextureSand;
+		GLuint mTexture[2];
 		Mode mMode;
 
 		struct Uniforms
