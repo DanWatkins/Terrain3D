@@ -38,6 +38,7 @@ namespace t3d
 			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
 			mUniforms.spacing = mProgram.uniformLocation("spacing");
 			mUniforms.heightScale = mProgram.uniformLocation("heightScale");
+			mUniforms.heightMapSize = mProgram.uniformLocation("heightMapSize");
 			mUniforms.blockSize = mProgram.uniformLocation("blockSize");
 			mUniforms.blockIndex = mProgram.uniformLocation("blockIndex");
 			mRenderData->queryUniforms();
@@ -228,6 +229,7 @@ namespace t3d
 		GLuint vbo;
 		mTerrainData->heightMap().buildVertexData(mRenderData->spacing());
 		mProgram.setUniformValue(mUniforms.spacing, mRenderData->spacing());
+		mProgram.setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().getSize());
 		mProgram.setUniformValue(mUniforms.heightScale, mRenderData->heightScale());
 		mProgram.setUniformValue(mUniforms.blockSize, float(mRenderData->blockSize()));
 		const std::vector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();

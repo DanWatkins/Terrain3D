@@ -50,6 +50,7 @@ namespace t3d
 			GLuint matrixModel;
 			GLuint spacing;
 			GLuint heightScale;
+			GLuint heightMapSize;
 			GLuint blockSize;
 			GLuint blockIndex;
 		} mUniforms;
