@@ -35,5 +35,16 @@ vec4 texelForIndex(uint index)
 
 void main()
 {
-	color = texelForIndex(textureIndexForPos(outPos));
+	vec4 topLeft = texelForIndex(textureIndexForPos(outPos));
+	vec4 topRight = texelForIndex(textureIndexForPos(outPos + vec4(spacing, 0, 0, 0)));
+	vec4 bottomLeft = texelForIndex(textureIndexForPos(outPos + vec4(0, spacing, 0, 0)));
+	vec4 bottomRight = texelForIndex(textureIndexForPos(outPos + vec4(spacing, spacing, 0, 0)));
+
+	float integerPart;
+	float hLerp = modf(outPos.x/spacing, integerPart);
+	vec4 h1 = mix(topLeft, topRight, hLerp);
+	vec4 h2 = mix(bottomLeft, bottomRight, hLerp);
+
+	float vLerp = modf(outPos.z/spacing, integerPart);
+	color = mix(h1, h2, vLerp);
 }
