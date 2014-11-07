@@ -52,6 +52,7 @@ namespace t3d
 			GLuint heightScale;
 			GLuint heightMapSize;
 			GLuint blockSize;
+			GLuint spanSize;
 			GLuint blockIndex;
 		} mUniforms;
 

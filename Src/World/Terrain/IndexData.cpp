@@ -15,7 +15,8 @@ namespace t3d
 		mProgram(nullptr),
 		mSpacing(1.0f),
 		mHeightScale(75.0f),
-		mBlockSize(8)
+		mBlockSize(16),
+		mSpanSize(8)
 	{
 	}
 

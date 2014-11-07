@@ -8,14 +8,17 @@ uniform float heightScale = 10.0f;
 uniform float spacing;
 uniform float blockSize;
 uniform ivec2 blockIndex;
+uniform float spanSize;
 
 smooth out vec2 tc;
 smooth out vec4 outPos;
 
 void main()
 {
-	tc.x = (position.x/spacing - float(blockIndex.x)*blockSize) / blockSize;
-	tc.y = (position.z/spacing - float(blockIndex.y)*blockSize) / blockSize;
+	float repeatFactor = blockSize / spanSize;
+
+	tc.x = repeatFactor * (position.x/spacing - float(blockIndex.x)*blockSize) / blockSize;
+	tc.y = repeatFactor * (position.z/spacing - float(blockIndex.y)*blockSize) / blockSize;
 
 	outPos = position;
 

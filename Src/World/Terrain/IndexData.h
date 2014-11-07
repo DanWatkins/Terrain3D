@@ -45,6 +45,7 @@ namespace t3d
 		float spacing() { return mSpacing; }
 		float heightScale() { return mHeightScale; }
 		int blockSize() { return mBlockSize; }
+		int spanSize() { return mSpanSize; }
 
 	private:
 		IndexData();
@@ -56,7 +57,7 @@ namespace t3d
 		std::vector<RawIndicies> mIndexDataList;
 
 		float mSpacing, mHeightScale;
-		int mBlockSize;
+		int mBlockSize, mSpanSize;
 
 		void buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations);
 		void buildIndexData();
