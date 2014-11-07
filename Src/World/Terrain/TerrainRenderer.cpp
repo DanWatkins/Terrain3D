@@ -103,7 +103,7 @@ namespace t3d
 				{
 					for (int x=0; x<numberOfBlocksOnASide; x++)
 					{
-						blockLod[x][y] = lodForDistance(blockDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y)));
+                        blockLod[x][y] = lodForDistance(lodDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y), mRenderData->blockSize()));
 					}
 				}
 

@@ -21,16 +21,22 @@ namespace t3d
 	}
 
 
-	double blockDistanceBetweenPos(Vec2i a, Vec2i b)
+    double lodDistanceBetweenPos(Vec2i a, Vec2i b, int blockSize)
 	{
+        int baseBlockSize = 8;
 		Vec2i net(a.x-b.x, a.y-b.y);
 
-		return std::sqrt(net.x*net.x + net.y*net.y);
+        return std::sqrt(net.x*net.x + net.y*net.y) * blockSize / baseBlockSize;
 	}
 
 
 	int lodForDistance(double distance)
 	{
-		return 0;
+        if (distance > 16.0)
+            return 2;
+        else if (distance > 8.0)
+            return 1;
+        else
+            return 0;
 	}
 }

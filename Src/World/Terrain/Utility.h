@@ -14,7 +14,7 @@ namespace t3d
 {
 	int maxLevelsOfDetail(int blockSize);
 	int sizeForLod(int lod);
-	double blockDistanceBetweenPos(Vec2i a, Vec2i b);
+    double lodDistanceBetweenPos(Vec2i a, Vec2i b, int blockSize);
 	int lodForDistance(double distance);
 }
 
