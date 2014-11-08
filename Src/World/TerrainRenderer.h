@@ -54,6 +54,7 @@ namespace t3d
 			GLuint blockSize;
 			GLuint spanSize;
 			GLuint blockIndex;
+			GLuint textureMapResolution;
 		} mUniforms;
 
 		struct Block

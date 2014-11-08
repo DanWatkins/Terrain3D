@@ -9,6 +9,7 @@ layout (binding = 1) uniform sampler2DArray sampler;
 
 uniform float spacing;
 uniform int heightMapSize;
+uniform int textureMapResolution;
 
 
 uint textureIndexForPos(vec4 pos)

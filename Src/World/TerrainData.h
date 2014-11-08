@@ -16,15 +16,21 @@ namespace t3d
 	class TerrainData
 	{
 	public:
+		TerrainData();
+
 		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
 
 		typedef std::vector<GLubyte> TextureIndicies;
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
 
+		int textureMapResolution() { return mTextureMapResolution; }
+
 	private:
 		HeightMap mHeightMap;
 		TextureIndicies mTextureIndicies;
+
+		int mTextureMapResolution;
 	};
 }
 

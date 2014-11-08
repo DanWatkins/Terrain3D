@@ -42,6 +42,7 @@ namespace t3d
 			mUniforms.blockSize = mProgram.uniformLocation("blockSize");
 			mUniforms.spanSize = mProgram.uniformLocation("spanSize");
 			mUniforms.blockIndex = mProgram.uniformLocation("blockIndex");
+			mUniforms.textureMapResolution = mProgram.uniformLocation("textureMapResolution");
 			mRenderData->queryUniforms();
 
 			mVao.create();
@@ -234,6 +235,7 @@ namespace t3d
 		mProgram.setUniformValue(mUniforms.heightScale, mRenderData->heightScale());
 		mProgram.setUniformValue(mUniforms.blockSize, float(mRenderData->blockSize()));
 		mProgram.setUniformValue(mUniforms.spanSize, float(mRenderData->spanSize()));
+		mProgram.setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
 		const std::vector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();
 
 		glGenBuffers(1, &vbo);
