@@ -15,8 +15,8 @@ uniform int textureMapResolution;
 uint textureIndexForPos(vec4 pos)
 {
 	ivec2 indexPos;
-	indexPos.x = int(pos.x / spacing);
-	indexPos.y = int(pos.z / spacing);
+	indexPos.x = int(pos.x / spacing) * textureMapResolution;
+	indexPos.y = int(pos.z / spacing) * textureMapResolution;
 
 	int centerIndex = indexPos.x + indexPos.y*heightMapSize;
 	return texelFetch(buffer, centerIndex).r;

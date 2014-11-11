@@ -11,6 +11,6 @@ namespace t3d
 {
 	TerrainData::TerrainData()
 	{
-		mTextureMapResolution = 1;
+		mTextureMapResolution = 6;
 	}
 }
