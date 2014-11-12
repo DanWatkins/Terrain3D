@@ -6,15 +6,16 @@
 //==================================================================================================================|
 
 #include "World.h"
-#include <World/TerrainGenerator.h>
+#include <World/Terrain/Generator/FaultFormation.h>
 #include <stdio.h>
 
 namespace t3d
 {
 	void World::init()
 	{
-		TerrainGenerator generator;
+        FaultFormation generator;
 		generator.generate(mTerrainData, 129, 60, 123456); //(GLuint)time(NULL));
+        mTerrainData.computeTextureIndicies();
 
 		return;
 	}

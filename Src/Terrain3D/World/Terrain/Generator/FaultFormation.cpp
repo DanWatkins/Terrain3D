@@ -97,8 +97,9 @@
     }
 
 
-    void FaultFormation::generate(HeightMap &heightMap, int size, int numberOfPasses, int seed)
+    void FaultFormation::generate(TerrainData &terrainData, int size, int numberOfPasses, int seed)
     {
+        HeightMap &heightMap = terrainData.heightMap();
         heightMap.reserve(size);
         std::srand(seed);
 

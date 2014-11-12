@@ -1,14 +1,14 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
-#include <World/Terrain/HeightMap.h>
+#include <World/TerrainGenerator.h>
 
 namespace t3d
 {
-    class FaultFormation
+    class FaultFormation : public Generator
     {
     public:
-        static void generate(HeightMap &heightMap, int size, int numberOfPasses, int seed);
+        void generate(TerrainData &terrainData, int size, int numberOfPasses, int seed);
     };
 }
 

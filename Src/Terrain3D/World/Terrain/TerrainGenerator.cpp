@@ -11,18 +11,4 @@
 
 namespace t3d
 {
-	TerrainGenerator::TerrainGenerator() :
-		mLowBound(0.0f),
-		mHightBound(255.0f)
-	{
-	}
-
-
-	void TerrainGenerator::generate(TerrainData &terrainData, int size, int numberOfPasses, int seed)
-	{
-		mTerrainData = &terrainData;
-
-        FaultFormation::generate(terrainData.heightMap(), size, numberOfPasses, seed);
-        mTerrainData->computeTextureIndicies();
-	}
 }

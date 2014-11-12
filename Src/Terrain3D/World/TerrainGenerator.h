@@ -5,24 +5,18 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _TERRAIN_GENERATOR_H
-#define _TERRAIN_GENERATOR_H
+#ifndef _WORLD_TERRAIN_GENERATOR_H
+#define _WORLD_TERRAIN_GENERATOR_H
 
 #include <Main.h>
 #include <World/TerrainData.h>
 
 namespace t3d
 {
-	class TerrainGenerator
+    class Generator
 	{
-	private:
-		float mLowBound;
-		float mHightBound;
-		TerrainData *mTerrainData;
-
 	public:
-		TerrainGenerator();
-		void generate(TerrainData &terrainData, int size, int numberOfPasses, int seed);
+        virtual void generate(TerrainData &terrainData, int size, int numberOfPasses, int seed) = 0;
 	};
 };
 
