@@ -10,9 +10,9 @@
 #include "IndexData.h"
 #include "Utility.h"
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
-	TerrainRenderer::TerrainRenderer(OpenGLWindow *window, TerrainData *terrainData) :
+	Renderer::Renderer(OpenGLWindow *window, Data *terrainData) :
 		mTerrainData(terrainData),
 		mProgram(window),
 		mMode(Mode::Normal)
@@ -22,12 +22,12 @@ namespace t3d
 	}
 
 
-	TerrainRenderer::~TerrainRenderer()
+	Renderer::~Renderer()
 	{
 	}
 
 
-	void TerrainRenderer::init()
+	void Renderer::init()
 	{
 		initializeOpenGLFunctions();
 		loadShaders();
@@ -57,7 +57,7 @@ namespace t3d
 	}
 
 
-	Vec2i TerrainRenderer::cameraPosToBlockPosition(Vec3f cameraPos)
+	Vec2i Renderer::cameraPosToBlockPosition(Vec3f cameraPos)
 	{
 		double blocksPerMapEdge = mRenderData->blockSize();
 
@@ -69,7 +69,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::render(Vec3f cameraPos, Mat4 totalMatrix)
+	void Renderer::render(Vec3f cameraPos, Mat4 totalMatrix)
 	{
 		mProgram.bind();
 		{
@@ -140,7 +140,7 @@ namespace t3d
 
 ///// PRIVATE
 
-	void TerrainRenderer::loadShaders()
+	void Renderer::loadShaders()
 	{
 		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (String(gDefaultPathShaders) + "camera-vert.glsl").c_str());
 		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (String(gDefaultPathShaders) + "camera-frag.glsl").c_str());
@@ -152,7 +152,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::loadTextures()
+	void Renderer::loadTextures()
 	{
 		glGenTextures(1, &mTexture[0]);
 		glBindTexture(GL_TEXTURE_BUFFER, mTexture[0]);
@@ -216,7 +216,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::uploadTerrainData()
+	void Renderer::uploadTerrainData()
 	{
 		uploadVertexData();
 		mRenderData->uploadIndexData();
@@ -226,7 +226,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::uploadVertexData()
+	void Renderer::uploadVertexData()
 	{
 		GLuint vbo;
 		mTerrainData->heightMap().buildVertexData(mRenderData->spacing());
@@ -253,7 +253,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::renderBlock(const Block &block)
+	void Renderer::renderBlock(const Block &block)
 	{
 		glUniform2i(mUniforms.blockIndex, block.x, block.y);
 
@@ -292,4 +292,4 @@ namespace t3d
 			}
 		}
 	}
-}
+}}}

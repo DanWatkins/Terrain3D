@@ -7,7 +7,7 @@
 
 #include "Camera.h"
 
-namespace t3d
+namespace t3d { namespace World
 {
 	Camera::Camera(OpenGLWindow *window, World *world) :
 		mWindow(window),
@@ -127,4 +127,4 @@ namespace t3d
 		else if (mVerticalAngle < -mMaxVerticalAngle)
 			mVerticalAngle = -mMaxVerticalAngle;
 	}
-};
+}}

@@ -1,6 +1,6 @@
 #include "FaultFormation.h"
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain { namespace Generator
 {
     void applyRandomFault(HeightMap &heightMap, float faultAmount)
     {
@@ -97,7 +97,7 @@ namespace t3d
     }
 
 
-    void FaultFormation::generate(TerrainData &terrainData, int size, int numberOfPasses, int seed)
+	void FaultFormation::generate(Data &terrainData, int size, int numberOfPasses, int seed)
     {
         HeightMap &heightMap = terrainData.heightMap();
         heightMap.reserve(size);
@@ -116,4 +116,4 @@ namespace t3d
         smoothHeight(heightMap, 0.55f);
         normalizeHeights(heightMap);
     }
-}
+}}}}

@@ -12,7 +12,7 @@
 #include <Core/OpenGLWindow.h>
 #include <World/Terrain/Data.h>
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
 	enum class Mode
 	{
@@ -21,11 +21,11 @@ namespace t3d
 	};
 
 
-	class TerrainRenderer : protected OpenGLFunctions
+	class Renderer : protected OpenGLFunctions
 	{
 	public:
-		TerrainRenderer(OpenGLWindow *window, TerrainData *terrainData);
-		~TerrainRenderer();
+		Renderer(OpenGLWindow *window, Data *terrainData);
+		~Renderer();
 
 		void init();
 		void render(Vec3f cameraPos, Mat4 totalMatrix);
@@ -34,11 +34,11 @@ namespace t3d
 		Mode getMode() { return mMode; }
 
 	private:
-		Q_DISABLE_COPY(TerrainRenderer)
+		Q_DISABLE_COPY(Renderer)
 		class IndexData;
 		std::unique_ptr<IndexData> mRenderData;
 
-		TerrainData *mTerrainData;
+		Data *mTerrainData;
 		QOpenGLShaderProgram mProgram;
 		QOpenGLVertexArrayObject mVao;
 		GLuint mTexture[2];
@@ -80,7 +80,7 @@ namespace t3d
 		void uploadVertexData();
 		void renderBlock(const Block &block);
 	};
-}
+}}}
 
 #endif
 

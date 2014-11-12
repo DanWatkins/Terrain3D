@@ -31,8 +31,8 @@ namespace t3d
 	class Terrain3D : public OpenGLWindow
 	{
 	private:
-		World mWorld;
-		Camera mCamera;
+		World::World mWorld;
+		World::Camera mCamera;
 
 		bool mPreviouslyHadFocus;
 

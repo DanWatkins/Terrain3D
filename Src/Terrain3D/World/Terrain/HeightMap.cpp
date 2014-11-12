@@ -7,7 +7,7 @@
 
 #include "HeightMap.h"
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
 	void HeightMap::reserve(GLuint size)
 	{
@@ -59,4 +59,4 @@ namespace t3d
 			}
 		}
 	}
-};
+}}}

@@ -11,14 +11,14 @@
 #include <Main.h>
 #include <World/Terrain/Data.h>
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain { namespace Generator
 {
     class Generator
 	{
 	public:
-        virtual void generate(TerrainData &terrainData, int size, int numberOfPasses, int seed) = 0;
+		virtual void generate(Data &terrainData, int size, int numberOfPasses, int seed) = 0;
 	};
-};
+}}}}
 
 #endif
 

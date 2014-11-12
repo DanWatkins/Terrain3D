@@ -12,7 +12,7 @@
 #include <World/World.h>
 #include <World/Terrain/Renderer.h>
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
 	const GLuint PrimitiveRestartIndex = 900000000;
 	const GLubyte VertexEliminationCombinations = 16;
@@ -33,10 +33,10 @@ namespace t3d
 	};
 
 
-	class TerrainRenderer::IndexData : protected OpenGLFunctions
+	class Renderer::IndexData : protected OpenGLFunctions
 	{
 	public:
-		IndexData(TerrainData *terrainData, QOpenGLShaderProgram *program);
+		IndexData(Data *terrainData, QOpenGLShaderProgram *program);
 
 		void queryUniforms();
 		LodIndexBlock lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations);
@@ -50,7 +50,7 @@ namespace t3d
 	private:
 		IndexData();
 
-		TerrainData *mTerrainData;
+		Data *mTerrainData;
 		QOpenGLShaderProgram *mProgram;
 
 		typedef std::vector<GLuint> RawIndicies;
@@ -62,6 +62,6 @@ namespace t3d
 		void buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations);
 		void buildIndexData();
 	};
-}
+}}}
 
 #endif

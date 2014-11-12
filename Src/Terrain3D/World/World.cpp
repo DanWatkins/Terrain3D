@@ -9,14 +9,14 @@
 #include <World/Terrain/Generator/FaultFormation.h>
 #include <stdio.h>
 
-namespace t3d
+namespace t3d { namespace World
 {
 	void World::init()
 	{
-        FaultFormation generator;
+		Terrain::Generator::FaultFormation generator;
 		generator.generate(mTerrainData, 129, 60, 123456); //(GLuint)time(NULL));
         mTerrainData.computeTextureIndicies();
 
 		return;
 	}
-}
+}}

@@ -11,12 +11,12 @@
 #include <Main.h>
 #include <World/Terrain/HeightMap.h>
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
-	class TerrainData
+	class Data
 	{
 	public:
-		TerrainData();
+		Data();
 
 		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
@@ -33,7 +33,7 @@ namespace t3d
 
 		int mTextureMapResolution;
 	};
-}
+}}}
 
 
 #endif

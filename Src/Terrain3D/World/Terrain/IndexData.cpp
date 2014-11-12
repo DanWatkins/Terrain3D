@@ -8,9 +8,9 @@
 #include "IndexData.h"
 #include "Utility.h"
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
-	TerrainRenderer::IndexData::IndexData() :
+	Renderer::IndexData::IndexData() :
 		mTerrainData(nullptr),
 		mProgram(nullptr),
 		mSpacing(1.0f),
@@ -20,7 +20,7 @@ namespace t3d
 	{
 	}
 
-	TerrainRenderer::IndexData::IndexData(TerrainData *terrainData, QOpenGLShaderProgram *program) :
+	Renderer::IndexData::IndexData(Data *terrainData, QOpenGLShaderProgram *program) :
 		IndexData()
 	{
 		mTerrainData = terrainData;
@@ -28,13 +28,13 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::IndexData::queryUniforms()
+	void Renderer::IndexData::queryUniforms()
 	{
 		initializeOpenGLFunctions();
 	}
 
 
-	LodIndexBlock TerrainRenderer::IndexData::lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations)
+	LodIndexBlock Renderer::IndexData::lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations)
 	{
 		LodIndexBlock lib;
 		unsigned searchIndex = lod*VertexEliminationCombinations + vertexEliminations;
@@ -62,7 +62,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations)
+	void Renderer::IndexData::buildIndexPatch(RawIndicies &rawIndicies, int heightMapSize, int patchSize, VertexElimination vertexEliminations)
 	{
 		rawIndicies.clear();
 		rawIndicies.reserve(6 + int(!is(vertexEliminations, VertexEliminationTop))
@@ -100,7 +100,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::IndexData::buildIndexData()
+	void Renderer::IndexData::buildIndexData()
 	{
 		int heightMapSize = mTerrainData->heightMap().getSize();
 		int lod = maxLevelsOfDetail(mBlockSize);
@@ -116,7 +116,7 @@ namespace t3d
 	}
 
 
-	void TerrainRenderer::IndexData::uploadIndexData()
+	void Renderer::IndexData::uploadIndexData()
 	{
 		GLuint ibo;
 		buildIndexData();
@@ -138,4 +138,4 @@ namespace t3d
 			previousOffset += indexData->size() * sizeof(GLuint);
 		}
 	}
-}
+}}}

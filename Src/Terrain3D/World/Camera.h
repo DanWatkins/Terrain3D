@@ -15,7 +15,7 @@
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Renderer.h>
 
-namespace t3d
+namespace t3d { namespace World
 {
 	/**
 	 * Represents an all-in-one World instance visualizer. It uses the style of a first person shooter camera. It can
@@ -54,14 +54,14 @@ namespace t3d
 		Vec3f getRight() const;
 		Vec3f getUp() const;
 
-		void setMode(Mode mode) { mTerrainRenderer.setMode(mode); }
-		Mode getMode() { return mTerrainRenderer.getMode(); }
+		void setMode(Terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
+		Terrain::Mode getMode() { return mTerrainRenderer.getMode(); }
 
 	private:
 		OpenGLWindow *mWindow;
 		World *mWorld;
 
-		TerrainRenderer mTerrainRenderer;
+		Terrain::Renderer mTerrainRenderer;
 
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;
@@ -76,7 +76,7 @@ namespace t3d
 		Mat4 getViewMatrix() const;
 		void normalizeAngles();
 	};
-};
+}}
 
 #endif
 

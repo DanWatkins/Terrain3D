@@ -10,19 +10,19 @@
 
 #include <World/Terrain/Data.h>
 
-namespace t3d
+namespace t3d { namespace World
 {
 	class World
 	{
 	private:
-        TerrainData mTerrainData;
+		Terrain::Data mTerrainData;
 
 	public:
 		void init();
 
-		TerrainData& terrainData() { return mTerrainData; }
+		Terrain::Data& terrainData() { return mTerrainData; }
 	};
-};
+}}
 
 #endif
 

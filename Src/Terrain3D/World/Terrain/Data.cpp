@@ -7,9 +7,9 @@
 
 #include <World/Terrain/Data.h>
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
-	TerrainData::TerrainData()
+	Data::Data()
 	{
 		mTextureMapResolution = 2;
 	}
@@ -29,7 +29,7 @@ namespace t3d
     }
 
 
-    void TerrainData::computeTextureIndicies()
+	void Data::computeTextureIndicies()
     {
         int tcRes = mTextureMapResolution;
         int hmSize = mHeightMap.getSize();
@@ -72,4 +72,4 @@ namespace t3d
             }
         }
     }
-}
+}}}

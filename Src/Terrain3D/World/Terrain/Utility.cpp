@@ -7,7 +7,7 @@
 
 #include "Utility.h"
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
 	int maxLevelsOfDetail(int blockSize)
 	{
@@ -39,4 +39,4 @@ namespace t3d
         else
             return 0;
 	}
-}
+}}}

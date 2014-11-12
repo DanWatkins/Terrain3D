@@ -11,7 +11,7 @@
 #include <Main.h>
 #include <vector>
 
-namespace t3d
+namespace t3d { namespace World { namespace Terrain
 {
 	class HeightMap
 	{
@@ -39,7 +39,7 @@ namespace t3d
 
 		GLuint getSize() const { return mSize; }
 	};
-};
+}}}
 
 
 #endif
