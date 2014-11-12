@@ -10,7 +10,7 @@
 
 #include <Main.h>
 #include <Core/OpenGLWindow.h>
-#include <World/TerrainData.h>
+#include <World/Terrain/Data.h>
 
 namespace t3d
 {

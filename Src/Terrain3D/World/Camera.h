@@ -12,8 +12,8 @@
 #include <Core/OpenGLWindow.h>
 #include <World/World.h>
 
-#include <World/TerrainData.h>
-#include <World/TerrainRenderer.h>
+#include <World/Terrain/Data.h>
+#include <World/Terrain/Renderer.h>
 
 namespace t3d
 {

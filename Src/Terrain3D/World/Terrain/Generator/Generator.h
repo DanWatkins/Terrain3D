@@ -9,7 +9,7 @@
 #define _WORLD_TERRAIN_GENERATOR_H
 
 #include <Main.h>
-#include <World/TerrainData.h>
+#include <World/Terrain/Data.h>
 
 namespace t3d
 {

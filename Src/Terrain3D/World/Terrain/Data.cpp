@@ -5,7 +5,7 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include <World/TerrainData.h>
+#include <World/Terrain/Data.h>
 
 namespace t3d
 {

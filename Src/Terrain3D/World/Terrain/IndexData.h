@@ -10,7 +10,7 @@
 
 #include <Main.h>
 #include <World/World.h>
-#include <World/TerrainRenderer.h>
+#include <World/Terrain/Renderer.h>
 
 namespace t3d
 {

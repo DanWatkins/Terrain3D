@@ -2,7 +2,7 @@
 #define TERRAINGENERATORTESTS_H
 
 #include "AutoTest.h"
-#include <World/TerrainGenerator.h>
+#include <World/Terrain/Generator/Generator.h>
 
 using namespace t3d;
 
@@ -13,10 +13,6 @@ class TerrainGeneratorTests : public QObject
 private slots:
     void generate()
     {
-        TerrainData td;
-        TerrainGenerator tg;
-        tg.generate(td, 9, 20, 112233);
-
         //assert nothing
     }
 };
@@ -24,4 +20,4 @@ private slots:
 DECLARE_TEST(TerrainGeneratorTests)
 
 
-#endif // TERRAINGENERATORTESTS_H
+#endif

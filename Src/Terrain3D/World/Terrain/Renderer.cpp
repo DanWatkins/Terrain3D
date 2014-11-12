@@ -6,7 +6,7 @@
 //==================================================================================================================|
 
 #include <Core/Image.h>
-#include <World/TerrainRenderer.h>
+#include <World/Terrain/Renderer.h>
 #include "IndexData.h"
 #include "Utility.h"
 

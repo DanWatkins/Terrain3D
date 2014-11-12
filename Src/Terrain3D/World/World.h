@@ -8,14 +8,14 @@
 #ifndef _t3d_WORLD_H
 #define _t3d_WORLD_H
 
-#include <World/TerrainData.h>
+#include <World/Terrain/Data.h>
 
 namespace t3d
 {
 	class World
 	{
 	private:
-		TerrainData mTerrainData;
+        TerrainData mTerrainData;
 
 	public:
 		void init();

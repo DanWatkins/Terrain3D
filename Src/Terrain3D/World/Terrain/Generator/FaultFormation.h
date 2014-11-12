@@ -1,7 +1,7 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
-#include <World/TerrainGenerator.h>
+#include <World/Terrain/Generator/Generator.h>
 
 namespace t3d
 {

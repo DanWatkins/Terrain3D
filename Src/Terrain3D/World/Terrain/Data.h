@@ -9,7 +9,7 @@
 #define _t3d_TERRAINDATA_H
 
 #include <Main.h>
-#include "Terrain/HeightMap.h"
+#include <World/Terrain/HeightMap.h>
 
 namespace t3d
 {

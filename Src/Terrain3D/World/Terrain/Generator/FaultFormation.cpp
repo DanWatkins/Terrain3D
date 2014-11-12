@@ -1,7 +1,7 @@
 #include "FaultFormation.h"
 
- namespace t3d
- {
+namespace t3d
+{
     void applyRandomFault(HeightMap &heightMap, float faultAmount)
     {
         //create the fault line from two random points
