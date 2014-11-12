@@ -21,9 +21,10 @@ namespace t3d
 		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
 
+        void computeTextureIndicies();
+
 		typedef std::vector<GLubyte> TextureIndicies;
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
-
 		int textureMapResolution() { return mTextureMapResolution; }
 
 	private:

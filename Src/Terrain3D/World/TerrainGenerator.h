@@ -20,9 +20,6 @@ namespace t3d
 		float mHightBound;
 		TerrainData *mTerrainData;
 
-		void init(int size);
-		void computeTextureIndicies();
-
 	public:
 		TerrainGenerator();
 		void generate(TerrainData &terrainData, int size, int numberOfPasses, int seed);
