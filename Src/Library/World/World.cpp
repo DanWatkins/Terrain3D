@@ -11,11 +11,19 @@
 
 namespace t3d { namespace World
 {
+	World::World() :
+		mTerrainData(2)
+	{
+	}
+
+
 	void World::init()
 	{
 		Terrain::Generator::FaultFormation generator;
 		generator.generate(mTerrainData, 129, 60, 123456); //(GLuint)time(NULL));
-        mTerrainData.computeTextureIndicies();
+
+		Terrain::Data::HeightIndex hi;
+		mTerrainData.computeTextureIndicies(hi);
 
 		return;
 	}

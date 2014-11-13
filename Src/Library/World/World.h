@@ -18,6 +18,7 @@ namespace t3d { namespace World
 		Terrain::Data mTerrainData;
 
 	public:
+		World();
 		void init();
 
 		Terrain::Data& terrainData() { return mTerrainData; }

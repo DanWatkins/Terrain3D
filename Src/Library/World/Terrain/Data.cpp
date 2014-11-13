@@ -9,15 +9,25 @@
 
 namespace t3d { namespace World { namespace Terrain
 {
-	Data::Data()
+	Data::Data(int textureMapResolution) :
+		mTextureMapResolution(textureMapResolution)
 	{
-		mTextureMapResolution = 2;
 	}
 
 
-    int indexForHeight(float height)
+	int indexForHeight(const Data::HeightIndex &hi, float height)
     {
-        //which texture should we use?
+		Data::HeightIndex::ConstIterator iter = hi.cbegin();
+		while (iter != hi.cend())
+		{
+			if (height < iter.key())
+				return iter.value();
+
+			++iter;
+		}
+
+
+		/*//which texture should we use?
         if (height > 0.8f) //mountain
             return 3;
         else if (height > 0.4f) //grass
@@ -25,11 +35,11 @@ namespace t3d { namespace World { namespace Terrain
         else if (height > 0.2f) //sand
             return 1;
         else                    //water
-            return 0;
+			return 0;*/
     }
 
 
-	void Data::computeTextureIndicies()
+	void Data::computeTextureIndicies(const HeightIndex &heightIndex)
     {
         int tcRes = mTextureMapResolution;
         int hmSize = mHeightMap.getSize();
@@ -43,7 +53,7 @@ namespace t3d { namespace World { namespace Terrain
                 if (x%tcRes==0 && y%tcRes==0)
                 {
                     float height = mHeightMap.get(x/tcRes + y/tcRes*hmSize) / 255.0f;
-                    mTextureIndicies[x + y*tcmSize] = indexForHeight(height);
+					mTextureIndicies[x + y*tcmSize] = indexForHeight(heightIndex, height);
                 }
                 else
                 {
@@ -67,7 +77,7 @@ namespace t3d { namespace World { namespace Terrain
                     float h1 = a*(1.0f-dX) + b*dX;
                     float h2 = c*(1.0f-dX) + d*dX;
                     float height = h1*(1.0f-dY) + h2*dY;
-                    mTextureIndicies[x + y*tcmSize] = indexForHeight(height);
+					mTextureIndicies[x + y*tcmSize] = indexForHeight(heightIndex, height);
                 }
             }
         }

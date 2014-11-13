@@ -16,18 +16,20 @@ namespace t3d { namespace World { namespace Terrain
 	class Data
 	{
 	public:
-		Data();
+		Data(int textureMapResolution);
 
 		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
 
-        void computeTextureIndicies();
+		typedef QMap<float, int> HeightIndex;
+		void computeTextureIndicies(const HeightIndex &heightIndex);
 
 		typedef std::vector<GLubyte> TextureIndicies;
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
 		int textureMapResolution() { return mTextureMapResolution; }
 
 	private:
+		Data() {}
 		HeightMap mHeightMap;
 		TextureIndicies mTextureIndicies;
 
