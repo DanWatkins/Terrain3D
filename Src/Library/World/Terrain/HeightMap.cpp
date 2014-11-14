@@ -13,7 +13,7 @@ namespace t3d { namespace World { namespace Terrain
 	{
 		mSize = size;
 		mHeightData.clear();
-		mHeightData = std::vector<float>(size*size, 50.0f);
+		mHeightData = std::vector<float>(size*size, 0.1f);
 	}
 
 
@@ -53,7 +53,7 @@ namespace t3d { namespace World { namespace Terrain
 			for (GLuint x = 0; x<mSize; x++)
 			{
 				mVertexData.push_back(spacing*(float)x);
-				float height = mHeightData.at(y*mSize + x) / 255.0f;
+				float height = mHeightData.at(y*mSize + x);
 				mVertexData.push_back(height);
 				mVertexData.push_back(spacing*(float)y);
 			}

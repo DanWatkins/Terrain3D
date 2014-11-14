@@ -43,7 +43,7 @@ namespace t3d { namespace World { namespace Terrain
             {
                 if (x%tcRes==0 && y%tcRes==0)
                 {
-                    float height = mHeightMap.get(x/tcRes + y/tcRes*hmSize) / 255.0f;
+					float height = mHeightMap.get(x/tcRes + y/tcRes*hmSize);
 					mTextureIndicies[x + y*tcmSize] = indexForHeight(heightIndex, height);
                 }
                 else
@@ -53,10 +53,10 @@ namespace t3d { namespace World { namespace Terrain
                     int pY = y/tcRes;
                     int nY = std::min(pY+1, hmSize-1);
 
-                    float a = mHeightMap.get(pX, pY) / 255.0f;
-                    float b = mHeightMap.get(nX, pY) / 255.0f;
-                    float c = mHeightMap.get(pX, nY) / 255.0f;
-                    float d = mHeightMap.get(nX, nY) / 255.0f;
+					float a = mHeightMap.get(pX, pY);
+					float b = mHeightMap.get(nX, pY);
+					float c = mHeightMap.get(pX, nY);
+					float d = mHeightMap.get(nX, nY);
 
                     int rX = x % tcRes;
 					int rY = y % tcRes;

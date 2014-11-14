@@ -54,7 +54,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
 
         for (int i=0; i<size*size; i++)
         {
-            heightMap.set(i, (heightMap.get(i)-min) / height * 255.0f);
+			heightMap.set(i, (heightMap.get(i)-min) / height);
         }
     }
 
@@ -105,7 +105,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
 
         for (int i=0; i<numberOfPasses; i++)
         {
-            const float maxDelta = 255.0f;
+			const float maxDelta = 255.0f;
             const float minDelta = 0.0f;
             float amount = maxDelta - ((maxDelta - minDelta) * i) / size;
             amount += 15.0f;

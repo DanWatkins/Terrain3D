@@ -66,7 +66,7 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies2)
 	hi[0.7f] = 4;
 	hi[1.0f] = 7;
 
-	testComputeTextureIndiciesBasic(5, 140.0f, 4, hi);
+	testComputeTextureIndiciesBasic(5, 0.53f, 4, hi);
 }
 
 
@@ -74,8 +74,8 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies3)
 {
 	float heights[] =
 	{
-		127.0f, 191.0f,
-		63.0f, 255.0f
+		0.490f, 0.740f,
+		0.240f, 1.000f
 	};
 
 	GLubyte expected[] =
