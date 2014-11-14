@@ -23,6 +23,29 @@ protected:
 		for (unsigned i=0; i<ti.size(); i++)
 			ASSERT_EQ(expectedIndex, ti[i]);
 	}
+
+
+	void testComputeTextureIndiciesAdv(int size, int res, const Data::HeightIndex &hi, float *heights, GLubyte *expected)
+	{
+		Data data(res);
+		data.heightMap().reserve(size);
+
+		for (int y=0; y<size; y++)
+		{
+			for (int x=0; x<size; x++)
+			{
+				data.heightMap().set(x, y, heights[x + y*size]);
+			}
+		}
+
+		data.computeTextureIndicies(hi);
+
+		//verify
+		for (int i=0; i<data.textureIndicies().size(); i++)
+		{
+			EXPECT_EQ(expected[i], data.textureIndicies()[i]);
+		}
+	}
 };
 
 
@@ -49,28 +72,13 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies2)
 
 TEST_F(Test_WorldTerrainData, computeTextureIndicies3)
 {
-	const int size = 2;
-	const int res = 2;
-
-	float heights[size][size] =
+	float heights[] =
 	{
-		{ 127.0f, 191.0f },
-		{ 63.0f, 255.0f }
+		127.0f, 191.0f,
+		63.0f, 255.0f
 	};
 
-	Data data(res);
-	data.heightMap().reserve(size);
-
-	for (int y=0; y<size; y++)
-	{
-		for (int x=0; x<size; x++)
-		{
-			data.heightMap().set(x, y, heights[y][x]);
-		}
-	}
-
-	const int tciSize = (size-1) * res + 1;
-	GLubyte expected[tciSize*tciSize] =
+	GLubyte expected[] =
 	{
 		1, 2, 2,
 		1, 2, 3,
@@ -83,11 +91,5 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies3)
 	hi[0.75f] = 2;
 	hi[1.00f] = 3;
 
-	data.computeTextureIndicies(hi);
-
-	//verify
-	for (int i=0; i<data.textureIndicies().size(); i++)
-	{
-		ASSERT_EQ(expected[i], data.textureIndicies()[i]);
-	}
+	testComputeTextureIndiciesAdv(2, 2, hi, heights, expected);
 }

@@ -21,10 +21,13 @@ namespace t3d { namespace World
 	{
 		Terrain::Generator::FaultFormation generator;
 		generator.generate(mTerrainData, 129, 60, 123456); //(GLuint)time(NULL));
-
-		Terrain::Data::HeightIndex hi;
-		mTerrainData.computeTextureIndicies(hi);
-
-		return;
+		{
+			Terrain::Data::HeightIndex hi;
+			hi[0.25f] = 0;
+			hi[0.35f] = 1;
+			hi[0.80f] = 2;
+			hi[1.00f] = 3;
+			mTerrainData.computeTextureIndicies(hi);
+		}
 	}
 }}
