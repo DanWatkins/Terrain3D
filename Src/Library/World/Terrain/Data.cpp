@@ -20,22 +20,13 @@ namespace t3d { namespace World { namespace Terrain
 		Data::HeightIndex::ConstIterator iter = hi.cbegin();
 		while (iter != hi.cend())
 		{
-			if (height < iter.key())
+			if (height <= iter.key())
 				return iter.value();
 
 			++iter;
 		}
 
-
-		/*//which texture should we use?
-        if (height > 0.8f) //mountain
-            return 3;
-        else if (height > 0.4f) //grass
-            return 2;
-        else if (height > 0.2f) //sand
-            return 1;
-        else                    //water
-			return 0;*/
+		return hi.first();
     }
 
 
@@ -68,10 +59,10 @@ namespace t3d { namespace World { namespace Terrain
                     float d = mHeightMap.get(nX, nY) / 255.0f;
 
                     int rX = x % tcRes;
-                    int rY = y & tcRes;
+					int rY = y % tcRes;
 
-                    float dX = rX / float(tcRes+1);
-                    float dY = rY / float(tcRes+1);
+					float dX = rX / float(tcRes);
+					float dY = rY / float(tcRes);
 
                     //lerp
                     float h1 = a*(1.0f-dX) + b*dX;
