@@ -10,6 +10,8 @@
 
 using namespace t3d;
 
+void main2();
+
 int main(int argc, char *argv[])
 {
 	QGuiApplication app(argc, argv);
