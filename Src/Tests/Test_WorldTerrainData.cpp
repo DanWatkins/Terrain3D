@@ -43,7 +43,7 @@ protected:
 		//verify
 		for (int i=0; i<data.textureIndicies().size(); i++)
 		{
-			EXPECT_EQ(expected[i], data.textureIndicies()[i]);
+			EXPECT_EQ(expected[i], data.textureIndicies()[i]) << "Index is " << i;
 		}
 	}
 };
@@ -92,4 +92,32 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies3)
 	hi[1.00f] = 3;
 
 	testComputeTextureIndiciesAdv(2, 2, hi, heights, expected);
+}
+
+
+TEST_F(Test_WorldTerrainData, computeTextureIndicies4)
+{
+	float heights[] =
+	{
+		0.00f, 0.49f, 0.74f,
+		0.49f, 0.74f, 0.99f,
+		0.74f, 0.99f, 0.74f,
+	};
+
+	GLubyte expected[] =
+	{
+		0, 0, 1, 2, 2,
+		0, 1, 2, 2, 3,
+		1, 2, 2, 3, 3,
+		2, 2, 3, 3, 3,
+		2, 3, 3, 3, 2
+	};
+
+	Data::HeightIndex hi;
+	hi[0.25f] = 0;
+	hi[0.50f] = 1;
+	hi[0.75f] = 2;
+	hi[1.00f] = 3;
+
+	testComputeTextureIndiciesAdv(3, 2, hi, heights, expected);
 }
