@@ -11,17 +11,22 @@ uniform float spacing;
 uniform int heightMapSize;
 uniform int textureMapResolution;
 
+int tcms = (heightMapSize-1) * textureMapResolution + 1;
 
-uint textureIndexForPos(vec4 pos)
+
+int centerIndexForPos(vec4 pos)
 {
 	ivec2 indexPos;
 	indexPos.x = int(pos.x / spacing * textureMapResolution);
 	indexPos.y = int(pos.z / spacing * textureMapResolution);
 
-	int tcms = (heightMapSize-1) * textureMapResolution + 1;
+	return indexPos.x + indexPos.y*tcms;
+}
 
-	int centerIndex = indexPos.x + indexPos.y*tcms;
-	return texelFetch(buffer, centerIndex).r;
+
+uint textureIndexForCenterIndex(int index)
+{
+	return texelFetch(buffer, index).r;
 }
 
 
@@ -40,19 +45,19 @@ void main()
 {
 	float tms = spacing / textureMapResolution;
 
-	vec4 topLeft = texelForIndex(textureIndexForPos(outPos));
-	vec4 topRight = texelForIndex(textureIndexForPos(outPos + vec4(tms, 0, 0, 0)));
-	vec4 bottomLeft = texelForIndex(textureIndexForPos(outPos + vec4(0, 0, tms, 0)));
-	vec4 bottomRight = texelForIndex(textureIndexForPos(outPos + vec4(tms, 0, tms, 0)));
+	int centerIndex = centerIndexForPos(outPos);
+
+	vec4 topLeft = texelForIndex(textureIndexForCenterIndex(centerIndex));
+	vec4 topRight = texelForIndex(textureIndexForCenterIndex(centerIndex+1));
+	vec4 bottomLeft = texelForIndex(textureIndexForCenterIndex(centerIndex+tcms));
+	vec4 bottomRight = texelForIndex(textureIndexForCenterIndex(centerIndex+tcms+1));
 
 	float integerPart;
-	float hLerp = modf(outPos.x/spacing, integerPart);
-	float vLerp = modf(outPos.z/spacing, integerPart);
+	float hLerp = modf(outPos.x/spacing*textureMapResolution, integerPart);
+	float vLerp = modf(outPos.z/spacing*textureMapResolution, integerPart);
 
 	vec4 h1 = mix(topLeft, topRight, hLerp);
 	vec4 h2 = mix(bottomLeft, bottomRight, hLerp);
 
 	color = mix(h1, h2, vLerp);
-
-	color = topLeft;
 }
