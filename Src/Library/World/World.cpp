@@ -12,7 +12,7 @@
 namespace t3d { namespace World
 {
 	World::World() :
-		mTerrainData(2)
+		mTerrainData(5)
 	{
 	}
 

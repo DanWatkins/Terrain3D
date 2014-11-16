@@ -24,7 +24,7 @@ namespace t3d { namespace World { namespace Terrain
 		typedef QMap<float, int> HeightIndex;
 		void computeTextureIndicies(const HeightIndex &heightIndex);
 
-		typedef std::vector<GLubyte> TextureIndicies;
+		typedef QVector<GLubyte> TextureIndicies;
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
 		int textureMapResolution() { return mTextureMapResolution; }
 
