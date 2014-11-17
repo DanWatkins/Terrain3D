@@ -12,7 +12,7 @@
 namespace t3d { namespace World
 {
 	World::World() :
-		mTerrainData(5)
+		mTerrainData(4)
 	{
 	}
 
@@ -20,7 +20,7 @@ namespace t3d { namespace World
 	void World::init()
 	{
 		Terrain::Generator::FaultFormation generator;
-		generator.generate(mTerrainData, 129, 60, 123456); //(GLuint)time(NULL));
+		generator.generate(mTerrainData, 1025, 250, 123456); //(GLuint)time(NULL));
 		{
 			Terrain::Data::HeightIndex hi;
 			hi[0.25f] = 0;
