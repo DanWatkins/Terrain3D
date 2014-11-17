@@ -7,6 +7,7 @@
 
 #include "World.h"
 #include <World/Terrain/Generator/FaultFormation.h>
+#include <World/Terrain/Lighting/Slope.h>
 #include <stdio.h>
 
 namespace t3d { namespace World
@@ -20,7 +21,7 @@ namespace t3d { namespace World
 	void World::init()
 	{
 		Terrain::Generator::FaultFormation generator;
-		generator.generate(mTerrainData, 1025, 250, 123456); //(GLuint)time(NULL));
+		generator.generate(mTerrainData, 129, 60, 123456); //(GLuint)time(NULL));
 		{
 			Terrain::Data::HeightIndex hi;
 			hi[0.25f] = 0;
@@ -29,5 +30,8 @@ namespace t3d { namespace World
 			hi[1.00f] = 3;
 			mTerrainData.computeTextureIndicies(hi);
 		}
+
+		Terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),
+													mTerrainData.heightMap());
 	}
 }}

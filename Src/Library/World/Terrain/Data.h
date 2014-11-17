@@ -10,6 +10,7 @@
 
 #include <Main.h>
 #include <World/Terrain/HeightMap.h>
+#include <World/Terrain/LightMap.h>
 
 namespace t3d { namespace World { namespace Terrain
 {
@@ -20,6 +21,7 @@ namespace t3d { namespace World { namespace Terrain
 
 		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
+		LightMap &lightMap() { return mLightMap; }
 
 		typedef QMap<float, int> HeightIndex;
 		void computeTextureIndicies(const HeightIndex &heightIndex);
@@ -31,11 +33,11 @@ namespace t3d { namespace World { namespace Terrain
 	private:
 		Data() {}
 		HeightMap mHeightMap;
+		LightMap mLightMap;
 		TextureIndicies mTextureIndicies;
 
 		int mTextureMapResolution;
 	};
 }}}
-
 
 #endif

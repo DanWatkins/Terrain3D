@@ -1,6 +1,7 @@
 #version 420 core
 
 layout (location = 0) in vec4 position;
+layout (location = 1) in float brightness;
 
 uniform mat4 cameraMatrix;
 uniform mat4 modelMatrix;
@@ -12,6 +13,7 @@ uniform float spanSize;
 
 smooth out vec2 tc;
 smooth out vec4 outPos;
+smooth out float vsBrightness;
 
 void main()
 {

@@ -2,6 +2,7 @@
 
 smooth in vec2 tc;
 smooth in vec4 outPos;
+smooth in float vsBrightness;
 out vec4 color;
 
 layout (binding = 0) uniform usamplerBuffer buffer;
@@ -22,6 +23,7 @@ int centerIndexForPos(vec4 pos)
 
 	return indexPos.x + indexPos.y*tcms;
 }
+
 
 
 uint textureIndexForCenterIndex(int index)
@@ -60,4 +62,9 @@ void main()
 	vec4 h2 = mix(bottomLeft, bottomRight, hLerp);
 
 	color = mix(h1, h2, vLerp);
+
+	//mix with black to apply lighting
+	const vec4 black = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	color = mix(color, black, vsBrightness);
 }
