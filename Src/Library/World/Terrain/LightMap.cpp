@@ -23,13 +23,13 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
-	void LightMap::set(int x, int y, GLubyte value)
+	void LightMap::set(int x, int y, float value)
 	{
 		mValues[x + y*mSize] = value;
 	}
 
 
-	GLubyte LightMap::get(int x, int y)
+	float LightMap::get(int x, int y)
 	{
 		return mValues[x + y*mSize];
 	}

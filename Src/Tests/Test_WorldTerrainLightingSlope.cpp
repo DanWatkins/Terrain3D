@@ -29,11 +29,24 @@ TEST_F(Test_WorldTerrainLightingSlope, passThrough)
 	Lighting::Slope::computeBrightness(lm, hm);
 
 	//since all heights are the same, the sun can shine everywhere!
-	const GLubyte maxBrightness = std::numeric_limits<GLubyte>::max();
+	const float maxBrightness = 1.0f;
 
 	for (int y=0; y<size; y++)
 	{
 		for (int x=0; x<size; x++)
 			EXPECT_EQ(maxBrightness, lm.get(x, y));
 	}
+}
+
+
+TEST_F(Test_WorldTerrainLightingSlope, differentSizes)
+{
+	HeightMap hm;
+	hm.reserve(8);
+
+	LightMap lm;
+	lm.reserve(16);
+
+	//should return false since the sizes are different
+	ASSERT_EQ(false, Lighting::Slope::computeBrightness(lm, hm));
 }

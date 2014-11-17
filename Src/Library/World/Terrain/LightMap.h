@@ -14,25 +14,25 @@
 namespace t3d { namespace World { namespace Terrain
 {
 	/*
-	 * Stores 8-bit normalized unsigned integers indicating the brightness for a given
+	 * Stores normalized floats (0.0 - 1.0) indicating the brightness for a given
 	 * vertex when rendering terrain.
 	 */
 	class LightMap
 	{
 	private:
-		QVector<GLubyte> mValues;
+		QVector<float> mValues;
 		unsigned mSize;
 
 	public:
 		LightMap();
 
 		void reserve(unsigned size);
-		void set(int x, int y, GLubyte value);
-		GLubyte get(int x, int y);
+		void set(int x, int y, float value);
+		float get(int x, int y);
 
 		unsigned size() const { return mSize; }
 
-		QVector<GLubyte>* raw() { return &mValues; }
+		QVector<float>* raw() { return &mValues; }
 	};
 }}}
 

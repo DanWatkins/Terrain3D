@@ -21,7 +21,9 @@ namespace t3d { namespace World { namespace Terrain { namespace Lighting
 		for (int y=0; y<lm.size(); y++)
 		{
 			for (int x=0; x<lm.size(); x++)
-				lm.set(x, y, std::numeric_limits<GLubyte>::max());
+				lm.set(x, y, 1.0f);
 		}
+
+		return true;
 	}
 }}}}

@@ -6,7 +6,7 @@ using namespace t3d::World::Terrain;
 class Test_WorldTerrainLightMap : public ::testing::Test
 {
 protected:
-	void testSimpleAssign(int size, GLubyte value)
+	void testSimpleAssign(int size, float value)
 	{
 		LightMap lm;
 		lm.reserve(size);
@@ -27,13 +27,13 @@ protected:
 
 TEST_F(Test_WorldTerrainLightMap, simpleAssign)
 {
-	testSimpleAssign(8, 130);
+	testSimpleAssign(8, 0.9f);
 }
 
 
 TEST_F(Test_WorldTerrainLightMap, simpleAssign2)
 {
-	testSimpleAssign(16, 199);
+	testSimpleAssign(16, 0.02f);
 }
 
 
@@ -50,7 +50,7 @@ TEST_F(Test_WorldTerrainLightMap, accessRaw)
 			lm.set(x, y, x%3 + y%2);
 	}
 
-	QVector<GLubyte> *raw = lm.raw();
+	QVector<float> *raw = lm.raw();
 	for (int y=0; y<size; y++)
 	{
 		for (int x=0; x<size; x++)
