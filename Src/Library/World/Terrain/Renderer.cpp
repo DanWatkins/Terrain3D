@@ -245,7 +245,7 @@ namespace t3d { namespace World { namespace Terrain
 			//position
 			glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 			{
-				GLuint size = sizeof(float)*terrainVertexData->size();
+				GLuint size = sizeof(GLfloat)*terrainVertexData->size();
 				glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
 
 				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
@@ -254,10 +254,17 @@ namespace t3d { namespace World { namespace Terrain
 			//lighting brightness
 			glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
 			{
-				GLuint size = sizeof(float)*mTerrainData->lightMap().size();
-				glBufferData(GL_ARRAY_BUFFER, size, &mTerrainData->lightMap().raw()[0], GL_STATIC_DRAW);
+				QVector<GLfloat> *p = mTerrainData->lightMap().raw();
+				QVector<GLubyte> d(p->size(), 0);
 
-				glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
+				for (int i=0; i<p->size(); i++)
+					d[i] = static_cast<GLubyte>(p->at(i) * 255.0f);
+
+				GLuint size = sizeof(GLubyte) * d.size();
+				glBufferData(GL_ARRAY_BUFFER, size, &d[0], GL_STATIC_DRAW);
+
+				glVertexAttribIPointer(1, 1, GL_UNSIGNED_BYTE, 0, NULL);
+				glEnableVertexAttribArray(1);
 			}
 		}
 	}

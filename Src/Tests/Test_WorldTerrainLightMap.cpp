@@ -50,7 +50,7 @@ TEST_F(Test_WorldTerrainLightMap, accessRaw)
 			lm.set(x, y, x%3 + y%2);
 	}
 
-	QVector<float> *raw = lm.raw();
+	LightMap::ValueVector *raw = lm.raw();
 	for (int y=0; y<size; y++)
 	{
 		for (int x=0; x<size; x++)

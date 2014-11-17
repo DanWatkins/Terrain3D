@@ -21,7 +21,10 @@ namespace t3d { namespace World { namespace Terrain { namespace Lighting
 		for (int y=0; y<lm.size(); y++)
 		{
 			for (int x=0; x<lm.size(); x++)
-				lm.set(x, y, 1.0f);
+			{
+				//lm.raw()->push_back(float(x) / float(lm.size()));
+				lm.set(x, y, float(x) / float(lm.size()));
+			}
 		}
 
 		return true;

@@ -19,7 +19,7 @@ namespace t3d { namespace World { namespace Terrain
 	void LightMap::reserve(unsigned size)
 	{
 		mSize = size;
-		mValues.reserve(mSize*mSize);
+		mValues = ValueVector(size*size, 1.0f);
 	}
 
 

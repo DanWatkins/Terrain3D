@@ -14,7 +14,7 @@ namespace t3d { namespace World { namespace Terrain
 		mTerrainData(nullptr),
 		mProgram(nullptr),
 		mSpacing(1.0f),
-		mHeightScale(75.0f),
+		mHeightScale(30.0f),
         mBlockSize(8),
 		mSpanSize(8)
 	{

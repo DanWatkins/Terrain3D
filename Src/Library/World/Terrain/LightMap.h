@@ -19,10 +19,6 @@ namespace t3d { namespace World { namespace Terrain
 	 */
 	class LightMap
 	{
-	private:
-		QVector<float> mValues;
-		unsigned mSize;
-
 	public:
 		LightMap();
 
@@ -32,7 +28,12 @@ namespace t3d { namespace World { namespace Terrain
 
 		unsigned size() const { return mSize; }
 
-		QVector<float>* raw() { return &mValues; }
+		typedef QVector<GLfloat> ValueVector;
+		ValueVector* raw() { return &mValues; }
+
+	private:
+		ValueVector mValues;
+		unsigned mSize;
 	};
 }}}
 

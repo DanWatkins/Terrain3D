@@ -1,7 +1,7 @@
 #version 420 core
 
 layout (location = 0) in vec4 position;
-layout (location = 1) in float brightness;
+layout (location = 1) in int brightness;
 
 uniform mat4 cameraMatrix;
 uniform mat4 modelMatrix;
@@ -23,6 +23,8 @@ void main()
 	tc.y = repeatFactor * (position.z/spacing - float(blockIndex.y)*blockSize) / blockSize;
 
 	outPos = position;
+
+	vsBrightness = float(brightness) / 255.0f;
 
 	vec4 scaledPosition = vec4(position.x, position.y*heightScale, position.z, position.w);
 	gl_Position = cameraMatrix * modelMatrix * scaledPosition;
