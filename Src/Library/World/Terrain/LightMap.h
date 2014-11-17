@@ -30,6 +30,8 @@ namespace t3d { namespace World { namespace Terrain
 		void set(int x, int y, GLubyte value);
 		GLubyte get(int x, int y);
 
+		unsigned size() const { return mSize; }
+
 		QVector<GLubyte>* raw() { return &mValues; }
 	};
 }}}
