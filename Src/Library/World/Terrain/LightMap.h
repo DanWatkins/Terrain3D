@@ -21,14 +21,15 @@ namespace t3d { namespace World { namespace Terrain
 	{
 	public:
 		LightMap();
+		typedef GLushort ValueType;
+		typedef QVector<ValueType> ValueVector;
 
 		void reserve(unsigned size);
-		void set(int x, int y, float value);
+		void set(int x, int y, float normalizedValue);
 		float get(int x, int y);
 
 		unsigned size() const { return mSize; }
 
-		typedef QVector<GLfloat> ValueVector;
 		ValueVector* raw() { return &mValues; }
 
 	private:

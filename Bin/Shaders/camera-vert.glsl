@@ -24,7 +24,7 @@ void main()
 
 	outPos = position;
 
-	vsBrightness = float(brightness) / 255.0f;
+	vsBrightness = float(brightness) / 65535.0f;
 
 	vec4 scaledPosition = vec4(position.x, position.y*heightScale, position.z, position.w);
 	gl_Position = cameraMatrix * modelMatrix * scaledPosition;

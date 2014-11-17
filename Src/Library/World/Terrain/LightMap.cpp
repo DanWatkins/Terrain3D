@@ -19,18 +19,18 @@ namespace t3d { namespace World { namespace Terrain
 	void LightMap::reserve(unsigned size)
 	{
 		mSize = size;
-		mValues = ValueVector(size*size, 1.0f);
+		mValues = ValueVector(size*size, std::numeric_limits<ValueType>::max());
 	}
 
 
 	void LightMap::set(int x, int y, float value)
 	{
-		mValues[x + y*mSize] = value;
+		mValues[x + y*mSize] = value * float(std::numeric_limits<ValueType>::max());
 	}
 
 
 	float LightMap::get(int x, int y)
 	{
-		return mValues[x + y*mSize];
+		return static_cast<float>(mValues[x + y*mSize]) / static_cast<float>(std::numeric_limits<ValueType>::max());
 	}
 }}}

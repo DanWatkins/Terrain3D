@@ -20,7 +20,7 @@ protected:
 		for (int y=0; y<size; y++)
 		{
 			for (int x=0; x<size; x++)
-				EXPECT_EQ(value, lm.get(x, y));
+				EXPECT_NEAR(value, lm.get(x, y), 0.01);
 		}
 	}
 };
@@ -47,15 +47,18 @@ TEST_F(Test_WorldTerrainLightMap, accessRaw)
 	for (int y=0; y<size; y++)
 	{
 		for (int x=0; x<size; x++)
-			lm.set(x, y, x%3 + y%2);
+			lm.set(x, y, static_cast<float>(x) / static_cast<float>(size));
 	}
 
 	LightMap::ValueVector *raw = lm.raw();
+	const int maxVal = std::numeric_limits<LightMap::ValueType>::max();
 	for (int y=0; y<size; y++)
 	{
 		for (int x=0; x<size; x++)
 		{
-			EXPECT_EQ(x%3 + y%2, raw->at(x + y*size));
+			EXPECT_NEAR(static_cast<float>(x) / static_cast<float>(size),
+						static_cast<float>(raw->at(x + y*size)) / static_cast<float>(maxVal),
+						0.01f);
 		}
 	}
 }

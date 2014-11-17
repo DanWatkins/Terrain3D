@@ -254,16 +254,10 @@ namespace t3d { namespace World { namespace Terrain
 			//lighting brightness
 			glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
 			{
-				QVector<GLfloat> *p = mTerrainData->lightMap().raw();
-				QVector<GLubyte> d(p->size(), 0);
+				GLuint size = sizeof(LightMap::ValueType) * mTerrainData->lightMap().raw()->size();
+				glBufferData(GL_ARRAY_BUFFER, size, &mTerrainData->lightMap().raw()->at(0), GL_STATIC_DRAW);
 
-				for (int i=0; i<p->size(); i++)
-					d[i] = static_cast<GLubyte>(p->at(i) * 255.0f);
-
-				GLuint size = sizeof(GLubyte) * d.size();
-				glBufferData(GL_ARRAY_BUFFER, size, &d[0], GL_STATIC_DRAW);
-
-				glVertexAttribIPointer(1, 1, GL_UNSIGNED_BYTE, 0, NULL);
+				glVertexAttribIPointer(1, 1, GL_UNSIGNED_SHORT, 0, NULL);
 				glEnableVertexAttribArray(1);
 			}
 		}

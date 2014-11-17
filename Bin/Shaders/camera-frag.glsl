@@ -65,6 +65,5 @@ void main()
 
 	//mix with black to apply lighting
 	const vec4 black = vec4(0.0f, 0.0f, 0.0f, 1.0f);
-
-	color = mix(color, black, vsBrightness);
+	color = mix(black, color, vsBrightness);
 }
