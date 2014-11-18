@@ -22,8 +22,25 @@ namespace t3d { namespace World { namespace Terrain { namespace Lighting
 		{
 			for (int x=0; x<lm.size(); x++)
 			{
-				//lm.raw()->push_back(float(x) / float(lm.size()));
-				lm.set(x, y, 1.0f);
+				if (y == 0)
+				{
+					lm.set(x, y, 1.0f);
+				}
+				else
+				{
+					float prevHeight = hm.get(x, y-1);
+					float curHeight = hm.get(x, y);
+					float delta = prevHeight - curHeight;
+					float brightness = 1.0f;
+
+					if (delta > 0.0f)
+					{
+						const float intensity = 15.0f;
+						brightness = (1-delta) * intensity;
+					}
+
+					lm.set(x, y, brightness);
+				}
 			}
 		}
 

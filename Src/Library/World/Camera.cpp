@@ -11,7 +11,7 @@ namespace t3d { namespace World
 {
 	Camera::Camera(OpenGLWindow *window, World *world) :
 		mWindow(window),
-        mPosition(-10, 150, -10),
+		mPosition(-10, 35, -10),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -22,7 +22,7 @@ namespace t3d { namespace World
 		mWorld(world),
 		mTerrainRenderer(window, &world->terrainData())
 	{
-        lookAt(Vec3f(80, 40, 80));
+		lookAt(Vec3f(60, 20, 60));
 	}
 
 

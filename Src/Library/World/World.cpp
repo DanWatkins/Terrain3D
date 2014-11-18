@@ -21,8 +21,8 @@ namespace t3d { namespace World
 	void World::init()
 	{
 		Terrain::Generator::FaultFormation generator;
-		const int size = 65;
-		generator.generate(mTerrainData, size, 20, 123456); //(GLuint)time(NULL));
+		const int size = 129;
+		generator.generate(mTerrainData, size, 60, 123456); //(GLuint)time(NULL));
 		{
 			Terrain::Data::HeightIndex hi;
 			hi[0.25f] = 0;
