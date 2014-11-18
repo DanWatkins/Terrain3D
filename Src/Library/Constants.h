@@ -10,18 +10,18 @@
 
 #include "Main.h"
 
-const String		gVersion						= "0.10";
+const QString		gVersion						= "0.10";
 
 const int			gDefaultWindowWidth				= 1600;
 const int			gDefaultWindowHeight			= 900;
 
-const String		gWindowTitle					= String("Terrain3D ") + gVersion;
+const QString		gWindowTitle					= QString("Terrain3D ") + gVersion;
 
-const String		gDefaultPathAi					= "./Data/AI/";
-const String		gDefaultPathEntity				= "./Data/Entity/";
-const String		gDefaultPathMesh				= "./Data/Mesh/";
+const QString		gDefaultPathAi					= "./Data/AI/";
+const QString		gDefaultPathEntity				= "./Data/Entity/";
+const QString		gDefaultPathMesh				= "./Data/Mesh/";
 
-const String		gDefaultPathShaders				 = "./Shaders/";
+const QString		gDefaultPathShaders				 = "./Shaders/";
 
 #endif
 

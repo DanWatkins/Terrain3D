@@ -27,10 +27,10 @@ namespace t3d
 	public:
 		Font();
 
-		bool load(const String &fontname, const String &containingDirectoryPath);
+		bool load(const std::string &fontname, const std::string &containingDirectoryPath);
 
 		//TODO get this const someday
-		void print(const OpenGLWindow &window, const String &text, const Vec2f &pos);
+		void print(const OpenGLWindow &window, const std::string &text, const Vec2f &pos);
 	};
 };
 

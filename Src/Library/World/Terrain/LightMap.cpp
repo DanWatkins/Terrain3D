@@ -16,7 +16,7 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
-	void LightMap::reserve(unsigned size)
+	void LightMap::reserve(int size)
 	{
 		mSize = size;
 		mValues = ValueVector(size*size, std::numeric_limits<ValueType>::max());

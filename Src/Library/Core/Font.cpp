@@ -15,7 +15,7 @@ namespace t3d
 	}
 
 
-	bool Font::load(const String &fontname, const String &containingDirectoryPath)
+	bool Font::load(const std::string &fontname, const std::string &containingDirectoryPath)
 	{
 		unsigned char buffer[512];
 
@@ -35,14 +35,14 @@ namespace t3d
 			mWidths[n] = (int)buffer[n*2];
 
 		//load the image
-		mImage.loadFromFile_PNG((containingDirectoryPath + "/" + fontname + ".png"));
+		mImage.loadFromFile_PNG(QString((containingDirectoryPath + "/" + fontname + ".png").c_str()));
 		mSpriteSheet.init(mImage, 16, 16);
 
 		return true;
 	}
 
 
-	void Font::print(const OpenGLWindow &window, const String &text, const Vec2f &pos)
+	void Font::print(const OpenGLWindow &window, const std::string &text, const Vec2f &pos)
 	{
 		float x = pos.x;
 

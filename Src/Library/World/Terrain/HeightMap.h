@@ -17,7 +17,7 @@ namespace t3d { namespace World { namespace Terrain
 	{
 	private:
 		QVector<float> mHeightData;
-		uint mSize;
+		int mSize;
 
 		QVector<float> mVertexData;
 
@@ -37,7 +37,7 @@ namespace t3d { namespace World { namespace Terrain
 		void buildVertexData(float spacing);
 		const QVector<float> *getVertexData() const { return &mVertexData; }
 
-		uint size() const { return mSize; }
+		int size() const { return mSize; }
 	};
 }}}
 

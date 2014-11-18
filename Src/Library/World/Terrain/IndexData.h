@@ -53,8 +53,8 @@ namespace t3d { namespace World { namespace Terrain
 		Data *mTerrainData;
 		QOpenGLShaderProgram *mProgram;
 
-		typedef std::vector<GLuint> RawIndicies;
-		std::vector<RawIndicies> mIndexDataList;
+		typedef QVector<GLuint> RawIndicies;
+		QVector<RawIndicies> mIndexDataList;
 
 		float mSpacing, mHeightScale;
 		int mBlockSize, mSpanSize;

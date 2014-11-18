@@ -66,8 +66,6 @@ typedef glm::mat4			Mat4;
 
 struct Color { float r, g, b, a; };
 
-typedef std::string			String;
-
 #ifdef WIN32
 	#include <memory>
 #endif

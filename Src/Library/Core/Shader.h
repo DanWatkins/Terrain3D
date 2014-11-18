@@ -21,7 +21,7 @@ namespace t3d
 		 * \param filepath The path to the source file
 		 * \param shaderType The type of OpenGL shader to create
 		 */
-		GLuint loadShader(const String &filepath, GLenum shaderType);
+		GLuint loadShader(const QString &filepath, GLenum shaderType);
 
 		/**
 		 * Links the shader objects to a new OpenGL program object. The old shader objects are deleted.

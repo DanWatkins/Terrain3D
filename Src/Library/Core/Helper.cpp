@@ -9,7 +9,7 @@
 
 namespace t3d
 {
-	double toDouble(const String &text)
+	double toDouble(const std::string &text)
     {
         double n;
 		std::stringstream(text) >> n;
@@ -17,7 +17,7 @@ namespace t3d
     }
 
 	
-	float toFloat(const String &text)
+	float toFloat(const std::string &text)
     {
         float n;
 		std::stringstream(text) >> n;
@@ -25,7 +25,7 @@ namespace t3d
     }
 
 	
-	int toInt(const String &text)
+	int toInt(const std::string &text)
     {
         int n;
 		std::stringstream(text) >> n;
@@ -33,7 +33,7 @@ namespace t3d
     }
 
 	
-	bool toBool(const String &text)
+	bool toBool(const std::string &text)
     {
 		if (text == "0")
 			return false;

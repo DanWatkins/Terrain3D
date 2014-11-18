@@ -98,7 +98,7 @@ namespace t3d { namespace World { namespace Terrain
 				}
 
 				//calculate the lod for every block
-				std::vector<std::vector<int>> blockLod(numberOfBlocksOnASide, std::vector<int>(numberOfBlocksOnASide, 0));
+				QVector<QVector<int>> blockLod(numberOfBlocksOnASide, QVector<int>(numberOfBlocksOnASide, 0));
 
 				for (int y=0; y<numberOfBlocksOnASide; y++)
 				{
@@ -142,8 +142,8 @@ namespace t3d { namespace World { namespace Terrain
 
 	void Renderer::loadShaders()
 	{
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (String(gDefaultPathShaders) + "camera-vert.glsl").c_str());
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (String(gDefaultPathShaders) + "camera-frag.glsl").c_str());
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (QString(gDefaultPathShaders) + "camera-vert.glsl"));
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (QString(gDefaultPathShaders) + "camera-frag.glsl"));
 
 		if (mProgram.link() == false)
 			printf("Problem linking shaders\n");

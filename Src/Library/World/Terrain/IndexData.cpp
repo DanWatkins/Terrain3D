@@ -37,9 +37,9 @@ namespace t3d { namespace World { namespace Terrain
 	LodIndexBlock Renderer::IndexData::lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations)
 	{
 		LodIndexBlock lib;
-		unsigned searchIndex = lod*VertexEliminationCombinations + vertexEliminations;
+		int searchIndex = lod*VertexEliminationCombinations + vertexEliminations;
 
-		for (unsigned i=0; i<mIndexDataList.size(); i++)
+		for (int i=0; i<mIndexDataList.size(); i++)
 		{
 			if (searchIndex == i)
 			{
@@ -122,7 +122,7 @@ namespace t3d { namespace World { namespace Terrain
 		buildIndexData();
 
 		int reserve = 0;
-		for (unsigned i=0; i<mIndexDataList.size(); i++)
+		for (int i=0; i<mIndexDataList.size(); i++)
 			reserve += mIndexDataList[i].size()*sizeof(GLuint);
 
 		glGenBuffers(1, &ibo);
@@ -130,7 +130,7 @@ namespace t3d { namespace World { namespace Terrain
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, reserve, NULL, GL_STATIC_DRAW);
 
 		int previousOffset = 0;
-		for (unsigned i=0; i<mIndexDataList.size(); i++)
+		for (int i=0; i<mIndexDataList.size(); i++)
 		{
 			RawIndicies *indexData = &mIndexDataList[i];
 			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, previousOffset, sizeof(GLuint)*mIndexDataList[i].size(), &mIndexDataList[i][0]);

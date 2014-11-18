@@ -39,14 +39,14 @@ namespace t3d
 	 * \brief Does stuff
 	 * \returns A double parsed from the input string.
 	 */
-	double toDouble(const String &text);
+	double toDouble(const std::string &text);
 
 	/**
 	 * \see toDouble
 	 */
-	float toFloat(const String &text);
-	int toInt(const String &text);
-	bool toBool(const String &text);
+	float toFloat(const std::string &text);
+	int toInt(const std::string &text);
+	bool toBool(const std::string &text);
 
     double divideD(double a, double b);
     float divideF(float a, float b);

@@ -24,7 +24,7 @@ namespace t3d { namespace World { namespace Terrain
 		typedef GLushort ValueType;
 		typedef QVector<ValueType> ValueVector;
 
-		void reserve(unsigned size);
+		void reserve(int size);
 		void set(int x, int y, float normalizedValue);
 		float get(int x, int y);
 

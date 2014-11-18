@@ -10,13 +10,13 @@
 
 namespace t3d
 {
-	bool Image::loadFromFile_PNG(const String &filepath)
+	bool Image::loadFromFile_PNG(const QString &filepath)
 	{
 		ImageData png;
 		ImageData data; //the raw pixels
 		lodepng::State state;
 
-		lodepng::load_file(png, filepath.c_str()); //load the image file with given filename
+		lodepng::load_file(png, filepath.toStdString().c_str()); //load the image file with given filename
 		//the pixels are now in the vector "image", 4 bytes per pixel, ordered RGBARGBA...,
 		//use it as texture, draw it, ...
 		//State state contains extra information about the PNG such as text chunks, ...

@@ -36,7 +36,7 @@ namespace t3d
 		 *
 		 * \param filepath Path to the image file
 		 */
-		bool loadFromFile_PNG(const String &filepath);
+		bool loadFromFile_PNG(const QString &filepath);
 
 		/**
 		 * \returns Width of the image in pixels
