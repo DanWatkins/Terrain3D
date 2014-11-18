@@ -11,6 +11,9 @@ TEMPLATE = lib
 
 CONFIG += c++11
 
+QMAKE_CFLAGS_WARN_ON += -w
+QMAKE_CXXFLAGS_WARN_ON += -w
+
 INCLUDEPATH += ../../../Ext/gtest/inc/ \
 				../../../Ext/gtest/
 

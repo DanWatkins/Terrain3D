@@ -41,14 +41,14 @@ protected:
 	bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
 
 private:
+	QOpenGLContext *mContext;
+	QOpenGLPaintDevice *mDevice;
+
 	bool mUpdatePending;
 	bool mAnimating;
 	bool mCapturesCursor;
 	Vec2i mLastCursorPos;
 	bool mMouseButtonLeftPressed;
-
-	QOpenGLContext *mContext;
-	QOpenGLPaintDevice *mDevice;
 };
 
 #endif

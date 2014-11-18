@@ -48,5 +48,5 @@ TEST_F(Test_WorldTerrainLightingSlope, differentSizes)
 	lm.reserve(16);
 
 	//should return false since the sizes are different
-	ASSERT_EQ(false, Lighting::Slope::computeBrightness(lm, hm));
+	ASSERT_FALSE(Lighting::Slope::computeBrightness(lm, hm));
 }

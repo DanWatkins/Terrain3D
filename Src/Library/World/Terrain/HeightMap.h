@@ -37,7 +37,7 @@ namespace t3d { namespace World { namespace Terrain
 		void buildVertexData(float spacing);
 		const std::vector<float> *getVertexData() const { return &mVertexData; }
 
-		GLuint getSize() const { return mSize; }
+		int getSize() const { return mSize; }
 	};
 }}}
 

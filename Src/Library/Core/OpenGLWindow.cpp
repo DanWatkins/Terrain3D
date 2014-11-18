@@ -9,10 +9,10 @@
 
 OpenGLWindow::OpenGLWindow(QWindow *parent)
 	: QWindow(parent),
-	  mUpdatePending(false),
-	  mAnimating(false),
 	  mContext(0),
 	  mDevice(0),
+	  mUpdatePending(false),
+	  mAnimating(false),
 	  mCapturesCursor(false),
 	  mMouseButtonLeftPressed(false)
 {

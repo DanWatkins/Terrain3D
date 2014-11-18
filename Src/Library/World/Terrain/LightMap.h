@@ -28,13 +28,13 @@ namespace t3d { namespace World { namespace Terrain
 		void set(int x, int y, float normalizedValue);
 		float get(int x, int y);
 
-		unsigned size() const { return mSize; }
+		int size() const { return mSize; }
 
 		ValueVector* raw() { return &mValues; }
 
 	private:
 		ValueVector mValues;
-		unsigned mSize;
+		int mSize;
 	};
 }}}
 

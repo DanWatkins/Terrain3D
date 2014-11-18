@@ -20,7 +20,7 @@ protected:
 		data.computeTextureIndicies(heightIndex);
 
 		QVector<GLubyte> ti = data.textureIndicies();
-		for (unsigned i=0; i<ti.size(); i++)
+		for (int i=0; i<ti.size(); i++)
 			ASSERT_EQ(expectedIndex, ti[i]);
 	}
 
