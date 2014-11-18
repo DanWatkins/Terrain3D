@@ -15,7 +15,7 @@ namespace t3d { namespace World { namespace Terrain
 		mProgram(nullptr),
 		mSpacing(1.0f),
 		mHeightScale(30.0f),
-        mBlockSize(8),
+		mBlockSize(64),
 		mSpanSize(8)
 	{
 	}
@@ -102,7 +102,7 @@ namespace t3d { namespace World { namespace Terrain
 
 	void Renderer::IndexData::buildIndexData()
 	{
-		int heightMapSize = mTerrainData->heightMap().getSize();
+		int heightMapSize = mTerrainData->heightMap().size();
 		int lod = maxLevelsOfDetail(mBlockSize);
 
 		for (int i=0; i<lod; i++)

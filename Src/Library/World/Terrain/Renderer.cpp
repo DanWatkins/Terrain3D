@@ -79,7 +79,7 @@ namespace t3d { namespace World { namespace Terrain
 
 			mVao.bind();
 			{
-				int heightMapSize = mTerrainData->heightMap().getSize();
+				int heightMapSize = mTerrainData->heightMap().size();
 				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mRenderData->blockSize()));
 
 				switch (mMode)
@@ -104,7 +104,7 @@ namespace t3d { namespace World { namespace Terrain
 				{
 					for (int x=0; x<numberOfBlocksOnASide; x++)
 					{
-                        blockLod[x][y] = lodForDistance(lodDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y), mRenderData->blockSize()));
+						blockLod[x][y] = lodForDistance(lodDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y), mRenderData->blockSize()), mRenderData->blockSize());
 					}
 				}
 
@@ -230,12 +230,12 @@ namespace t3d { namespace World { namespace Terrain
 	{
 		mTerrainData->heightMap().buildVertexData(mRenderData->spacing());
 		mProgram.setUniformValue(mUniforms.spacing, mRenderData->spacing());
-		mProgram.setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().getSize());
+		mProgram.setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 		mProgram.setUniformValue(mUniforms.heightScale, mRenderData->heightScale());
 		mProgram.setUniformValue(mUniforms.blockSize, float(mRenderData->blockSize()));
 		mProgram.setUniformValue(mUniforms.spanSize, float(mRenderData->spanSize()));
 		mProgram.setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
-		const std::vector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();
+		const QVector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();
 
 		GLuint vbo[2];
 		glGenBuffers(2, vbo);
@@ -270,7 +270,7 @@ namespace t3d { namespace World { namespace Terrain
 
 		int patchSize = std::pow(2, block.lod+1);
 		int patchesPerEdge = mRenderData->blockSize() / patchSize;
-		int heightMapSize = mTerrainData->heightMap().getSize();
+		int heightMapSize = mTerrainData->heightMap().size();
 
 		//render all the patches (triangle fans) that make up this block
 		for (int y=0; y<patchesPerEdge; y++)

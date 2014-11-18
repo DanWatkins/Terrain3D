@@ -16,10 +16,10 @@ namespace t3d { namespace World { namespace Terrain
 	class HeightMap
 	{
 	private:
-		std::vector<float> mHeightData;
-		GLuint mSize;
+		QVector<float> mHeightData;
+		uint mSize;
 
-		std::vector<float> mVertexData;
+		QVector<float> mVertexData;
 
 	public:
 		HeightMap()
@@ -28,16 +28,16 @@ namespace t3d { namespace World { namespace Terrain
 		}
 
 
-		void reserve(GLuint size);
-		void set(GLuint index, float height);
-		void set(GLuint indexX, GLuint indexY, float height);
-		float get(GLuint index) const;
-		float get(GLuint indexX, GLuint indexY) const;
+		void reserve(int size);
+		void set(int index, float height);
+		void set(int indexX, int indexY, float height);
+		float get(int index) const;
+		float get(int indexX, int indexY) const;
 
 		void buildVertexData(float spacing);
-		const std::vector<float> *getVertexData() const { return &mVertexData; }
+		const QVector<float> *getVertexData() const { return &mVertexData; }
 
-		int getSize() const { return mSize; }
+		uint size() const { return mSize; }
 	};
 }}}
 

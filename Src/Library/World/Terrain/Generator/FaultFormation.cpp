@@ -5,18 +5,18 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
     void applyRandomFault(HeightMap &heightMap, float faultAmount)
     {
         //create the fault line from two random points
-        Vec2f p1((float)randInt(0, heightMap.getSize()), (float)randInt(0, heightMap.getSize()));
+		Vec2f p1((float)randInt(0, heightMap.size()), (float)randInt(0, heightMap.size()));
         Vec2f p2;
 
         do
         {
-            p2 = Vec2f((float)randInt(0, heightMap.getSize()), (float)randInt(0, heightMap.getSize()));
+			p2 = Vec2f((float)randInt(0, heightMap.size()), (float)randInt(0, heightMap.size()));
         } while (p2 == p1);
 
 
         float dirX1 = p2.x-p1.x;
         float dirY1 = p2.y - p1.y;
-        int size = heightMap.getSize();
+		int size = heightMap.size();
 
         for (int y=0; y<size; y++)
         {
@@ -36,7 +36,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
     {
         float min = heightMap.get(0);
         float max = heightMap.get(0);
-        int size = heightMap.getSize();
+		int size = heightMap.size();
 
         for (int i=1; i<size*size; i++)
         {
@@ -77,7 +77,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
 
     void smoothHeight(HeightMap &heightMap, float intensity)
     {
-        int size = heightMap.getSize();
+		int size = heightMap.size();
 
         //left to right
         for (int i = 0; i<size; i++)

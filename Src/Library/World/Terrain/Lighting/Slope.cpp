@@ -14,7 +14,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Lighting
 	bool Slope::computeBrightness(LightMap &lm, const HeightMap &hm)
 	{
 		//ensure the height map and light map are the same size
-		if (lm.size() != hm.getSize())
+		if (lm.size() != hm.size())
 			return false;
 
 		//just max out the lightmap for now since the sun will shine everywhere max
@@ -39,7 +39,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Lighting
 						brightness = (1-delta) * intensity;
 					}
 
-					lm.set(x, y, brightness);
+					lm.set(x, y, std::max(std::max(0.0f, brightness), 1.0f));
 				}
 			}
 		}

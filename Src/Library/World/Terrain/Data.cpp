@@ -33,7 +33,7 @@ namespace t3d { namespace World { namespace Terrain
 	void Data::computeTextureIndicies(const HeightIndex &heightIndex)
     {
         int tcRes = mTextureMapResolution;
-        int hmSize = mHeightMap.getSize();
+		int hmSize = mHeightMap.size();
         int tcmSize = (hmSize-1)*tcRes + 1;
         mTextureIndicies.resize(tcmSize*tcmSize);
 

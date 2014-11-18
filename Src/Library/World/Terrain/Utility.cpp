@@ -30,13 +30,11 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
-	int lodForDistance(double distance)
+	int lodForDistance(double distance, int blockSize)
 	{
-        if (distance > 16.0)
-            return 2;
-        else if (distance > 8.0)
-            return 1;
-        else
-            return 0;
+		double rate = distance / 120.0;
+		int maxLod = maxLevelsOfDetail(blockSize) - 1;
+
+		return std::min(int(rate*maxLod), maxLod);
 	}
 }}}

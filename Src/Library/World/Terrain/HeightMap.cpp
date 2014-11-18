@@ -9,34 +9,34 @@
 
 namespace t3d { namespace World { namespace Terrain
 {
-	void HeightMap::reserve(GLuint size)
+	void HeightMap::reserve(int size)
 	{
 		mSize = size;
 		mHeightData.clear();
-		mHeightData = std::vector<float>(size*size, 0.1f);
+		mHeightData = QVector<float>(size*size, 0.1f);
 	}
 
 
-	void HeightMap::set(GLuint index, float height)
+	void HeightMap::set(int index, float height)
 	{
-		mHeightData.at(index) = height;
+		mHeightData[index] = height;
 	}
 
 
-	void HeightMap::set(GLuint indexX, GLuint indexY, float height)
+	void HeightMap::set(int indexX, int indexY, float height)
 	{
-		GLuint index = mSize*indexY + indexX;
-		mHeightData.at(index) = height;
+		int index = mSize*indexY + indexX;
+		mHeightData[index] = height;
 	}
 
 
-	float HeightMap::get(GLuint index) const
+	float HeightMap::get(int index) const
 	{
 		return mHeightData.at(index);
 	}
 
 
-	float HeightMap::get(GLuint indexX, GLuint indexY) const
+	float HeightMap::get(int indexX, int indexY) const
 	{
 		return mHeightData.at(indexY*mSize + indexX);
 	}
@@ -48,9 +48,9 @@ namespace t3d { namespace World { namespace Terrain
 
 		std::cout << "\nBuilding Vertex Data" << std::endl;
 
-		for (GLuint y=0; y<mSize; y++)
+		for (int y=0; y<mSize; y++)
 		{
-			for (GLuint x = 0; x<mSize; x++)
+			for (int x = 0; x<mSize; x++)
 			{
 				mVertexData.push_back(spacing*(float)x);
 				float height = mHeightData.at(y*mSize + x);

@@ -15,7 +15,7 @@ namespace t3d { namespace World { namespace Terrain
 	int maxLevelsOfDetail(int blockSize);
 	int sizeForLod(int lod);
     double lodDistanceBetweenPos(Vec2i a, Vec2i b, int blockSize);
-	int lodForDistance(double distance);
+	int lodForDistance(double distance, int blockSize);
 }}}
 
 #endif
