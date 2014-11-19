@@ -34,7 +34,7 @@ namespace t3d
 		QVector<Vertex> mVertecies;
 		QVector<Face> mFaces;
 
-		GLuint mProgram;
+		QOpenGLShaderProgram mProgram;
 		GLuint mVao;
 
 		const GLuint PrimitiveRestartIndex = 900000000;

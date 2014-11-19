@@ -44,7 +44,8 @@ namespace t3d
 		const qreal retinaScale = devicePixelRatio();
 		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 
-		mCamera.render();
+		//mCamera.render();
+		obj.render();
 
 		updateCursorPos();
 	}

@@ -11,6 +11,7 @@ namespace t3d
 {
 	bool OBJ::load(const QString &filepath)
 	{
+		OpenGLFunctions::initializeOpenGLFunctions();
 		QFile file(filepath);
 
 		if (!file.open(QIODevice::ReadOnly))
@@ -33,6 +34,7 @@ namespace t3d
 		}
 
 		loadShaders();
+		uploadData();
 
 		return true;
 	}
@@ -40,7 +42,16 @@ namespace t3d
 
 	void OBJ::render()
 	{
-
+		mProgram.bind();
+		{
+			glBindVertexArray(mVao);
+			{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				glDrawElements(GL_TRIANGLE_STRIP, mFaces.size()*5, GL_UNSIGNED_INT, 0);
+			}
+			glBindVertexArray(0);
+		}
+		mProgram.release();
 	}
 
 
@@ -101,11 +112,13 @@ namespace t3d
 
 	void OBJ::loadShaders()
 	{
-		GLuint shaders[2];
-		shaders[0] = Shader().loadShader(gDefaultPathShaders + "mesh-obj-vert.glsl", GL_VERTEX_SHADER);
-		shaders[1] = Shader().loadShader(gDefaultPathShaders + "mesh-obj-frag.glsl", GL_FRAGMENT_SHADER);
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, gDefaultPathShaders + "mesh-obj-vert.glsl");
+		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, gDefaultPathShaders + "mesh-obj-frag.glsl");
 
-		mProgram = Shader().linkFromShaders(shaders, 2);
+		if (mProgram.link() == false)
+			printf("Problem linking OBJ mesh shadres\n");
+		else
+			printf("Initialized OBJ mesh shaders\n");
 	}
 
 
@@ -131,8 +144,8 @@ namespace t3d
 			glGenBuffers(1, &ibo);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 			{
-				int size = sizeof(GLuint)*4*mIndicies.size();
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, &mIndicies[0], GL_STATIC_DRAW);
+				int size = sizeof(GLuint)*5*mFaces.size();
+				glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, &mFaces[0], GL_STATIC_DRAW);
 			}
 		}
 		glBindVertexArray(0);
