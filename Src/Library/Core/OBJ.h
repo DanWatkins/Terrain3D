@@ -23,19 +23,26 @@ namespace t3d
 	private:
 		struct Vertex
 		{
-			float values[3];
+			GLfloat values[3];
 		};
 
 		struct Face
 		{
-			int indicies[4];
+			GLuint indicies[5];
 		};
 
 		QVector<Vertex> mVertecies;
 		QVector<Face> mFaces;
 
+		GLuint mProgram;
+		GLuint mVao;
+
+		const GLuint PrimitiveRestartIndex = 900000000;
+
 	private:
 		bool parseField(const QStringList &field);
+		void loadShaders();
+		void uploadData();
 	};
 }
 

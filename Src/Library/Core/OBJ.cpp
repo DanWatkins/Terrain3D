@@ -32,9 +32,19 @@ namespace t3d
 			++lineNumber;
 		}
 
+		loadShaders();
+
 		return true;
 	}
 
+
+	void OBJ::render()
+	{
+
+	}
+
+
+	///// PRIVATE
 
 	bool OBJ::parseField(const QStringList &field)
 	{
@@ -66,6 +76,7 @@ namespace t3d
 				face.indicies[1] = field.at(2).toInt();
 				face.indicies[2] = field.at(3).toInt();
 				face.indicies[3] = field.at(4).toInt();
+				face.indicies[4] = PrimitiveRestartIndex;
 				mFaces.push_back(face);
 			}
 			else
@@ -85,5 +96,45 @@ namespace t3d
 			error = true;
 
 		return !error;
+	}
+
+
+	void OBJ::loadShaders()
+	{
+		GLuint shaders[2];
+		shaders[0] = Shader().loadShader(gDefaultPathShaders + "mesh-obj-vert.glsl", GL_VERTEX_SHADER);
+		shaders[1] = Shader().loadShader(gDefaultPathShaders + "mesh-obj-frag.glsl", GL_FRAGMENT_SHADER);
+
+		mProgram = Shader().linkFromShaders(shaders, 2);
+	}
+
+
+	void OBJ::uploadData()
+	{
+		glEnable(GL_PRIMITIVE_RESTART);
+		glPrimitiveRestartIndex(PrimitiveRestartIndex);
+
+		glGenVertexArrays(1, &mVao);
+		glBindVertexArray(mVao);
+		{
+			GLuint vbo;
+			glGenBuffers(1, &vbo);
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			{
+				int size = sizeof(GLfloat)*3*mVertecies.size();
+				glBufferData(GL_ARRAY_BUFFER, size, &mVertecies[0], GL_STATIC_DRAW);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+				glEnableVertexAttribArray(0);
+			}
+
+			GLuint ibo;
+			glGenBuffers(1, &ibo);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+			{
+				int size = sizeof(GLuint)*4*mIndicies.size();
+				glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, &mIndicies[0], GL_STATIC_DRAW);
+			}
+		}
+		glBindVertexArray(0);
 	}
 }
