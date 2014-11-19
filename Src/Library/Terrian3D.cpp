@@ -6,13 +6,10 @@
 //==================================================================================================================|
 
 #include "Terrain3D.h"
-#include <Core\Core.h>
-#include <Core/OBJ.h>
+#include <Core/Core.h>
 
 namespace t3d
 {
-	OBJ obj;
-
 	Terrain3D::Terrain3D() :
 		mCamera(this, &mWorld),
 		mPreviouslyHadFocus(false)
@@ -25,8 +22,6 @@ namespace t3d
 		mWorld.init();
 		mCamera.init();
 		mCamera.resize(width(), height());
-
-		obj.load("./Meshes/cube.obj");
 	}
 	 
 	
@@ -44,8 +39,7 @@ namespace t3d
 		const qreal retinaScale = devicePixelRatio();
 		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 
-		//mCamera.render();
-		obj.render();
+		mCamera.render();
 
 		updateCursorPos();
 	}

@@ -40,10 +40,14 @@ namespace t3d
 	}
 
 
-	void OBJ::render()
+	void OBJ::render(const Mat4 &totalMatrix)
 	{
 		mProgram.bind();
 		{
+			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
+			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
+							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
+
 			glBindVertexArray(mVao);
 			{
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -119,6 +123,13 @@ namespace t3d
 			printf("Problem linking OBJ mesh shadres\n");
 		else
 			printf("Initialized OBJ mesh shaders\n");
+
+		mProgram.bind();
+		{
+			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
+			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
+		}
+		mProgram.release();
 	}
 
 

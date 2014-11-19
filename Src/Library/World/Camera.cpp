@@ -6,9 +6,12 @@
 //==================================================================================================================|
 
 #include "Camera.h"
+#include <Core/OBJ.h>
 
 namespace t3d { namespace World
 {
+	OBJ obj;
+
 	Camera::Camera(OpenGLWindow *window, World *world) :
 		mWindow(window),
 		mWorld(world),
@@ -31,12 +34,14 @@ namespace t3d { namespace World
 		initializeOpenGLFunctions();
 
 		mTerrainRenderer.init();
+		obj.load("./Meshes/cube.obj");
 	}
 
 
 	void Camera::render()
 	{
 		mTerrainRenderer.render(mPosition, getTotalMatrix());
+		obj.render(getTotalMatrix());
 	}
 
 

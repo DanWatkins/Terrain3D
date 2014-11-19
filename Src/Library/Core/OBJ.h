@@ -18,7 +18,7 @@ namespace t3d
 	{
 	public:
 		bool load(const QString &filepath);
-		void render();
+		void render(const Mat4 &totalMatrix);
 
 	private:
 		struct Vertex
@@ -38,6 +38,12 @@ namespace t3d
 		GLuint mVao;
 
 		const GLuint PrimitiveRestartIndex = 900000000;
+
+		struct Uniforms
+		{
+			GLuint matrixCamera;
+			GLuint matrixModel;
+		} mUniforms;
 
 	private:
 		bool parseField(const QStringList &field);
