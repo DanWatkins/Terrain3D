@@ -30,12 +30,6 @@ namespace t3d
 		~MD2();
 
 	private:
-		Header mHeader;
-		int mSkin;
-		bool mIsCustomSkin;
-		Image *mImage;
-
-
 		struct Header
 		{
 			int magicNum; //Always IDP2 (844121161)
@@ -57,6 +51,11 @@ namespace t3d
 			int fileSize;
 		};
 
+		Header mHeader;
+		int mSkin;
+		bool mIsCustomSkin;
+		Image *mImage;
+
 
 		struct Vertex
 		{
@@ -70,7 +69,7 @@ namespace t3d
 			float scale[3];
 			float translation[3];
 			char name[16];
-			MD2Vertex *vertecies;
+			Vertex *vertecies;
 
 			Frame()
 			{

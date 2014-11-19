@@ -7,9 +7,12 @@
 
 #include "Terrain3D.h"
 #include <Core\Core.h>
+#include <Core/OBJ.h>
 
 namespace t3d
 {
+	OBJ obj;
+
 	Terrain3D::Terrain3D() :
 		mCamera(this, &mWorld),
 		mPreviouslyHadFocus(false)
@@ -22,6 +25,8 @@ namespace t3d
 		mWorld.init();
 		mCamera.init();
 		mCamera.resize(width(), height());
+
+		obj.load("./Meshes/cube.obj");
 	}
 	 
 	
