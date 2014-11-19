@@ -46,6 +46,11 @@ namespace t3d
 			//vertex
 			if (field.front() == "v")
 			{
+				Vertex vertex;
+				vertex.values[0] = field.at(1).toFloat();
+				vertex.values[1] = field.at(2).toFloat();
+				vertex.values[2] = field.at(3).toFloat();
+				mVertecies.push_back(vertex);
 			}
 			else
 				error = true;
@@ -56,6 +61,12 @@ namespace t3d
 			//face
 			if (field.front() == "f")
 			{
+				Face face;
+				face.indicies[0] = field.at(1).toInt();
+				face.indicies[1] = field.at(2).toInt();
+				face.indicies[2] = field.at(3).toInt();
+				face.indicies[3] = field.at(4).toInt();
+				mFaces.push_back(face);
 			}
 			else
 				error = true;
