@@ -17,6 +17,8 @@ namespace t3d
 	class OBJ : protected OpenGLFunctions
 	{
 	public:
+		OBJ();
+
 		bool load(const QString &filepath);
 		void render(const Mat4 &totalMatrix);
 
@@ -26,13 +28,8 @@ namespace t3d
 			GLfloat values[3];
 		};
 
-		struct Face
-		{
-			GLuint indicies[5];
-		};
-
 		QVector<Vertex> mVertecies;
-		QVector<Face> mFaces;
+		QVector<GLuint> mIndicies;
 
 		QOpenGLShaderProgram mProgram;
 		GLuint mVao;

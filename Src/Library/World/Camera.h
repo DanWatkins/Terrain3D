@@ -14,6 +14,7 @@
 
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Renderer.h>
+#include <Core/OBJ.h>
 
 namespace t3d { namespace World
 {
@@ -58,6 +59,8 @@ namespace t3d { namespace World
 		Terrain::Mode getMode() { return mTerrainRenderer.getMode(); }
 
 	private:
+		OBJ obj;
+
 		OpenGLWindow *mWindow;
 		World *mWorld;
 

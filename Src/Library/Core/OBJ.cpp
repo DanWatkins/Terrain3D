@@ -9,6 +9,11 @@
 
 namespace t3d
 {
+	OBJ::OBJ()
+	{
+	}
+
+
 	bool OBJ::load(const QString &filepath)
 	{
 		OpenGLFunctions::initializeOpenGLFunctions();
@@ -52,7 +57,7 @@ namespace t3d
 			{
 				glLineWidth(1.0f);
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				glDrawElements(GL_TRIANGLE_STRIP, mFaces.size()*5, GL_UNSIGNED_INT, 0);
+				glDrawElements(GL_TRIANGLE_STRIP, mIndicies.size(), GL_UNSIGNED_INT, 0);
 			}
 			glBindVertexArray(0);
 		}
@@ -64,39 +69,24 @@ namespace t3d
 
 	bool OBJ::parseField(const QStringList &field)
 	{
-		bool error = false;
-
-		//4 component fields
-		if (field.size() == 4)
+		//vertex
+		if (field.front() == "v"  &&  field.size() == 4)
 		{
-			//vertex
-			if (field.front() == "v")
-			{
-				Vertex vertex;
-				vertex.values[0] = field.at(1).toFloat();
-				vertex.values[1] = field.at(2).toFloat();
-				vertex.values[2] = field.at(3).toFloat();
-				mVertecies.push_back(vertex);
-			}
-			else
-				error = true;
+			Vertex vertex;
+			vertex.values[0] = field.at(1).toFloat();
+			vertex.values[1] = field.at(2).toFloat();
+			vertex.values[2] = field.at(3).toFloat();
+			mVertecies.push_back(vertex);
 		}
-		//5 component fields
-		else if (field.size() == 5)
+		//face
+		else if (field.front() == "f"  &&  field.size() >= 4)
 		{
-			//face
-			if (field.front() == "f")
+			for (int i=0; i<field.size()-1; i++)
 			{
-				Face face;
-				face.indicies[0] = field.at(1).toInt()-1;
-				face.indicies[1] = field.at(2).toInt()-1;
-				face.indicies[2] = field.at(3).toInt()-1;
-				face.indicies[3] = field.at(4).toInt()-1;
-				face.indicies[4] = PrimitiveRestartIndex;
-				mFaces.push_back(face);
+				mIndicies.push_back(field.at(i+1).toInt()-1);
 			}
-			else
-				error = true;
+
+			mIndicies.push_back(PrimitiveRestartIndex);
 		}
 		//comment
 		else if (field.at(0).startsWith("#"))
@@ -109,9 +99,9 @@ namespace t3d
 			//do nothing
 		}
 		else
-			error = true;
+			return false;
 
-		return !error;
+		return true;
 	}
 
 
@@ -156,8 +146,7 @@ namespace t3d
 			glGenBuffers(1, &ibo);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 			{
-				int size = sizeof(GLuint)*5*mFaces.size();
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, &mFaces[0], GL_STATIC_DRAW);
+				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*mIndicies.size(), &mIndicies[0], GL_STATIC_DRAW);
 			}
 		}
 		glBindVertexArray(0);

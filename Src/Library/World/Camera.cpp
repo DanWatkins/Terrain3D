@@ -6,12 +6,9 @@
 //==================================================================================================================|
 
 #include "Camera.h"
-#include <Core/OBJ.h>
 
 namespace t3d { namespace World
 {
-	OBJ obj;
-
 	Camera::Camera(OpenGLWindow *window, World *world) :
 		mWindow(window),
 		mWorld(world),
