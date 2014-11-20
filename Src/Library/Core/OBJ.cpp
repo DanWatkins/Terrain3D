@@ -50,6 +50,7 @@ namespace t3d
 
 			glBindVertexArray(mVao);
 			{
+				glLineWidth(1.0f);
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 				glDrawElements(GL_TRIANGLE_STRIP, mFaces.size()*5, GL_UNSIGNED_INT, 0);
 			}
@@ -87,10 +88,10 @@ namespace t3d
 			if (field.front() == "f")
 			{
 				Face face;
-				face.indicies[0] = field.at(1).toInt();
-				face.indicies[1] = field.at(2).toInt();
-				face.indicies[2] = field.at(3).toInt();
-				face.indicies[3] = field.at(4).toInt();
+				face.indicies[0] = field.at(1).toInt()-1;
+				face.indicies[1] = field.at(2).toInt()-1;
+				face.indicies[2] = field.at(3).toInt()-1;
+				face.indicies[3] = field.at(4).toInt()-1;
 				face.indicies[4] = PrimitiveRestartIndex;
 				mFaces.push_back(face);
 			}

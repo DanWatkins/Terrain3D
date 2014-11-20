@@ -1,0 +1,11 @@
+# Blender v2.72 (sub 0) OBJ File: ''
+# www.blender.org
+mtllib square.mtl
+o Plane
+v 0.0 0.0 2.0
+v 2.0 0.0 2
+v 0.0 0.0 0.0
+v 2.0 0.0 0.0
+usemtl None
+s off
+f 1 2 3 4
