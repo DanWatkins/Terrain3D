@@ -31,7 +31,7 @@ namespace t3d { namespace World
 		initializeOpenGLFunctions();
 
 		mTerrainRenderer.init();
-		obj.load("./Meshes/monkey.obj");
+		obj.load("./Meshes/cube_vn.obj");
 	}
 
 
