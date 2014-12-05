@@ -5,6 +5,8 @@
 #include <QtGui/QOpenGLShaderProgram>
 #include <QtGui/QOpenGLFunctions_4_2_Compatibility>
 
+#include <Core/OBJ.h>
+
 class Terrain3DX : public OpenGLQuickItem
 {
 public:
@@ -16,6 +18,10 @@ private:
 	public:
 		void init() override;
 		void render() override;
+
+	private:
+		t3d::OBJ mObj;
+
 	} mRenderable;
 };
 

@@ -107,8 +107,13 @@ namespace t3d
 
 	void OBJ::loadShaders()
 	{
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, gDefaultPathShaders + "mesh-obj-vert.glsl");
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, gDefaultPathShaders + "mesh-obj-frag.glsl");
+		QOpenGLShader vertexShader(QOpenGLShader::Vertex, nullptr);
+		vertexShader.compileSourceFile(gDefaultPathShaders + "mesh-obj-vert.glsl");
+		mProgram.addShader(&vertexShader);
+
+		QOpenGLShader fragmentShader(QOpenGLShader::Fragment, nullptr);
+		fragmentShader.compileSourceFile(gDefaultPathShaders + "mesh-obj-frag.glsl");
+		mProgram.addShader(&fragmentShader);
 
 		if (mProgram.link() == false)
 			printf("Problem linking OBJ mesh shadres\n");
