@@ -6,23 +6,27 @@
 #include <QtGui/QOpenGLFunctions_4_2_Compatibility>
 
 #include <Core/OBJ.h>
+#include <World/World.h>
+#include <World/Camera.h>
 
-class Terrain3DX : public OpenGLQuickItem
+namespace t3d
 {
-public:
-	Terrain3DX();
-
-private:
-	class Renderable : public IOpenGLRenderable, protected QOpenGLFunctions_4_2_Compatibility
+	class Terrain3DX : public OpenGLQuickItem
 	{
 	public:
-		void init() override;
-		void render() override;
+		Terrain3DX();
 
 	private:
-		t3d::OBJ mObj;
+		class Renderable : public IOpenGLRenderable, protected QOpenGLFunctions_4_2_Compatibility
+		{
+		public:
+			void init() override;
+			void render() override;
 
-	} mRenderable;
-};
+		private:
 
-#endif // TERRAIN3DX_H
+		} mRenderable;
+	};
+}
+
+#endif

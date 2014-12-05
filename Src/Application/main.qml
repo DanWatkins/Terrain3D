@@ -6,7 +6,7 @@ Item {
     width: 800
     height: 600
 
-    Terrain3DX {
+    Camera {
         id: renderer
         anchors.fill: parent
         anchors.margins: 0

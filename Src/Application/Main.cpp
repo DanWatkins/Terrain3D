@@ -11,10 +11,19 @@
 #include "Main.h"
 #include <Terrain3DX.h>
 
+#include <QuickItems/Camera.h>
+
 int main(int argc, char *argv[])
 {
 	QGuiApplication app(argc, argv);
-	qmlRegisterType<Terrain3DX>("Terrain3DX", 1, 0, "Terrain3DX");
+
+	//set all the QuickItem types
+	{
+		using namespace t3d::QuickItems;
+
+		qmlRegisterType<Camera>("Terrain3DX", 1, 0, "Camera");
+	}
+
 
 	int execReturn = 0;
 	{
