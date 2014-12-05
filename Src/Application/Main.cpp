@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	{
 		using namespace t3d::QuickItems;
 
-		qmlRegisterType<Camera>("Terrain3DX", 1, 0, "Camera");
+		qmlRegisterType<Camera>("Terrain3D", 1, 0, "Camera");
 	}
 
 	int execReturn = 0;

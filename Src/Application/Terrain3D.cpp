@@ -7,6 +7,7 @@
 
 #include "Terrain3D.h"
 #include <Core/Core.h>
+#include <QuickItems/Camera.h>
 
 namespace t3d
 {
@@ -34,23 +35,16 @@ namespace t3d
 		mWorld.init();
 		//mCamera.init();
 		//mCamera.resize(width(), height());
+
+		QuickItems::Camera *camera = this->rootObject()->findChild<QuickItems::Camera*>("t3d_mainCamera");
+		camera->setWorld(&mWorld);
+
+		qDebug() << "We got the camera " << camera;
 	}
-	 
-	
+
+
 	void Terrain3D::render()
 	{
-		/*glEnable(GL_DEPTH_TEST);
-		glDepthMask(GL_TRUE);
-		glDepthFunc(GL_LEQUAL);
-
-		glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-		const qreal retinaScale = devicePixelRatio();
-		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
-
-		mCamera.render();*/
-
 		updateCursorPos();
 	}
 

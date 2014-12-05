@@ -23,21 +23,48 @@ namespace t3d { namespace QuickItems
 		{
 		}
 
+		void setWorld(t3d::World::World *world)	//TODO pass a const World*
+		{
+			mRenderable.mCamera = std::unique_ptr<ActualCamera>(new ActualCamera(nullptr, world));
+		}
+
 	private:
+		typedef t3d::World::Camera ActualCamera;
+
 		class Renderable : public IOpenGLRenderable, protected OpenGLFunctions
 		{
 		public:
 			void init() override
 			{
 				initializeOpenGLFunctions();
-				glClearColor(0.3f, 0.6f, 0.2f, 1.0f);
+				mCamera->init();
 			}
 
 
 			void render() override
 			{
 				glClear(GL_COLOR_BUFFER_BIT);
+
+				if (mCamera != nullptr)
+				{
+					glEnable(GL_DEPTH_TEST);
+					glDepthMask(GL_TRUE);
+					glDepthFunc(GL_LEQUAL);
+
+					glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+					//const qreal retinaScale = devicePixelRatio(); TODO
+					//glViewport(0, 0, width() * retinaScale, height() * retinaScale);
+					glViewport(0, 0, 800, 600);
+
+					mCamera->render();
+				}
+				else
+					qDebug() << "The camera is null";
 			}
+
+			std::unique_ptr<ActualCamera> mCamera;
 		} mRenderable;
 	};
 }}

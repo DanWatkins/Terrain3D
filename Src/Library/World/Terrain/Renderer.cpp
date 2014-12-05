@@ -142,8 +142,13 @@ namespace t3d { namespace World { namespace Terrain
 
 	void Renderer::loadShaders()
 	{
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, (QString(gDefaultPathShaders) + "camera-vert.glsl"));
-		mProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, (QString(gDefaultPathShaders) + "camera-frag.glsl"));
+		QOpenGLShader vertexShader(QOpenGLShader::Vertex, nullptr);
+		vertexShader.compileSourceFile(gDefaultPathShaders + "camera-vert.glsl");
+		mProgram.addShader(&vertexShader);
+
+		QOpenGLShader fragmentShader(QOpenGLShader::Fragment, nullptr);
+		fragmentShader.compileSourceFile(gDefaultPathShaders + "camera-frag.glsl");
+		mProgram.addShader(&fragmentShader);
 
 		if (mProgram.link() == false)
 			printf("Problem linking shaders\n");
