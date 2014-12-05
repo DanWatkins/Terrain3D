@@ -11,25 +11,35 @@
 namespace t3d
 {
 	Terrain3D::Terrain3D() :
-		mCamera(this, &mWorld),
+		//mCamera(this, &mWorld),
 		mPreviouslyHadFocus(false)
 	{
 	}
 
 
-	void Terrain3D::initialize()
+	void Terrain3D::init()
 	{
+		QSurfaceFormat format;
+		format.setMajorVersion(4);
+		format.setMinorVersion(2);
+		format.setProfile(QSurfaceFormat::CompatibilityProfile);
+		setFormat(format);
+
+		setPersistentOpenGLContext(true);
+		setPersistentSceneGraph(true);
+
+		setResizeMode(QQuickView::SizeRootObjectToView);
+		setSource(QUrl("qrc:///main.qml"));
+
 		mWorld.init();
-		mCamera.init();
-		mCamera.resize(width(), height());
+		//mCamera.init();
+		//mCamera.resize(width(), height());
 	}
 	 
 	
 	void Terrain3D::render()
 	{
-		OpenGLWindow::render();
-
-		glEnable(GL_DEPTH_TEST);
+		/*glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
 		glDepthFunc(GL_LEQUAL);
 
@@ -39,7 +49,7 @@ namespace t3d
 		const qreal retinaScale = devicePixelRatio();
 		glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 
-		mCamera.render();
+		mCamera.render();*/
 
 		updateCursorPos();
 	}
@@ -60,7 +70,7 @@ namespace t3d
 			{
 				const double mouseSensitivity = 0.1f;
 				QVector2D delta = consumeCursorDelta();
-				mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+				//mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 
 				resetCursorPosition();
 			}
@@ -83,8 +93,14 @@ namespace t3d
 		{
 			case Qt::Key_Escape:
 				close(); break;
+			case Qt::Key_F1:
+				setCapturesCursor(!capturesCursor()); break;
+			case Qt::Key_F2:
+				QWindow::showNormal(); break;
+			case Qt::Key_F3:
+				QWindow::showFullScreen(); break;
 
-			case Qt::Key_W:
+			/*case Qt::Key_W:
 				mCamera.incPosition(speed * mCamera.getForward()); break;
 			case Qt::Key_S:
 				mCamera.incPosition(speed * -mCamera.getForward()); break;
@@ -97,13 +113,7 @@ namespace t3d
 				mCamera.setMode(Mode::Normal); break;
 			case Qt::Key_X:
 				mCamera.setMode(Mode::WireFrame); break;
-
-			case Qt::Key_F1:
-				setCapturesCursor(!capturesCursor()); break;
-			case Qt::Key_F2:
-				QWindow::showNormal(); break;
-			case Qt::Key_F3:
-				QWindow::showFullScreen(); break;
+			*/
 		}
 	}
 }

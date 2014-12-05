@@ -8,10 +8,10 @@
 #ifndef _GL_TERRAIN3D_H
 #define _GL_TERRAIN3D_H
 
+#include "OpenGLQuickView.h"
+
 #include <Main.h>
-#include <Core/OpenGLWindow.h>
 #include <World/World.h>
-#include <World/Camera.h>
 
 #define ARRAY_COUNT( array ) (sizeof( array ) / (sizeof( array[0] ) * (sizeof( array ) != sizeof(void*) || sizeof( array[0] ) <= sizeof(void*))))
 
@@ -28,16 +28,14 @@ namespace t3d
 	/**
 	 * Represents the main application
 	 */
-	class Terrain3D : public OpenGLWindow
+	class Terrain3D : public OpenGLQuickView
 	{
 	private:
 		World::World mWorld;
-		World::Camera mCamera;
 
 		bool mPreviouslyHadFocus;
 
 	private:
-		void initialize();
 		void render();
 
 		void updateCursorPos();
@@ -45,6 +43,7 @@ namespace t3d
 
 	public:
 		Terrain3D();
+		void init();
 	};
 }
 

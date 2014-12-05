@@ -30,7 +30,7 @@ namespace t3d { namespace QuickItems
 			void init() override
 			{
 				initializeOpenGLFunctions();
-				glClearColor(1.0f, 0.6f, 0.2f, 1.0f);
+				glClearColor(0.3f, 0.6f, 0.2f, 1.0f);
 			}
 
 
