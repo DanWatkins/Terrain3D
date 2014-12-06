@@ -39,7 +39,7 @@ namespace t3d { namespace World { namespace Terrain
 
 		Data *mTerrainData;
 		QOpenGLShaderProgram mProgram;
-		QOpenGLVertexArrayObject mVao;
+		GLuint mVao;
 		GLuint mTexture[2];
 		Mode mMode;
 

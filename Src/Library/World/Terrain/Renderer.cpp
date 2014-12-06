@@ -44,13 +44,14 @@ namespace t3d { namespace World { namespace Terrain
 			mUniforms.textureMapResolution = mProgram.uniformLocation("textureMapResolution");
 			mRenderData->queryUniforms();
 
-			mVao.create();
-			mVao.bind();
+			glGenVertexArrays(1, &mVao);
+
+			glBindVertexArray(mVao);
 			{
 				uploadTerrainData();
 				loadTextures();
 			}
-			mVao.release();
+			glBindVertexArray(0);
 		}
 		mProgram.release();
 	}
@@ -76,7 +77,7 @@ namespace t3d { namespace World { namespace Terrain
 			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
 							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
-			mVao.bind();
+			glBindVertexArray(mVao);
 			{
 				int heightMapSize = mTerrainData->heightMap().size();
 				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mRenderData->blockSize()));
@@ -131,7 +132,7 @@ namespace t3d { namespace World { namespace Terrain
 					}
 				}
 			}
-			mVao.release();
+			glBindVertexArray(0);
 		}
 		mProgram.release();
 	}
