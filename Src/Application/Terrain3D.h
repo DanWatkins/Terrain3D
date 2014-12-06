@@ -35,7 +35,7 @@ namespace t3d
 		Q_OBJECT
 	private:
 		World::World mWorld;
-		std::weak_ptr<World::Camera> mCamera;
+		QWeakPointer<World::Camera> mCamera;
 		bool mPreviouslyHadFocus;
 
 		BackgroundUpdater backgroundUpdater;
@@ -46,6 +46,7 @@ namespace t3d
 
 	public:
 		Terrain3D() : mPreviouslyHadFocus(false) {}
+		~Terrain3D();
 		void init();
 
 

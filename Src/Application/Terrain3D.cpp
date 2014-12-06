@@ -11,6 +11,13 @@
 
 namespace t3d
 {
+	Terrain3D::~Terrain3D()
+	{
+		backgroundUpdater.requestInterruption();
+		backgroundUpdater.wait(1000);
+	}
+
+
 	void Terrain3D::init()
 	{
 		QSurfaceFormat format;
@@ -46,8 +53,6 @@ namespace t3d
 
 	void Terrain3D::updateCursorPos()
 	{
-		qDebug() << "Updating cursor pos";
-
 		if (!capturesCursor() && mouseButtonLeftPressed() == false)
 			return;
 
@@ -59,11 +64,15 @@ namespace t3d
 			}
 			else
 			{
-				const double mouseSensitivity = 0.1f;
-				QVector2D delta = consumeCursorDelta();
-				mCamera.lock()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+				if (mCamera.toStrongRef())
+				{
+					const double mouseSensitivity = 0.1f;
+					QVector2D delta = consumeCursorDelta();
 
-				resetCursorPosition();
+					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+
+					resetCursorPosition();
+				}
 			}
 
 			mPreviouslyHadFocus = true;

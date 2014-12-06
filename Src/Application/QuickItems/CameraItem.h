@@ -28,10 +28,10 @@ namespace t3d { namespace QuickItems
 
 		void setWorld(t3d::World::World *world)	//TODO pass a const World*
 		{
-			mRenderable.mCamera = std::shared_ptr<ActualCamera>(new ActualCamera(world));
+			mRenderable.mCamera = QSharedPointer<ActualCamera>(new ActualCamera(world));
 		}
 
-		std::weak_ptr<ActualCamera> camera() { return mRenderable.mCamera; }
+		QWeakPointer<ActualCamera> camera() { return mRenderable.mCamera; }
 
 	private:
 		class Renderable : public IOpenGLRenderable, protected OpenGLFunctions
@@ -65,7 +65,7 @@ namespace t3d { namespace QuickItems
 				}
 			}
 
-			std::shared_ptr<ActualCamera> mCamera;
+			QSharedPointer<ActualCamera> mCamera;
 		} mRenderable;
 	};
 }}
