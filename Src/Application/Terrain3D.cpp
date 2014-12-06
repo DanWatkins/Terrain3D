@@ -68,8 +68,7 @@ namespace t3d
 				{
 					const double mouseSensitivity = 0.1f;
 					QVector2D delta = consumeCursorDelta();
-
-					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, -delta.y()*mouseSensitivity);
 
 					resetCursorPosition();
 				}
@@ -89,6 +88,27 @@ namespace t3d
 		using namespace World::Terrain;
 		const float speed = 1.75f;
 
+		//update the camera
+		if (auto cameraPtr = mCamera.toStrongRef())
+		{
+			switch (ev->key())
+			{
+				case Qt::Key_W:
+					cameraPtr->incPosition(speed * cameraPtr->getForward()); break;
+				case Qt::Key_S:
+					cameraPtr->incPosition(speed * -cameraPtr->getForward()); break;
+				case Qt::Key_A:
+					cameraPtr->incPosition(speed * -cameraPtr->getRight()); break;
+				case Qt::Key_D:
+					cameraPtr->incPosition(speed * cameraPtr->getRight()); break;
+
+				case Qt::Key_Z:
+					cameraPtr->setMode(Mode::Normal); break;
+				case Qt::Key_X:
+					cameraPtr->setMode(Mode::WireFrame); break;
+			}
+		}
+
 		switch (ev->key())
 		{
 			case Qt::Key_Escape:
@@ -99,21 +119,6 @@ namespace t3d
 				QWindow::showNormal(); break;
 			case Qt::Key_F3:
 				QWindow::showFullScreen(); break;
-
-			/*case Qt::Key_W:
-				mCamera.incPosition(speed * mCamera.getForward()); break;
-			case Qt::Key_S:
-				mCamera.incPosition(speed * -mCamera.getForward()); break;
-			case Qt::Key_A:
-				mCamera.incPosition(speed * -mCamera.getRight()); break;
-			case Qt::Key_D:
-				mCamera.incPosition(speed * mCamera.getRight()); break;
-
-			case Qt::Key_Z:
-				mCamera.setMode(Mode::Normal); break;
-			case Qt::Key_X:
-				mCamera.setMode(Mode::WireFrame); break;
-			*/
 		}
 	}
 }
