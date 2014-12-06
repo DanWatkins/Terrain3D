@@ -9,6 +9,7 @@
 #define _GL_TERRAIN3D_H
 
 #include "OpenGLQuickView.h"
+#include "BackgroundUpdater.h"
 
 #include <Main.h>
 #include <World/World.h>
@@ -31,22 +32,25 @@ namespace t3d
 	 */
 	class Terrain3D : public OpenGLQuickView
 	{
+		Q_OBJECT
 	private:
 		World::World mWorld;
 		std::weak_ptr<World::Camera> mCamera;
-
 		bool mPreviouslyHadFocus;
+
+		BackgroundUpdater backgroundUpdater;
 
 	private:
 		void updateCursorPos();
 		void keyPressEvent(QKeyEvent *ev);
 
 	public:
-		Terrain3D();
+		Terrain3D() : mPreviouslyHadFocus(false) {}
 		void init();
 
+
 	public slots:
-		void update();
+		void willUpdate();
 	};
 }
 

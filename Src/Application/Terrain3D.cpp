@@ -11,12 +11,6 @@
 
 namespace t3d
 {
-	Terrain3D::Terrain3D() :
-		mPreviouslyHadFocus(false)
-	{
-	}
-
-
 	void Terrain3D::init()
 	{
 		QSurfaceFormat format;
@@ -38,10 +32,13 @@ namespace t3d
 		QuickItems::CameraItem *camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
 		camera->setWorld(&mWorld);
 		mCamera = camera->camera();
+
+		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate, this, &Terrain3D::willUpdate);
+		backgroundUpdater.start();
 	}
 
 
-	void Terrain3D::update()
+	void Terrain3D::willUpdate()
 	{
 		updateCursorPos();
 	}
