@@ -12,6 +12,7 @@
 
 #include <Main.h>
 #include <World/World.h>
+#include <World/Camera.h>
 
 #define ARRAY_COUNT( array ) (sizeof( array ) / (sizeof( array[0] ) * (sizeof( array ) != sizeof(void*) || sizeof( array[0] ) <= sizeof(void*))))
 
@@ -32,18 +33,20 @@ namespace t3d
 	{
 	private:
 		World::World mWorld;
+		std::weak_ptr<World::Camera> mCamera;
 
 		bool mPreviouslyHadFocus;
 
 	private:
-		void render();
-
 		void updateCursorPos();
 		void keyPressEvent(QKeyEvent *ev);
 
 	public:
 		Terrain3D();
 		void init();
+
+	public slots:
+		void update();
 	};
 }
 

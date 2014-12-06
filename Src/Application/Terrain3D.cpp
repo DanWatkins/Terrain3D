@@ -7,12 +7,11 @@
 
 #include "Terrain3D.h"
 #include <Core/Core.h>
-#include <QuickItems/Camera.h>
+#include <QuickItems/CameraItem.h>
 
 namespace t3d
 {
 	Terrain3D::Terrain3D() :
-		//mCamera(this, &mWorld),
 		mPreviouslyHadFocus(false)
 	{
 	}
@@ -36,14 +35,13 @@ namespace t3d
 		//mCamera.init();
 		//mCamera.resize(width(), height());
 
-		QuickItems::Camera *camera = this->rootObject()->findChild<QuickItems::Camera*>("t3d_mainCamera");
+		QuickItems::CameraItem *camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
 		camera->setWorld(&mWorld);
-
-		qDebug() << "We got the camera " << camera;
+		mCamera = camera->camera();
 	}
 
 
-	void Terrain3D::render()
+	void Terrain3D::update()
 	{
 		updateCursorPos();
 	}
@@ -51,6 +49,8 @@ namespace t3d
 
 	void Terrain3D::updateCursorPos()
 	{
+		qDebug() << "Updating cursor pos";
+
 		if (!capturesCursor() && mouseButtonLeftPressed() == false)
 			return;
 
@@ -64,7 +64,7 @@ namespace t3d
 			{
 				const double mouseSensitivity = 0.1f;
 				QVector2D delta = consumeCursorDelta();
-				//mCamera.incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+				mCamera.lock()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 
 				resetCursorPosition();
 			}

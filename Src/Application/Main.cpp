@@ -10,7 +10,7 @@
 #include "Main.h"
 #include "Terrain3D.h"
 
-#include <QuickItems/Camera.h>
+#include <QuickItems/CameraItem.h>
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	{
 		using namespace t3d::QuickItems;
 
-		qmlRegisterType<Camera>("Terrain3D", 1, 0, "Camera");
+		qmlRegisterType<CameraItem>("Terrain3D", 1, 0, "Camera");
 	}
 
 	int execReturn = 0;

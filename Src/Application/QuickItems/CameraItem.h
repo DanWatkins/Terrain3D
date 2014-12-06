@@ -15,22 +15,25 @@
 
 namespace t3d { namespace QuickItems
 {
-	class Camera : public OpenGLQuickItem
+	class CameraItem : public OpenGLQuickItem
 	{
+	private:
+		typedef t3d::World::Camera ActualCamera;
+
 	public:
-		Camera() :
+		CameraItem() :
 			OpenGLQuickItem(&mRenderable)
 		{
 		}
 
 		void setWorld(t3d::World::World *world)	//TODO pass a const World*
 		{
-			mRenderable.mCamera = std::unique_ptr<ActualCamera>(new ActualCamera(world));
+			mRenderable.mCamera = std::shared_ptr<ActualCamera>(new ActualCamera(world));
 		}
 
-	private:
-		typedef t3d::World::Camera ActualCamera;
+		std::weak_ptr<ActualCamera> camera() { return mRenderable.mCamera; }
 
+	private:
 		class Renderable : public IOpenGLRenderable, protected OpenGLFunctions
 		{
 		public:
@@ -60,11 +63,9 @@ namespace t3d { namespace QuickItems
 
 					mCamera->render();
 				}
-				else
-					qDebug() << "The camera is null";
 			}
 
-			std::unique_ptr<ActualCamera> mCamera;
+			std::shared_ptr<ActualCamera> mCamera;
 		} mRenderable;
 	};
 }}
