@@ -10,7 +10,6 @@
 
 #include "../Main.h"
 
-#include "OpenGLWindow.h"
 #include "Shader.h"
 
 #endif

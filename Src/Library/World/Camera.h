@@ -9,7 +9,6 @@
 #define _t3d_CAMERA_H
 
 #include <Main.h>
-#include <Core/OpenGLWindow.h>
 #include <World/World.h>
 
 #include <World/Terrain/Data.h>
@@ -25,13 +24,12 @@ namespace t3d { namespace World
 	class Camera : protected OpenGLFunctions
 	{
 	public:
-		Camera(OpenGLWindow *window, World *world);
+		Camera(World *world);
 
 		void init();
 		void render();
 		void resize(unsigned windowWidth, unsigned windowHeight);
 
-		OpenGLWindow *getWindow() { return mWindow; }
 		World *getWorld() { return mWorld; }
 
 		void setPosition(Vec3f position) { mPosition = position; }
@@ -61,7 +59,6 @@ namespace t3d { namespace World
 	private:
 		OBJ obj;
 
-		OpenGLWindow *mWindow;
 		World *mWorld;
 
 		Terrain::Renderer mTerrainRenderer;

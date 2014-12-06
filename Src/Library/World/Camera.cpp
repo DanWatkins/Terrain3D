@@ -9,10 +9,9 @@
 
 namespace t3d { namespace World
 {
-	Camera::Camera(OpenGLWindow *window, World *world) :
-		mWindow(window),
+	Camera::Camera(World *world) :
 		mWorld(world),
-		mTerrainRenderer(window, &world->terrainData()),
+		mTerrainRenderer(&world->terrainData()),
 		mPosition(-10, 35, -10),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),

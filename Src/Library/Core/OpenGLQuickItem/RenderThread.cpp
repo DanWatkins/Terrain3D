@@ -33,6 +33,7 @@ void OpenGLQuickItem::RenderThread::createContext(QOpenGLContext *sharedContext)
 
 void OpenGLQuickItem::RenderThread::renderNext()
 {
+	mContext->doneCurrent();
 	mContext->makeCurrent(mSurface);
 
 	if (!mRenderFbo)

@@ -12,9 +12,8 @@
 
 namespace t3d { namespace World { namespace Terrain
 {
-	Renderer::Renderer(OpenGLWindow *window, Data *terrainData) :
+	Renderer::Renderer(Data *terrainData) :
 		mTerrainData(terrainData),
-		mProgram(window),
 		mMode(Mode::Normal)
 	{
 		mRenderData = std::unique_ptr<IndexData>(new IndexData(mTerrainData, &mProgram));

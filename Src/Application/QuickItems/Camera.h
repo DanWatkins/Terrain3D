@@ -25,7 +25,7 @@ namespace t3d { namespace QuickItems
 
 		void setWorld(t3d::World::World *world)	//TODO pass a const World*
 		{
-			mRenderable.mCamera = std::unique_ptr<ActualCamera>(new ActualCamera(nullptr, world));
+			mRenderable.mCamera = std::unique_ptr<ActualCamera>(new ActualCamera(world));
 		}
 
 	private:

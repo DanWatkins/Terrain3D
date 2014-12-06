@@ -9,7 +9,6 @@
 #define _t3d_TERRAIN_RENDERER_H
 
 #include <Main.h>
-#include <Core/OpenGLWindow.h>
 #include <World/Terrain/Data.h>
 
 namespace t3d { namespace World { namespace Terrain
@@ -24,7 +23,7 @@ namespace t3d { namespace World { namespace Terrain
 	class Renderer : protected OpenGLFunctions
 	{
 	public:
-		Renderer(OpenGLWindow *window, Data *terrainData);
+		Renderer(Data *terrainData);
 		~Renderer();
 
 		void init();

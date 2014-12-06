@@ -32,6 +32,8 @@ int main(int argc, char *argv[])
 		execReturn = app.exec();
 	}
 
+	qDebug() << "Ending all render threads";	//xyzm
+
 	OpenGLQuickItem::endAllRenderThreads();
 
 	return execReturn;
