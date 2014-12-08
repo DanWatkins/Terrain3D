@@ -21,6 +21,8 @@ namespace t3d
 
 	void OpenGLQuickView::mousePressEvent(QMouseEvent *ev)
 	{
+		QQuickView::mousePressEvent(ev);
+
 		if (QWindow::isActive())
 		{
 			if (ev->button() == Qt::LeftButton)
@@ -35,6 +37,8 @@ namespace t3d
 
 	void OpenGLQuickView::mouseReleaseEvent(QMouseEvent *ev)
 	{
+		QQuickView::mouseReleaseEvent(ev);
+
 		if (QWindow::isActive())
 		{
 			if (ev->button() == Qt::LeftButton)

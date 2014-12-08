@@ -1,5 +1,6 @@
 <RCC>
-    <qresource>
+    <qresource prefix="/">
         <file>main.qml</file>
+        <file>Terrain3DWindow.qml</file>
     </qresource>
 </RCC>
