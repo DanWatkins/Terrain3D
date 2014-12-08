@@ -36,10 +36,6 @@ namespace t3d
 		//mCamera.init();
 		//mCamera.resize(width(), height());
 
-		QuickItems::CameraItem *camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
-		camera->setWorld(&mWorld);
-		mCamera = camera->camera();
-
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate, this, &Terrain3D::willUpdate);
 		backgroundUpdater.start();
 	}
@@ -47,6 +43,15 @@ namespace t3d
 
 	void Terrain3D::willUpdate()
 	{
+		if (mCamera.isNull())
+		{
+			if (QuickItems::CameraItem *camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera"))
+			{
+				camera->setWorld(&mWorld);
+				mCamera = camera->camera();
+			}
+		}
+
 		updateCursorPos();
 	}
 
