@@ -1,41 +1,43 @@
 #ifndef _OPENGL_QUICK_ITEM_H
 #define _OPENGL_QUICK_ITEM_H
 
-#include <QQuickItem>
+#include <QtQuick/QQuickItem>
+#include <Core/OpenGLFunctions.h>
 
-class IOpenGLRenderable
+namespace t3d
 {
-public:
-	virtual void init() = 0;
-	virtual void render() = 0;
-};
+	class IOpenGLRenderable
+	{
+	public:
+		virtual void init() = 0;
+		virtual void render() = 0;
+	};
 
 
-class OpenGLQuickItem : public QQuickItem
-{
-    Q_OBJECT
+	class OpenGLQuickItem : public QQuickItem, protected IOpenGLRenderable, protected OpenGLFunctions
+	{
+		Q_OBJECT
 
-private:
-	Q_DISABLE_COPY(OpenGLQuickItem)
-	OpenGLQuickItem();
+	private:
+		Q_DISABLE_COPY(OpenGLQuickItem)
 
-	class RenderThread;
-	class TextureNode;
+		class RenderThread;
+		class TextureNode;
 
-	RenderThread *mRenderThread;
-	static QList<RenderThread*> mThreads;
+		RenderThread *mRenderThread;
+		static QList<RenderThread*> mThreads;
 
-public:
-	OpenGLQuickItem(IOpenGLRenderable *renderable);
+	public:
+		OpenGLQuickItem();
 
-	static void endAllRenderThreads();
-	static void enqueue(RenderThread *thread);
+		static void endAllRenderThreads();
+		static void enqueue(RenderThread *thread);
 
-public Q_SLOTS:
-    void ready();
+	public Q_SLOTS:
+		void ready();
 
-protected:
-    QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
-};
-
+	protected:
+		QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
+	};
+}
 #endif

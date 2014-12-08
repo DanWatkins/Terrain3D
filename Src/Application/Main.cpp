@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
 	qDebug() << "Ending all render threads";	//xyzm
 
-	OpenGLQuickItem::endAllRenderThreads();
+	t3d::OpenGLQuickItem::endAllRenderThreads();
 
 	return execReturn;
 }

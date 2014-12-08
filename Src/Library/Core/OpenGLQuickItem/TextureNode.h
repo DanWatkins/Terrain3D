@@ -7,32 +7,34 @@
 
 #include "../OpenGLQuickItem.h"
 
-
-class OpenGLQuickItem::TextureNode : public QObject, public QSGSimpleTextureNode
+namespace t3d
 {
-	Q_OBJECT
+	class OpenGLQuickItem::TextureNode : public QObject, public QSGSimpleTextureNode
+	{
+		Q_OBJECT
 
-public:
-	TextureNode(QQuickWindow *window);
-	~TextureNode();
+	public:
+		TextureNode(QQuickWindow *window);
+		~TextureNode();
 
-signals:
-	void textureInUse();
-	void pendingNewTexture();
+	signals:
+		void textureInUse();
+		void pendingNewTexture();
 
-public slots:
-	void newTexture(int id, const QSize &size);
-	void prepareNode();
+	public slots:
+		void newTexture(int id, const QSize &size);
+		void prepareNode();
 
-private:
+	private:
 
-	int mId;
-	QSize mSize;
+		int mId;
+		QSize mSize;
 
-	QMutex mMutex;
+		QMutex mMutex;
 
-	QSGTexture *mTexture;
-	QQuickWindow *mWindow;
-};
+		QSGTexture *mTexture;
+		QQuickWindow *mWindow;
+	};
+}
 
 #endif

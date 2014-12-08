@@ -12,42 +12,45 @@
 
 #include "../OpenGLQuickItem.h"
 
-/*
- * The render thread shares a context with the scene graph and will
- * render into two separate FBOs, one to use for display and one
- * to use for rendering
- */
-class OpenGLQuickItem::RenderThread : public QThread
+namespace t3d
 {
-	Q_OBJECT
-public:
-	RenderThread(const QSize &size, IOpenGLRenderable *renderable);
+	/*
+	 * The render thread shares a context with the scene graph and will
+	 * render into two separate FBOs, one to use for display and one
+	 * to use for rendering
+	 */
+	class OpenGLQuickItem::RenderThread : public QThread
+	{
+		Q_OBJECT
+	public:
+		RenderThread(const QSize &size, IOpenGLRenderable *renderable);
 
-	void ready();
-	void createContext(QOpenGLContext *sharedContext);
+		void ready();
+		void createContext(QOpenGLContext *sharedContext);
 
-	bool hasValidContext() { return mContext != nullptr; }
+		bool hasValidContext() { return mContext != nullptr; }
 
-public slots:
-	void renderNext();
-	void shutDown();
+	public slots:
+		void renderNext();
+		void shutDown();
 
-signals:
-	void textureReady(int id, const QSize &size);
+	signals:
+		void textureReady(int id, const QSize &size);
 
-private:
-	Q_DISABLE_COPY(RenderThread)
-	RenderThread();
+	private:
+		Q_DISABLE_COPY(RenderThread)
+		RenderThread();
 
-	QOffscreenSurface *mSurface;
-	QOpenGLContext *mContext;
+		QOffscreenSurface *mSurface;
+		QOpenGLContext *mContext;
 
 
-	QOpenGLFramebufferObject *mRenderFbo;
-	QOpenGLFramebufferObject *mDisplayFbo;
+		QOpenGLFramebufferObject *mRenderFbo;
+		QOpenGLFramebufferObject *mDisplayFbo;
 
-	IOpenGLRenderable *mRenderable;
-	QSize mSize;
-};
+		IOpenGLRenderable *mRenderable;
+		QSize mSize;
+	};
+}
 
 #endif
