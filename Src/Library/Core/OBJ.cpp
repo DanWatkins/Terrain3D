@@ -57,7 +57,7 @@ namespace t3d
 			{
 				glLineWidth(1.0f);
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				glDrawElements(GL_TRIANGLE_STRIP, mIndicies.size(), GL_UNSIGNED_INT, 0);
+				//TODO glDrawElements(GL_TRIANGLE_STRIP, mIndicies.size(), GL_UNSIGNED_INT, 0);
 			}
 			glBindVertexArray(0);
 		}
@@ -78,15 +78,37 @@ namespace t3d
 			vertex.values[2] = field.at(3).toFloat();
 			mVertecies.push_back(vertex);
 		}
+		//vertex normal
+		else if (field.front() == "vn"  &&  field.size() == 4)
+		{
+			Vertex vertex;
+			vertex.values[0] = field.at(1).toFloat();
+			vertex.values[1] = field.at(2).toFloat();
+			vertex.values[2] = field.at(3).toFloat();
+			mVertexNormals.push_back(vertex);
+		}
 		//face
 		else if (field.front() == "f"  &&  field.size() >= 4)
 		{
+			Face face;
+
 			for (int i=0; i<field.size()-1; i++)
 			{
-				mIndicies.push_back(field.at(i+1).toInt()-1);
+				QStringList cmp = field.at(i+1).split("/");
+
+				if (cmp.size() > 0)
+					face.vertexIndex.push_back(cmp.at(0).toInt()-1);
+				if (cmp.size() > 1)
+					face.textureIndex.push_back(cmp.at(1).toInt()-1);
+				if (cmp.size() > 2)
+					face.normalIndex.push_back(cmp.at(2).toInt()-1);
+
+				//mIndicies.push_back(field.at(i+1).toInt()-1);
 			}
 
-			mIndicies.push_back(PrimitiveRestartIndex);
+			mFaces.push_back(face);
+
+			//mIndicies.push_back(PrimitiveRestartIndex);
 		}
 		//comment
 		else if (field.at(0).startsWith("#"))
@@ -151,7 +173,7 @@ namespace t3d
 			glGenBuffers(1, &ibo);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 			{
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*mIndicies.size(), &mIndicies[0], GL_STATIC_DRAW);
+				//TODO glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*mIndicies.size(), &mIndicies[0], GL_STATIC_DRAW);
 			}
 		}
 		glBindVertexArray(0);

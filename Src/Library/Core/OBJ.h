@@ -28,8 +28,16 @@ namespace t3d
 			GLfloat values[3];
 		};
 
+		struct Face
+		{
+			QVector<int> vertexIndex;
+			QVector<int> textureIndex;
+			QVector<int> normalIndex;
+		};
+
 		QVector<Vertex> mVertecies;
-		QVector<GLuint> mIndicies;
+		QVector<Vertex> mVertexNormals;
+		QVector<Face> mFaces;
 
 		QOpenGLShaderProgram mProgram;
 		GLuint mVao;
