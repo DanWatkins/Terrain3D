@@ -10,7 +10,7 @@ namespace t3d
 		mRenderThread(0)
 	{
 		setFlag(ItemHasContents, true);
-		mRenderThread = new RenderThread(QSize(512, 512), this);
+		mRenderThread = new RenderThread(this, this);
 	}
 
 

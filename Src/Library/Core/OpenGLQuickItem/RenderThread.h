@@ -23,7 +23,7 @@ namespace t3d
 	{
 		Q_OBJECT
 	public:
-		RenderThread(const QSize &size, IOpenGLRenderable *renderable);
+		RenderThread(const QQuickItem *hostItem, IOpenGLRenderable *renderable);
 
 		void ready();
 		void createContext(QOpenGLContext *sharedContext);
@@ -39,17 +39,18 @@ namespace t3d
 
 	private:
 		Q_DISABLE_COPY(RenderThread)
-		RenderThread();
+		RenderThread() {}
 
 		QOffscreenSurface *mSurface;
 		QOpenGLContext *mContext;
+		const QQuickItem *mHostItem;
 
 
 		QOpenGLFramebufferObject *mRenderFbo;
 		QOpenGLFramebufferObject *mDisplayFbo;
 
 		IOpenGLRenderable *mRenderable;
-		QSize mSize;
+		QSize mPreviousSize;
 	};
 }
 

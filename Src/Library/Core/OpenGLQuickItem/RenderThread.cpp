@@ -5,13 +5,13 @@
 
 namespace t3d
 {
-	OpenGLQuickItem::RenderThread::RenderThread(const QSize &size, IOpenGLRenderable *renderable) :
+	OpenGLQuickItem::RenderThread::RenderThread(const QQuickItem *hostItem, IOpenGLRenderable *renderable) :
 		mSurface(nullptr),
 		mContext(nullptr),
+		mHostItem(hostItem),
 		mRenderFbo(nullptr),
 		mDisplayFbo(nullptr),
-		mRenderable(renderable),
-		mSize(size)
+		mRenderable(renderable)
 	{
 		OpenGLQuickItem::enqueue(this);
 	}
@@ -40,24 +40,35 @@ namespace t3d
 		mContext->doneCurrent();
 		mContext->makeCurrent(mSurface);
 
-		if (!mRenderFbo)
+		//was there a resize?
+		QSize currentSize(mHostItem->width(), mHostItem->height());
+		bool resized = (currentSize != mPreviousSize);
+
+		if (resized || !mRenderFbo)
 		{
+			bool needsInitAfter = !mRenderFbo;
+
 			QOpenGLFramebufferObjectFormat format;
 			format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
-			mRenderFbo = new QOpenGLFramebufferObject(mSize, format);
-			mDisplayFbo = new QOpenGLFramebufferObject(mSize, format);
-			mRenderable->init();
+			mRenderFbo = new QOpenGLFramebufferObject(currentSize, format);
+			mDisplayFbo = new QOpenGLFramebufferObject(currentSize, format);
+
+
+			if (needsInitAfter)
+				mRenderable->init();
 		}
 
+		mPreviousSize = currentSize;
+
 		mRenderFbo->bind();
-		mContext->functions()->glViewport(0, 0, mSize.width(), mSize.height());
+		mContext->functions()->glViewport(0, 0, currentSize.width(), currentSize.height());
 
 		mRenderable->render();
 		mContext->functions()->glFlush();
 		mRenderFbo->bindDefault();
 		qSwap(mRenderFbo, mDisplayFbo);
 
-		emit textureReady(mDisplayFbo->texture(), mSize);
+		emit textureReady(mDisplayFbo->texture(), currentSize);
 	}
 
 
