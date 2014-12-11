@@ -36,7 +36,8 @@ namespace t3d
 		//mCamera.init();
 		//mCamera.resize(width(), height());
 
-		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate, this, &Terrain3D::willUpdate);
+		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
+				this, &Terrain3D::willUpdate);
 		backgroundUpdater.start();
 	}
 
@@ -45,7 +46,7 @@ namespace t3d
 	{
 		if (mCamera.isNull())
 		{
-			if (QuickItems::CameraItem *camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera"))
+			if (auto camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera"))
 			{
 				camera->setWorld(&mWorld);
 				mCamera = camera->camera();
@@ -73,7 +74,7 @@ namespace t3d
 				{
 					const double mouseSensitivity = 0.1f;
 					QVector2D delta = consumeCursorDelta();
-					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, -delta.y()*mouseSensitivity);
+					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 
 					resetCursorPosition();
 				}

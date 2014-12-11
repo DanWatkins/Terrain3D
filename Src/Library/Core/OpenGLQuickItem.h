@@ -14,7 +14,9 @@ namespace t3d
 	};
 
 
-	class OpenGLQuickItem : public QQuickItem, protected IOpenGLRenderable, protected OpenGLFunctions
+	class OpenGLQuickItem : public QQuickItem,
+							protected IOpenGLRenderable,
+							protected OpenGLFunctions
 	{
 		Q_OBJECT
 

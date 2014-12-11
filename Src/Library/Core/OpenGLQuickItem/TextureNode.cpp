@@ -11,6 +11,7 @@ namespace t3d
 		mTexture = mWindow->createTextureFromId(0, QSize(1, 1));
 		setTexture(mTexture);
 		setFiltering(QSGTexture::Linear);
+		setTextureCoordinatesTransform(QSGSimpleTextureNode::MirrorVertically);
 	}
 
 
