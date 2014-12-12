@@ -33,6 +33,8 @@ private:
 
 	static QSettings *mSettings;
 	static const QString mVersion;
+
+	static QString stringNameForKey(Key key);
 };
 
 #endif

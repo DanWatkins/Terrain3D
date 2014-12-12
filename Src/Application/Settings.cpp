@@ -6,10 +6,14 @@
 //==================================================================================================================|
 
 #include "Settings.h"
+
 #include <QtCore/QDir>
+#include <QMetaEnum>
 
 QSettings *Settings::mSettings = nullptr;
 const QString Settings::mVersion = "0.0.0";
+
+//TODO man, you need to unit test this
 
 void Settings::init()
 {
@@ -23,10 +27,19 @@ void Settings::init()
 void Settings::setValue(Key key, const QVariant &value)
 {
 	qDebug() << "Setting value " << value << "for key " << static_cast<int>(key);
+	mSettings->setValue(stringNameForKey(key), value);
 }
 
 
 QVariant Settings::value(Key key)
 {
-	return QVariant("Very Cool Text");
+	return mSettings->value(stringNameForKey(key), "");
+}
+
+
+QString Settings::stringNameForKey(Key key)
+{
+	const QMetaObject &mo = Settings::staticMetaObject;
+	QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("Key"));
+	return me.valueToKey(key);
 }
