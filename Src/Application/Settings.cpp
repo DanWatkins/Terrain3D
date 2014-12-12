@@ -30,8 +30,9 @@ void Settings::init()
 
 void Settings::setValue(Key key, const QVariant &value)
 {
-	qDebug() << "Setting value " << value << "for key " << static_cast<int>(key);
-	mSettings->setValue(stringNameForKey(key), value);
+	QString name = stringNameForKey(key);
+	qDebug() << "Setting value " << value << "for key " << name;
+	mSettings->setValue(name, value);
 }
 
 
@@ -52,6 +53,8 @@ QString Settings::stringNameForKey(Key key)
 void Settings::initDefaultValues()
 {
 	mDefaultValues[KeyShowHud] = true;
+
+	mDefaultValues[KeyWireframe] = true;
 }
 
 

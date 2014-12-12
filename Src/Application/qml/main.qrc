@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Terrain3DWindow.qml</file>
+		<file>SettingsPane.qml</file>
     </qresource>
 </RCC>

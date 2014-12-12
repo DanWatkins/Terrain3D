@@ -24,7 +24,9 @@ public:
 	enum Key
 	{
 		KeyShowHud,
-		KeyFullscreen
+
+		//renderer
+		KeyWireframe
 	}; Q_ENUMS(Key)
 
 	Q_INVOKABLE static void setValue(Key key, const QVariant &value);
