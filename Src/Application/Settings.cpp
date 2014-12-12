@@ -13,6 +13,7 @@
 QSettings *Settings::mSettings = nullptr;
 const QString Settings::mVersion = "0.0.0";
 QHash<Settings::Key, QVariant> Settings::mDefaultValues;
+QList<SettingsListener*> Settings::mListeners;
 
 //TODO man, you need to unit test this
 
@@ -28,11 +29,16 @@ void Settings::init()
 }
 
 
-void Settings::setValue(Key key, const QVariant &value)
+void Settings::setValue(Key key, const QVariant &newValue)
 {
 	QString name = stringNameForKey(key);
-	qDebug() << "Setting value " << value << "for key " << name;
-	mSettings->setValue(name, value);
+	qDebug() << "Setting value " << newValue << "for key " << name;
+
+	QVariant oldValue = value(key);
+	for (auto i : mListeners)
+		i->settingsValueUpdated(key, newValue, oldValue);
+
+	mSettings->setValue(name, newValue);
 }
 
 
@@ -41,6 +47,14 @@ QVariant Settings::value(Key key)
 	return mSettings->value(stringNameForKey(key), mDefaultValues[key]);
 }
 
+
+void Settings::addListener(SettingsListener *listener)
+{
+	if (listener != nullptr  &&  !mListeners.contains(listener))
+		mListeners.push_back(listener);
+}
+
+///// PRIVATE
 
 QString Settings::stringNameForKey(Key key)
 {

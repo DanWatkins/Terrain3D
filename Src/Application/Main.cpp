@@ -22,11 +22,24 @@ static QObject* settingsSingletonProvider(QQmlEngine *engine, QJSEngine *scriptE
 	return new Settings();
 }
 
+class Listener : public SettingsListener
+{
+public:
+	void settingsValueUpdated(Settings::Key key, const QVariant &newValue,
+							  const QVariant &oldValue) override
+	{
+		qDebug() << "Override called!!!!";
+	}
+};
+
 
 int main(int argc, char *argv[])
 {	
 	QGuiApplication app(argc, argv);
 	Settings::init();
+
+	Listener l;
+	Settings::addListener(&l);
 
 	//set all the QuickItem types
 	{
