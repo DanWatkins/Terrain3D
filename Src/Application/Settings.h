@@ -63,6 +63,13 @@ public:
 	 */
 	static void addListener(SettingsListener *listener);
 
+	/**
+	 * @brief Removes \p listener from the list of listeners.
+	 *
+	 * @param listener The listener to be removed
+	 */
+	static void removeListener(SettingsListener *listener);
+
 private:
 	Q_DISABLE_COPY(Settings)
 

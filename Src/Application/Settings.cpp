@@ -54,6 +54,12 @@ void Settings::addListener(SettingsListener *listener)
 		mListeners.push_back(listener);
 }
 
+
+void Settings::removeListener(SettingsListener *listener)
+{
+	mListeners.removeOne(listener);
+}
+
 ///// PRIVATE
 
 QString Settings::stringNameForKey(Key key)

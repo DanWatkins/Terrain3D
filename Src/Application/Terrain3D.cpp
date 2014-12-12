@@ -42,6 +42,28 @@ namespace t3d
 	}
 
 
+	void Terrain3D::settingsValueUpdated(Settings::Key key,
+										 const QVariant &newValue,
+										 const QVariant &oldValue)
+	{
+		typedef Settings::Key key_t;
+
+		switch (key)
+		{
+			case key_t::KeyShowHud: break;
+
+			//graphics
+			case key_t::KeyWireframe:
+			{
+				typedef World::Terrain::Mode Mode;
+				mCamera.toStrongRef()->setMode(newValue.toBool() ?
+												Mode::WireFrame : Mode::Normal);
+				break;
+			}
+		}
+	}
+
+
 	void Terrain3D::willUpdate()
 	{
 		if (mCamera.isNull())

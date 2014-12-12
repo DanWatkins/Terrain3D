@@ -38,9 +38,6 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 	Settings::init();
 
-	Listener l;
-	Settings::addListener(&l);
-
 	//set all the QuickItem types
 	{
 		using namespace t3d::QuickItems;
@@ -54,10 +51,12 @@ int main(int argc, char *argv[])
 	int execReturn = 0;
 	{
 		t3d::Terrain3D mainWindow;
+		Settings::addListener(&mainWindow);
 		mainWindow.init();
 		mainWindow.show();
 
 		execReturn = app.exec();
+		Settings::removeListener(&mainWindow);
 	}
 
 	qDebug() << "Ending all render threads";	//xyzm

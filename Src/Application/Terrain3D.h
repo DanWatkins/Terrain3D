@@ -10,6 +10,7 @@
 
 #include "OpenGLQuickView.h"
 #include "BackgroundUpdater.h"
+#include "Settings.h"
 
 #include <Main.h>
 #include <World/World.h>
@@ -30,7 +31,7 @@ namespace t3d
 	/**
 	 * Represents the main application
 	 */
-	class Terrain3D : public OpenGLQuickView
+	class Terrain3D : public OpenGLQuickView, public SettingsListener
 	{
 		Q_OBJECT
 	private:
@@ -49,6 +50,12 @@ namespace t3d
 		~Terrain3D();
 		void init();
 
+		/**
+		 * @see SettingsListener::settingsValueUpdated()
+		 */
+		void settingsValueUpdated(Settings::Key key,
+								  const QVariant &newValue,
+								  const QVariant &oldValue);
 
 	public slots:
 		void willUpdate();
