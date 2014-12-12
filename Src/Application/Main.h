@@ -30,7 +30,7 @@
 #endif
 
 
-
+#include <QtCore/QDebug>
 
 #endif
 

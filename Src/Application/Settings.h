@@ -9,6 +9,7 @@
 #define _t3d_SETTINGS_H
 
 #include <QtCore/QSettings>
+#include "Main.h"
 
 class Settings : public QObject
 {
@@ -18,7 +19,14 @@ public:
 	Settings() {}
 	static void init();
 
-	Q_INVOKABLE static int compute() { return 6; }
+	enum Key
+	{
+		KeyShowHud
+	}; Q_ENUMS(Key)
+
+
+	Q_INVOKABLE static void setValue(Key key, const QVariant &value);
+	Q_INVOKABLE static QVariant value(Key key);
 
 private:
 	Q_DISABLE_COPY(Settings)

@@ -16,6 +16,6 @@ Terrain3DWindow {
     }
 
     Button {
-        width: MySettings.compute()
+        text: MySettings.value(MySettings.KeyShowHud)
     }
 }
