@@ -6,14 +6,17 @@
 //==================================================================================================================|
 
 #include <QtGui/QGuiApplication>
+#include <QtCore/QSettings>
 
 #include "Main.h"
 #include "Terrain3D.h"
+#include "Settings.h"
 
 #include <QuickItems/CameraItem.h>
 
 int main(int argc, char *argv[])
 {
+	Settings::init();
 	QGuiApplication app(argc, argv);
 
 	//set all the QuickItem types

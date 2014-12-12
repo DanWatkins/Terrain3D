@@ -27,12 +27,14 @@ HEADERS += \
     ../../Src/Application/OpenGLQuickView.h \
     ../../Src/Application/QuickItems/CameraItem.h \
     ../../Src/Application/BackgroundUpdater.h \
+    ../../Src/Application/Settings.h
 
 SOURCES += \
     ../../Src/Application/Main.cpp \
     ../../Src/Application/OpenGLQuickView.cpp \
     ../../Src/Application/Terrain3D.cpp \
     ../../Src/Application/QuickItems/CameraItem.cpp \
+    ../../Src/Application/Settings.cpp
 
 OTHER_FILES += \
     ../../Bin/Shaders/camera-frag.glsl \
