@@ -14,16 +14,28 @@
 
 #include <QuickItems/CameraItem.h>
 
-int main(int argc, char *argv[])
+static QObject* settingsSingletonProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
-	Settings::init();
+	Q_UNUSED(engine)
+	Q_UNUSED(scriptEngine)
+
+	return new Settings();
+}
+
+
+int main(int argc, char *argv[])
+{	
 	QGuiApplication app(argc, argv);
+	Settings::init();
 
 	//set all the QuickItem types
 	{
 		using namespace t3d::QuickItems;
 
 		qmlRegisterType<CameraItem>("Terrain3D", 1, 0, "Camera");
+		qmlRegisterSingletonType<Settings>("Terrain3D.Settings", 1, 0,
+								 "MySettings",
+								 settingsSingletonProvider);
 	}
 
 	int execReturn = 0;

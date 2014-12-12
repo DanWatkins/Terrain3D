@@ -10,11 +10,15 @@
 
 #include <QtCore/QSettings>
 
-class Settings
+class Settings : public QObject
 {
+	Q_OBJECT
+
 public:
-	Settings() = delete;
+	Settings() {}
 	static void init();
+
+	Q_INVOKABLE static int compute() { return 6; }
 
 private:
 	Q_DISABLE_COPY(Settings)
