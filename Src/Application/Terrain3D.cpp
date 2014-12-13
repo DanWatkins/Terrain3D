@@ -56,8 +56,8 @@ namespace t3d
 			case key_t::KeyWireframe:
 			{
 				typedef World::Terrain::Mode Mode;
-				mCamera.toStrongRef()->setMode(newValue.toBool() ?
-												Mode::WireFrame : Mode::Normal);
+				//mCamera.toStrongRef()->setMode(newValue.toBool() ?
+				//								Mode::WireFrame : Mode::Normal);
 				break;
 			}
 		}

@@ -54,7 +54,8 @@ public:
 	 *
 	 * @param key The key to find a value for
 	 */
-	Q_INVOKABLE static QVariant value(Key key);
+	static QVariant value(Key key);
+	Q_INVOKABLE static bool boolValue(Key key);
 
 	/**
 	 * @brief Adds \p listener to a list. All delegate methods are called

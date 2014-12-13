@@ -16,6 +16,7 @@ Item {
     }
 
 
+
     GroupBox {
         title: "Graphics"
 
@@ -29,10 +30,13 @@ Item {
             CheckBox {
                 id: wireframe
                 text: "Wireframe"
-
                 Layout.fillWidth: true
 
-                onCheckedChanged: MySettings.setValue(MySettings.KeyWireframe, wireframe.checked)
+                checked: MySettings.boolValue(MySettings.KeyWireframe)
+                onCheckedChanged: {
+                    MySettings.setValue(MySettings.KeyWireframe,
+                                        wireframe.checked)
+                }
             }
 
             RowLayout {

@@ -7,6 +7,7 @@
 
 #include <QtGui/QGuiApplication>
 #include <QtCore/QSettings>
+#include <QQmlContext>
 
 #include "Main.h"
 #include "Terrain3D.h"
@@ -33,10 +34,14 @@ public:
 };
 
 
+
+
+
 int main(int argc, char *argv[])
 {	
 	QGuiApplication app(argc, argv);
 	Settings::init();
+
 
 	//set all the QuickItem types
 	{

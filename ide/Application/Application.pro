@@ -27,7 +27,7 @@ HEADERS += \
     ../../Src/Application/OpenGLQuickView.h \
     ../../Src/Application/QuickItems/CameraItem.h \
     ../../Src/Application/BackgroundUpdater.h \
-    ../../Src/Application/Settings.h
+    ../../Src/Application/Settings.h \
 
 SOURCES += \
     ../../Src/Application/Main.cpp \
