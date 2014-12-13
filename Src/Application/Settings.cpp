@@ -45,7 +45,12 @@ void Settings::setValue(Key key, const QVariant &newValue)
 QVariant Settings::value(Key key)
 {
 	QVariant value = mSettings->value(stringNameForKey(key), mDefaultValues[key]);
-	qDebug() << "Returning value " << value;
+	qDebug() << "Returning value " << value << " " << value.typeName();
+
+	if (QString(value.typeName()) == "QString" &&
+		(value.toString() == "false" || value.toString() == "true"))
+		return QVariant(value.toBool());
+
 	return value;
 }
 

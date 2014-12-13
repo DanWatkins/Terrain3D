@@ -32,7 +32,7 @@ Item {
                 text: "Wireframe"
                 Layout.fillWidth: true
 
-                checked: MySettings.boolValue(MySettings.KeyWireframe)
+                checked: MySettings.value(MySettings.KeyWireframe)
                 onCheckedChanged: {
                     MySettings.setValue(MySettings.KeyWireframe,
                                         wireframe.checked)

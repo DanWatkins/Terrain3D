@@ -54,7 +54,7 @@ public:
 	 *
 	 * @param key The key to find a value for
 	 */
-	static QVariant value(Key key);
+	Q_INVOKABLE static QVariant value(Key key);
 	Q_INVOKABLE static bool boolValue(Key key);
 
 	/**
