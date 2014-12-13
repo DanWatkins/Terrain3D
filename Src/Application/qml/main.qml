@@ -15,9 +15,6 @@ Terrain3DWindow {
     }
 
     SettingsPane {
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        width: 160
+        anchors.fill: parent
     }
 }

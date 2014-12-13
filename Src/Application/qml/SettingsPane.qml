@@ -2,53 +2,63 @@ import QtQuick 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import Terrain3D.Settings 1.0
+import "./Settings"
 
 Item {
     Rectangle {
         anchors.fill: parent
 
-        opacity: 0.45
-        color: "blue"
-
-        border.width: 2
-        border.color: "black"
+        color: "black"
+        opacity: 0.35
     }
 
 
+    Rectangle {
+        anchors.centerIn: parent
+        width: 600
+        height: 420
 
-    GroupBox {
-        title: "Graphics"
+        color: "#beae98"
+        anchors.verticalCenterOffset: 0
+        anchors.horizontalCenterOffset: -20
+        opacity: 0.85
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: 5
+        TabView {
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 10
+            height: 360
 
-        ColumnLayout {
-            anchors.fill: parent
+            Controls {
 
-            CheckBox {
-                id: wireframe
-                text: "Wireframe"
-                Layout.fillWidth: true
-
-                checked: MySettings.value(MySettings.KeyWireframe)
-                onCheckedChanged: {
-                    MySettings.setValue(MySettings.KeyWireframe,
-                                        wireframe.checked)
-                }
             }
 
-            RowLayout {
-                Layout.fillWidth: true
+            Graphics {
 
-                Slider {
-                    Layout.fillWidth: true
-                }
-                Text {
-                    text: "LOD"
-                }
             }
+
+            World {
+
+            }
+        }
+
+        Button {
+            id: button1
+            x: 10
+            y: 376
+            width: 75
+            height: 36
+            text: qsTr("OK")
+        }
+
+        Button {
+            id: button2
+            x: 91
+            y: 376
+            width: 75
+            height: 36
+            text: qsTr("Cancel")
         }
     }
 }
