@@ -113,6 +113,8 @@ namespace t3d
 
 	void Terrain3D::keyPressEvent(QKeyEvent *ev)
 	{
+		QQuickView::keyPressEvent(ev);
+
 		using namespace World::Terrain;
 		const float speed = 1.75f;
 

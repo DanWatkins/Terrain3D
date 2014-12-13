@@ -4,5 +4,12 @@ import QtQuick.Controls 1.2
 
 
 Tab {
+    x: 0
+    height: 0
     title: "Controls"
+
+    Text {
+        anchors.centerIn: parent
+        text: qsTr("Not implemented yet...")
+    }
 }

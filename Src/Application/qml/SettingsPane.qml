@@ -30,16 +30,21 @@ Item {
             anchors.margins: 10
             height: 360
 
-            Controls {
 
+            Controls {}
+
+            Tab {
+                title: "Graphics"
+                Graphics {
+
+                }
             }
 
-            Graphics {
+            Tab {
+                title: "World"
+                World {
 
-            }
-
-            World {
-
+                }
             }
         }
 
