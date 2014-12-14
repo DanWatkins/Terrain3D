@@ -55,13 +55,6 @@ Item {
         height: 300
         title: qsTr("Camera")
 
-        Label {
-            id: label2
-            x: 0
-            y: 4
-            text: qsTr("Position:")
-        }
-
         SpinBox {
             id: spinBox3
             x: 47
@@ -98,13 +91,6 @@ Item {
             tickmarksEnabled: true
         }
 
-        Label {
-            id: label3
-            x: 8
-            y: 38
-            text: qsTr("FOV:")
-        }
-
         Slider {
             id: sliderHorizontal2
             x: 47
@@ -114,18 +100,33 @@ Item {
             tickmarksEnabled: true
         }
 
-        Label {
-            id: label4
-            x: 8
-            y: 66
-            text: qsTr("LOD:")
-        }
-
         CheckBox {
             id: checkBox2
             x: 47
             y: 89
             text: qsTr("Render wireframe")
+        }
+
+        ////////// LABELS
+        Label {
+            id: label2
+            x: 0
+            y: 4
+            text: qsTr("Position:")
+        }
+
+        Label {
+            id: label3
+            x: 8
+            y: 38
+            text: qsTr("FOV:")
+        }
+
+        Label {
+            id: label4
+            x: 8
+            y: 66
+            text: qsTr("LOD:")
         }
     }
 }

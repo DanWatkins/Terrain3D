@@ -14,23 +14,33 @@ Item {
         height: 257
         title: qsTr("Generator")
 
+
+        ComboBox {
+            id: comboBox_worldGeneratorSize
+            x: 125
+            y: 1
+        }
+
+        ComboBox {
+            id: comboBox_generatorTextureMapResolution
+            x: 125
+            y: 27
+        }
+
+        SpinBox {
+            id: spinBox_generatorSeed
+            x: 124
+            y: 54
+            width: 125
+            height: 20
+            maximumValue: 9999999
+        }
+
         Label {
             id: label1
             x: 95
             y: 5
             text: qsTr("Size:")
-        }
-
-        ComboBox {
-            id: comboBox1
-            x: 124
-            y: 1
-        }
-
-        ComboBox {
-            id: comboBox2
-            x: 124
-            y: 27
         }
 
         Label {
@@ -47,14 +57,6 @@ Item {
             text: qsTr("Seed:")
         }
 
-        SpinBox {
-            id: spinBox1
-            x: 124
-            y: 54
-            width: 125
-            height: 20
-            maximumValue: 9999999
-        }
     }
 
     GroupBox {
@@ -66,7 +68,7 @@ Item {
         title: qsTr("Terrain")
 
         SpinBox {
-            id: spinBox2
+            id: spinBox_terrainSpacing
             x: 66
             y: 0
             width: 80
@@ -81,7 +83,7 @@ Item {
         }
 
         SpinBox {
-            id: spinBox3
+            id: spinBox_terrainHeightScale
             x: 66
             y: 26
             width: 80
@@ -103,7 +105,7 @@ Item {
         }
 
         ComboBox {
-            id: comboBox3
+            id: comboBox_terrainBlockSize
             x: 58
             y: 53
             width: 88
@@ -111,7 +113,7 @@ Item {
         }
 
         ComboBox {
-            id: comboBox4
+            id: comboBox_terrainSpanSize
             x: 58
             y: 79
             width: 88
