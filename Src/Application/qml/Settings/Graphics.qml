@@ -3,6 +3,12 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 Item {
+    function saveAllSettings()
+    {
+        console.log("Saving for graphics pane");
+    }
+
+
     width: 600
     height: 400
     GroupBox {

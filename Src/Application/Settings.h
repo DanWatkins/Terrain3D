@@ -44,12 +44,29 @@ public:
 	}; Q_ENUMS(Key)
 
 	/**
+	 * @brief Each key/value enqueued with enqueueValue() is applied to the
+	 * settings by calls to setValue().
+	 */
+	void applyQueuedValues();
+
+	/**
+	 * @brief Removes all queued settings from the settings queue.
+	 */
+	void clearQueuedValues() { mSettingsQueue.clear(); }
+
+	/**
+	 * Enques the \p key and \p value in a temporary queue which can later be
+	 * be applied using applyQueuedValues().
+	 */
+	Q_INVOKABLE void enqueueValue(Key key, const QVariant &newValue);
+
+	/**
 	 * @brief Assigns \p value to be associated with \p key.
 	 *
 	 * @param key The key to associate with
 	 * @param value The value to associate with
 	 */
-	Q_INVOKABLE void setValue(Key key, const QVariant &newValue);
+	void setValue(Key key, const QVariant &newValue);
 
 	/**
 	 * @returns The value associated with \p key. If the key does not exists, a
@@ -58,7 +75,6 @@ public:
 	 * @param key The key to find a value for
 	 */
 	Q_INVOKABLE QVariant value(Key key);
-	Q_INVOKABLE bool boolValue(Key key);
 
 	/**
 	 * @brief Adds \p listener to a list. All delegate methods are called
@@ -81,6 +97,7 @@ private:
 	const QString mVersion;
 	QHash<Key, QVariant> mDefaultValues;
 	QList<SettingsListener*> mListeners;
+	QList<QPair<Key, QVariant>> mSettingsQueue;
 
 	QString stringNameForKey(Key key);
 	void initDefaultValues();

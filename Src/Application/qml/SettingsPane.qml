@@ -27,6 +27,12 @@ Item {
         opacity: 0.85
 
         TabView {
+            function saveAll() {
+                tab_graphics.saveAll();
+                pane_world.saveAllSettings();
+            }
+
+            id: tabView
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.right: parent.right
@@ -34,35 +40,39 @@ Item {
             height: 360
 
             Tab {
+                id: tab_graphics
                 title: "Graphics"
-                Graphics {
+                Graphics { id: pane_graphics }
 
+                function saveAll() {
+                    pane_graphics.saveAllSettings();
                 }
             }
 
             Tab {
                 title: "World"
-                World {
-
-                }
+                World { id: pane_world }
             }
 
             Controls {}
         }
 
         Button {
-            id: button1
+            id: button_confirm
             x: 10
             y: 376
             width: 75
             height: 36
             text: qsTr("OK")
 
-            onClicked: root.destroy();
+            onClicked: {
+                tab_graphics.saveAll();
+                root.destroy();
+            }
         }
 
         Button {
-            id: button2
+            id: button_cancel
             x: 91
             y: 376
             width: 75

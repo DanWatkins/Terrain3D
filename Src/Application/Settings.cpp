@@ -24,6 +24,17 @@ void Settings::init()
 }
 
 
+void Settings::applyQueuedValues()
+{
+	qDebug() << "Applying queued values";
+
+	for (auto i : mSettingsQueue)
+		setValue(i.first, i.second);
+
+	mSettingsQueue.clear();
+}
+
+
 void Settings::setValue(Key key, const QVariant &newValue)
 {
 	QString name = stringNameForKey(key);
@@ -37,6 +48,14 @@ void Settings::setValue(Key key, const QVariant &newValue)
 }
 
 
+void Settings::enqueueValue(Key key, const QVariant &newValue)
+{
+	qDebug() << "Enqueing setting: " << stringNameForKey(key) << " " << newValue;
+	mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
+}
+
+
+
 QVariant Settings::value(Key key)
 {
 	QVariant value = mSettings->value(stringNameForKey(key), mDefaultValues[key]);
@@ -47,12 +66,6 @@ QVariant Settings::value(Key key)
 		return QVariant(value.toBool());
 
 	return value;
-}
-
-
-bool Settings::boolValue(Key key)
-{
-	return value(key).toBool();
 }
 
 

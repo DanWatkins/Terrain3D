@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	{
 		t3d::Terrain3D mainWindow;
 		mainSettings.addListener(&mainWindow);
-		mainWindow.rootContext()->setContextProperty("MySettings", &mainSettings);
+		mainWindow.rootContext()->setContextProperty("Settings", &mainSettings);
 		mainWindow.init();
 		mainWindow.show();
 
