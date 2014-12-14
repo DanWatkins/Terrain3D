@@ -5,6 +5,8 @@ import QtQuick.Controls 1.2
 import "./Settings"
 
 Item {
+    id: root
+
     Rectangle {
         anchors.fill: parent
 
@@ -18,7 +20,8 @@ Item {
         width: 600
         height: 420
 
-        color: "#beae98"
+        color: "#4a65a3"
+        radius: 10
         anchors.verticalCenterOffset: 0
         anchors.horizontalCenterOffset: -20
         opacity: 0.85
@@ -55,6 +58,8 @@ Item {
             width: 75
             height: 36
             text: qsTr("OK")
+
+            onClicked: root.destroy();
         }
 
         Button {
@@ -64,6 +69,8 @@ Item {
             width: 75
             height: 36
             text: qsTr("Cancel")
+
+            onClicked: root.destroy();
         }
     }
 }
