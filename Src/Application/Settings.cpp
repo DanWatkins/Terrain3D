@@ -10,11 +10,6 @@
 #include <QtCore/QDir>
 #include <QMetaEnum>
 
-QSettings *Settings::mSettings = nullptr;
-const QString Settings::mVersion = "0.0.0";
-QHash<Settings::Key, QVariant> Settings::mDefaultValues;
-QList<SettingsListener*> Settings::mListeners;
-
 //TODO man, you need to unit test this
 
 void Settings::init()

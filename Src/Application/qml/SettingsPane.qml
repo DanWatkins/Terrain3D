@@ -11,7 +11,7 @@ Item {
         anchors.fill: parent
 
         color: "black"
-        opacity: 0.35
+        opacity: 0.45
     }
 
 
@@ -21,7 +21,7 @@ Item {
         height: 420
 
         color: "#4a65a3"
-        radius: 10
+        radius: 6
         anchors.verticalCenterOffset: 0
         anchors.horizontalCenterOffset: -20
         opacity: 0.85
@@ -32,9 +32,6 @@ Item {
             anchors.right: parent.right
             anchors.margins: 10
             height: 360
-
-
-            Controls {}
 
             Tab {
                 title: "Graphics"
@@ -49,6 +46,8 @@ Item {
 
                 }
             }
+
+            Controls {}
         }
 
         Button {

@@ -15,13 +15,7 @@
 
 #include <QuickItems/CameraItem.h>
 
-static QObject* settingsSingletonProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-	Q_UNUSED(engine)
-	Q_UNUSED(scriptEngine)
 
-	return new Settings();
-}
 
 class Listener : public SettingsListener
 {
@@ -33,14 +27,20 @@ public:
 	}
 };
 
+Settings mainSettings;
 
+static QObject* settingsProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
+{
+	Q_UNUSED(engine)
+	Q_UNUSED(scriptEngine)
 
-
+	return &mainSettings;
+}
 
 int main(int argc, char *argv[])
 {	
 	QGuiApplication app(argc, argv);
-	Settings::init();
+	mainSettings.init();
 
 
 	//set all the QuickItem types
@@ -48,20 +48,18 @@ int main(int argc, char *argv[])
 		using namespace t3d::QuickItems;
 
 		qmlRegisterType<CameraItem>("Terrain3D", 1, 0, "Camera");
-		qmlRegisterSingletonType<Settings>("Terrain3D.Settings", 1, 0,
-								 "MySettings",
-								 settingsSingletonProvider);
 	}
 
 	int execReturn = 0;
 	{
 		t3d::Terrain3D mainWindow;
-		Settings::addListener(&mainWindow);
+		mainSettings.addListener(&mainWindow);
+		mainWindow.rootContext()->setContextProperty("MySettings", &mainSettings);
 		mainWindow.init();
 		mainWindow.show();
 
 		execReturn = app.exec();
-		Settings::removeListener(&mainWindow);
+		mainSettings.removeListener(&mainWindow);
 	}
 
 	qDebug() << "Ending all render threads";	//xyzm

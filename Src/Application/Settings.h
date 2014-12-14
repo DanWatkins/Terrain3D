@@ -24,13 +24,16 @@ public:
 	 * @brief The default constructor is only available for QML. Instantiating
 	 * a Settings instance in C++ is pointless.
 	 */
-	Settings() {}
+	Settings() :
+		mSettings(nullptr),
+		mVersion("0.0.0")
+	{}
 
 	/**
 	 * @brief Loads the settings from file and creates a table of default values.
 	 * Should be called once at the begining before any QApplications exist.
 	 */
-	static void init();
+	void init();
 
 	enum Key
 	{
@@ -46,7 +49,7 @@ public:
 	 * @param key The key to associate with
 	 * @param value The value to associate with
 	 */
-	Q_INVOKABLE static void setValue(Key key, const QVariant &newValue);
+	Q_INVOKABLE void setValue(Key key, const QVariant &newValue);
 
 	/**
 	 * @returns The value associated with \p key. If the key does not exists, a
@@ -54,34 +57,34 @@ public:
 	 *
 	 * @param key The key to find a value for
 	 */
-	Q_INVOKABLE static QVariant value(Key key);
-	Q_INVOKABLE static bool boolValue(Key key);
+	Q_INVOKABLE QVariant value(Key key);
+	Q_INVOKABLE bool boolValue(Key key);
 
 	/**
 	 * @brief Adds \p listener to a list. All delegate methods are called
 	 * as documented.
 	 * @param listener The listener to add
 	 */
-	static void addListener(SettingsListener *listener);
+	void addListener(SettingsListener *listener);
 
 	/**
 	 * @brief Removes \p listener from the list of listeners.
 	 *
 	 * @param listener The listener to be removed
 	 */
-	static void removeListener(SettingsListener *listener);
+	void removeListener(SettingsListener *listener);
 
 private:
 	Q_DISABLE_COPY(Settings)
 
-	static QSettings *mSettings;
-	static const QString mVersion;
-	static QHash<Key, QVariant> mDefaultValues;
-	static QList<SettingsListener*> mListeners;
+	QSettings *mSettings;
+	const QString mVersion;
+	QHash<Key, QVariant> mDefaultValues;
+	QList<SettingsListener*> mListeners;
 
-	static QString stringNameForKey(Key key);
-	static void initDefaultValues();
-	static void checkForMissingDefaultValues();
+	QString stringNameForKey(Key key);
+	void initDefaultValues();
+	void checkForMissingDefaultValues();
 };
 
 class SettingsListener
