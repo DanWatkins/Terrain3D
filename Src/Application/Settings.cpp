@@ -24,21 +24,11 @@ void Settings::init()
 }
 
 
-void Settings::applyQueuedValues()
-{
-	qDebug() << "Applying queued values";
-
-	for (auto i : mSettingsQueue)
-		setValue(i.first, i.second);
-
-	mSettingsQueue.clear();
-}
 
 
 void Settings::setValue(Key key, const QVariant &newValue)
 {
 	QString name = stringNameForKey(key);
-	qDebug() << "Setting value " << newValue << "for key " << name;
 
 	QVariant oldValue = value(key);
 	for (auto i : mListeners)
@@ -48,18 +38,9 @@ void Settings::setValue(Key key, const QVariant &newValue)
 }
 
 
-void Settings::enqueueValue(Key key, const QVariant &newValue)
-{
-	//qDebug() << "Enqueing setting: " << stringNameForKey(key) << " " << newValue;
-	mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
-}
-
-
-
 QVariant Settings::value(Key key)
 {
 	QVariant value = mSettings->value(stringNameForKey(key), mDefaultValues[key]);
-	qDebug() << "Returning value " << value << " " << value.typeName();
 
 	if (QString(value.typeName()) == "QString" &&
 		(value.toString() == "false" || value.toString() == "true"))
@@ -80,6 +61,22 @@ void Settings::removeListener(SettingsListener *listener)
 {
 	mListeners.removeOne(listener);
 }
+
+
+void Settings::applyQueuedValues()
+{
+	for (auto i : mSettingsQueue)
+		setValue(i.first, i.second);
+
+	mSettingsQueue.clear();
+}
+
+
+void Settings::enqueueValue(Key key, const QVariant &newValue)
+{
+	mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
+}
+
 
 ///// PRIVATE
 

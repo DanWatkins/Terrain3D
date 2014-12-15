@@ -7,22 +7,22 @@ import "SaveLoad.js" as SaveLoad
 
 Item {
     function loadSettings() {
-        SaveLoad.sbRead(Settings.WorldGeneratorSeed, spinBox_generatorSeed);
+        SaveLoad.valueRead(Settings.WorldGeneratorSeed, spinBox_generatorSeed);
         SaveLoad.cbRead(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
         SaveLoad.cbRead(Settings.WorldGeneratorTextureMapResolution,comboBox_generatorTextureMapResolution);
         SaveLoad.cbRead(Settings.WorldTerrainBlockSize,comboBox_terrainBlockSize);
-        SaveLoad.sbRead(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
-        SaveLoad.sbRead(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
+        SaveLoad.valueRead(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
+        SaveLoad.valueRead(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
         SaveLoad.cbRead(Settings.WorldTerrainSpanSize,comboBox_terrainSpanSize);
     }
 
     function saveSettings() {
-        SaveLoad.sbSave(Settings.WorldGeneratorSeed, spinBox_generatorSeed);
+        SaveLoad.valueSave(Settings.WorldGeneratorSeed, spinBox_generatorSeed);
         SaveLoad.cbSave(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
         SaveLoad.cbSave(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution);
         SaveLoad.cbSave(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize);
-        SaveLoad.sbSave(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
-        SaveLoad.sbSave(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
+        SaveLoad.valueSave(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
+        SaveLoad.valueSave(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
         SaveLoad.cbSave(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize);
     }
 

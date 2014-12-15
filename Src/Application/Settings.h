@@ -61,23 +61,6 @@ public:
 	}; Q_ENUMS(Key)
 
 	/**
-	 * @brief Each key/value enqueued with enqueueValue() is applied to the
-	 * settings by calls to setValue().
-	 */
-	Q_INVOKABLE void applyQueuedValues();
-
-	/**
-	 * @brief Removes all queued settings from the settings queue.
-	 */
-	void clearQueuedValues() { mSettingsQueue.clear(); }
-
-	/**
-	 * Enques the \p key and \p value in a temporary queue which can later be
-	 * be applied using applyQueuedValues().
-	 */
-	Q_INVOKABLE void enqueueValue(Key key, const QVariant &newValue);
-
-	/**
 	 * @brief Assigns \p value to be associated with \p key.
 	 *
 	 * @param key The key to associate with
@@ -93,6 +76,7 @@ public:
 	 */
 	Q_INVOKABLE QVariant value(Key key);
 
+
 	/**
 	 * @brief Adds \p listener to a list. All delegate methods are called
 	 * as documented.
@@ -106,6 +90,24 @@ public:
 	 * @param listener The listener to be removed
 	 */
 	void removeListener(SettingsListener *listener);
+
+
+	/**
+	 * @brief Each key/value enqueued with enqueueValue() is applied to the
+	 * settings by calls to setValue().
+	 */
+	Q_INVOKABLE void applyQueuedValues();
+
+	/**
+	 * @brief Removes all queued settings from the settings queue.
+	 */
+	void clearQueuedValues() { mSettingsQueue.clear(); }
+
+	/**
+	 * Enques the \p key and \p value in a temporary queue which can later be
+	 * be applied using applyQueuedValues().
+	 */
+	Q_INVOKABLE void enqueueValue(Key key, const QVariant &newValue);
 
 private:
 	Q_DISABLE_COPY(Settings)
