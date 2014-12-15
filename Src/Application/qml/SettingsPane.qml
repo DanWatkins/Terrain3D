@@ -16,8 +16,13 @@ Item {
         opacity: 0.45
     }
 
+    function loadSettings() {
+        rectPane.loadAllSettings();
+    }
+
     //the main settings pane
     Rectangle {
+        id: rectPane
         anchors.centerIn: parent
         width: 600
         height: 420
@@ -27,6 +32,19 @@ Item {
         anchors.verticalCenterOffset: 0
         anchors.horizontalCenterOffset: -20
         opacity: 0.85
+
+        function loadAllSettings() {
+            tab_graphics.item.loadSettings();
+            tab_world.item.loadSettings();
+            tab_controls.item.loadSettings();
+        }
+
+
+        function saveAllSettings() {
+            tab_graphics.item.saveSettings();
+            tab_world.item.saveSettings();
+            tab_controls.item.saveSettings();
+        }
 
         TabView {
             id: tabView
@@ -41,6 +59,7 @@ Item {
                 id: tab_graphics
                 title: "Graphics"
                 active: true
+                asynchronous: false
                 Graphics {}
             }
 
@@ -48,6 +67,7 @@ Item {
                 id: tab_world
                 title: "World"
                 active: true
+                asynchronous: false
                 World {}
             }
 
@@ -55,14 +75,8 @@ Item {
                 id: tab_controls
                 title: "Controls"
                 active: true
+                asynchronous: false
                 Controls {}
-            }
-
-
-            function saveAll() {
-                tab_graphics.item.saveAllSettings();
-                tab_world.item.saveAllSettings();
-                tab_controls.item.saveAllSettings();
             }
         }
 
@@ -76,7 +90,7 @@ Item {
 
             onClicked: {
                 tabView.saveAll();
-                //root.hasFinished();
+                root.hasFinished();
             }
         }
 

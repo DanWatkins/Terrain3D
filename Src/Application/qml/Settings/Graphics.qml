@@ -3,8 +3,11 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 Item {
-    function saveAllSettings()
-    {
+    function loadSettings() {
+       console.log("Loading for graphics pane");
+    }
+
+    function saveSettings() {
         console.log("Saving for graphics pane");
     }
 

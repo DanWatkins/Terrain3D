@@ -3,7 +3,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
-import "SettingsPaneCreation.js" as CreationScript
 
 Terrain3DWindow {
     id: appWindow
@@ -18,13 +17,18 @@ Terrain3DWindow {
 
     Loader {
         id: settingsPane
+        anchors.fill: parent
         anchors.centerIn: parent
+        asynchronous: true
+
+        onLoaded: {
+            settingsPane.item.loadSettings();
+        }
     }
 
     Connections {
         target: settingsPane.item
         onHasFinished: {
-            console.log("Caught onHasFinished")
             settingsPane.sourceComponent = null;
         }
     }

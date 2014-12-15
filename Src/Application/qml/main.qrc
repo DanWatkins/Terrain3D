@@ -2,12 +2,9 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Terrain3DWindow.qml</file>
-		<file>SettingsPane.qml</file>
-		
-		<file>./Settings/Controls.qml</file>
-		<file>./Settings/Graphics.qml</file>
-		<file>./Settings/World.qml</file>
-		
-		<file>SettingsPaneCreation.js</file>
+        <file>SettingsPane.qml</file>
+        <file>Settings/Controls.qml</file>
+        <file>Settings/Graphics.qml</file>
+        <file>Settings/World.qml</file>
     </qresource>
 </RCC>
