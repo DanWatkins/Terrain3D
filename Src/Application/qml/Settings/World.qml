@@ -6,17 +6,23 @@ import Terrain3D 1.0
 
 Item {
     function loadSettings() {
-        console.log("Loading for world pane");
+        spinBox_generatorSeed.value = appSettings.value(Settings.WorldGeneratorSeed);
+        //TODO comboBox_worldGeneratorSize.currentText = appSettings.value(Settings.WorldGeneratorSize);
+        //TODO comboBox_generatorTextureMapResolution.currentText = appSettings.value(Settings.WorldGeneratorTextureMapResolution);
+        //TODO comboBox_terrainBlockSize.currentText = appSettings.value(Settings.WorldTerrainBlockSize);
+        spinBox_terrainHeightScale.value = appSettings.value(Settings.WorldTerrainHeightScale);
+        spinBox_terrainSpacing.value = appSettings.value(Settings.WorldTerrainSpacing);
+        //TODO comboBox_terrainSpanSize.currentText = appSettings.value(Settings.WorldTerrainSpanSize)
     }
 
     function saveSettings() {
         appSettings.enqueueValue(Settings.WorldGeneratorSeed, spinBox_generatorSeed.value);
-        appSettings.enqueueValue(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize.value);
-        appSettings.enqueueValue(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution.value);
-        appSettings.enqueueValue(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize.value);
+        //TODO appSettings.enqueueValue(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize.value);
+        //TODO appSettings.enqueueValue(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution.value);
+        //TODO appSettings.enqueueValue(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize.value);
         appSettings.enqueueValue(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale.value);
         appSettings.enqueueValue(Settings.WorldTerrainSpacing, spinBox_terrainSpacing.value);
-        appSettings.enqueueValue(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize.value);
+        //TODO appSettings.enqueueValue(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize.value);
     }
 
     width: 600

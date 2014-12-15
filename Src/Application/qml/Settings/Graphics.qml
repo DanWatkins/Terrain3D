@@ -6,21 +6,29 @@ import Terrain3D 1.0
 
 Item {
     function loadSettings() {
-       console.log("Loading for graphics pane");
+        spinBox_screenSizeWidth.value = appSettings.value(Settings.GraphicsScreenResolutionWidth);
+        spinBox_screenSizeHeight.value = appSettings.value(Settings.GraphicsScreenResolutionHeight);
+        checkBox_screenIsFullscreen.checked = appSettings.value(Settings.GraphicsScreenIsFullscreen);
+
+        slider_cameraFOV.value = appSettings.value(Settings.GraphicsCameraFOV);
+        slider_cameraLOD.value = appSettings.value(Settings.GraphicsCameraLOD);
+        spinBox_cameraPositionX.value = appSettings.value(Settings.GraphicsCameraPositionX);
+        spinBox_cameraPositionY.value = appSettings.value(Settings.GraphicsCameraPositionY);
+        spinBox_cameraPositionZ.value = appSettings.value(Settings.GraphicsCameraPositionZ);
+        checkBox_cameraWireframe.checked = appSettings.value(Settings.GraphicsCameraWireframe);
     }
 
     function saveSettings() {
-        console.log("Saving for graphics pane");
-
         appSettings.enqueueValue(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth.value);
         appSettings.enqueueValue(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight.value);
-        appSettings.enqueueValue(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen.value);
+        appSettings.enqueueValue(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen.checked);
+
         appSettings.enqueueValue(Settings.GraphicsCameraFOV, slider_cameraFOV.value);
         appSettings.enqueueValue(Settings.GraphicsCameraLOD, slider_cameraLOD.value);
         appSettings.enqueueValue(Settings.GraphicsCameraPositionX, spinBox_cameraPositionX.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraPositionX, spinBox_cameraPositionY.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraPositionX, spinBox_cameraPositionZ.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraPositionY, spinBox_cameraPositionY.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraPositionZ, spinBox_cameraPositionZ.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe.checked);
     }
 
 
