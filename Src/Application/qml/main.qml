@@ -16,6 +16,18 @@ Terrain3DWindow {
         anchors.margins: 0
     }
 
+    Loader {
+        id: settingsPane
+        anchors.centerIn: parent
+    }
+
+    Connections {
+        target: settingsPane.item
+        onHasFinished: {
+            console.log("Caught onHasFinished")
+            settingsPane.sourceComponent = null;
+        }
+    }
 
     Button {
         id: button_settings
@@ -29,12 +41,9 @@ Terrain3DWindow {
         height: 35
 
         onClicked: {
-            var cmp = CreationScript.createComponent("SettingsPane.qml",
-                                                     appWindow,
-                                                     {"anchors.fill": appWindow});
+            settingsPane.source = "SettingsPane.qml"
         }
     }
-
 
     Button {
         id: button_reload
@@ -47,8 +56,4 @@ Terrain3DWindow {
         width: 70
         height: 35
     }
-
-    /*SettingsPane {
-        anchors.fill: appWindow
-    }*/
 }

@@ -3,10 +3,11 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 
-Tab {
-    x: 0
-    height: 0
-    title: "Controls"
+Item {
+    function saveAllSettings()
+    {
+        console.log("Saving for controls pane");
+    }
 
     Text {
         anchors.centerIn: parent

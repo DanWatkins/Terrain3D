@@ -6,7 +6,9 @@ import "./Settings"
 
 Item {
     id: root
+    signal hasFinished()
 
+    //dim the whole screen
     Rectangle {
         anchors.fill: parent
 
@@ -14,7 +16,7 @@ Item {
         opacity: 0.45
     }
 
-
+    //the main settings pane
     Rectangle {
         anchors.centerIn: parent
         width: 600
@@ -27,11 +29,6 @@ Item {
         opacity: 0.85
 
         TabView {
-            function saveAll() {
-                tab_graphics.saveAll();
-                pane_world.saveAllSettings();
-            }
-
             id: tabView
             anchors.left: parent.left
             anchors.top: parent.top
@@ -39,22 +36,34 @@ Item {
             anchors.margins: 10
             height: 360
 
+
             Tab {
                 id: tab_graphics
                 title: "Graphics"
-                Graphics { id: pane_graphics }
-
-                function saveAll() {
-                    pane_graphics.saveAllSettings();
-                }
+                active: true
+                Graphics {}
             }
 
             Tab {
+                id: tab_world
                 title: "World"
-                World { id: pane_world }
+                active: true
+                World {}
             }
 
-            Controls {}
+            Tab {
+                id: tab_controls
+                title: "Controls"
+                active: true
+                Controls {}
+            }
+
+
+            function saveAll() {
+                tab_graphics.item.saveAllSettings();
+                tab_world.item.saveAllSettings();
+                tab_controls.item.saveAllSettings();
+            }
         }
 
         Button {
@@ -66,8 +75,8 @@ Item {
             text: qsTr("OK")
 
             onClicked: {
-                tab_graphics.saveAll();
-                root.destroy();
+                tabView.saveAll();
+                //root.hasFinished();
             }
         }
 
@@ -79,7 +88,7 @@ Item {
             height: 36
             text: qsTr("Cancel")
 
-            onClicked: root.destroy();
+            onClicked: root.hasFinished();
         }
     }
 }
