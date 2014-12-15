@@ -3,26 +3,28 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
+import "SaveLoad.js" as SaveLoad
+
 
 Item {
     function loadSettings() {
         spinBox_generatorSeed.value = appSettings.value(Settings.WorldGeneratorSeed);
-        //TODO comboBox_worldGeneratorSize.currentText = appSettings.value(Settings.WorldGeneratorSize);
-        //TODO comboBox_generatorTextureMapResolution.currentText = appSettings.value(Settings.WorldGeneratorTextureMapResolution);
-        //TODO comboBox_terrainBlockSize.currentText = appSettings.value(Settings.WorldTerrainBlockSize);
+        SaveLoad.cbRead(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
+        SaveLoad.cbRead(Settings.WorldGeneratorTextureMapResolution,comboBox_generatorTextureMapResolution);
+        SaveLoad.cbRead(Settings.WorldTerrainBlockSize,comboBox_terrainBlockSize);
         spinBox_terrainHeightScale.value = appSettings.value(Settings.WorldTerrainHeightScale);
         spinBox_terrainSpacing.value = appSettings.value(Settings.WorldTerrainSpacing);
-        //TODO comboBox_terrainSpanSize.currentText = appSettings.value(Settings.WorldTerrainSpanSize)
+        SaveLoad.cbRead(Settings.WorldTerrainSpanSize,comboBox_terrainSpanSize);;
     }
 
     function saveSettings() {
         appSettings.enqueueValue(Settings.WorldGeneratorSeed, spinBox_generatorSeed.value);
-        //TODO appSettings.enqueueValue(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize.value);
-        //TODO appSettings.enqueueValue(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution.value);
-        //TODO appSettings.enqueueValue(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize.value);
+        SaveLoad.cbSave(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
+        SaveLoad.cbSave(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution);
+        SaveLoad.cbSave(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize);
         appSettings.enqueueValue(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale.value);
         appSettings.enqueueValue(Settings.WorldTerrainSpacing, spinBox_terrainSpacing.value);
-        //TODO appSettings.enqueueValue(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize.value);
+        SaveLoad.cbSave(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize);
     }
 
     width: 600
@@ -41,12 +43,15 @@ Item {
             id: comboBox_worldGeneratorSize
             x: 125
             y: 1
+            width: 100
+            model: [64, 128, 256, 512, 1024, 2048, 4096, 8192]
         }
 
         ComboBox {
             id: comboBox_generatorTextureMapResolution
             x: 125
             y: 27
+            model: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         }
 
         SpinBox {
@@ -132,6 +137,7 @@ Item {
             y: 53
             width: 88
             height: 20
+            model: [4, 8, 16, 32, 64]
         }
 
         ComboBox {
@@ -140,6 +146,7 @@ Item {
             y: 79
             width: 88
             height: 20
+            model: [8, 16, 32, 64, 128, 256, 512, 1024]
         }
 
         Label {

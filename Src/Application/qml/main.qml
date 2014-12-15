@@ -19,7 +19,7 @@ Terrain3DWindow {
         id: settingsPane
         anchors.fill: parent
         anchors.centerIn: parent
-        asynchronous: true
+        //asynchronous: true
 
         onLoaded: {
             settingsPane.item.loadSettings();

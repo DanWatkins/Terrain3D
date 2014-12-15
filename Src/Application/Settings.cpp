@@ -107,7 +107,7 @@ void Settings::initDefaultValues()
 	d[GraphicsCameraWireframe] = false;
 
 	//world
-	d[WorldGeneratorSize] = 129;
+	d[WorldGeneratorSize] = 128;
 	d[WorldGeneratorTextureMapResolution] = 2;
 	d[WorldGeneratorSeed] = 0;
 	d[WorldTerrainSpacing] = 1.0f;

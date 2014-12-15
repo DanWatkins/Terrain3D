@@ -46,3 +46,5 @@ OTHER_FILES += \
 
 RESOURCES += \
     ../../Src/Application/qml/main.qrc
+
+DISTFILES +=
