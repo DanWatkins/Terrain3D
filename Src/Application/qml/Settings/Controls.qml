@@ -5,11 +5,9 @@ import QtQuick.Controls 1.2
 
 Item {
     function loadSettings() {
-        console.log("Loading for controls pane");
     }
 
     function saveSettings() {
-        console.log("Saving for controls pane");
     }
 
     Text {

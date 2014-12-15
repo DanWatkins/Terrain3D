@@ -5,25 +5,24 @@ import QtQuick.Controls 1.2
 import Terrain3D 1.0
 import "SaveLoad.js" as SaveLoad
 
-
 Item {
     function loadSettings() {
-        spinBox_generatorSeed.value = appSettings.value(Settings.WorldGeneratorSeed);
+        SaveLoad.sbRead(Settings.WorldGeneratorSeed, spinBox_generatorSeed);
         SaveLoad.cbRead(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
         SaveLoad.cbRead(Settings.WorldGeneratorTextureMapResolution,comboBox_generatorTextureMapResolution);
         SaveLoad.cbRead(Settings.WorldTerrainBlockSize,comboBox_terrainBlockSize);
-        spinBox_terrainHeightScale.value = appSettings.value(Settings.WorldTerrainHeightScale);
-        spinBox_terrainSpacing.value = appSettings.value(Settings.WorldTerrainSpacing);
-        SaveLoad.cbRead(Settings.WorldTerrainSpanSize,comboBox_terrainSpanSize);;
+        SaveLoad.sbRead(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
+        SaveLoad.sbRead(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
+        SaveLoad.cbRead(Settings.WorldTerrainSpanSize,comboBox_terrainSpanSize);
     }
 
     function saveSettings() {
-        appSettings.enqueueValue(Settings.WorldGeneratorSeed, spinBox_generatorSeed.value);
+        SaveLoad.sbSave(Settings.WorldGeneratorSeed, spinBox_generatorSeed);
         SaveLoad.cbSave(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
         SaveLoad.cbSave(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution);
         SaveLoad.cbSave(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize);
-        appSettings.enqueueValue(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale.value);
-        appSettings.enqueueValue(Settings.WorldTerrainSpacing, spinBox_terrainSpacing.value);
+        SaveLoad.sbSave(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
+        SaveLoad.sbSave(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
         SaveLoad.cbSave(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize);
     }
 

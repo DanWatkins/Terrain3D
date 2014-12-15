@@ -3,32 +3,33 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
+import "SaveLoad.js" as SaveLoad
 
 Item {
     function loadSettings() {
-        spinBox_screenSizeWidth.value = appSettings.value(Settings.GraphicsScreenResolutionWidth);
-        spinBox_screenSizeHeight.value = appSettings.value(Settings.GraphicsScreenResolutionHeight);
-        checkBox_screenIsFullscreen.checked = appSettings.value(Settings.GraphicsScreenIsFullscreen);
+        SaveLoad.valueRead(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth);
+        SaveLoad.valueRead(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight);
+        SaveLoad.checkedRead(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen);
 
-        slider_cameraFOV.value = appSettings.value(Settings.GraphicsCameraFOV);
-        slider_cameraLOD.value = appSettings.value(Settings.GraphicsCameraLOD);
-        spinBox_cameraPositionX.value = appSettings.value(Settings.GraphicsCameraPositionX);
-        spinBox_cameraPositionY.value = appSettings.value(Settings.GraphicsCameraPositionY);
-        spinBox_cameraPositionZ.value = appSettings.value(Settings.GraphicsCameraPositionZ);
-        checkBox_cameraWireframe.checked = appSettings.value(Settings.GraphicsCameraWireframe);
+        SaveLoad.valueRead(Settings.GraphicsCameraFOV, slider_cameraFOV);
+        SaveLoad.valueRead(Settings.GraphicsCameraLOD, slider_cameraLOD);
+        SaveLoad.valueRead(Settings.GraphicsCameraPositionX,spinBox_cameraPositionX);
+        SaveLoad.valueRead(Settings.GraphicsCameraPositionY,spinBox_cameraPositionY);
+        SaveLoad.valueRead(Settings.GraphicsCameraPositionZ,spinBox_cameraPositionZ);
+        SaveLoad.checkedRead(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe);
     }
 
     function saveSettings() {
-        appSettings.enqueueValue(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth.value);
-        appSettings.enqueueValue(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight.value);
-        appSettings.enqueueValue(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen.checked);
+        SaveLoad.valueSave(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth);
+        SaveLoad.valueSave(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight);
+        SaveLoad.checkedRead(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen);
 
-        appSettings.enqueueValue(Settings.GraphicsCameraFOV, slider_cameraFOV.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraLOD, slider_cameraLOD.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraPositionX, spinBox_cameraPositionX.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraPositionY, spinBox_cameraPositionY.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraPositionZ, spinBox_cameraPositionZ.value);
-        appSettings.enqueueValue(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe.checked);
+        SaveLoad.valueSave(Settings.GraphicsCameraFOV, slider_cameraFOV);
+        SaveLoad.valueSave(Settings.GraphicsCameraLOD, slider_cameraLOD);
+        SaveLoad.valueSave(Settings.GraphicsCameraPositionX, spinBox_cameraPositionX);
+        SaveLoad.valueSave(Settings.GraphicsCameraPositionY, spinBox_cameraPositionY);
+        SaveLoad.valueSave(Settings.GraphicsCameraPositionZ, spinBox_cameraPositionZ);
+        SaveLoad.checkedSave(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe);
     }
 
 
