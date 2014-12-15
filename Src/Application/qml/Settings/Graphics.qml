@@ -2,6 +2,8 @@ import QtQuick 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import Terrain3D 1.0
+
 Item {
     function loadSettings() {
        console.log("Loading for graphics pane");
@@ -9,6 +11,16 @@ Item {
 
     function saveSettings() {
         console.log("Saving for graphics pane");
+
+        appSettings.enqueueValue(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth.value);
+        appSettings.enqueueValue(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight.value);
+        appSettings.enqueueValue(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraFOV, slider_cameraFOV.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraLOD, slider_cameraLOD.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraPositionX, spinBox_cameraPositionX.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraPositionX, spinBox_cameraPositionY.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraPositionX, spinBox_cameraPositionZ.value);
+        appSettings.enqueueValue(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe.value);
     }
 
 
@@ -29,7 +41,7 @@ Item {
         }
 
         SpinBox {
-            id: spinBox1
+            id: spinBox_screenSizeWidth
             x: 60
             y: 0
             width: 58
@@ -39,7 +51,7 @@ Item {
         }
 
         SpinBox {
-            id: spinBox2
+            id: spinBox_screenSizeHeight
             x: 124
             y: 0
             width: 58
@@ -49,7 +61,7 @@ Item {
         }
 
         CheckBox {
-            id: checkBox1
+            id: checkBox_screenIsFullscreen
             x: 0
             y: 26
             text: qsTr("Fullscreen")
@@ -65,7 +77,7 @@ Item {
         title: qsTr("Camera")
 
         SpinBox {
-            id: spinBox3
+            id: spinBox_cameraPositionX
             x: 47
             y: 0
             height: 20
@@ -74,7 +86,7 @@ Item {
         }
 
         SpinBox {
-            id: spinBox4
+            id: spinBox_cameraPositionY
             x: 133
             y: 0
             height: 20
@@ -83,7 +95,7 @@ Item {
         }
 
         SpinBox {
-            id: spinBox5
+            id: spinBox_cameraPositionZ
             x: 219
             y: 0
             height: 20
@@ -92,7 +104,7 @@ Item {
         }
 
         Slider {
-            id: sliderHorizontal1
+            id: slider_cameraFOV
             x: 47
             y: 33
             width: 252
@@ -101,7 +113,7 @@ Item {
         }
 
         Slider {
-            id: sliderHorizontal2
+            id: slider_cameraLOD
             x: 47
             y: 61
             width: 252
@@ -110,7 +122,7 @@ Item {
         }
 
         CheckBox {
-            id: checkBox2
+            id: checkBox_cameraWireframe
             x: 47
             y: 89
             text: qsTr("Render wireframe")

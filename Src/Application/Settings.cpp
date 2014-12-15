@@ -50,7 +50,7 @@ void Settings::setValue(Key key, const QVariant &newValue)
 
 void Settings::enqueueValue(Key key, const QVariant &newValue)
 {
-	qDebug() << "Enqueing setting: " << stringNameForKey(key) << " " << newValue;
+	//qDebug() << "Enqueing setting: " << stringNameForKey(key) << " " << newValue;
 	mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
 }
 

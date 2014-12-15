@@ -39,7 +39,6 @@ Item {
             tab_controls.item.loadSettings();
         }
 
-
         function saveAllSettings() {
             tab_graphics.item.saveSettings();
             tab_world.item.saveSettings();
@@ -89,7 +88,8 @@ Item {
             text: qsTr("OK")
 
             onClicked: {
-                tabView.saveAll();
+                parent.saveAllSettings();
+                appSettings.applyQueuedValues();
                 root.hasFinished();
             }
         }

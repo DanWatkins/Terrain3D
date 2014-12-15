@@ -2,13 +2,21 @@ import QtQuick 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import Terrain3D 1.0
+
 Item {
     function loadSettings() {
         console.log("Loading for world pane");
     }
 
     function saveSettings() {
-        console.log("Saving for world pane");
+        appSettings.enqueueValue(Settings.WorldGeneratorSeed, spinBox_generatorSeed.value);
+        appSettings.enqueueValue(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize.value);
+        appSettings.enqueueValue(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution.value);
+        appSettings.enqueueValue(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize.value);
+        appSettings.enqueueValue(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale.value);
+        appSettings.enqueueValue(Settings.WorldTerrainSpacing, spinBox_terrainSpacing.value);
+        appSettings.enqueueValue(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize.value);
     }
 
     width: 600

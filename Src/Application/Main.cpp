@@ -48,13 +48,15 @@ int main(int argc, char *argv[])
 		using namespace t3d::QuickItems;
 
 		qmlRegisterType<CameraItem>("Terrain3D", 1, 0, "Camera");
+		qmlRegisterType<Settings>("Terrain3D", 1, 0, "Settings");
 	}
 
 	int execReturn = 0;
 	{
 		t3d::Terrain3D mainWindow;
 		mainSettings.addListener(&mainWindow);
-		mainWindow.rootContext()->setContextProperty("Settings", &mainSettings);
+
+		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
 		mainWindow.init();
 		mainWindow.show();
 

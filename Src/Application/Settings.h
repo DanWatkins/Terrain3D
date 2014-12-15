@@ -38,24 +38,24 @@ public:
 	enum Key
 	{
 		//graphics
-		GraphicsScreenResolutionWidth,
-		GraphicsScreenResolutionHeight,
-		GraphicsScreenIsFullscreen,
-		GraphicsCameraPositionX,
-		GraphicsCameraPositionY,
-		GraphicsCameraPositionZ,
-		GraphicsCameraFOV,
-		GraphicsCameraLOD,
-		GraphicsCameraWireframe,
+		GraphicsScreenResolutionWidth		= 100,
+		GraphicsScreenResolutionHeight		= 101,
+		GraphicsScreenIsFullscreen			= 102,
+		GraphicsCameraPositionX				= 103,
+		GraphicsCameraPositionY				= 104,
+		GraphicsCameraPositionZ				= 105,
+		GraphicsCameraFOV					= 106,
+		GraphicsCameraLOD					= 107,
+		GraphicsCameraWireframe				= 108,
 
 		//world
-		WorldGeneratorSize,
-		WorldGeneratorTextureMapResolution,
-		WorldGeneratorSeed,
-		WorldTerrainSpacing,
-		WorldTerrainHeightScale,
-		WorldTerrainBlockSize,
-		WorldTerrainSpanSize
+		WorldGeneratorSize					= 201,
+		WorldGeneratorTextureMapResolution	= 202,
+		WorldGeneratorSeed					= 203,
+		WorldTerrainSpacing					= 204,
+		WorldTerrainHeightScale				= 205,
+		WorldTerrainBlockSize				= 206,
+		WorldTerrainSpanSize				= 207
 
 
 	}; Q_ENUMS(Key)
@@ -64,7 +64,7 @@ public:
 	 * @brief Each key/value enqueued with enqueueValue() is applied to the
 	 * settings by calls to setValue().
 	 */
-	void applyQueuedValues();
+	Q_INVOKABLE void applyQueuedValues();
 
 	/**
 	 * @brief Removes all queued settings from the settings queue.
