@@ -37,10 +37,27 @@ public:
 
 	enum Key
 	{
-		KeyShowHud,
+		//graphics
+		GraphicsScreenResolutionWidth,
+		GraphicsScreenResolutionHeight,
+		GraphicsScreenIsFullscreen,
+		GraphicsCameraPositionX,
+		GraphicsCameraPositionY,
+		GraphicsCameraPositionZ,
+		GraphicsCameraFOV,
+		GraphicsCameraLOD,
+		GraphicsCameraWireframe,
 
-		//renderer
-		KeyWireframe
+		//world
+		WorldGeneratorSize,
+		WorldGeneratorTextureMapResolution,
+		WorldGeneratorSeed,
+		WorldTerrainSpacing,
+		WorldTerrainHeightScale,
+		WorldTerrainBlockSize,
+		WorldTerrainSpanSize
+
+
 	}; Q_ENUMS(Key)
 
 	/**

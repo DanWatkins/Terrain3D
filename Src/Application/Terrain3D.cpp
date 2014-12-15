@@ -50,16 +50,6 @@ namespace t3d
 
 		switch (key)
 		{
-			case key_t::KeyShowHud: break;
-
-			//graphics
-			case key_t::KeyWireframe:
-			{
-				typedef World::Terrain::Mode Mode;
-				//mCamera.toStrongRef()->setMode(newValue.toBool() ?
-				//								Mode::WireFrame : Mode::Normal);
-				break;
-			}
 		}
 	}
 

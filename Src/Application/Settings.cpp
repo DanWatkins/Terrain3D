@@ -93,9 +93,29 @@ QString Settings::stringNameForKey(Key key)
 
 void Settings::initDefaultValues()
 {
-	mDefaultValues[KeyShowHud] = true;
+	#define d mDefaultValues
 
-	mDefaultValues[KeyWireframe] = true;
+	//graphics
+	d[GraphicsScreenResolutionWidth] = 800;
+	d[GraphicsScreenResolutionHeight] = 600;
+	d[GraphicsScreenIsFullscreen] = false;
+	d[GraphicsCameraPositionX] = 0.0f;
+	d[GraphicsCameraPositionY] = 0.0f;
+	d[GraphicsCameraPositionZ] = 0.0f;
+	d[GraphicsCameraFOV] = 50.0f;
+	d[GraphicsCameraLOD] = 1.0f;
+	d[GraphicsCameraWireframe] = false;
+
+	//world
+	d[WorldGeneratorSize] = 129;
+	d[WorldGeneratorTextureMapResolution] = 2;
+	d[WorldGeneratorSeed] = 0;
+	d[WorldTerrainSpacing] = 1.0f;
+	d[WorldTerrainHeightScale] = 30.0f;
+	d[WorldTerrainBlockSize] = 32;
+	d[WorldTerrainSpanSize] = 8;
+
+	#undef d
 }
 
 
@@ -111,7 +131,9 @@ void Settings::checkForMissingDefaultValues()
 		if (!mDefaultValues.contains(key))
 		{
 			QString msg = (QString("Settings: No default value defined for key ")
-								  + me.valueToKey(key));
+							+ me.valueToKey(key) + " at:"
+							+ QString(__FILE__) + " "
+							+ QString(__func__));
 
 			qFatal(msg.toStdString().c_str());
 		}
