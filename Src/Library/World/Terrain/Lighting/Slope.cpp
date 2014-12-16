@@ -35,7 +35,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Lighting
 
 					if (delta > 0.0f)
 					{
-						const float intensity = 15.0f;
+						const float intensity = 11.0f;
 						brightness = (1-delta) * intensity;
 					}
 

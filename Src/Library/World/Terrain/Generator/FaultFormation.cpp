@@ -113,7 +113,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
             applyRandomFault(heightMap, amount);
         }
 
-        smoothHeight(heightMap, 0.55f);
+		smoothHeight(heightMap, 0.65f);
         normalizeHeights(heightMap);
     }
 }}}}

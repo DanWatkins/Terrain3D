@@ -27,6 +27,7 @@ namespace t3d { namespace World { namespace Terrain
 		~Renderer();
 
 		void init();
+		void cleanup();
 		void render(Vec3f cameraPos, Mat4 totalMatrix);
 
 		void setMode(Mode mode) { mMode = mode; }
@@ -41,6 +42,7 @@ namespace t3d { namespace World { namespace Terrain
 		QOpenGLShaderProgram mProgram;
 		GLuint mVao;
 		GLuint mTexture[2];
+		GLuint mVbo[2];
 		Mode mMode;
 
 		struct Uniforms

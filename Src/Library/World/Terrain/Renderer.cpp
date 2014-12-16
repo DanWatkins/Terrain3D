@@ -57,6 +57,18 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
+	void Renderer::cleanup()
+	{
+		mTerrainData->cleanup();
+		mRenderData->cleanup();
+
+		mProgram.removeAllShaders();
+		glDeleteBuffers(2, mVbo);
+		glDeleteTextures(2, mTexture);
+		glDeleteVertexArrays(1, &mVao);
+	}
+
+
 	Vec2i Renderer::cameraPosToBlockPosition(Vec3f cameraPos)
 	{
 		double blocksPerMapEdge = mRenderData->blockSize();
@@ -159,7 +171,8 @@ namespace t3d { namespace World { namespace Terrain
 
 	void Renderer::loadTextures()
 	{
-		glGenTextures(1, &mTexture[0]);
+		glGenTextures(2, &mTexture[0]);
+
 		glBindTexture(GL_TEXTURE_BUFFER, mTexture[0]);
 		{
 			GLuint buffer;
@@ -170,7 +183,6 @@ namespace t3d { namespace World { namespace Terrain
 				glTexBuffer(GL_TEXTURE_BUFFER, GL_R8UI, buffer);
 			}
 		}
-
 
 		glActiveTexture(GL_TEXTURE1);
 		{
@@ -188,7 +200,7 @@ namespace t3d { namespace World { namespace Terrain
 
 			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
-			glGenTextures(1, &mTexture[1]);
+			//glGenTextures(1, &mTexture[1]);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture[1]);
 
 			int mipLevels = 8;
@@ -242,13 +254,13 @@ namespace t3d { namespace World { namespace Terrain
 		mProgram.setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
 		const QVector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();
 
-		GLuint vbo[2];
-		glGenBuffers(2, vbo);
+
+		glGenBuffers(2, mVbo);
 
 		//vertex data
 		{
 			//position
-			glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+			glBindBuffer(GL_ARRAY_BUFFER, mVbo[0]);
 			{
 				GLuint size = sizeof(GLfloat)*terrainVertexData->size();
 				glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
@@ -257,7 +269,7 @@ namespace t3d { namespace World { namespace Terrain
 				glEnableVertexAttribArray(0);
 			}
 			//lighting brightness
-			glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+			glBindBuffer(GL_ARRAY_BUFFER, mVbo[1]);
 			{
 				GLuint size = sizeof(LightMap::ValueType) * mTerrainData->lightMap().raw()->size();
 				glBufferData(GL_ARRAY_BUFFER, size, &mTerrainData->lightMap().raw()->at(0), GL_STATIC_DRAW);

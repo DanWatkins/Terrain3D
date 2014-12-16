@@ -38,6 +38,8 @@ namespace t3d { namespace World { namespace Terrain
 	public:
 		IndexData(Data *terrainData, QOpenGLShaderProgram *program);
 
+		void cleanup();
+
 		void queryUniforms();
 		LodIndexBlock lodIndexBlockForLod(unsigned lod, VertexElimination vertexEliminations);
 		void uploadIndexData();
@@ -52,6 +54,7 @@ namespace t3d { namespace World { namespace Terrain
 
 		Data *mTerrainData;
 		QOpenGLShaderProgram *mProgram;
+		GLuint mIbo;
 
 		typedef QVector<GLuint> RawIndicies;
 		QVector<RawIndicies> mIndexDataList;

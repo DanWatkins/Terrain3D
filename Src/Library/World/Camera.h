@@ -27,6 +27,7 @@ namespace t3d { namespace World
 		Camera(World *world);
 
 		void init();
+		void cleanup();
 		void render();
 		void resize(unsigned windowWidth, unsigned windowHeight);
 
@@ -57,10 +58,7 @@ namespace t3d { namespace World
 		Terrain::Mode getMode() { return mTerrainRenderer.getMode(); }
 
 	private:
-		OBJ obj;
-
 		World *mWorld;
-
 		Terrain::Renderer mTerrainRenderer;
 
 		Vec3f mPosition;

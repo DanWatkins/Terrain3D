@@ -30,14 +30,18 @@ namespace t3d { namespace World
 		initializeOpenGLFunctions();
 
 		mTerrainRenderer.init();
-		obj.load("./Meshes/cube_vn.obj");
+	}
+
+
+	void Camera::cleanup()
+	{
+		mTerrainRenderer.cleanup();
 	}
 
 
 	void Camera::render()
 	{
 		mTerrainRenderer.render(mPosition, getTotalMatrix());
-		obj.render(getTotalMatrix());
 	}
 
 

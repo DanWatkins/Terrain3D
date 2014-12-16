@@ -19,6 +19,8 @@ namespace t3d { namespace World { namespace Terrain
 	public:
 		Data(int textureMapResolution);
 
+		void cleanup() { /*nothing to cleanup*/ }
+
 		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
 		LightMap &lightMap() { return mLightMap; }

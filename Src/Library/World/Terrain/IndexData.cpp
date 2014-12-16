@@ -28,6 +28,13 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
+	void Renderer::IndexData::cleanup()
+	{
+		if (mIbo)
+			glDeleteBuffers(1, &mIbo);
+	}
+
+
 	void Renderer::IndexData::queryUniforms()
 	{
 		initializeOpenGLFunctions();
@@ -118,15 +125,14 @@ namespace t3d { namespace World { namespace Terrain
 
 	void Renderer::IndexData::uploadIndexData()
 	{
-		GLuint ibo;
 		buildIndexData();
 
 		int reserve = 0;
 		for (int i=0; i<mIndexDataList.size(); i++)
 			reserve += mIndexDataList[i].size()*sizeof(GLuint);
 
-		glGenBuffers(1, &ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glGenBuffers(1, &mIbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIbo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, reserve, NULL, GL_STATIC_DRAW);
 
 		int previousOffset = 0;
