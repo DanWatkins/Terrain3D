@@ -42,6 +42,13 @@ namespace t3d
 	}
 
 
+	void Terrain3D::restart()
+	{
+		QQuickView::close();
+		mNeedsRestart = true;
+	}
+
+
 	void Terrain3D::settingsValueUpdated(Settings::Key key,
 										 const QVariant &newValue,
 										 const QVariant &oldValue)

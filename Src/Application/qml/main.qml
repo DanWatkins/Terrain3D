@@ -50,8 +50,8 @@ Terrain3DWindow {
     }
 
     Button {
-        id: button_reload
-        text: "Reload"
+        id: button_restart
+        text: "Restart"
 
         anchors.top:  button_settings.bottom
         anchors.left: parent.left
@@ -59,5 +59,7 @@ Terrain3DWindow {
 
         width: 70
         height: 35
+
+        onClicked: terrain3D.restart();
     }
 }

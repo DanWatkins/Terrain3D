@@ -38,25 +38,35 @@ static QObject* settingsProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 }
 
 
-int loadAndRun(QGuiApplication &app)
+/**
+ * Launches a Terrain3D window instance. Blocks until the instance finishes. The
+ * instance may request to be restarted which will cause further blocking until
+ * the new instance finishes and does not restart again.
+ */
+void loadAndRun(QGuiApplication &app)
 {
-	int ret;
+	bool restart = true;
+
+	while (restart)
 	{
-		t3d::Terrain3D mainWindow;
-		mainSettings.addListener(&mainWindow);
+		int ret;
+		{
+			t3d::Terrain3D mainWindow;
+			mainSettings.addListener(&mainWindow);
 
-		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
-		mainWindow.init();
-		mainWindow.show();
+			mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
+			mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
+			mainWindow.init();
+			mainWindow.show();
 
-		ret = app.exec();
-		mainSettings.removeListener(&mainWindow);
+			app.exec();
+			restart = mainWindow.needsRestart();
+			mainSettings.removeListener(&mainWindow);
+		}
+
+		qDebug() << "Ending all render threads";	//xyzm
+		t3d::OpenGLQuickItem::endAllRenderThreads();
 	}
-
-	qDebug() << "Ending all render threads";	//xyzm
-	t3d::OpenGLQuickItem::endAllRenderThreads();
-
-	return ret;
 }
 
 
@@ -74,7 +84,6 @@ int main(int argc, char *argv[])
 		qmlRegisterType<Settings>("Terrain3D", 1, 0, "Settings");
 	}
 
-	loadAndRun(app);
 	loadAndRun(app);
 
 	return 0;

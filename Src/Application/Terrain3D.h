@@ -38,6 +38,7 @@ namespace t3d
 		World::World mWorld;
 		QWeakPointer<World::Camera> mCamera;
 		bool mPreviouslyHadFocus;
+		bool mNeedsRestart;
 
 		BackgroundUpdater backgroundUpdater;
 
@@ -46,9 +47,20 @@ namespace t3d
 		void keyPressEvent(QKeyEvent *ev);
 
 	public:
-		Terrain3D() : mPreviouslyHadFocus(false) {}
+		Terrain3D() : mPreviouslyHadFocus(false), mNeedsRestart(false) {}
 		~Terrain3D();
 		void init();
+
+		/**
+		 * @returns True if a new instance of Terrain3D should be run after this
+		 * one terminates.
+		 */
+		bool needsRestart() { return mNeedsRestart; }
+
+		/**
+		 * @brief Causes the view to terminate and flag as needing a restart.
+		 */
+		Q_INVOKABLE void restart();
 
 		/**
 		 * @see SettingsListener::settingsValueUpdated()
