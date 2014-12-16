@@ -21,6 +21,8 @@ namespace t3d
 			t->wait();
 			delete t;
 		}
+
+		mThreads.clear();
 	}
 
 

@@ -37,6 +37,29 @@ static QObject* settingsProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 	return &mainSettings;
 }
 
+
+int loadAndRun(QGuiApplication &app)
+{
+	int ret;
+	{
+		t3d::Terrain3D mainWindow;
+		mainSettings.addListener(&mainWindow);
+
+		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
+		mainWindow.init();
+		mainWindow.show();
+
+		ret = app.exec();
+		mainSettings.removeListener(&mainWindow);
+	}
+
+	qDebug() << "Ending all render threads";	//xyzm
+	t3d::OpenGLQuickItem::endAllRenderThreads();
+
+	return ret;
+}
+
+
 int main(int argc, char *argv[])
 {	
 	QGuiApplication app(argc, argv);
@@ -51,22 +74,8 @@ int main(int argc, char *argv[])
 		qmlRegisterType<Settings>("Terrain3D", 1, 0, "Settings");
 	}
 
-	int execReturn = 0;
-	{
-		t3d::Terrain3D mainWindow;
-		mainSettings.addListener(&mainWindow);
+	loadAndRun(app);
+	loadAndRun(app);
 
-		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
-		mainWindow.init();
-		mainWindow.show();
-
-		execReturn = app.exec();
-		mainSettings.removeListener(&mainWindow);
-	}
-
-	qDebug() << "Ending all render threads";	//xyzm
-
-	t3d::OpenGLQuickItem::endAllRenderThreads();
-
-	return execReturn;
+	return 0;
 }
