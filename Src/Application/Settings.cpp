@@ -27,7 +27,16 @@ void Settings::init()
 void Settings::setValue(Key key, const QVariant &newValue)
 {
 	QString name = stringNameForKey(key);
-	mSettings->setValue(name, newValue);
+
+	if (value(key) != newValue)
+	{
+		qDebug() << "Settings value changed for key=" << name
+				 << " value=" << newValue.toString();
+		mSettings->setValue(name, newValue);
+
+		for (auto listener : mListeners)
+			listener->settingsValueChanged(key, newValue);
+	}
 }
 
 
@@ -63,6 +72,17 @@ void Settings::applyQueuedValues()
 		setValue(i.first, i.second);
 
 	mSettingsQueue.clear();
+}
+
+
+void Settings::applyQueuedValuesNoNotify()
+{
+	QList<SettingsListener*> old = mListeners;
+	mListeners.clear();
+
+	applyQueuedValues();
+
+	mListeners = old;
 }
 
 

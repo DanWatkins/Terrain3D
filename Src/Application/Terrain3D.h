@@ -29,7 +29,7 @@ namespace t3d
 	/**
 	 * Represents the main application
 	 */
-	class Terrain3D : public OpenGLQuickView
+	class Terrain3D : public OpenGLQuickView, public SettingsListener
 	{
 		Q_OBJECT
 	private:
@@ -38,14 +38,17 @@ namespace t3d
 		bool mPreviouslyHadFocus;
 		bool mNeedsRestart;
 
+		Settings *mMainSettings;
 		BackgroundUpdater backgroundUpdater;
 
 	private:
 		void updateCursorPos();
 		void keyPressEvent(QKeyEvent *ev);
 
+		void loadUserSettings();
+
 	public:
-		Terrain3D() : mPreviouslyHadFocus(false), mNeedsRestart(false) {}
+		Terrain3D(Settings *mainSettings);
 		~Terrain3D();
 		void init();
 
@@ -65,6 +68,8 @@ namespace t3d
 		Q_INVOKABLE void toggleFullscreen();
 
 		Q_INVOKABLE void toggleCaptureCursor();
+
+		void settingsValueChanged(Settings::Key key, const QVariant &value);
 
 	signals:
 		void toggleSettingsMenu();

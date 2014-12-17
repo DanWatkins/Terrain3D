@@ -11,6 +11,15 @@
 
 namespace t3d
 {
+	Terrain3D::Terrain3D(Settings *mainSettings) :
+		mPreviouslyHadFocus(false),
+		mNeedsRestart(false),
+		mMainSettings(mainSettings)
+	{
+		mMainSettings->addListener(this);
+	}
+
+
 	Terrain3D::~Terrain3D()
 	{
 		backgroundUpdater.requestInterruption();
@@ -32,6 +41,8 @@ namespace t3d
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
+		loadUserSettings();
+
 		mWorld.init();
 		//mCamera.init();
 		//mCamera.resize(width(), height());
@@ -39,6 +50,12 @@ namespace t3d
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
 		backgroundUpdater.start();
+	}
+
+
+	void Terrain3D::loadUserSettings()
+	{
+
 	}
 
 
@@ -160,5 +177,66 @@ namespace t3d
 			//toggle fullscreen
 			case Qt::Key_F11: toggleFullscreen(); break;
 		}
+	}
+
+
+	void Terrain3D::settingsValueChanged(Settings::Key key, const QVariant &value)
+	{
+		#define CASE(k) case Settings::k:
+
+		switch (key)
+		{
+			//graphics
+			CASE(GraphicsScreenResolutionWidth)
+				QWindow::resize(value.toInt(), QWindow::height());
+				break;
+
+			CASE(GraphicsScreenResolutionHeight)
+				QWindow::resize(QWindow::width(), value.toInt());
+				break;
+
+			CASE(GraphicsScreenIsFullscreen)
+				break;
+
+			CASE(GraphicsCameraPositionX)
+				break;
+
+			CASE(GraphicsCameraPositionY)
+				break;
+
+			CASE(GraphicsCameraPositionZ)
+				break;
+
+			CASE(GraphicsCameraFOV)
+				break;
+
+			CASE(GraphicsCameraLOD)
+				break;
+
+
+			//world
+			CASE(WorldGeneratorSize)
+				break;
+
+			CASE(WorldGeneratorTextureMapResolution)
+				break;
+
+			CASE(WorldGeneratorSeed)
+				break;
+
+			CASE(WorldTerrainSpacing)
+				break;
+
+			CASE(WorldTerrainHeightScale)
+				break;
+
+			CASE(WorldTerrainBlockSize)
+				break;
+
+			CASE(WorldTerrainSpanSize)
+				break;
+		}
+
+		#undef CASE
 	}
 }

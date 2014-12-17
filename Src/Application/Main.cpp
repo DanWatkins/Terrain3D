@@ -17,14 +17,6 @@
 
 Settings mainSettings;
 
-static QObject* settingsProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-	Q_UNUSED(engine)
-	Q_UNUSED(scriptEngine)
-
-	return &mainSettings;
-}
-
 
 /**
  * Launches a Terrain3D window instance. Blocks until the instance finishes. The
@@ -37,9 +29,8 @@ void loadAndRun(QGuiApplication &app)
 
 	while (restart)
 	{
-		int ret;
 		{
-			t3d::Terrain3D mainWindow;
+			t3d::Terrain3D mainWindow(&mainSettings);
 \
 			mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
 			mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);

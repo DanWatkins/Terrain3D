@@ -90,10 +90,14 @@ Item {
             onClicked: {
                 parent.saveAllSettings();
                 var needsRestart = appSettings.containsQueuedValueRequiringRestart();
-                appSettings.applyQueuedValues();
 
-                if (needsRestart)
+                if (needsRestart) {
+                    appSettings.applyQueuedValuesNoNotify();
                     terrain3D.requestRestart();
+                }
+                else {
+                    appSettings.applyQueuedValues();
+                }
 
                 root.visible = false;
             }
