@@ -76,7 +76,6 @@ public:
 	 */
 	Q_INVOKABLE QVariant value(Key key);
 
-
 	/**
 	 * @brief Adds \p listener to a list. All delegate methods are called
 	 * as documented.
@@ -91,7 +90,6 @@ public:
 	 */
 	void removeListener(SettingsListener *listener);
 
-
 	/**
 	 * @brief Each key/value enqueued with enqueueValue() is applied to the
 	 * settings by calls to setValue().
@@ -104,6 +102,12 @@ public:
 	void clearQueuedValues() { mSettingsQueue.clear(); }
 
 	/**
+	 * @returns True if there is a key/value in the queue that requires a
+	 * restart for changes to take effect.
+	 */
+	bool containsQueuedValueRequiringRestart();
+
+	/**
 	 * Enques the \p key and \p value in a temporary queue which can later be
 	 * be applied using applyQueuedValues().
 	 */
@@ -114,13 +118,20 @@ private:
 
 	QSettings *mSettings;
 	const QString mVersion;
-	QHash<Key, QVariant> mDefaultValues;
 	QList<SettingsListener*> mListeners;
 	QList<QPair<Key, QVariant>> mSettingsQueue;
 
+	struct MetaKeyInfo
+	{
+		QVariant defaultValue;
+		bool requiresRestart;
+	};
+
+	QHash<Key, MetaKeyInfo> mMetaKeyInfo;
+
 	QString stringNameForKey(Key key);
 	void initDefaultValues();
-	void checkForMissingDefaultValues();
+	void checkForMissingMetaKeyInfoValues();
 };
 
 class SettingsListener

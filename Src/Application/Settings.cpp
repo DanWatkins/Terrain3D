@@ -15,15 +15,13 @@
 void Settings::init()
 {
 	initDefaultValues();
-	checkForMissingDefaultValues();
+	checkForMissingMetaKeyInfoValues();
 
 	QString filepath = QDir::currentPath()+"/Terrain3D.ini";
 	mSettings = new QSettings(filepath, QSettings::IniFormat);
 	mSettings->setValue("Version", mVersion);
 	mSettings->sync();
 }
-
-
 
 
 void Settings::setValue(Key key, const QVariant &newValue)
@@ -40,7 +38,8 @@ void Settings::setValue(Key key, const QVariant &newValue)
 
 QVariant Settings::value(Key key)
 {
-	QVariant value = mSettings->value(stringNameForKey(key), mDefaultValues[key]);
+	QVariant value = mSettings->value(stringNameForKey(key),
+									  mMetaKeyInfo[key].defaultValue);
 
 	if (QString(value.typeName()) == "QString" &&
 		(value.toString() == "false" || value.toString() == "true"))
@@ -72,6 +71,18 @@ void Settings::applyQueuedValues()
 }
 
 
+bool Settings::containsQueuedValueRequiringRestart()
+{
+	for (auto keyValuePair : mSettingsQueue)
+	{
+		if (mMetaKeyInfo[keyValuePair.first].requiresRestart)
+			return true;
+	}
+
+	return false;
+}
+
+
 void Settings::enqueueValue(Key key, const QVariant &newValue)
 {
 	mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
@@ -90,33 +101,33 @@ QString Settings::stringNameForKey(Key key)
 
 void Settings::initDefaultValues()
 {
-	#define d mDefaultValues
+	#define d mMetaKeyInfo
 
 	//graphics
-	d[GraphicsScreenResolutionWidth] = 800;
-	d[GraphicsScreenResolutionHeight] = 600;
-	d[GraphicsScreenIsFullscreen] = false;
-	d[GraphicsCameraPositionX] = 0.0f;
-	d[GraphicsCameraPositionY] = 0.0f;
-	d[GraphicsCameraPositionZ] = 0.0f;
-	d[GraphicsCameraFOV] = 50.0f;
-	d[GraphicsCameraLOD] = 1.0f;
-	d[GraphicsCameraWireframe] = false;
+	d[GraphicsScreenResolutionWidth] = {800, false};
+	d[GraphicsScreenResolutionHeight] = {600, false};
+	d[GraphicsScreenIsFullscreen] = {false, false};
+	d[GraphicsCameraPositionX] = {0.0f, false};
+	d[GraphicsCameraPositionY] = {0.0f, false};
+	d[GraphicsCameraPositionZ] = {0.0f, false};
+	d[GraphicsCameraFOV] = {50.0f, false};
+	d[GraphicsCameraLOD] = {1.0f, false};
+	d[GraphicsCameraWireframe] = {false, false};
 
 	//world
-	d[WorldGeneratorSize] = 128;
-	d[WorldGeneratorTextureMapResolution] = 2;
-	d[WorldGeneratorSeed] = 0;
-	d[WorldTerrainSpacing] = 1.0f;
-	d[WorldTerrainHeightScale] = 30.0f;
-	d[WorldTerrainBlockSize] = 32;
-	d[WorldTerrainSpanSize] = 8;
+	d[WorldGeneratorSize] = {128, true};
+	d[WorldGeneratorTextureMapResolution] = {2, true};
+	d[WorldGeneratorSeed] = {0, true};
+	d[WorldTerrainSpacing] = {1.0f, false};
+	d[WorldTerrainHeightScale] = {30.0f, false};
+	d[WorldTerrainBlockSize] = {32, true};
+	d[WorldTerrainSpanSize] = {8, false};
 
 	#undef d
 }
 
 
-void Settings::checkForMissingDefaultValues()
+void Settings::checkForMissingMetaKeyInfoValues()
 {
 	const QMetaObject &mo = Settings::staticMetaObject;
 	QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("Key"));
@@ -125,7 +136,7 @@ void Settings::checkForMissingDefaultValues()
 	{
 		Key key = static_cast<Key>(me.value(i));
 
-		if (!mDefaultValues.contains(key))
+		if (!mMetaKeyInfo.contains(key))
 		{
 			QString msg = (QString("Settings: No default value defined for key ")
 							+ me.valueToKey(key) + " at:"

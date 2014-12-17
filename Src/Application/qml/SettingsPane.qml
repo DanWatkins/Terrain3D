@@ -90,6 +90,7 @@ Item {
             onClicked: {
                 parent.saveAllSettings();
                 appSettings.applyQueuedValues();
+                //terrain3D.requestRestart();
                 root.hasFinished();
             }
         }
@@ -102,7 +103,9 @@ Item {
             height: 36
             text: qsTr("Cancel")
 
-            onClicked: root.hasFinished();
+            onClicked: {
+                root.hasFinished();
+            }
         }
     }
 }
