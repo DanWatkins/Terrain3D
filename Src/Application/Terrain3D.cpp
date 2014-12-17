@@ -41,6 +41,9 @@ namespace t3d
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
+		auto camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
+		qDebug() << "Camera is " << camera;
+
 		loadUserSettings();
 
 		mWorld.init();
@@ -55,7 +58,16 @@ namespace t3d
 
 	void Terrain3D::loadUserSettings()
 	{
+		const QMetaObject &mo = Settings::staticMetaObject;
+		QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("Key"));
 
+		//loop through every Settings::Key and tell ourself that a value has
+		//changed to effectively load the value
+		for (int i=0; i<me.keyCount(); i++)
+		{
+			Settings::Key key = static_cast<Settings::Key>(me.value(i));
+			settingsValueChanged(key, mMainSettings->value(key));
+		}
 	}
 
 
