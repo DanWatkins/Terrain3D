@@ -16,8 +16,6 @@
 #include <World/World.h>
 #include <World/Camera.h>
 
-#define ARRAY_COUNT( array ) (sizeof( array ) / (sizeof( array[0] ) * (sizeof( array ) != sizeof(void*) || sizeof( array[0] ) <= sizeof(void*))))
-
 namespace t3d
 {
 	struct UniformLocations
@@ -31,7 +29,7 @@ namespace t3d
 	/**
 	 * Represents the main application
 	 */
-	class Terrain3D : public OpenGLQuickView, public SettingsListener
+	class Terrain3D : public OpenGLQuickView
 	{
 		Q_OBJECT
 	private:
@@ -51,6 +49,8 @@ namespace t3d
 		~Terrain3D();
 		void init();
 
+		Q_INVOKABLE void requestRestart() { mNeedsRestart = true; QQuickView::close(); }
+
 		/**
 		 * @returns True if a new instance of Terrain3D should be run after this
 		 * one terminates.
@@ -61,13 +61,6 @@ namespace t3d
 		 * @brief Causes the view to terminate and flag as needing a restart.
 		 */
 		Q_INVOKABLE void restart();
-
-		/**
-		 * @see SettingsListener::settingsValueUpdated()
-		 */
-		void settingsValueUpdated(Settings::Key key,
-								  const QVariant &newValue,
-								  const QVariant &oldValue);
 
 	public slots:
 		void willUpdate();

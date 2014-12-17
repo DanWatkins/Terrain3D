@@ -27,11 +27,6 @@ void Settings::init()
 void Settings::setValue(Key key, const QVariant &newValue)
 {
 	QString name = stringNameForKey(key);
-
-	QVariant oldValue = value(key);
-	for (auto i : mListeners)
-		i->settingsValueUpdated(key, newValue, oldValue);
-
 	mSettings->setValue(name, newValue);
 }
 
@@ -85,7 +80,9 @@ bool Settings::containsQueuedValueRequiringRestart()
 
 void Settings::enqueueValue(Key key, const QVariant &newValue)
 {
-	mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
+	//verify the value is actually different than what is currently stored
+	if (value(key) != newValue)
+		mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
 }
 
 

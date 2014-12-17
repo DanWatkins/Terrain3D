@@ -15,18 +15,6 @@
 
 #include <QuickItems/CameraItem.h>
 
-
-
-class Listener : public SettingsListener
-{
-public:
-	void settingsValueUpdated(Settings::Key key, const QVariant &newValue,
-							  const QVariant &oldValue) override
-	{
-		qDebug() << "Override called!!!!";
-	}
-};
-
 Settings mainSettings;
 
 static QObject* settingsProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
@@ -52,8 +40,7 @@ void loadAndRun(QGuiApplication &app)
 		int ret;
 		{
 			t3d::Terrain3D mainWindow;
-			mainSettings.addListener(&mainWindow);
-
+\
 			mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
 			mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
 			mainWindow.init();
@@ -61,7 +48,6 @@ void loadAndRun(QGuiApplication &app)
 
 			app.exec();
 			restart = mainWindow.needsRestart();
-			mainSettings.removeListener(&mainWindow);
 		}
 
 		qDebug() << "Ending all render threads";	//xyzm

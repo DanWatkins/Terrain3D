@@ -49,18 +49,6 @@ namespace t3d
 	}
 
 
-	void Terrain3D::settingsValueUpdated(Settings::Key key,
-										 const QVariant &newValue,
-										 const QVariant &oldValue)
-	{
-		typedef Settings::Key key_t;
-
-		switch (key)
-		{
-		}
-	}
-
-
 	void Terrain3D::willUpdate()
 	{
 		if (mCamera.isNull())

@@ -105,7 +105,7 @@ public:
 	 * @returns True if there is a key/value in the queue that requires a
 	 * restart for changes to take effect.
 	 */
-	bool containsQueuedValueRequiringRestart();
+	Q_INVOKABLE bool containsQueuedValueRequiringRestart();
 
 	/**
 	 * Enques the \p key and \p value in a temporary queue which can later be
@@ -137,17 +137,7 @@ private:
 class SettingsListener
 {
 public:
-	/**
-	 * @brief Called whenever a Settings value is changed. It is also called
-	 * when the setting is loaded for the first time during application statup.
-	 *
-	 * @param key The key this value represents
-	 * @param newValue The current value
-	 * @param oldValue The value before before the new value
-	 */
-	virtual void settingsValueUpdated(Settings::Key key,
-									  const QVariant &newValue,
-									  const QVariant &oldValue) = 0;
+	virtual void settingsUpdated();
 };
 
 #endif

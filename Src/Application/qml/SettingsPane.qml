@@ -89,8 +89,12 @@ Item {
 
             onClicked: {
                 parent.saveAllSettings();
+                var needsRestart = appSettings.containsQueuedValueRequiringRestart();
                 appSettings.applyQueuedValues();
-                //terrain3D.requestRestart();
+
+                if (needsRestart)
+                    terrain3D.requestRestart();
+
                 root.hasFinished();
             }
         }
@@ -106,6 +110,14 @@ Item {
             onClicked: {
                 root.hasFinished();
             }
+        }
+
+        Text {
+            id: statusText
+            x: 172
+            y: 388
+            width: 418
+            height: 13
         }
     }
 }
