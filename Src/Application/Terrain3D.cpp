@@ -187,54 +187,84 @@ namespace t3d
 		switch (key)
 		{
 			//graphics
-			CASE(GraphicsScreenResolutionWidth)
+			CASE(GraphicsScreenResolutionWidth) {
 				QWindow::resize(value.toInt(), QWindow::height());
 				break;
+			}
 
-			CASE(GraphicsScreenResolutionHeight)
+			CASE(GraphicsScreenResolutionHeight) {
 				QWindow::resize(QWindow::width(), value.toInt());
 				break;
+			}
 
-			CASE(GraphicsScreenIsFullscreen)
+			CASE(GraphicsScreenIsFullscreen) {
+				value.toBool() ? QWindow::showFullScreen() : QWindow::showNormal();
 				break;
+			}
 
-			CASE(GraphicsCameraPositionX)
+			CASE(GraphicsCameraPositionX) {
+				Vec3f c = mCamera.toStrongRef()->getPosition();
+				mCamera.toStrongRef()->setPosition(Vec3f(value.toFloat(), c.y, c.z));
 				break;
+			}
 
-			CASE(GraphicsCameraPositionY)
+			CASE(GraphicsCameraPositionY) {
+				Vec3f c = mCamera.toStrongRef()->getPosition();
+				mCamera.toStrongRef()->setPosition(Vec3f(c.x, value.toFloat(), c.z));
 				break;
+			}
 
-			CASE(GraphicsCameraPositionZ)
+			CASE(GraphicsCameraPositionZ) {
+				Vec3f c = mCamera.toStrongRef()->getPosition();
+				mCamera.toStrongRef()->setPosition(Vec3f(c.x, c.y, value.toFloat()));
 				break;
+			}
 
-			CASE(GraphicsCameraFOV)
+			CASE(GraphicsCameraFOV) {
+				mCamera.toStrongRef()->setFieldOfView(value.toFloat());
 				break;
+			}
 
-			CASE(GraphicsCameraLOD)
+			CASE(GraphicsCameraLOD) {
+				//TODO implement a LOD factor!
 				break;
-
+			}
 
 			//world
-			CASE(WorldGeneratorSize)
+			CASE(WorldGeneratorSize) {
+				//TODO
 				break;
+			}
 
-			CASE(WorldGeneratorTextureMapResolution)
+			CASE(WorldGeneratorTextureMapResolution) {
+				//TODO
 				break;
+			}
 
-			CASE(WorldGeneratorSeed)
+			CASE(WorldGeneratorSeed) {
+				//TODO
 				break;
+			}
 
-			CASE(WorldTerrainSpacing)
+			CASE(WorldTerrainSpacing) {
+				//TODO
 				break;
+			}
 
-			CASE(WorldTerrainHeightScale)
+			CASE(WorldTerrainHeightScale) {
+				//TODO
 				break;
+			}
 
-			CASE(WorldTerrainBlockSize)
+			CASE(WorldTerrainBlockSize) {
+				//TODO
 				break;
+			}
 
-			CASE(WorldTerrainSpanSize)
+			CASE(WorldTerrainSpanSize) {
+				//TODO
 				break;
+			}
 		}
 
 		#undef CASE

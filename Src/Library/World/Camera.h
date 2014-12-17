@@ -37,7 +37,7 @@ namespace t3d { namespace World
 		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }
 		Vec3f getPosition() const { return mPosition; }
 
-		void setFieldOfView(float fieldOfView);
+		void setFieldOfView(float fieldOfView) { mFieldOfView = fieldOfView; }
 		float getFieldOfView() const { return mFieldOfView; }
 		void setNearPlane(float nearPlane) { mNearPlane = nearPlane; }
 		float getNearPlane() const { return mNearPlane; }

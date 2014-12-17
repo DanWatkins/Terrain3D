@@ -116,8 +116,9 @@ Item {
             id: slider_cameraFOV
             x: 47
             y: 33
-            width: 252
+            width: 215
             height: 22
+            maximumValue: 180
             tickmarksEnabled: true
         }
 
@@ -125,7 +126,7 @@ Item {
             id: slider_cameraLOD
             x: 47
             y: 61
-            width: 252
+            width: 215
             height: 22
             tickmarksEnabled: true
         }
@@ -157,6 +158,24 @@ Item {
             x: 8
             y: 66
             text: qsTr("LOD:")
+        }
+
+        Label {
+            id: label_fovValue
+            x: 268
+            y: 42
+            width: 41
+            height: 13
+            text: slider_cameraFOV.value
+        }
+
+        Label {
+            id: label_lodValue
+            x: 268
+            y: 66
+            width: 41
+            height: 13
+            text: slider_cameraLOD.value
         }
     }
 }
