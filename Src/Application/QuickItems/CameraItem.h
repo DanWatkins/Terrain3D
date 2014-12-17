@@ -15,88 +15,30 @@ namespace t3d { namespace QuickItems
 {
 	class CameraItem : public OpenGLQuickItem
 	{
+		Q_OBJECT
+		Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY isLoadedChanged)
+
 	private:
 		typedef t3d::World::Camera ActualCamera;
 
 	public:
-		CameraItem()
-		{
-		}
+		CameraItem();
 
-		void setWorld(t3d::World::World *world)	//TODO pass a const World*
-		{
-			mCamera = QSharedPointer<ActualCamera>(new ActualCamera(world));
-		}
-
+		void setWorld(t3d::World::World *world);
 		QWeakPointer<ActualCamera> camera() { return mCamera; }
+		bool isLoaded() const { return mIsLoaded; }
 
-		void init() override
-		{
-			initializeOpenGLFunctions();
-			mCamera->init();
-			mCamera->resize(width(), height());
-		}
-
-
-		void render() override
-		{
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			if (mCamera != nullptr)
-			{
-				glEnable(GL_DEPTH_TEST);
-				glDepthMask(GL_TRUE);
-				glDepthFunc(GL_LEQUAL);
-
-				mCamera->resize(width(), height());	//TODO pass QSize instead
-
-				glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-				//const qreal retinaScale = devicePixelRatio(); TODO
-				//glViewport(0, 0, width() * retinaScale, height() * retinaScale);
-				glViewport(0, 0, width(), height());
-
-				mCamera->render();
-			}
-		}
+		void init() override;
+		void render() override;
 
 		QSharedPointer<ActualCamera> mCamera;
 
-	/*private:
-		class Renderable : public IOpenGLRenderable, protected OpenGLFunctions
-		{
-		public:
-			void init() override
-			{
-				initializeOpenGLFunctions();
-				mCamera->init();
-			}
+	signals:
+		void isLoadedChanged();
 
-
-			void render() override
-			{
-				glClear(GL_COLOR_BUFFER_BIT);
-
-				if (mCamera != nullptr)
-				{
-					glEnable(GL_DEPTH_TEST);
-					glDepthMask(GL_TRUE);
-					glDepthFunc(GL_LEQUAL);
-
-					glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
-					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-					//const qreal retinaScale = devicePixelRatio(); TODO
-					//glViewport(0, 0, width() * retinaScale, height() * retinaScale);
-					glViewport(0, 0, 800, 600);
-
-					mCamera->render();
-				}
-			}
-
-			QSharedPointer<ActualCamera> mCamera;
-		} mRenderable;*/
+	private:
+		void setIsLoaded(bool isLoaded);
+		bool mIsLoaded;
 	};
 }}
 

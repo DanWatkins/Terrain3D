@@ -13,6 +13,11 @@ Terrain3DWindow {
         objectName: "t3d_mainCamera"
         anchors.fill: parent
         anchors.margins: 0
+
+        onIsLoadedChanged: {
+            console.log("DOING hgasklgsdlg");
+            menuButtons.visible = true;
+        }
     }
 
     Loader {
@@ -33,33 +38,38 @@ Terrain3DWindow {
         }
     }
 
-    Button {
-        id: button_settings
-        text: "Settings"
+    Item {
+        id: menuButtons
+        visible: false
 
-        anchors.top:  parent.top
-        anchors.left: parent.left
-        anchors.margins: 10
+        Button {
+            id: button_settings
+            text: "Settings"
 
-        width: 70
-        height: 35
+            anchors.top:  parent.top
+            anchors.left: parent.left
+            anchors.margins: 10
 
-        onClicked: {
-            settingsPane.source = "SettingsPane.qml"
+            width: 70
+            height: 35
+
+            onClicked: {
+                settingsPane.source = "SettingsPane.qml"
+            }
         }
-    }
 
-    Button {
-        id: button_restart
-        text: "Restart"
+        Button {
+            id: button_restart
+            text: "Restart"
 
-        anchors.top:  button_settings.bottom
-        anchors.left: parent.left
-        anchors.margins: 10
+            anchors.top:  button_settings.bottom
+            anchors.left: parent.left
+            anchors.margins: 10
 
-        width: 70
-        height: 35
+            width: 70
+            height: 35
 
-        onClicked: terrain3D.restart();
+            onClicked: terrain3D.restart();
+        }
     }
 }
