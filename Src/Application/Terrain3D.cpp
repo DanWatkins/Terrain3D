@@ -58,6 +58,12 @@ namespace t3d
 	}
 
 
+	void Terrain3D::toggleCaptureCursor()
+	{
+		setCapturesCursor(!capturesCursor());
+	}
+
+
 	void Terrain3D::willUpdate()
 	{
 		if (mCamera.isNull())
@@ -141,7 +147,7 @@ namespace t3d
 
 			//toggle cursor capture
 			case Qt::Key_F1:
-				setCapturesCursor(!capturesCursor()); break;
+				toggleCaptureCursor(); break;
 
 			//restart
 			case Qt::Key_F5:
@@ -149,7 +155,7 @@ namespace t3d
 
 			//toggle settings menu
 			case Qt::Key_F10:
-				break;
+				emit toggleSettingsMenu(); break;
 
 			//toggle fullscreen
 			case Qt::Key_F11: toggleFullscreen(); break;

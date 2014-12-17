@@ -64,6 +64,11 @@ namespace t3d
 
 		Q_INVOKABLE void toggleFullscreen();
 
+		Q_INVOKABLE void toggleCaptureCursor();
+
+	signals:
+		void toggleSettingsMenu();
+
 	public slots:
 		void willUpdate();
 	};

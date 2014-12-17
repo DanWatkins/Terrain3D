@@ -35,11 +35,22 @@ Terrain3DWindow {
         }
     }
 
+
+    function toggleSettingsPane() {
+        settingsPane.item.visible = !settingsPane.item.visible;
+    }
+
+
     Connections {
         target: settingsPane.item
         onHasFinished: {
             settingsPane.sourceComponent = null;
         }
+    }
+
+    Connections {
+        target: terrain3D
+        onToggleSettingsMenu: toggleSettingsPane();
     }
 
     Item {
@@ -67,7 +78,7 @@ Terrain3DWindow {
                 id: button_captureCursor
                 text: "Capture Cursor (F1)"
                 height: 30
-                onClicked: console.log("Implement me dork");
+                onClicked: terrain3D.toggleCaptureCursor();
             }
             Button {
                 id: button_restart
@@ -79,7 +90,7 @@ Terrain3DWindow {
                 id: button_settings
                 text: "Settings (F10)"
                 height: 30
-                onClicked: settingsPane.item.visible = !settingsPane.item.visible;
+                onClicked: toggleSettingsPane();
             }
             Button {
                 id: button_fullscreen
