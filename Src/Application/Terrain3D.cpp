@@ -49,6 +49,15 @@ namespace t3d
 	}
 
 
+	void Terrain3D::toggleFullscreen()
+	{
+		if (QWindow::visibility() == QWindow::FullScreen)
+			QWindow::showNormal();
+		else
+			QWindow::showFullScreen();
+	}
+
+
 	void Terrain3D::willUpdate()
 	{
 		if (mCamera.isNull())
@@ -126,14 +135,24 @@ namespace t3d
 
 		switch (ev->key())
 		{
+			//quit
 			case Qt::Key_Escape:
 				close(); break;
+
+			//toggle cursor capture
 			case Qt::Key_F1:
 				setCapturesCursor(!capturesCursor()); break;
-			case Qt::Key_F2:
-				QWindow::showNormal(); break;
-			case Qt::Key_F3:
-				QWindow::showFullScreen(); break;
+
+			//restart
+			case Qt::Key_F5:
+				requestRestart(); break;
+
+			//toggle settings menu
+			case Qt::Key_F10:
+				break;
+
+			//toggle fullscreen
+			case Qt::Key_F11: toggleFullscreen(); break;
 		}
 	}
 }

@@ -62,6 +62,8 @@ namespace t3d
 		 */
 		Q_INVOKABLE void restart();
 
+		Q_INVOKABLE void toggleFullscreen();
+
 	public slots:
 		void willUpdate();
 	};

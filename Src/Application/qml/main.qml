@@ -39,37 +39,56 @@ Terrain3DWindow {
     }
 
     Item {
-        id: menuButtons
-        visible: false
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: 50
 
-        Button {
-            id: button_settings
-            text: "Settings"
-
-            anchors.top:  parent.top
-            anchors.left: parent.left
-            anchors.margins: 10
-
-            width: 70
-            height: 35
-
-            onClicked: {
-                settingsPane.source = "SettingsPane.qml"
-            }
+        Rectangle {
+            anchors.fill: parent
+            color: "black"
+            opacity: 0.65
         }
 
-        Button {
-            id: button_restart
-            text: "Restart"
+        RowLayout {
+            id: menuButtons
+            x: 10
+            y: 10
+            spacing: 10
 
-            anchors.top:  button_settings.bottom
-            anchors.left: parent.left
-            anchors.margins: 10
+            width: Layout.minimumWidth
+            height: Layout.minimumHeight
 
-            width: 70
-            height: 35
-
-            onClicked: terrain3D.restart();
+            Button {
+                id: button_exit
+                text: "Exit (Esc)"
+                height: 30
+                onClicked: terrain3D.close();
+            }
+            Button {
+                id: button_captureCursor
+                text: "Capture Cursor (F1)"
+                height: 30
+                onClicked: console.log("Implement me dork");
+            }
+            Button {
+                id: button_restart
+                text: "Restart (F5)"
+                height: 30
+                onClicked: terrain3D.restart();
+            }
+            Button {
+                id: button_settings
+                text: "Settings (F10)"
+                height: 30
+                onClicked: settingsPane.source = "SettingsPane.qml"
+            }
+            Button {
+                id: button_fullscreen
+                text: "Fullscreen (F11)"
+                height: 30
+                onClicked: terrain3D.toggleFullscreen();
+            }
         }
     }
 }
