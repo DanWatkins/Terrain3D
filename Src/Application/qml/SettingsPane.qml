@@ -95,7 +95,7 @@ Item {
                 if (needsRestart)
                     terrain3D.requestRestart();
 
-                root.hasFinished();
+                root.visible = false;
             }
         }
 
@@ -108,7 +108,7 @@ Item {
             text: qsTr("Cancel")
 
             onClicked: {
-                root.hasFinished();
+                root.visible = false;
             }
         }
 

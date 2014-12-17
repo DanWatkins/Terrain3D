@@ -4,6 +4,7 @@ import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
 
+
 Terrain3DWindow {
     id: appWindow
 
@@ -24,10 +25,13 @@ Terrain3DWindow {
         id: settingsPane
         anchors.fill: parent
         anchors.centerIn: parent
-        //asynchronous: true
+        source:"SettingsPane.qml"
+        visible: false
 
         onLoaded: {
             settingsPane.item.loadSettings();
+            settingsPane.item.visible = false;
+            visible = true;
         }
     }
 
@@ -60,12 +64,6 @@ Terrain3DWindow {
             height: Layout.minimumHeight
 
             Button {
-                id: button_exit
-                text: "Exit (Esc)"
-                height: 30
-                onClicked: terrain3D.close();
-            }
-            Button {
                 id: button_captureCursor
                 text: "Capture Cursor (F1)"
                 height: 30
@@ -81,13 +79,19 @@ Terrain3DWindow {
                 id: button_settings
                 text: "Settings (F10)"
                 height: 30
-                onClicked: settingsPane.source = "SettingsPane.qml"
+                onClicked: settingsPane.item.visible = !settingsPane.item.visible;
             }
             Button {
                 id: button_fullscreen
                 text: "Fullscreen (F11)"
                 height: 30
                 onClicked: terrain3D.toggleFullscreen();
+            }
+            Button {
+                id: button_exit
+                text: "Exit (Esc)"
+                height: 30
+                onClicked: terrain3D.close();
             }
         }
     }
