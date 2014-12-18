@@ -40,6 +40,7 @@ Item {
 
     function toggleSettingsPane() {
         settingsPane.item.visible = !settingsPane.item.visible;
+        settingsPane.item.refreshIfNeeded();
     }
 
 
@@ -53,6 +54,7 @@ Item {
     Connections {
         target: terrain3D
         onToggleSettingsMenu: toggleSettingsPane();
+        onRefreshSettingsMenu: settingsPane.item.refreshIfNeeded();
     }
 
     Item {

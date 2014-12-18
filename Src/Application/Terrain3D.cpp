@@ -76,6 +76,24 @@ namespace t3d
 
 		mMainSettings->setValue(Settings::Key::GraphicsScreenIsFullscreen,
 								QWindow::visibility() == QWindow::FullScreen);
+
+		emit refreshSettingsMenu();
+	}
+
+
+	void Terrain3D::toggleWireframe()
+	{
+		using namespace World::Terrain;
+		World::Camera *camera = mCamera.lock().data();
+
+		camera->getMode() == Mode::Normal ?
+					camera->setMode(Mode::WireFrame) :
+					camera->setMode(Mode::Normal);
+
+		mMainSettings->setValue(Settings::Key::GraphicsCameraWireframe,
+								camera->getMode() == Mode::WireFrame);
+
+		emit refreshSettingsMenu();
 	}
 
 
@@ -200,10 +218,8 @@ namespace t3d
 				case Qt::Key_D:
 					cameraPtr->incPosition(speed * cameraPtr->getRight()); break;
 
-				case Qt::Key_Z:
-					cameraPtr->setMode(Mode::Normal); break;
 				case Qt::Key_X:
-					cameraPtr->setMode(Mode::WireFrame); break;
+					toggleWireframe();
 			}
 		}
 

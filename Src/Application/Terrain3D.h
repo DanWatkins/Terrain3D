@@ -65,6 +65,12 @@ namespace t3d
 
 
 		/**
+		 *
+		 */
+		Q_INVOKABLE void toggleWireframe();
+
+
+		/**
 		 * @see SettingsListener::settingsValueChanged()
 		 */
 		void settingsValueChanged(Settings::Key key, const QVariant &value);
@@ -86,6 +92,7 @@ namespace t3d
 
 	signals:
 		void toggleSettingsMenu();
+		void refreshSettingsMenu();
 
 	public slots:
 		void willUpdate();
