@@ -9,9 +9,8 @@
 
 namespace t3d { namespace World
 {
-	Camera::Camera(World *world) :
-		mWorld(world),
-		mTerrainRenderer(&world->terrainData()),
+	Camera::Camera() :
+		mTerrainRenderer(),
 		mPosition(-10, 35, -10),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
@@ -28,8 +27,7 @@ namespace t3d { namespace World
 	void Camera::init()
 	{
 		initializeOpenGLFunctions();
-
-		mTerrainRenderer.init();
+		mTerrainRenderer.init(&mWorld->terrainData());
 	}
 
 

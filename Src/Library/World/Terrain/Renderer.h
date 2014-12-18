@@ -23,10 +23,10 @@ namespace t3d { namespace World { namespace Terrain
 	class Renderer : protected OpenGLFunctions
 	{
 	public:
-		Renderer(Data *terrainData);
+		Renderer();
 		~Renderer();
 
-		void init();
+		void init(Data *terrainData);
 		void cleanup();
 		void render(Vec3f cameraPos, Mat4 totalMatrix);
 

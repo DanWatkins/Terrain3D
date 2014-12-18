@@ -44,12 +44,15 @@ namespace t3d
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
-		auto camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
-		qDebug() << "Camera is " << camera;
-
-		loadUserSettings();
+		auto camera = this->rootObject()
+						->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
+		mCamera = camera->camera();
 
 		mWorld.init();
+		mCamera.toStrongRef()->setWorld(&mWorld);
+
+		//loadUserSettings();
+
 		//mCamera.init();
 		//mCamera.resize(width(), height());
 
@@ -272,15 +275,6 @@ namespace t3d
 //========================================
 	void Terrain3D::willUpdate()
 	{
-		if (mCamera.isNull())
-		{
-			if (auto camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera"))
-			{
-				camera->setWorld(&mWorld);
-				mCamera = camera->camera();
-			}
-		}
-
 		updateCursorPos();
 	}
 }

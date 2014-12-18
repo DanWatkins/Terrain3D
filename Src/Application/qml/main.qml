@@ -5,8 +5,10 @@ import QtQuick.Controls 1.2
 import Terrain3D 1.0
 
 
-Terrain3DWindow {
+Item {
     id: appWindow
+    width: 800
+    height: 600
 
     Camera {
         id: mainCamera

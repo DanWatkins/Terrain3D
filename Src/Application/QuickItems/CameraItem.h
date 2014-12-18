@@ -24,7 +24,6 @@ namespace t3d { namespace QuickItems
 	public:
 		CameraItem();
 
-		void setWorld(t3d::World::World *world);
 		QWeakPointer<ActualCamera> camera() { return mCamera; }
 		bool isLoaded() const { return mIsLoaded; }
 

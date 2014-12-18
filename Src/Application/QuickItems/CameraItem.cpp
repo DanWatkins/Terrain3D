@@ -10,14 +10,9 @@
 namespace t3d { namespace QuickItems
 {
 	CameraItem::CameraItem() :
-		mIsLoaded(false)
+		mIsLoaded(false),
+		mCamera(QSharedPointer<ActualCamera>(new ActualCamera))
 	{
-	}
-
-
-	void CameraItem::setWorld(t3d::World::World *world)	//TODO pass a const World*
-	{
-		mCamera = QSharedPointer<ActualCamera>(new ActualCamera(world));
 	}
 
 
@@ -25,7 +20,6 @@ namespace t3d { namespace QuickItems
 	{
 		initializeOpenGLFunctions();
 		mCamera->init();
-		mCamera->resize(width(), height());
 		setIsLoaded(true);
 	}
 

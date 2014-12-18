@@ -24,13 +24,14 @@ namespace t3d { namespace World
 	class Camera : protected OpenGLFunctions
 	{
 	public:
-		Camera(World *world);
+		Camera();
 
 		void init();
 		void cleanup();
 		void render();
 		void resize(unsigned windowWidth, unsigned windowHeight);
 
+		void setWorld(World *world) { mWorld = world; }
 		World *getWorld() { return mWorld; }
 
 		void setPosition(Vec3f position) { mPosition = position; }

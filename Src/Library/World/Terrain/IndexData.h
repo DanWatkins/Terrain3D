@@ -36,8 +36,9 @@ namespace t3d { namespace World { namespace Terrain
 	class Renderer::IndexData : protected OpenGLFunctions
 	{
 	public:
-		IndexData(Data *terrainData, QOpenGLShaderProgram *program);
+		IndexData(QOpenGLShaderProgram *program);
 
+		void init(Data *terrainData);
 		void cleanup();
 
 		void queryUniforms();

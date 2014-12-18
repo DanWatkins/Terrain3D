@@ -20,11 +20,16 @@ namespace t3d { namespace World { namespace Terrain
 	{
 	}
 
-	Renderer::IndexData::IndexData(Data *terrainData, QOpenGLShaderProgram *program) :
+	Renderer::IndexData::IndexData(QOpenGLShaderProgram *program) :
 		IndexData()
 	{
-		mTerrainData = terrainData;
 		mProgram = program;
+	}
+
+
+	void Renderer::IndexData::init(Data *terrainData)
+	{
+		mTerrainData = terrainData;
 	}
 
 

@@ -12,12 +12,10 @@
 
 namespace t3d { namespace World { namespace Terrain
 {
-	Renderer::Renderer(Data *terrainData) :
-		mTerrainData(terrainData),
+	Renderer::Renderer() :
 		mMode(Mode::Normal)
 	{
-		mRenderData = std::unique_ptr<IndexData>(new IndexData(mTerrainData, &mProgram));
-		
+		mRenderData = std::unique_ptr<IndexData>(new IndexData(&mProgram));
 	}
 
 
@@ -26,9 +24,13 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
-	void Renderer::init()
+	void Renderer::init(Data *terrainData)
 	{
 		initializeOpenGLFunctions();
+
+		mTerrainData = terrainData;
+		mRenderData->init(mTerrainData);
+
 		loadShaders();
 		
 		mProgram.bind();
