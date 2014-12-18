@@ -35,7 +35,6 @@ void loadAndRun(QGuiApplication &app)
 			mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
 			mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
 			mainWindow.init();
-			mainWindow.show();
 
 			app.exec();
 			restart = mainWindow.needsRestart();

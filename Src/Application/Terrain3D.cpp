@@ -48,13 +48,11 @@ namespace t3d
 						->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
 		mCamera = camera->camera();
 
+		QWindow::show();
+		loadUserSettings();
+
 		mWorld.init();
 		mCamera.toStrongRef()->setWorld(&mWorld);
-
-		//loadUserSettings();
-
-		//mCamera.init();
-		//mCamera.resize(width(), height());
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
@@ -126,6 +124,12 @@ namespace t3d
 				//TODO implement a LOD factor!
 				break;
 			}
+			CASE(GraphicsCameraWireframe) {
+				mCamera.toStrongRef()->setMode(value.toBool()
+											   ? World::Terrain::Mode::WireFrame :
+												 World::Terrain::Mode::Normal);
+			}
+
 
 			//world
 			CASE(WorldGeneratorSize) {

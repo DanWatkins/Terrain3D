@@ -22,7 +22,7 @@ Item {
     function saveSettings() {
         SaveLoad.valueSave(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth);
         SaveLoad.valueSave(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight);
-        SaveLoad.checkedRead(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen);
+        SaveLoad.checkedSave(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen);
 
         SaveLoad.valueSave(Settings.GraphicsCameraFOV, slider_cameraFOV);
         SaveLoad.valueSave(Settings.GraphicsCameraLOD, slider_cameraLOD);
