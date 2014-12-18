@@ -37,6 +37,8 @@ void Settings::setValue(Key key, const QVariant &newValue)
 		for (auto listener : mListeners)
 			listener->settingsValueChanged(key, newValue);
 	}
+
+	mSettings->sync();
 }
 
 

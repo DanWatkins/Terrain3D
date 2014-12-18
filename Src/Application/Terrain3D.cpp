@@ -63,6 +63,7 @@ namespace t3d
 	void Terrain3D::toggleCaptureCursor()
 	{
 		setCapturesCursor(!capturesCursor());
+		//TODO add as setting
 	}
 
 
@@ -72,6 +73,9 @@ namespace t3d
 			QWindow::showNormal();
 		else
 			QWindow::showFullScreen();
+
+		mMainSettings->setValue(Settings::Key::GraphicsScreenIsFullscreen,
+								QWindow::visibility() == QWindow::FullScreen);
 	}
 
 

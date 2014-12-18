@@ -17,7 +17,13 @@ Item {
     }
 
     function loadSettings() {
+        console.log("loading settings from the settings pane");
         rectPane.loadAllSettings();
+    }
+
+    function refreshIfNeeded() {
+        if (visible)
+            loadSettings();
     }
 
     //the main settings pane

@@ -80,13 +80,16 @@ Item {
                 id: button_captureCursor
                 text: "Capture Cursor (F1)"
                 height: 30
-                onClicked: terrain3D.toggleCaptureCursor();
+                onClicked: {
+                    terrain3D.toggleCaptureCursor();
+                    settingsPane.item.refreshIfNeeded();
+                }
             }
             Button {
                 id: button_restart
                 text: "Restart (F5)"
                 height: 30
-                onClicked: terrain3D.restart();
+                onClicked: terrain3D.requestRestart();
             }
             Button {
                 id: button_settings
@@ -98,7 +101,10 @@ Item {
                 id: button_fullscreen
                 text: "Fullscreen (F11)"
                 height: 30
-                onClicked: terrain3D.toggleFullscreen();
+                onClicked: {
+                    terrain3D.toggleFullscreen();
+                    settingsPane.item.refreshIfNeeded();
+                }
             }
             Button {
                 id: button_exit

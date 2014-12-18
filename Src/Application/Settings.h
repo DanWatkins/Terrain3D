@@ -61,7 +61,8 @@ public:
 	}; Q_ENUMS(Key)
 
 	/**
-	 * @brief Assigns \p value to be associated with \p key.
+	 * @brief Assigns \p value to be associated with \p key. The internal QSettings
+	 * instance is also synced.
 	 *
 	 * @param key The key to associate with
 	 * @param value The value to associate with
