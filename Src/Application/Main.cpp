@@ -31,7 +31,7 @@ void loadAndRun(QGuiApplication &app)
 	{
 		{
 			t3d::Terrain3D mainWindow(&mainSettings);
-\
+
 			mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
 			mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
 			mainWindow.init();

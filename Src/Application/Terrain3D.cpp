@@ -11,6 +11,9 @@
 
 namespace t3d
 {
+//========================================
+// Public
+//========================================
 	Terrain3D::Terrain3D(Settings *mainSettings) :
 		mPreviouslyHadFocus(false),
 		mNeedsRestart(false),
@@ -56,25 +59,9 @@ namespace t3d
 	}
 
 
-	void Terrain3D::loadUserSettings()
+	void Terrain3D::toggleCaptureCursor()
 	{
-		const QMetaObject &mo = Settings::staticMetaObject;
-		QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("Key"));
-
-		//loop through every Settings::Key and tell ourself that a value has
-		//changed to effectively load the value
-		for (int i=0; i<me.keyCount(); i++)
-		{
-			Settings::Key key = static_cast<Settings::Key>(me.value(i));
-			settingsValueChanged(key, mMainSettings->value(key));
-		}
-	}
-
-
-	void Terrain3D::restart()
-	{
-		QQuickView::close();
-		mNeedsRestart = true;
+		setCapturesCursor(!capturesCursor());
 	}
 
 
@@ -84,111 +71,6 @@ namespace t3d
 			QWindow::showNormal();
 		else
 			QWindow::showFullScreen();
-	}
-
-
-	void Terrain3D::toggleCaptureCursor()
-	{
-		setCapturesCursor(!capturesCursor());
-	}
-
-
-	void Terrain3D::willUpdate()
-	{
-		if (mCamera.isNull())
-		{
-			if (auto camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera"))
-			{
-				camera->setWorld(&mWorld);
-				mCamera = camera->camera();
-			}
-		}
-
-		updateCursorPos();
-	}
-
-
-	void Terrain3D::updateCursorPos()
-	{
-		if (!capturesCursor() && mouseButtonLeftPressed() == false)
-			return;
-
-		if (QWindow::isActive())
-		{
-			if (!mPreviouslyHadFocus)
-			{
-				resetCursorPosition();
-			}
-			else
-			{
-				if (mCamera.toStrongRef())
-				{
-					const double mouseSensitivity = 0.1f;
-					QVector2D delta = consumeCursorDelta();
-					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
-
-					resetCursorPosition();
-				}
-			}
-
-			mPreviouslyHadFocus = true;
-		}
-		else
-		{
-			mPreviouslyHadFocus = false;
-		}
-	}
-
-
-	void Terrain3D::keyPressEvent(QKeyEvent *ev)
-	{
-		QQuickView::keyPressEvent(ev);
-
-		using namespace World::Terrain;
-		const float speed = 1.75f;
-
-		//update the camera
-		if (auto cameraPtr = mCamera.toStrongRef())
-		{
-			switch (ev->key())
-			{
-				case Qt::Key_W:
-					cameraPtr->incPosition(speed * cameraPtr->getForward()); break;
-				case Qt::Key_S:
-					cameraPtr->incPosition(speed * -cameraPtr->getForward()); break;
-				case Qt::Key_A:
-					cameraPtr->incPosition(speed * -cameraPtr->getRight()); break;
-				case Qt::Key_D:
-					cameraPtr->incPosition(speed * cameraPtr->getRight()); break;
-
-				case Qt::Key_Z:
-					cameraPtr->setMode(Mode::Normal); break;
-				case Qt::Key_X:
-					cameraPtr->setMode(Mode::WireFrame); break;
-			}
-		}
-
-		switch (ev->key())
-		{
-			//quit
-			case Qt::Key_Escape:
-				close(); break;
-
-			//toggle cursor capture
-			case Qt::Key_F1:
-				toggleCaptureCursor(); break;
-
-			//restart
-			case Qt::Key_F5:
-				requestRestart(); break;
-
-			//toggle settings menu
-			case Qt::Key_F10:
-				emit toggleSettingsMenu(); break;
-
-			//toggle fullscreen
-			case Qt::Key_F11: toggleFullscreen(); break;
-		}
 	}
 
 
@@ -280,5 +162,125 @@ namespace t3d
 		}
 
 		#undef CASE
+	}
+
+
+//========================================
+// Private
+//========================================
+	void Terrain3D::keyPressEvent(QKeyEvent *ev)
+	{
+		QQuickView::keyPressEvent(ev);
+
+		using namespace World::Terrain;
+		const float speed = 1.75f;
+
+		//update the camera
+		if (auto cameraPtr = mCamera.toStrongRef())
+		{
+			switch (ev->key())
+			{
+				case Qt::Key_W:
+					cameraPtr->incPosition(speed * cameraPtr->getForward()); break;
+				case Qt::Key_S:
+					cameraPtr->incPosition(speed * -cameraPtr->getForward()); break;
+				case Qt::Key_A:
+					cameraPtr->incPosition(speed * -cameraPtr->getRight()); break;
+				case Qt::Key_D:
+					cameraPtr->incPosition(speed * cameraPtr->getRight()); break;
+
+				case Qt::Key_Z:
+					cameraPtr->setMode(Mode::Normal); break;
+				case Qt::Key_X:
+					cameraPtr->setMode(Mode::WireFrame); break;
+			}
+		}
+
+		switch (ev->key())
+		{
+			//quit
+			case Qt::Key_Escape:
+				close(); break;
+
+			//toggle cursor capture
+			case Qt::Key_F1:
+				toggleCaptureCursor(); break;
+
+			//restart
+			case Qt::Key_F5:
+				requestRestart(); break;
+
+			//toggle settings menu
+			case Qt::Key_F10:
+				emit toggleSettingsMenu(); break;
+
+			//toggle fullscreen
+			case Qt::Key_F11: toggleFullscreen(); break;
+		}
+	}
+
+
+	void Terrain3D::updateCursorPos()
+	{
+		if (!capturesCursor() && mouseButtonLeftPressed() == false)
+			return;
+
+		if (QWindow::isActive())
+		{
+			if (!mPreviouslyHadFocus)
+			{
+				resetCursorPosition();
+			}
+			else
+			{
+				if (mCamera.toStrongRef())
+				{
+					const double mouseSensitivity = 0.1f;
+					QVector2D delta = consumeCursorDelta();
+					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+
+					resetCursorPosition();
+				}
+			}
+
+			mPreviouslyHadFocus = true;
+		}
+		else
+		{
+			mPreviouslyHadFocus = false;
+		}
+	}
+
+
+	void Terrain3D::loadUserSettings()
+	{
+		const QMetaObject &mo = Settings::staticMetaObject;
+		QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("Key"));
+
+		//loop through every Settings::Key and tell ourself that a value has
+		//changed to effectively load the value
+		for (int i=0; i<me.keyCount(); i++)
+		{
+			Settings::Key key = static_cast<Settings::Key>(me.value(i));
+			settingsValueChanged(key, mMainSettings->value(key));
+		}
+	}
+
+
+//========================================
+// Public Slots
+//========================================
+	void Terrain3D::willUpdate()
+	{
+		if (mCamera.isNull())
+		{
+			if (auto camera = this->rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera"))
+			{
+				camera->setWorld(&mWorld);
+				mCamera = camera->camera();
+			}
+		}
+
+		updateCursorPos();
 	}
 }
