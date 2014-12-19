@@ -84,7 +84,7 @@ namespace t3d
 	void Terrain3D::toggleWireframe()
 	{
 		using namespace World::Terrain;
-		World::Camera *camera = mCamera.lock().data();
+		World::Camera *camera = mCamera.toStrongRef().data();
 
 		camera->getMode() == Mode::Normal ?
 					camera->setMode(Mode::WireFrame) :

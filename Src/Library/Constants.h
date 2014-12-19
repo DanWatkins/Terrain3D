@@ -17,11 +17,8 @@ const int			gDefaultWindowHeight			= 900;
 
 const QString		gWindowTitle					= QString("Terrain3D ") + gVersion;
 
-const QString		gDefaultPathAi					= "./Data/AI/";
-const QString		gDefaultPathEntity				= "./Data/Entity/";
-const QString		gDefaultPathMesh				= "./Data/Mesh/";
-
-const QString		gDefaultPathShaders				 = "./Shaders/";
+const QString		gDefaultPathTextures			= "../Textures/";
+const QString		gDefaultPathShaders				= "../Shaders/";
 
 #endif
 

@@ -18,7 +18,7 @@ INCLUDEPATH += ../../../Ext/gtest/inc/ \
 				../../../Ext/gtest/
 
 DEFINES += GTEST_LIBRARY
-DESTDIR += ../../../Bin/
+DESTDIR += ../../../Deployment/Bin/
 
 SOURCES += \
 	../../../Ext/gtest/src/gtest-all.cc

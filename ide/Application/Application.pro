@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = Terrain3D
-QT += qml quick widgets
+QT += qml quick
 CONFIG += c++11
 
 QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
@@ -10,7 +10,7 @@ INCLUDEPATH += ../../Src/Library \
 				../../Src/Application \
 			../../Ext/
 
-DESTDIR += ../../Bin/
+DESTDIR += ../../Deployment/Bin/
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -18,7 +18,7 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-unix|win32: LIBS += -L$$OUT_PWD/../../Bin/ -lTerrain3D
+unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
 
 
 HEADERS += \
@@ -35,14 +35,6 @@ SOURCES += \
     ../../Src/Application/Terrain3D.cpp \
     ../../Src/Application/QuickItems/CameraItem.cpp \
     ../../Src/Application/Settings.cpp
-
-OTHER_FILES += \
-    ../../Bin/Shaders/camera-frag.glsl \
-    ../../Bin/Shaders/camera-vert.glsl \
-    ../../Bin/Shaders/sprite-frag.glsl \
-    ../../Bin/Shaders/sprite-vert.glsl \
-    ../../Bin/Shaders/mesh-obj-frag.glsl \
-    ../../Bin/Shaders/mesh-obj-vert.glsl
 
 RESOURCES += \
     ../../Src/Application/qml/main.qrc

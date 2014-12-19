@@ -189,16 +189,16 @@ namespace t3d { namespace World { namespace Terrain
 		glActiveTexture(GL_TEXTURE1);
 		{
 			Image imageWater;
-			imageWater.loadFromFile_PNG("./Textures/water.png");
+			imageWater.loadFromFile_PNG(gDefaultPathTextures + "water.png");
 
 			Image imageSand;
-			imageSand.loadFromFile_PNG("./Textures/sand.png");
+			imageSand.loadFromFile_PNG(gDefaultPathTextures + "sand.png");
 
 			Image imageGrass;
-			imageGrass.loadFromFile_PNG("./Textures/grass.png");
+			imageGrass.loadFromFile_PNG(gDefaultPathTextures + "grass.png");
 
 			Image imageMountain;
-			imageMountain.loadFromFile_PNG("./Textures/mountain.png");
+			imageMountain.loadFromFile_PNG(gDefaultPathTextures + "mountain.png");
 
 			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
