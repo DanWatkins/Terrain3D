@@ -44,15 +44,14 @@ namespace t3d
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
-		auto camera = this->rootObject()
-						->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
-		mCamera = camera->camera();
-
 		QWindow::show();
+		theCamera = new World::Camera;
+
 		loadUserSettings();
 
 		mWorld.init();
-		mCamera.toStrongRef()->setWorld(&mWorld);
+		theCamera->setWorld(&mWorld);
+		theCamera->init();
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
@@ -84,7 +83,7 @@ namespace t3d
 	void Terrain3D::toggleWireframe()
 	{
 		using namespace World::Terrain;
-		World::Camera *camera = mCamera.toStrongRef().data();
+		World::Camera *camera = theCamera;
 
 		camera->getMode() == Mode::Normal ?
 					camera->setMode(Mode::WireFrame) :
@@ -120,25 +119,25 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraPositionX) {
-				Vec3f c = mCamera.toStrongRef()->getPosition();
-				mCamera.toStrongRef()->setPosition(Vec3f(value.toFloat(), c.y, c.z));
+				Vec3f c = theCamera->getPosition();
+				theCamera->setPosition(Vec3f(value.toFloat(), c.y, c.z));
 				break;
 			}
 
 			CASE(GraphicsCameraPositionY) {
-				Vec3f c = mCamera.toStrongRef()->getPosition();
-				mCamera.toStrongRef()->setPosition(Vec3f(c.x, value.toFloat(), c.z));
+				Vec3f c = theCamera->getPosition();
+				theCamera->setPosition(Vec3f(c.x, value.toFloat(), c.z));
 				break;
 			}
 
 			CASE(GraphicsCameraPositionZ) {
-				Vec3f c = mCamera.toStrongRef()->getPosition();
-				mCamera.toStrongRef()->setPosition(Vec3f(c.x, c.y, value.toFloat()));
+				Vec3f c = theCamera->getPosition();
+				theCamera->setPosition(Vec3f(c.x, c.y, value.toFloat()));
 				break;
 			}
 
 			CASE(GraphicsCameraFOV) {
-				mCamera.toStrongRef()->setFieldOfView(value.toFloat());
+				theCamera->setFieldOfView(value.toFloat());
 				break;
 			}
 
@@ -147,7 +146,7 @@ namespace t3d
 				break;
 			}
 			CASE(GraphicsCameraWireframe) {
-				mCamera.toStrongRef()->setMode(value.toBool()
+				theCamera->setMode(value.toBool()
 											   ? World::Terrain::Mode::WireFrame :
 												 World::Terrain::Mode::Normal);
 			}
@@ -205,7 +204,7 @@ namespace t3d
 		const float speed = 1.75f;
 
 		//update the camera
-		if (auto cameraPtr = mCamera.toStrongRef())
+		if (auto cameraPtr = theCamera)
 		{
 			switch (ev->key())
 			{
@@ -260,11 +259,11 @@ namespace t3d
 			}
 			else
 			{
-				if (mCamera.toStrongRef())
+				if (theCamera)
 				{
 					const double mouseSensitivity = 0.1f;
 					QVector2D delta = consumeCursorDelta();
-					mCamera.toStrongRef()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+					theCamera->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 
 					resetCursorPosition();
 				}

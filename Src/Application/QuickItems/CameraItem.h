@@ -8,36 +8,27 @@
 #ifndef _t3d_QUICK_ITEMS_CAMERA_H
 #define _t3d_QUICK_ITEMS_CAMERA_H
 
-#include <Core/OpenGLQuickItem.h>
+#include <QtQuick/QQuickFramebufferObject>
 #include <World/Camera.h>
+
+namespace t3d
+{
+	extern World::Camera *theCamera;
+}
 
 namespace t3d { namespace QuickItems
 {
-	class CameraItem : public OpenGLQuickItem
+	class CameraItem : public QQuickFramebufferObject
 	{
 		Q_OBJECT
 		Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY isLoadedChanged)
 
-	private:
-		typedef t3d::World::Camera ActualCamera;
-
 	public:
-		CameraItem();
-
-		QWeakPointer<ActualCamera> camera() { return mCamera; }
-		bool isLoaded() const { return mIsLoaded; }
-
-		void init() override;
-		void render() override;
-
-		QSharedPointer<ActualCamera> mCamera;
+		Renderer *createRenderer() const;
+		bool isLoaded() const { return theCamera != nullptr; }
 
 	signals:
 		void isLoadedChanged();
-
-	private:
-		void setIsLoaded(bool isLoaded);
-		bool mIsLoaded;
 	};
 }}
 

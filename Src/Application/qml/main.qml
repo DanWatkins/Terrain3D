@@ -10,16 +10,27 @@ Item {
     width: 800
     height: 600
 
-    Camera {
-        id: mainCamera
-        y: 40
-        objectName: "t3d_mainCamera"
+    Rectangle {
         anchors.fill: parent
-        anchors.margins: 0
 
-        onIsLoadedChanged: {
-            console.log("DOING hgasklgsdlg");
-            menuButtons.visible = true;
+        Camera {
+            id: mainCamera
+            objectName: "t3d_mainCamera"
+            anchors.fill: parent
+
+
+            transform: Scale { origin.y: 300; yScale: -1.0 }
+
+                /*Rotation {
+                            origin { x: 800/2; y: 600/2 }
+                            axis { x: 1; y: 1; z: 0 }
+                            angle: 180
+                        }*/
+
+            /*onIsLoadedChanged: {
+                console.log("DOING hgasklgsdlg");
+                menuButtons.visible = true;
+            }*/
         }
     }
 

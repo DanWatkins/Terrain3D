@@ -41,18 +41,13 @@ void loadAndRun(QGuiApplication &app)
 		}
 
 		qDebug() << "Ending all render threads";	//xyzm
-		t3d::OpenGLQuickItem::endAllRenderThreads();
+		//t3d::OpenGLQuickItem::endAllRenderThreads();
 	}
 }
 
 
 int main(int argc, char *argv[])
-{	
-	AllocConsole();
-	freopen("conin$",  "r", stdin);
-	freopen("conout$", "w", stdout);
-	freopen("conout$", "w", stderr);
-
+{
 	QGuiApplication app(argc, argv);
 	mainSettings.init();
 
