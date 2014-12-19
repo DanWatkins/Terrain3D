@@ -18,19 +18,13 @@ Item {
             objectName: "t3d_mainCamera"
             anchors.fill: parent
 
+            //we have to flip the image vertically since the FBO is upside down
+            transform: Scale { origin.y: height/2; yScale: -1.0 }
 
-            transform: Scale { origin.y: 300; yScale: -1.0 }
-
-                /*Rotation {
-                            origin { x: 800/2; y: 600/2 }
-                            axis { x: 1; y: 1; z: 0 }
-                            angle: 180
-                        }*/
-
-            /*onIsLoadedChanged: {
+            onIsLoadedChanged: {
                 console.log("DOING hgasklgsdlg");
                 menuButtons.visible = true;
-            }*/
+            }
         }
     }
 

@@ -29,14 +29,15 @@ namespace t3d { namespace QuickItems
 				glDepthMask(GL_TRUE);
 				glDepthFunc(GL_LEQUAL);
 
-				theCamera->resize(800, 600);	//TODO pass QSize instead
+				QSize frameSize = framebufferObject()->size();
+				theCamera->resize(frameSize.width(), frameSize.height());	//TODO pass QSize instead
 
 				glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 				//const qreal retinaScale = devicePixelRatio(); TODO
 				//glViewport(0, 0, width() * retinaScale, height() * retinaScale);
-				glViewport(0, 0, 800, 600);
+				glViewport(0, 0, frameSize.width(), frameSize.height());
 
 				theCamera->render();
 			}
