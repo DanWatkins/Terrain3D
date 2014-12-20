@@ -49,9 +49,9 @@ namespace t3d
 
 		loadUserSettings();
 
-		mWorld.init();
+		mWorld.init(buildWorldConfiguration());
 		theCamera->setWorld(&mWorld);
-		theCamera->init();
+		theCamera->init(buildCameraConfiguration());
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
@@ -290,6 +290,31 @@ namespace t3d
 			Settings::Key key = static_cast<Settings::Key>(me.value(i));
 			settingsValueChanged(key, mMainSettings->value(key));
 		}
+	}
+
+
+	World::CameraConfiguration Terrain3D::buildCameraConfiguration()
+	{
+		typedef Settings::Key key;
+		World::CameraConfiguration config;
+		config.terrainBlockSize = mMainSettings->value(key::WorldTerrainBlockSize).toInt();
+		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
+		config.terrainSpacing = mMainSettings->value(key::WorldTerrainSpacing).toFloat();
+		config.terrainSpanSize = mMainSettings->value(key::WorldTerrainSpanSize).toInt();
+
+		return config;
+	}
+
+
+	World::WorldConfiguration Terrain3D::buildWorldConfiguration()
+	{
+		typedef Settings::Key key;
+		World::WorldConfiguration config;
+		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
+		config.generatorSize = mMainSettings->value(key::WorldGeneratorSize).toInt();
+		config.generatorTextureMapResolution = mMainSettings->value(key::WorldGeneratorTextureMapResolution).toInt();
+
+		return config;
 	}
 
 

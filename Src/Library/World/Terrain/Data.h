@@ -17,8 +17,6 @@ namespace t3d { namespace World { namespace Terrain
 	class Data
 	{
 	public:
-		Data(int textureMapResolution);
-
 		void cleanup() { /*nothing to cleanup*/ }
 
 		//TODO PURE HACKERY HERE
@@ -30,10 +28,11 @@ namespace t3d { namespace World { namespace Terrain
 
 		typedef QVector<GLubyte> TextureIndicies;
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
+
+		void setTextureMapResolution(int resolution) { mTextureMapResolution = resolution; }
 		int textureMapResolution() { return mTextureMapResolution; }
 
 	private:
-		Data() {}
 		HeightMap mHeightMap;
 		LightMap mLightMap;
 		TextureIndicies mTextureIndicies;

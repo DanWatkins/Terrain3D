@@ -21,8 +21,7 @@ class Settings : public QObject
 
 public:
 	/**
-	 * @brief The default constructor is only available for QML. Instantiating
-	 * a Settings instance in C++ is pointless.
+	 * @brief The default constructor.
 	 */
 	Settings() :
 		mSettings(nullptr),

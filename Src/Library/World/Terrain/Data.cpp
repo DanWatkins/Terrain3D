@@ -9,12 +9,6 @@
 
 namespace t3d { namespace World { namespace Terrain
 {
-	Data::Data(int textureMapResolution) :
-		mTextureMapResolution(textureMapResolution)
-	{
-	}
-
-
 	int indexForHeight(const Data::HeightIndex &hi, float height)
     {
 		Data::HeightIndex::ConstIterator iter = hi.cbegin();

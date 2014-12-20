@@ -8,7 +8,8 @@ class Test_WorldTerrainData : public ::testing::Test
 protected:
 	void testComputeTextureIndiciesBasic(int size, float baseHeight, int expectedIndex, Data::HeightIndex &heightIndex)
 	{
-		Data data(1);
+		Data data;
+		data.setTextureMapResolution(1);
 		data.heightMap().reserve(size);
 
 		for (int y=0; y<size; y++)
@@ -27,7 +28,8 @@ protected:
 
 	void testComputeTextureIndiciesAdv(int size, int res, const Data::HeightIndex &hi, float *heights, GLubyte *expected)
 	{
-		Data data(res);
+		Data data;
+		data.setTextureMapResolution(2);
 		data.heightMap().reserve(size);
 
 		for (int y=0; y<size; y++)

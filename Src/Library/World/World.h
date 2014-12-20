@@ -12,6 +12,20 @@
 
 namespace t3d { namespace World
 {
+	/**
+	 * Contains all the configuration/settings relevant to a World
+	 * instance. TODO this is actually redundant since all these settings are
+	 * declared here as well as in the Application settings class. This is just
+	 * a simple pass object for now and can probably be refactored out eventually.
+	 */
+	struct WorldConfiguration
+	{
+		int generatorSize;
+		int generatorTextureMapResolution;
+		int generatorSeed;
+	};
+
+
 	class World
 	{
 	private:
@@ -19,7 +33,7 @@ namespace t3d { namespace World
 
 	public:
 		World();
-		void init();
+		void init(const WorldConfiguration &configuration);
 
 		Terrain::Data& terrainData() { return mTerrainData; }
 	};

@@ -17,6 +17,15 @@
 
 namespace t3d { namespace World
 {
+	struct CameraConfiguration
+	{
+		float terrainSpacing;
+		float terrainHeightScale;
+		int terrainBlockSize;
+		int terrainSpanSize;
+	};
+
+
 	/**
 	 * Represents an all-in-one World instance visualizer. It uses the style of a first person shooter camera. It can
 	 * move forward/backward and left/right. It can also rotate up/down and left/right.
@@ -26,7 +35,7 @@ namespace t3d { namespace World
 	public:
 		Camera();
 
-		void init();
+		void init(const CameraConfiguration &configuration);
 		void cleanup();
 		void render();
 		void resize(unsigned windowWidth, unsigned windowHeight);

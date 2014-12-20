@@ -12,17 +12,21 @@
 
 namespace t3d { namespace World
 {
-	World::World() :
-		mTerrainData(2)
+	World::World()
 	{
 	}
 
 
-	void World::init()
+	void World::init(const WorldConfiguration &configuration)
 	{
 		Terrain::Generator::FaultFormation generator;
-		const int size = 257;
-		generator.generate(mTerrainData, size, 280, (GLuint)time(NULL));
+		mTerrainData.setTextureMapResolution(configuration.generatorTextureMapResolution);
+
+		generator.generate(mTerrainData,
+						   configuration.generatorSize,
+						   280,
+						   (configuration.generatorSeed == 0)
+									? (int)time(NULL) : configuration.generatorSeed);
 		{
 			Terrain::Data::HeightIndex hi;
 			hi[0.25f] = 0;
@@ -32,7 +36,7 @@ namespace t3d { namespace World
 			mTerrainData.computeTextureIndicies(hi);
 		}
 
-		mTerrainData.lightMap().reserve(size);
+		mTerrainData.lightMap().reserve(configuration.generatorSize);
 		Terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),
 													mTerrainData.heightMap());
 	}
