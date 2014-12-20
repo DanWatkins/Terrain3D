@@ -24,12 +24,13 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
-	void Renderer::init(Data *terrainData)
+	void Renderer::init(Data *terrainData, float spacing, float heightScale,
+						int blockSize, int spanSize)
 	{
 		initializeOpenGLFunctions();
 
 		mTerrainData = terrainData;
-		mRenderData->init(mTerrainData);
+		mRenderData->init(mTerrainData, spacing, heightScale, blockSize, spanSize);
 
 		loadShaders();
 		

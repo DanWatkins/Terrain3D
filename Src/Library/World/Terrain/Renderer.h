@@ -26,7 +26,8 @@ namespace t3d { namespace World { namespace Terrain
 		Renderer();
 		~Renderer();
 
-		void init(Data *terrainData);
+		void init(Data *terrainData, float spacing, float heightScale,
+				  int blockSize, int spanSize);
 		void cleanup();
 		void render(Vec3f cameraPos, Mat4 totalMatrix);
 
@@ -44,6 +45,7 @@ namespace t3d { namespace World { namespace Terrain
 		GLuint mTexture[2];
 		GLuint mVbo[2];
 		Mode mMode;
+
 
 		struct Uniforms
 		{

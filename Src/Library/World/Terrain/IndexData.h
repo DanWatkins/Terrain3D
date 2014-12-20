@@ -38,7 +38,8 @@ namespace t3d { namespace World { namespace Terrain
 	public:
 		IndexData(QOpenGLShaderProgram *program);
 
-		void init(Data *terrainData);
+		void init(Data *terrainData, float spacing, float heightScale,
+				  int blockSize, int spanSize);
 		void cleanup();
 
 		void queryUniforms();

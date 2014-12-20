@@ -100,14 +100,14 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
 	void FaultFormation::generate(Data &terrainData, int size, int numberOfPasses, int seed)
     {
         HeightMap &heightMap = terrainData.heightMap();
-        heightMap.reserve(size);
+		heightMap.reserve(size);
         std::srand(seed);
 
         for (int i=0; i<numberOfPasses; i++)
         {
 			const float maxDelta = 255.0f;
             const float minDelta = 0.0f;
-            float amount = maxDelta - ((maxDelta - minDelta) * i) / size;
+			float amount = maxDelta - ((maxDelta - minDelta) * i) / size;
             amount += 15.0f;
 
             applyRandomFault(heightMap, amount);

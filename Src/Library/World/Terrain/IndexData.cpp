@@ -27,9 +27,14 @@ namespace t3d { namespace World { namespace Terrain
 	}
 
 
-	void Renderer::IndexData::init(Data *terrainData)
+	void Renderer::IndexData::init(Data *terrainData, float spacing,
+								   float heightScale, int blockSize, int spanSize)
 	{
 		mTerrainData = terrainData;
+		mSpacing = spacing;
+		mHeightScale = heightScale;
+		mBlockSize = blockSize;
+		mSpanSize = spanSize;
 	}
 
 

@@ -27,7 +27,12 @@ namespace t3d { namespace World
 	void Camera::init(const CameraConfiguration &configuration)
 	{
 		initializeOpenGLFunctions();
-		mTerrainRenderer.init(&mWorld->terrainData());
+
+		mTerrainRenderer.init(&mWorld->terrainData(),
+							  configuration.terrainSpacing,
+							  configuration.terrainHeightScale,
+							  configuration.terrainBlockSize,
+							  configuration.terrainSpanSize);
 	}
 
 
