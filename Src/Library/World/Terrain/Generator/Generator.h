@@ -16,7 +16,7 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
     class Generator
 	{
 	public:
-		virtual void generate(Data &terrainData, int size, int numberOfPasses, int seed) = 0;
+		virtual void generate(Data &terrainData, int size, int numberOfPasses, float smoothing, int seed) = 0;
 	};
 }}}}
 

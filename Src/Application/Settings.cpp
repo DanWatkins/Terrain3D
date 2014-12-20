@@ -138,10 +138,12 @@ void Settings::initDefaultValues()
 	d[WorldGeneratorTextureMapResolution] = {2, true};
 	d[WorldGeneratorFaultCount] = {250, true};
 	d[WorldGeneratorSeed] = {0, true};
+	d[WorldGeneratorSmoothing] = {0.65, true};
 	d[WorldTerrainSpacing] = {1.0f, false};
 	d[WorldTerrainHeightScale] = {30.0f, false};
 	d[WorldTerrainBlockSize] = {32, true};
 	d[WorldTerrainSpanSize] = {8, false};
+	d[WorldTerrainLightIntensity] = {10, true};
 
 	#undef d
 }

@@ -17,7 +17,7 @@ namespace t3d { namespace World { namespace Terrain {
 		class Slope
 		{
 		public:
-			static bool computeBrightness(LightMap &lm, const HeightMap &hm);
+			static bool computeBrightness(LightMap &lm, const HeightMap &hm, float intensity);
 
 
 		private:

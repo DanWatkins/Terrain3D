@@ -8,7 +8,8 @@ namespace t3d { namespace World { namespace Terrain { namespace Generator
     class FaultFormation : public Generator
     {
     public:
-		void generate(Data &terrainData, int size, int numberOfPasses, int seed);
+		void generate(Data &terrainData, int size, int numberOfPasses,
+					  float smoothing, int seed);
     };
 }}}}
 

@@ -23,6 +23,8 @@ namespace t3d { namespace World
 			int generatorSize;
 			int generatorTextureMapResolution;
 			int generatorSeed;
+			float generatorSmoothing;
+			float generatorLightIntensity;
 		};
 
 	public:

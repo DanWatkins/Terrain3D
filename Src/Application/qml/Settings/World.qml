@@ -15,6 +15,8 @@ Item {
         SaveLoad.valueRead(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
         SaveLoad.valueRead(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
         SaveLoad.cbRead(Settings.WorldTerrainSpanSize,comboBox_terrainSpanSize);
+        SaveLoad.valueRead(Settings.WorldTerrainLightIntensity, slider_terrainLightIntensity);
+        SaveLoad.valueRead(Settings.WorldGeneratorSmoothing, slider_generatorSmoothIntensity);
     }
 
     function saveSettings() {
@@ -26,17 +28,19 @@ Item {
         SaveLoad.valueSave(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
         SaveLoad.valueSave(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
         SaveLoad.cbSave(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize);
+        SaveLoad.valueSave(Settings.WorldTerrainLightIntensity, slider_terrainLightIntensity);
+        SaveLoad.valueSave(Settings.WorldGeneratorSmoothing, slider_generatorSmoothIntensity);
     }
 
-    width: 600
-    height: 400
+    width: 500
+    height: 166
 
     GroupBox {
         id: groupBox1
         x: 8
         y: 8
         width: 265
-        height: 125
+        height: 149
         title: qsTr("Generator")
 
 
@@ -72,6 +76,7 @@ Item {
             x: 96
             y: 5
             text: qsTr("Size:")
+            horizontalAlignment: Text.AlignRight
         }
 
         Label {
@@ -79,6 +84,7 @@ Item {
             x: 1
             y: 31
             text: qsTr("Texture Map Resolution:")
+            horizontalAlignment: Text.AlignRight
         }
 
         Label {
@@ -86,6 +92,7 @@ Item {
             x: 91
             y: 83
             text: qsTr("Seed:")
+            horizontalAlignment: Text.AlignRight
         }
 
         SpinBox {
@@ -104,6 +111,36 @@ Item {
             width: 58
             height: 13
             text: qsTr("Fault Count:")
+            horizontalAlignment: Text.AlignRight
+        }
+
+        Slider {
+            id: slider_generatorSmoothIntensity
+            x: 126
+            y: 105
+            width: 83
+            height: 22
+            stepSize: 0.01
+            value: 0.65
+        }
+
+        Label {
+            id: label9
+            x: 14
+            y: 110
+            width: 106
+            height: 13
+            text: qsTr("Smooth Intensity")
+            horizontalAlignment: Text.AlignRight
+        }
+
+        Label {
+            id: label_genSmoothIntensity
+            x: 222
+            y: 110
+            width: 27
+            height: 13
+            text: slider_generatorSmoothIntensity.value
         }
 
     }
@@ -112,13 +149,13 @@ Item {
         id: groupBox2
         x: 279
         y: 8
-        width: 313
-        height: 257
+        width: 221
+        height: 149
         title: qsTr("Terrain")
 
         SpinBox {
             id: spinBox_terrainSpacing
-            x: 66
+            x: 79
             y: 0
             width: 125
             height: 20
@@ -126,14 +163,14 @@ Item {
 
         Label {
             id: label4
-            x: 19
+            x: 32
             y: 4
             text: qsTr("Spacing:")
         }
 
         SpinBox {
             id: spinBox_terrainHeightScale
-            x: 66
+            x: 79
             y: 26
             width: 125
             height: 20
@@ -141,21 +178,21 @@ Item {
 
         Label {
             id: label5
-            x: -3
+            x: 10
             y: 30
             text: qsTr("Height Scale:")
         }
 
         Label {
             id: label6
-            x: 10
+            x: 23
             y: 57
             text: qsTr("Block Size:")
         }
 
         ComboBox {
             id: comboBox_terrainBlockSize
-            x: 66
+            x: 79
             y: 53
             width: 125
             height: 20
@@ -164,7 +201,7 @@ Item {
 
         ComboBox {
             id: comboBox_terrainSpanSize
-            x: 66
+            x: 79
             y: 80
             width: 125
             height: 20
@@ -173,9 +210,39 @@ Item {
 
         Label {
             id: label7
-            x: 10
+            x: 23
             y: 84
             text: qsTr("Span Size:")
+        }
+
+        Slider {
+            id: slider_terrainLightIntensity
+            x: 79
+            y: 107
+            width: 83
+            height: 22
+            stepSize: 1
+            maximumValue: 50
+            value: 12.0
+        }
+
+        Label {
+            id: label10
+            x: 168
+            y: 112
+            width: 36
+            height: 13
+            text: slider_terrainLightIntensity.value
+        }
+
+        Label {
+            id: label11
+            x: 23
+            y: 112
+            width: 50
+            height: 13
+            text: qsTr("Light Intensity:")
+            horizontalAlignment: Text.AlignRight
         }
     }
 }

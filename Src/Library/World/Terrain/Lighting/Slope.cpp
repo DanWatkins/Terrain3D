@@ -11,7 +11,7 @@
 
 namespace t3d { namespace World { namespace Terrain { namespace Lighting
 {
-	bool Slope::computeBrightness(LightMap &lm, const HeightMap &hm)
+	bool Slope::computeBrightness(LightMap &lm, const HeightMap &hm, float intensity)
 	{
 		//ensure the height map and light map are the same size
 		if (lm.size() != hm.size())
@@ -35,7 +35,6 @@ namespace t3d { namespace World { namespace Terrain { namespace Lighting
 
 					if (delta > 0.0f)
 					{
-						const float intensity = 11.0f;
 						brightness = (1-delta) * intensity;
 					}
 

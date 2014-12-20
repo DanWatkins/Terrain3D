@@ -25,7 +25,6 @@ int centerIndexForPos(vec4 pos)
 }
 
 
-
 uint textureIndexForCenterIndex(int index)
 {
 	return texelFetch(buffer, index).r;

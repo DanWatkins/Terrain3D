@@ -52,10 +52,12 @@ public:
 		WorldGeneratorTextureMapResolution	= 202,
 		WorldGeneratorSeed					= 203,
 		WorldGeneratorFaultCount			= 204,
-		WorldTerrainSpacing					= 205,
-		WorldTerrainHeightScale				= 206,
-		WorldTerrainBlockSize				= 207,
-		WorldTerrainSpanSize				= 208
+		WorldGeneratorSmoothing				= 205,
+		WorldTerrainSpacing					= 210,
+		WorldTerrainHeightScale				= 211,
+		WorldTerrainBlockSize				= 212,
+		WorldTerrainSpanSize				= 213,
+		WorldTerrainLightIntensity			= 214
 
 
 	}; Q_ENUMS(Key)

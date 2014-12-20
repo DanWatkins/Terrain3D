@@ -313,6 +313,8 @@ namespace t3d
 		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
 		config.generatorSize = mMainSettings->value(key::WorldGeneratorSize).toInt();
 		config.generatorTextureMapResolution = mMainSettings->value(key::WorldGeneratorTextureMapResolution).toInt();
+		config.generatorSmoothing = mMainSettings->value(key::WorldGeneratorSmoothing).toFloat();
+		config.generatorLightIntensity = mMainSettings->value(key::WorldTerrainLightIntensity).toFloat();
 
 		return config;
 	}

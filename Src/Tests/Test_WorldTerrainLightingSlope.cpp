@@ -26,7 +26,7 @@ TEST_F(Test_WorldTerrainLightingSlope, passThrough)
 	LightMap lm;
 	lm.reserve(size);
 
-	Lighting::Slope::computeBrightness(lm, hm);
+	Lighting::Slope::computeBrightness(lm, hm, 12.0f);
 
 	//since all heights are the same, the sun can shine everywhere!
 	const float maxBrightness = 1.0f;
@@ -48,5 +48,5 @@ TEST_F(Test_WorldTerrainLightingSlope, differentSizes)
 	lm.reserve(16);
 
 	//should return false since the sizes are different
-	ASSERT_FALSE(Lighting::Slope::computeBrightness(lm, hm));
+	ASSERT_FALSE(Lighting::Slope::computeBrightness(lm, hm, 12.0f));
 }
