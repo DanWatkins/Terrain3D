@@ -82,7 +82,7 @@ Item {
         x: 210
         y: 8
         width: 325
-        height: 300
+        height: 128
         title: qsTr("Camera")
 
         SpinBox {
@@ -118,8 +118,9 @@ Item {
             y: 33
             width: 215
             height: 22
+            stepSize: 1
             maximumValue: 180
-            tickmarksEnabled: true
+            tickmarksEnabled: false
         }
 
         Slider {
@@ -128,6 +129,7 @@ Item {
             y: 61
             width: 215
             height: 22
+            stepSize: 0.05
             tickmarksEnabled: true
         }
 

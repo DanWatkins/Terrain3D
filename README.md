@@ -1,7 +1,7 @@
 Terrain3D
 =========
 
-![ScreenShot](./Screenshots/demo_lod.png)
+![ScreenShot](./Screenshots/demo_normal.png)
 
 A procedurally generated landscape.
 
