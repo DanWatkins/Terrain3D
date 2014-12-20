@@ -17,7 +17,7 @@ namespace t3d { namespace World
 	}
 
 
-	void World::init(const WorldConfiguration &configuration)
+	void World::init(const World::Configuration &configuration)
 	{
 		Terrain::Generator::FaultFormation generator;
 		mTerrainData.setTextureMapResolution(configuration.generatorTextureMapResolution);

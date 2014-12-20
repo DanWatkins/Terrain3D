@@ -90,8 +90,8 @@ namespace t3d
 		void updateCursorPos();
 		void loadUserSettings();
 
-		World::CameraConfiguration buildCameraConfiguration();
-		World::WorldConfiguration buildWorldConfiguration();
+		World::Camera::Configuration buildCameraConfiguration();
+		World::World::Configuration buildWorldConfiguration();
 
 	signals:
 		void toggleSettingsMenu();

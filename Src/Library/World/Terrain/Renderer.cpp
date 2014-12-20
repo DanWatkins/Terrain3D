@@ -147,6 +147,7 @@ namespace t3d { namespace World { namespace Terrain
 					}
 				}
 			}
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
 		}
 		mProgram.release();

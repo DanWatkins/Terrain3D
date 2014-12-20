@@ -293,10 +293,10 @@ namespace t3d
 	}
 
 
-	World::CameraConfiguration Terrain3D::buildCameraConfiguration()
+	World::Camera::Configuration Terrain3D::buildCameraConfiguration()
 	{
 		typedef Settings::Key key;
-		World::CameraConfiguration config;
+		World::Camera::Configuration config;
 		config.terrainBlockSize = mMainSettings->value(key::WorldTerrainBlockSize).toInt();
 		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
 		config.terrainSpacing = mMainSettings->value(key::WorldTerrainSpacing).toFloat();
@@ -306,10 +306,10 @@ namespace t3d
 	}
 
 
-	World::WorldConfiguration Terrain3D::buildWorldConfiguration()
+	World::World::Configuration Terrain3D::buildWorldConfiguration()
 	{
 		typedef Settings::Key key;
-		World::WorldConfiguration config;
+		World::World::Configuration config;
 		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
 		config.generatorSize = mMainSettings->value(key::WorldGeneratorSize).toInt();
 		config.generatorTextureMapResolution = mMainSettings->value(key::WorldGeneratorTextureMapResolution).toInt();

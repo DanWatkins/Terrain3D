@@ -24,7 +24,7 @@ namespace t3d { namespace World
 	}
 
 
-	void Camera::init(const CameraConfiguration &configuration)
+	void Camera::init(const Camera::Configuration &configuration)
 	{
 		initializeOpenGLFunctions();
 
