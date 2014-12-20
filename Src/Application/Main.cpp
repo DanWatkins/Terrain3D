@@ -26,9 +26,17 @@ Settings mainSettings;
 void loadAndRun(QGuiApplication &app)
 {
 	bool restart = true;
+	int instanceCount = 0;
 
 	while (restart)
 	{
+		if (instanceCount == 0)
+			qDebug() << "Starting new instance..";
+		else
+			qDebug() << "Restarting...";
+
+		++instanceCount;
+
 		{
 			t3d::Terrain3D mainWindow(&mainSettings);
 
@@ -40,7 +48,7 @@ void loadAndRun(QGuiApplication &app)
 			restart = mainWindow.needsRestart();
 		}
 
-		qDebug() << "Ending all render threads";	//xyzm
+		qDebug() << "Ending all render threads";
 		//t3d::OpenGLQuickItem::endAllRenderThreads();
 	}
 }
@@ -48,6 +56,11 @@ void loadAndRun(QGuiApplication &app)
 
 int main(int argc, char *argv[])
 {
+	AllocConsole();
+	freopen("CONIN$", "r", stdin);
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+
 	QGuiApplication app(argc, argv);
 	mainSettings.init();
 

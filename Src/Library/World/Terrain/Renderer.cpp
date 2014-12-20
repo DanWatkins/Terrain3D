@@ -167,9 +167,9 @@ namespace t3d { namespace World { namespace Terrain
 		mProgram.addShader(&fragmentShader);
 
 		if (mProgram.link() == false)
-			printf("Problem linking shaders\n");
+			qFatal("Problem linking shaders");
 		else
-			printf("Initialized shaders\n");
+			qDebug() << "Initialized shaders";
 	}
 
 

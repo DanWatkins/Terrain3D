@@ -46,7 +46,7 @@ namespace t3d { namespace World { namespace Terrain
 	{
 		mVertexData.reserve(mSize*mSize*3);
 
-		std::cout << "\nBuilding Vertex Data" << std::endl;
+		qDebug() << "Building Vertex Data";
 
 		for (int y=0; y<mSize; y++)
 		{
