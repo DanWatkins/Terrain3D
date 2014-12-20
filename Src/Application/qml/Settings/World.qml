@@ -40,7 +40,7 @@ Item {
         x: 8
         y: 8
         width: 265
-        height: 149
+        height: 152
         title: qsTr("Generator")
 
 
@@ -150,7 +150,7 @@ Item {
         x: 279
         y: 8
         width: 221
-        height: 149
+        height: 152
         title: qsTr("Terrain")
 
         SpinBox {

@@ -1,6 +1,14 @@
 Terrain3D
 =========
 
-![ScreenShot](demo1.png)
+![ScreenShot](./Screenshots/demo_lod)
 
-A simple 3D terrain simulation written in C++ using OpenGL 4 and Qt 5. It is also an experiment to see if test-driven development makes sense for game/simulation engine programming.
+A procedurally generated landscape.
+
+![ScreenShot](./Screenshots/demo_lod)
+
+Continuous level of detail: Patches of terrain farther away are rendered with less detail.
+
+![ScreenShot](./Screenshots/demo_settings)
+
+Fully customizable settings menu.
