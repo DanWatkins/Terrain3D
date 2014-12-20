@@ -51,10 +51,11 @@ public:
 		WorldGeneratorSize					= 201,
 		WorldGeneratorTextureMapResolution	= 202,
 		WorldGeneratorSeed					= 203,
-		WorldTerrainSpacing					= 204,
-		WorldTerrainHeightScale				= 205,
-		WorldTerrainBlockSize				= 206,
-		WorldTerrainSpanSize				= 207
+		WorldGeneratorFaultCount			= 204,
+		WorldTerrainSpacing					= 205,
+		WorldTerrainHeightScale				= 206,
+		WorldTerrainBlockSize				= 207,
+		WorldTerrainSpanSize				= 208
 
 
 	}; Q_ENUMS(Key)
