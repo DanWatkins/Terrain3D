@@ -15,6 +15,7 @@
 #include <Main.h>
 #include <World/World.h>
 #include <World/Camera.h>
+#include "QuickItems/CameraItem.h"
 
 namespace t3d
 {
@@ -82,6 +83,7 @@ namespace t3d
 		bool mNeedsRestart;
 
 		Settings *mMainSettings;
+		QuickItems::CameraItem *mCameraItem;
 		BackgroundUpdater backgroundUpdater;
 
 	private:

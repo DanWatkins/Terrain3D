@@ -8,6 +8,7 @@
 #include "Terrain3D.h"
 #include <Core/Core.h>
 #include <QuickItems/CameraItem.h>
+#include <QQmlContext>
 
 namespace t3d
 {
@@ -17,7 +18,8 @@ namespace t3d
 	Terrain3D::Terrain3D(Settings *mainSettings) :
 		mPreviouslyHadFocus(false),
 		mNeedsRestart(false),
-		mMainSettings(mainSettings)
+		mMainSettings(mainSettings),
+		mCameraItem(nullptr)
 	{
 		mMainSettings->addListener(this);
 	}
@@ -204,7 +206,8 @@ namespace t3d
 		const float speed = 1.75f;
 
 		//update the camera
-		if (auto cameraPtr = theCamera)
+		auto cameraPtr = theCamera;
+		if (cameraPtr && !mCameraItem->isFrozen())
 		{
 			switch (ev->key())
 			{
@@ -248,7 +251,7 @@ namespace t3d
 
 	void Terrain3D::updateCursorPos()
 	{
-		if (!capturesCursor() && mouseButtonLeftPressed() == false)
+		if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
 			return;
 
 		if (QWindow::isActive())
@@ -325,6 +328,13 @@ namespace t3d
 //========================================
 	void Terrain3D::willUpdate()
 	{
-		updateCursorPos();
+		if (mCameraItem == nullptr)
+		{
+			mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
+		}
+		else
+		{
+			updateCursorPos();
+		}
 	}
 }

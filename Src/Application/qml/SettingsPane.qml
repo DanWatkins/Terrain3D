@@ -106,6 +106,7 @@ Item {
                 }
 
                 root.visible = false;
+                hasFinished();
             }
         }
 
@@ -119,6 +120,7 @@ Item {
 
             onClicked: {
                 root.visible = false;
+                hasFinished();
             }
         }
 

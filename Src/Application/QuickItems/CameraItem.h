@@ -22,10 +22,19 @@ namespace t3d { namespace QuickItems
 	{
 		Q_OBJECT
 		Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY isLoadedChanged)
+		Q_PROPERTY(bool isFrozen READ isFrozen WRITE setIsFrozen)
 
 	public:
+		CameraItem() : mIsFrozen(false) {}
+
 		Renderer *createRenderer() const;
 		bool isLoaded() const { return theCamera != nullptr; }
+
+		bool isFrozen() const { return mIsFrozen; }
+		void setIsFrozen(bool isFrozen) { mIsFrozen = isFrozen; }
+
+	private:
+		bool mIsFrozen;
 
 	signals:
 		void isLoadedChanged();

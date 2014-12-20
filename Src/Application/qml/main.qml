@@ -22,7 +22,6 @@ Item {
             transform: Scale { origin.y: height/2; yScale: -1.0 }
 
             onIsLoadedChanged: {
-                console.log("DOING hgasklgsdlg");
                 menuButtons.visible = true;
             }
         }
@@ -46,13 +45,14 @@ Item {
     function toggleSettingsPane() {
         settingsPane.item.visible = !settingsPane.item.visible;
         settingsPane.item.refreshIfNeeded();
+        mainCamera.isFrozen = settingsPane.item.visible;
     }
 
 
     Connections {
         target: settingsPane.item
         onHasFinished: {
-            settingsPane.sourceComponent = null;
+            mainCamera.isFrozen = false;
         }
     }
 
