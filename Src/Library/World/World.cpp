@@ -25,7 +25,11 @@ namespace t3d { namespace World
 		int actualSize = configuration.generatorSize+1;
 		int actualSeed = (configuration.generatorSeed == 0) ? (int)time(NULL) : configuration.generatorSeed;
 
-		generator.generate(mTerrainData, actualSize, 280, configuration.generatorSmoothing, actualSeed);
+		qDebug() << "Generating terrain data...";
+		generator.generate(mTerrainData, actualSize,
+						   configuration.generatorFaultCount,
+						   configuration.generatorSmoothing,
+						   actualSeed);
 		{
 			Terrain::Data::HeightIndex hi;
 			hi[0.25f] = 0;

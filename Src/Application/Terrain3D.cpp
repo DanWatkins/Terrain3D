@@ -300,6 +300,7 @@ namespace t3d
 	{
 		typedef Settings::Key key;
 		World::Camera::Configuration config;
+
 		config.terrainBlockSize = mMainSettings->value(key::WorldTerrainBlockSize).toInt();
 		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
 		config.terrainSpacing = mMainSettings->value(key::WorldTerrainSpacing).toFloat();
@@ -313,10 +314,12 @@ namespace t3d
 	{
 		typedef Settings::Key key;
 		World::World::Configuration config;
-		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
+
 		config.generatorSize = mMainSettings->value(key::WorldGeneratorSize).toInt();
 		config.generatorTextureMapResolution = mMainSettings->value(key::WorldGeneratorTextureMapResolution).toInt();
 		config.generatorSmoothing = mMainSettings->value(key::WorldGeneratorSmoothing).toFloat();
+		config.generatorFaultCount = mMainSettings->value(key::WorldGeneratorFaultCount).toInt();
+		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
 		config.generatorLightIntensity = mMainSettings->value(key::WorldTerrainLightIntensity).toFloat();
 
 		return config;
