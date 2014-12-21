@@ -44,7 +44,7 @@ namespace t3d { namespace World
 
 	void Camera::render()
 	{
-		mTerrainRenderer.render(mPosition, getTotalMatrix());
+		mTerrainRenderer.render(mPosition, totalMatrix());
 	}
 
 
@@ -54,7 +54,7 @@ namespace t3d { namespace World
 	}
 
 
-	Mat4 Camera::getOrientation() const
+	Mat4 Camera::orientaion() const
 	{
 		Mat4 orientation;
 		orientation = glm::rotate(orientation, mVerticalAngle, Vec3f(1, 0, 0));
@@ -86,41 +86,41 @@ namespace t3d { namespace World
 	}
 
 
-	Vec3f Camera::getForward() const
+	Vec3f Camera::forward() const
 	{
-		return Vec3f(glm::inverse(getOrientation()) * Vec4f(0, 0, -1, 1));
+		return Vec3f(glm::inverse(orientaion()) * Vec4f(0, 0, -1, 1));
 	}
 
 
-	Vec3f Camera::getRight() const
+	Vec3f Camera::right() const
 	{
-		return Vec3f(glm::inverse(getOrientation()) * Vec4f(1, 0, 0, 1));
+		return Vec3f(glm::inverse(orientaion()) * Vec4f(1, 0, 0, 1));
 	}
 
 
-	Vec3f Camera::getUp() const
+	Vec3f Camera::up() const
 	{
-		return Vec3f(glm::inverse(getOrientation()) * Vec4f(0, 1, 0, 1));
+		return Vec3f(glm::inverse(orientaion()) * Vec4f(0, 1, 0, 1));
 	}
 
 
 	///// PRIVATE
 
-	Mat4 Camera::getTotalMatrix() const
+	Mat4 Camera::totalMatrix() const
 	{
-		return getPerspectiveMatrix() * getViewMatrix();
+		return perspectiveMatrix() * viewMatrix();
 	}
 
 
-	Mat4 Camera::getPerspectiveMatrix() const
+	Mat4 Camera::perspectiveMatrix() const
 	{
 		return glm::perspective(mFieldOfView, mAspectRatio, mNearPlane, mFarPlane);
 	}
 
 
-	Mat4 Camera::getViewMatrix() const
+	Mat4 Camera::viewMatrix() const
 	{
-		return getOrientation() * glm::translate(Mat4(), -mPosition);
+		return orientaion() * glm::translate(Mat4(), -mPosition);
 	}
 
 

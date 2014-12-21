@@ -87,12 +87,12 @@ namespace t3d
 		using namespace World::Terrain;
 		World::Camera *camera = theCamera;
 
-		camera->getMode() == Mode::Normal ?
+		camera->mode() == Mode::Normal ?
 					camera->setMode(Mode::WireFrame) :
 					camera->setMode(Mode::Normal);
 
 		mMainSettings->setValue(Settings::Key::GraphicsCameraWireframe,
-								camera->getMode() == Mode::WireFrame);
+								camera->mode() == Mode::WireFrame);
 
 		emit refreshSettingsMenu();
 	}
@@ -121,19 +121,19 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraPositionX) {
-				Vec3f c = theCamera->getPosition();
+				Vec3f c = theCamera->position();
 				theCamera->setPosition(Vec3f(value.toFloat(), c.y, c.z));
 				break;
 			}
 
 			CASE(GraphicsCameraPositionY) {
-				Vec3f c = theCamera->getPosition();
+				Vec3f c = theCamera->position();
 				theCamera->setPosition(Vec3f(c.x, value.toFloat(), c.z));
 				break;
 			}
 
 			CASE(GraphicsCameraPositionZ) {
-				Vec3f c = theCamera->getPosition();
+				Vec3f c = theCamera->position();
 				theCamera->setPosition(Vec3f(c.x, c.y, value.toFloat()));
 				break;
 			}
@@ -212,13 +212,13 @@ namespace t3d
 			switch (ev->key())
 			{
 				case Qt::Key_W:
-					cameraPtr->incPosition(speed * cameraPtr->getForward()); break;
+					cameraPtr->incPosition(speed * cameraPtr->forward()); break;
 				case Qt::Key_S:
-					cameraPtr->incPosition(speed * -cameraPtr->getForward()); break;
+					cameraPtr->incPosition(speed * -cameraPtr->forward()); break;
 				case Qt::Key_A:
-					cameraPtr->incPosition(speed * -cameraPtr->getRight()); break;
+					cameraPtr->incPosition(speed * -cameraPtr->right()); break;
 				case Qt::Key_D:
-					cameraPtr->incPosition(speed * cameraPtr->getRight()); break;
+					cameraPtr->incPosition(speed * cameraPtr->right()); break;
 
 				case Qt::Key_X:
 					toggleWireframe();

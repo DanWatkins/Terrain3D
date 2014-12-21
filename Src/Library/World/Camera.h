@@ -35,37 +35,54 @@ namespace t3d { namespace World
 	public:
 		Camera();
 
+		/**
+		 * @brief Gets the instance ready for rendering.
+		 * @param configuration Contains various configuration information
+		 */
 		void init(const Configuration &configuration);
+
+		/**
+		 * @brief Deallocates all memory allocated in OpenGL on the GPU.
+		 */
 		void cleanup();
+
+		/**
+		 * @brief Renders everything visible by the camera using the current
+		 * OpenGL context.
+		 */
 		void render();
+
+		/**
+		 * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
+		 */
 		void resize(unsigned windowWidth, unsigned windowHeight);
 
+
 		void setWorld(World *world) { mWorld = world; }
-		World *getWorld() { return mWorld; }
 
 		void setPosition(Vec3f position) { mPosition = position; }
 		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }
-		Vec3f getPosition() const { return mPosition; }
+		Vec3f position() const { return mPosition; }
 
 		void setFieldOfView(float fieldOfView) { mFieldOfView = fieldOfView; }
-		float getFieldOfView() const { return mFieldOfView; }
+		float fieldOfView() const { return mFieldOfView; }
 		void setNearPlane(float nearPlane) { mNearPlane = nearPlane; }
-		float getNearPlane() const { return mNearPlane; }
+		float nearPlane() const { return mNearPlane; }
 		void setFarPlane(float farPlane) { mFarPlane = farPlane; }
-		float getFarPlane() const { return mFarPlane; }
+		float farPlane() const { return mFarPlane; }
 
 		void incOrientation(float rightAngle, float upAngle);
-		Mat4 getOrientation() const;
+		Mat4 orientaion() const;
 		void setAspectRatio(float aspectRatio) { mAspectRatio = aspectRatio; }
-		float getAspectRatio() { return mAspectRatio; }
+		float aspectRatio() { return mAspectRatio; }
 
 		void lookAt(Vec3f position);
-		Vec3f getForward() const;
-		Vec3f getRight() const;
-		Vec3f getUp() const;
+		Vec3f forward() const;
+		Vec3f right() const;
+		Vec3f up() const;
 
 		void setMode(Terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
-		Terrain::Mode getMode() { return mTerrainRenderer.getMode(); }
+		Terrain::Mode mode() { return mTerrainRenderer.getMode(); }
 
 	private:
 		World *mWorld;
@@ -79,9 +96,9 @@ namespace t3d { namespace World
 		float mMaxVerticalAngle;
 
 	private:
-		Mat4 getTotalMatrix() const;
-		Mat4 getPerspectiveMatrix() const;
-		Mat4 getViewMatrix() const;
+		Mat4 totalMatrix() const;
+		Mat4 perspectiveMatrix() const;
+		Mat4 viewMatrix() const;
 		void normalizeAngles();
 	};
 }}

@@ -139,10 +139,10 @@ void Settings::initDefaultValues()
 	d[WorldGeneratorFaultCount] = {250, true};
 	d[WorldGeneratorSeed] = {0, true};
 	d[WorldGeneratorSmoothing] = {0.65, true};
-	d[WorldTerrainSpacing] = {1.0f, false};
-	d[WorldTerrainHeightScale] = {30.0f, false};
+	d[WorldTerrainSpacing] = {1.0f, true};
+	d[WorldTerrainHeightScale] = {30.0f, true};
 	d[WorldTerrainBlockSize] = {32, true};
-	d[WorldTerrainSpanSize] = {8, false};
+	d[WorldTerrainSpanSize] = {8, true};
 	d[WorldTerrainLightIntensity] = {10, true};
 
 	#undef d
