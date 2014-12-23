@@ -59,13 +59,13 @@ namespace t3d
 		POINT pos;
 		GetCursorPos(&pos);
 		delta = QVector2D(float(pos.x - mLastCursorPos.x), float(pos.y - mLastCursorPos.y));
+
+        mLastCursorPos = Vec2i(pos.x, pos.y);
+
+        return delta;
 	#else
-		#error No mouse delta function for this platform.
+        //#error No mouse delta function for this platform.
 	#endif
-
-		mLastCursorPos = Vec2i(pos.x, pos.y);
-
-		return delta;
 	}
 
 
@@ -76,10 +76,9 @@ namespace t3d
 
 	#ifdef WIN32
 		SetCursorPos(mouseDeltaOffsetX, mouseDeltaOffsetY);
+        mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
 	#else
-		#error No mouse delta function for this platform
+        //#error No mouse delta function for this platform
 	#endif
-
-		mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
 	}
 }

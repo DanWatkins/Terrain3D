@@ -1,5 +1,6 @@
 TARGET = Terrain3D
 TEMPLATE = lib
+CONFIG += staticlib
 CONFIG += c++11
 QT += qml quick
 

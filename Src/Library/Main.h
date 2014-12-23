@@ -5,7 +5,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
 #include <iostream>
-#include <io.h>
 #include <fcntl.h>
 #include <algorithm>
 
@@ -66,9 +65,7 @@ typedef glm::mat4			Mat4;
 
 struct Color { float r, g, b, a; };
 
-#ifdef WIN32
-	#include <memory>
-#endif
+#include <memory>
 
 //Project Includes
 #include <Constants.h>

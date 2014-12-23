@@ -12,14 +12,10 @@ QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 TEMPLATE = app
 
 DESTDIR += ../../Deployment/Bin/
+
 INCLUDEPATH += ../../Src/Library \
 				../../Ext/ \
 				../../Ext/gtest/inc/
-
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
-
-unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
-unix|win32: LIBS += -L$$OUT_PWD/../External/gtest/ -lgtest
 
 SOURCES += \
     ../../Src/Tests/Main.cpp \
@@ -27,4 +23,5 @@ SOURCES += \
     ../../Src/Tests/Test_WorldTerrainLightingSlope.cpp \
 	../../Src/Tests/Test_WorldTerrainLightMap.cpp
 
-
+unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lgtest
+unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
