@@ -21,7 +21,11 @@ SOURCES += \
     ../../Src/Tests/Main.cpp \
     ../../Src/Tests/Test_WorldTerrainData.cpp \
     ../../Src/Tests/Test_WorldTerrainLightingSlope.cpp \
-	../../Src/Tests/Test_WorldTerrainLightMap.cpp
+	../../Src/Tests/Test_WorldTerrainLightMap.cpp \
+    ../../Src/Tests/Test_CoreFPSCounter.cpp
 
 unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lgtest
 unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
+
+HEADERS += \
+    ../../Src/Tests/Main.h

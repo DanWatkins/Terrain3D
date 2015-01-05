@@ -1,9 +1,11 @@
-#include <gtest/gtest.h>
+#include "Main.h"
 #include <World/Terrain/Data.h>
 
 using namespace t3d::World::Terrain;
 
-class Test_WorldTerrainData : public ::testing::Test
+#define CLASS Test_WorldTerrainData
+
+TEST_CLASS
 {
 protected:
 	void testComputeTextureIndiciesBasic(int size, float baseHeight, int expectedIndex, Data::HeightIndex &heightIndex)
@@ -51,7 +53,7 @@ protected:
 };
 
 
-TEST_F(Test_WorldTerrainData, computeTextureIndicies1)
+TEST_CASE(computeTextureIndicies1)
 {
 	Data::HeightIndex hi;
 	hi[0.5f] = 0;
@@ -61,7 +63,7 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies1)
 }
 
 
-TEST_F(Test_WorldTerrainData, computeTextureIndicies2)
+TEST_CASE(computeTextureIndicies2)
 {
 	Data::HeightIndex hi;
 	hi[0.1f] = 0;
@@ -72,7 +74,7 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies2)
 }
 
 
-TEST_F(Test_WorldTerrainData, computeTextureIndicies3)
+TEST_CASE(computeTextureIndicies3)
 {
 	float heights[] =
 	{
@@ -97,7 +99,7 @@ TEST_F(Test_WorldTerrainData, computeTextureIndicies3)
 }
 
 
-TEST_F(Test_WorldTerrainData, computeTextureIndicies4)
+TEST_CASE(computeTextureIndicies4)
 {
 	float heights[] =
 	{

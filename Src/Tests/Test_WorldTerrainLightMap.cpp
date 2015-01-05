@@ -1,9 +1,11 @@
-#include <gtest/gtest.h>
+#include "Main.h"
 #include <World/Terrain/LightMap.h>
 
 using namespace t3d::World::Terrain;
 
-class Test_WorldTerrainLightMap : public ::testing::Test
+#define CLASS Test_WorldTerrainLightMap
+
+TEST_CLASS
 {
 protected:
 	void testSimpleAssign(int size, float value)
@@ -25,19 +27,19 @@ protected:
 	}
 };
 
-TEST_F(Test_WorldTerrainLightMap, simpleAssign)
+TEST_CASE(simpleAssign)
 {
 	testSimpleAssign(8, 0.9f);
 }
 
 
-TEST_F(Test_WorldTerrainLightMap, simpleAssign2)
+TEST_CASE(simpleAssign2)
 {
 	testSimpleAssign(16, 0.02f);
 }
 
 
-TEST_F(Test_WorldTerrainLightMap, accessRaw)
+TEST_CASE(accessRaw)
 {
 	const int size = 8;
 

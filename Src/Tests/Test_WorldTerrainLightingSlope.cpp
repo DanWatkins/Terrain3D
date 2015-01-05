@@ -1,16 +1,18 @@
-#include <gtest/gtest.h>
+#include "Main.h"
 #include <World/Terrain/Lighting/Slope.h>
 #include <World/Terrain/LightMap.h>
 #include <World/Terrain/HeightMap.h>
 
 using namespace t3d::World::Terrain;
 
-class Test_WorldTerrainLightingSlope : public ::testing::Test
+#define CLASS Test_WorldTerrainLightingSlope
+
+TEST_CLASS
 {
 protected:
 };
 
-TEST_F(Test_WorldTerrainLightingSlope, passThrough)
+TEST_CASE(passThrough)
 {
 	const int size = 8;
 
@@ -39,7 +41,7 @@ TEST_F(Test_WorldTerrainLightingSlope, passThrough)
 }
 
 
-TEST_F(Test_WorldTerrainLightingSlope, differentSizes)
+TEST_CASE(differentSizes)
 {
 	HeightMap hm;
 	hm.reserve(8);
