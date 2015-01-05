@@ -9,6 +9,7 @@
 #define _t3d_FPS_COUNTER_H
 
 #include "../Main.h"
+#include <list>
 
 namespace t3d
 {
@@ -46,7 +47,7 @@ namespace t3d
 		qint64 mSuperSampleRate, mSubSampleRate;
 		int mFps;
 
-		QList<int> mSubList;
+		std::list<int> mSubList;
 		strong<Timer> mTimer;
 	};
 }

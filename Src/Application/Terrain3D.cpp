@@ -19,7 +19,8 @@ namespace t3d
 		mPreviouslyHadFocus(false),
 		mNeedsRestart(false),
 		mMainSettings(mainSettings),
-		mCameraItem(nullptr)
+		mCameraItem(nullptr),
+		mFPSCounter(1000, 500)
 	{
 		mMainSettings->addListener(this);
 	}
@@ -58,6 +59,12 @@ namespace t3d
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
 		backgroundUpdater.start();
+
+		QObject::connect(this, &QQuickView::beforeRendering,
+						 this, &Terrain3D::beforeRendering);
+
+		QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged,
+						 this, &Terrain3D::onFpsChanged);
 	}
 
 
@@ -339,5 +346,17 @@ namespace t3d
 		{
 			updateCursorPos();
 		}
+	}
+
+
+	void Terrain3D::beforeRendering()
+	{
+		mFPSCounter.update();
+	}
+
+
+	void Terrain3D::onFpsChanged()
+	{
+		emit fpsChanged();
 	}
 }

@@ -119,16 +119,40 @@ TEST_CASE(fps60_subIs30t30t30_supR1000_subR_500)
 }
 
 
+TEST_CASE(longRun)
+{
+	const int superSampleRate = 1000;
+	const int subSampleRate = 500;
+
+	strong<MockTimer> timer(new MockTimer);
+	FPSCounter counter(superSampleRate, subSampleRate, timer);
+
+	FOR_TIMES(sub, 6)
+	{
+		int m = (sub+1)*5;
+
+		FOR_TIMES(i, m)
+		{
+			if (i == m-1)
+				timer->addTime(subSampleRate);
+
+			counter.update();
+		}
+	}
+
+	ASSERT_EQ(55, counter.fps());
+}
+
+
 TEST_CASE(real_fps100)
 {
 	FPSCounter counter(30, 10);
 
 	FOR_TIMES(i, 3)
 	{
-		QThread::msleep(9);
+		QThread::msleep(10);
 		counter.update();
 	}
 
-	QThread::msleep(4);
 	ASSERT_EQ(counter.fps(), 100);
 }

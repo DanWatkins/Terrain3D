@@ -13,6 +13,7 @@
 #include "Settings.h"
 
 #include <Main.h>
+#include <Core/FPSCounter.h>
 #include <World/World.h>
 #include <World/Camera.h>
 #include "QuickItems/CameraItem.h"
@@ -33,6 +34,8 @@ namespace t3d
 	class Terrain3D : public OpenGLQuickView, public SettingsListener
 	{
 		Q_OBJECT
+		Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
+
 	public:
 		Terrain3D(Settings *mainSettings);
 		~Terrain3D();
@@ -76,6 +79,8 @@ namespace t3d
 		 */
 		void settingsValueChanged(Settings::Key key, const QVariant &value);
 
+		int fps() const { return mFPSCounter.fps(); }
+
 	private:
 		World::World mWorld;
 		QWeakPointer<World::Camera> mCamera;
@@ -85,6 +90,7 @@ namespace t3d
 		Settings *mMainSettings;
 		QuickItems::CameraItem *mCameraItem;
 		BackgroundUpdater backgroundUpdater;
+		FPSCounter mFPSCounter;
 
 	private:
 		void keyPressEvent(QKeyEvent *ev) override;
@@ -98,9 +104,12 @@ namespace t3d
 	signals:
 		void toggleSettingsMenu();
 		void refreshSettingsMenu();
+		void fpsChanged();
 
 	public slots:
 		void willUpdate();
+		void beforeRendering();
+		void onFpsChanged();
 	};
 }
 

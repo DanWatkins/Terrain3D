@@ -119,6 +119,12 @@ Item {
                 height: 30
                 onClicked: terrain3D.close();
             }
+
+            Text {
+                text: "FPS: " + terrain3D.fps;
+                font.pointSize: 16
+                color: "white"
+            }
         }
     }
 }
