@@ -12,75 +12,37 @@
 
 namespace t3d
 {
-	class Timer
+	class FPSCounter : public QObject
 	{
+	Q_OBJECT
+	Q_PROPERTY(int fps READ fps NOTIFY fpsChanged)
+
 	public:
-		virtual qint64 elapsed()
+		class Timer
 		{
-			return mTimer.elapsed();
-		}
+		public:
+			virtual qint64 elapsed() { return mTimer.elapsed(); }
+			virtual void start() { mTimer.start(); }
 
-		virtual void start()
-		{
-			mTimer.start();
-		}
+		private:
+			QElapsedTimer mTimer;
+		};
 
-	private:
-		QElapsedTimer mTimer;
-	};
-
-	class FPSCounter
-	{
 	public:
+		FPSCounter() = delete;
 		FPSCounter(qint64 superSampleRate, qint64 subSampleRate,
-				   strong<Timer> timer=strong<Timer>(new Timer)) :
-			mSuperSampleRate(superSampleRate),
-			mSubSampleRate(subSampleRate),
-			mFps(0),
-			mTimer(timer)
-		{
-			mSubList.append(0);
-		}
+				   strong<Timer> timer=strong<Timer>(new Timer));
 
-		int fps() { return mFps; }
+		int fps() const { return mFps; }
+		void update();
 
-		void update()
-		{
-			mSubList.last()++;
-
-			if (mTimer->elapsed() >= mSubSampleRate)
-			{
-				refreshFPS();
-				mSubList.append(0);
-				mTimer->start();
-			}
-		}
+	signals:
+		void fpsChanged();
 
 	private:
-		void refreshFPS()
-		{
-			const int subSamples = std::min(int(mSuperSampleRate/mSubSampleRate), mSubList.size());
-
-			//sum up the relevant sub list frame counts
-			mFps = 0;
-			int times = 0;
-
-			for (int i : mSubList)
-			{
-				if (times >= subSamples)
-					break;
-
-				times++;
-				mFps += i;
-			}
-
-			//divide by factor to get back to a 1 second super sample rate
-			const float factor = mSuperSampleRate / 1000.0f;
-			mFps /= factor;
-		}
+		void refreshFPS();
 
 	private:
-		FPSCounter() {}
 		qint64 mSuperSampleRate, mSubSampleRate;
 		int mFps;
 
