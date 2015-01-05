@@ -41,6 +41,7 @@ HEADERS += \
     ../../Src/Library/World/World.h \
     ../../Src/Library/Constants.h \
     ../../Src/Library/Main.h \
+    ../../Src/Library/Core/FPSCounter.h
 
 SOURCES += \
     ../../Src/Library/Core/OpenGLQuickItem/OpenGLQuickItem.cpp \
@@ -63,5 +64,6 @@ SOURCES += \
     ../../Src/Library/World/Terrain/Utility.cpp \
     ../../Src/Library/World/Camera.cpp \
     ../../Src/Library/World/World.cpp \
-    ../../Ext/lodepng.cpp
+    ../../Ext/lodepng.cpp \
+    ../../Src/Library/Core/FPSCounter.cpp
 

@@ -67,6 +67,15 @@ struct Color { float r, g, b, a; };
 
 #include <memory>
 
+template <typename T>
+using strong = std::shared_ptr<T>;
+
+template <typename T>
+using weak = std::weak_ptr<T>;
+
+template <typename T>
+using unique = std::unique_ptr<T>;
+
 //Project Includes
 #include <Constants.h>
 #include <Core/Helper.h>

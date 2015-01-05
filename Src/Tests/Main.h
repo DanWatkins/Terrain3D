@@ -1,3 +1,6 @@
+#ifndef _t3d_TEST_MAIN_H
+#define _t3d_TEST_MAIN_H
+
 #include <gtest/gtest.h>
 
 /**
@@ -14,3 +17,8 @@
  */
 #define TEST_CASE(name) \
 	TEST_F(CLASS, name)
+
+
+#define FOR_TIMES(i, count) for (int i=0; i<count; ++i)
+
+#endif
