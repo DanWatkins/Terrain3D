@@ -8,7 +8,7 @@
 #ifndef _CONSTANTS_H
 #define _CONSTANTS_H
 
-#include "Main.h"
+#include "Library.h"
 
 const QString		gVersion						= "0.10";
 

@@ -8,7 +8,7 @@
 #ifndef _t3d_LIGHT_MAP_H
 #define _t3d_LIGHT_MAP_H
 
-#include <Main.h>
+#include <Library.h>
 #include <vector>
 
 namespace t3d { namespace World { namespace Terrain

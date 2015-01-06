@@ -8,7 +8,7 @@
 #ifndef _t3d_TERRAIN_RENDERER_INDEX_DATA_H
 #define _t3d_TERRAIN_RENDERER_INDEX_DATA_H
 
-#include <Main.h>
+#include <Library.h>
 #include <World/World.h>
 #include <World/Terrain/Renderer.h>
 

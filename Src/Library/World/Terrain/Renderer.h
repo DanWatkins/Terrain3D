@@ -8,7 +8,7 @@
 #ifndef _t3d_TERRAIN_RENDERER_H
 #define _t3d_TERRAIN_RENDERER_H
 
-#include <Main.h>
+#include <Library.h>
 #include <World/Terrain/Data.h>
 
 namespace t3d { namespace World { namespace Terrain

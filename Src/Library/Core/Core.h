@@ -8,7 +8,7 @@
 #ifndef _t3d_CORE_H
 #define _t3d_CORE_H
 
-#include "../Main.h"
+#include "../Library.h"
 
 #include "Shader.h"
 

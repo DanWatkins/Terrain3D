@@ -8,7 +8,7 @@
 #ifndef _t3d_TERRAINDATA_H
 #define _t3d_TERRAINDATA_H
 
-#include <Main.h>
+#include <Library.h>
 #include <World/Terrain/HeightMap.h>
 #include <World/Terrain/LightMap.h>
 

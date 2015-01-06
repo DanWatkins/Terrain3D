@@ -8,7 +8,7 @@
 #ifndef _t3d_OPENGL_QUICK_VIEW_H
 #define _t3d_OPENGL_QUICK_VIEW_H
 
-#include <Main.h>
+#include <Library.h>
 #include <QtQuick/QQuickView>
 
 namespace t3d

@@ -8,7 +8,7 @@
 #ifndef _WORLD_TERRAIN_GENERATOR_H
 #define _WORLD_TERRAIN_GENERATOR_H
 
-#include <Main.h>
+#include <Library.h>
 #include <World/Terrain/Data.h>
 
 namespace t3d { namespace World { namespace Terrain { namespace Generator

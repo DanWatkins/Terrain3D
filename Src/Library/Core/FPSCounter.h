@@ -8,7 +8,7 @@
 #ifndef _t3d_FPS_COUNTER_H
 #define _t3d_FPS_COUNTER_H
 
-#include "../Main.h"
+#include "../Library.h"
 #include <list>
 
 namespace t3d

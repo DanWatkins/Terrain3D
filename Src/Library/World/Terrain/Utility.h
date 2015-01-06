@@ -8,7 +8,7 @@
 #ifndef _t3d_UTILITY_H
 #define _t3d_UTILITY_H
 
-#include <Main.h>
+#include <Library.h>
 
 namespace t3d { namespace World { namespace Terrain
 {

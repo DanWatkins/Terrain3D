@@ -8,7 +8,7 @@
 #ifndef _t3d_HELPER_H
 #define _t3d_HELPER_H
 
-#include "../Main.h"
+#include "../Library.h"
 
 namespace t3d
 {

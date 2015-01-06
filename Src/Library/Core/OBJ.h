@@ -8,7 +8,7 @@
 #ifndef _t3d_CORE_MD2_H
 #define _t3d_CORE_MD2_H
 
-#include <Main.h>
+#include <Library.h>
 #include <Core/Image.h>
 #include <Core/OpenGLFunctions.h>
 

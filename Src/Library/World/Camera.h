@@ -8,7 +8,7 @@
 #ifndef _t3d_CAMERA_H
 #define _t3d_CAMERA_H
 
-#include <Main.h>
+#include <Library.h>
 #include <World/World.h>
 
 #include <World/Terrain/Data.h>
