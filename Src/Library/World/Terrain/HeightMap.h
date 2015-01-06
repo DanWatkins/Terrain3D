@@ -9,7 +9,6 @@
 #define _t3d_HEIGHT_MAP_H
 
 #include <Main.h>
-#include <vector>
 
 namespace t3d { namespace World { namespace Terrain
 {

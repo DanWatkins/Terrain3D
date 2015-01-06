@@ -1,4 +1,4 @@
-#include "Main.h"
+#include "Tests.h"
 
 #include <Core/FPSCounter.h>
 

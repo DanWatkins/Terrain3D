@@ -1,4 +1,4 @@
-#include "Main.h"
+#include "Tests.h"
 #include <World/Terrain/LightMap.h>
 
 using namespace t3d::World::Terrain;

@@ -1,4 +1,5 @@
-#include <gtest/gtest.h>
+#include "Tests.h"
+
 #include <World/Terrain/HeightMap.h>
 #include <World/Terrain/NormalMap.h>
 

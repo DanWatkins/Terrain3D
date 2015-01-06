@@ -15,20 +15,7 @@
 
 #include <QuickItems/CameraItem.h>
 
-#if _MSC_VER >= 1310
-	#pragma once
-
-	#ifdef _DEBUG
-		#pragma comment (lib, "Terrain3D-d.lib")
-	#else
-		#pragma comment (lib, "Terrain3D.lib")
-	#endif
-#else
-	#error "Non Windows toolchain detected"
-#endif
-
 Settings mainSettings;
-
 
 /**
  * Launches a Terrain3D window instance. Blocks until the instance finishes. The

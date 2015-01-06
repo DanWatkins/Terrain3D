@@ -24,6 +24,7 @@
 #include <cstdio>
 #include <cstdlib>
 
+#include <QtCore/QVector>
 #include <QtGui/QtGui>
 #include <QtWidgets/QMainWindow>
 #include <Core/OpenGLFunctions.h>
