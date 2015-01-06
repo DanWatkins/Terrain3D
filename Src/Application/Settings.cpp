@@ -8,7 +8,7 @@
 #include "Settings.h"
 
 #include <QtCore/QDir>
-#include <QMetaEnum>
+#include <QtCore\QMetaEnum>
 
 //TODO man, you need to unit test this
 
@@ -162,8 +162,7 @@ void Settings::checkForMissingMetaKeyInfoValues()
 		{
 			QString msg = (QString("Settings: No default value defined for key ")
 							+ me.valueToKey(key) + " at:"
-							+ QString(__FILE__) + " "
-							+ QString(__func__));
+							+ QString(__FILE__));
 
 			qFatal(msg.toStdString().c_str());
 		}

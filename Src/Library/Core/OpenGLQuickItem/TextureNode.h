@@ -1,7 +1,7 @@
 #ifndef _TEXTURE_NODE_H
 #define _TEXTURE_NODE_H
 
-#include <qsgsimpletexturenode.h>
+#include <QtQuick\qsgsimpletexturenode.h>
 #include <QtQuick/QQuickWindow>
 #include <QtCore/QMutex>
 

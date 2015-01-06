@@ -7,13 +7,25 @@
 
 #include <QtGui/QGuiApplication>
 #include <QtCore/QSettings>
-#include <QQmlContext>
+#include <QtQml/QQmlContext>
 
-#include "Main.h"
+#include <Application.h>
 #include "Terrain3D.h"
 #include "Settings.h"
 
 #include <QuickItems/CameraItem.h>
+
+#if _MSC_VER >= 1310
+	#pragma once
+
+	#ifdef _DEBUG
+		#pragma comment (lib, "Terrain3D-d.lib")
+	#else
+		#pragma comment (lib, "Terrain3D.lib")
+	#endif
+#else
+	#error "Non Windows toolchain detected"
+#endif
 
 Settings mainSettings;
 
@@ -56,12 +68,11 @@ void loadAndRun(QGuiApplication &app)
 
 int main(int argc, char *argv[])
 {
-/*
     AllocConsole();
 	freopen("CONIN$", "r", stdin);
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
-*/
+
 	QGuiApplication app(argc, argv);
 	mainSettings.init();
 

@@ -12,7 +12,7 @@
 #include "BackgroundUpdater.h"
 #include "Settings.h"
 
-#include <Main.h>
+#include <Application.h>
 #include <Core/FPSCounter.h>
 #include <World/World.h>
 #include <World/Camera.h>

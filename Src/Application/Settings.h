@@ -11,7 +11,7 @@
 #include <QtCore/QSettings>
 #include <QtCore/QHash>
 
-#include "Main.h"
+#include <Application.h>
 
 class SettingsListener;
 

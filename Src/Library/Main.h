@@ -34,11 +34,11 @@
 #pragma warning(push)
 #pragma warning(disable:4201)
 #pragma warning(disable:4996)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 	#include <glm/glm.hpp>
 	#include <glm/ext.hpp>
-#pragma GCC diagnostic pop
+//#pragma GCC diagnostic pop
 #pragma warning(pop)
 
 //typedef common types

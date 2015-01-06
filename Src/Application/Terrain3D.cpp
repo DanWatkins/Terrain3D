@@ -8,7 +8,7 @@
 #include "Terrain3D.h"
 #include <Core/Core.h>
 #include <QuickItems/CameraItem.h>
-#include <QQmlContext>
+#include <QtQml\QQmlContext>
 
 namespace t3d
 {
