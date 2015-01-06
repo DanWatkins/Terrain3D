@@ -15,7 +15,6 @@ namespace t3d
 		mCapturesCursor(false),
 		mMouseButtonLeftPressed(false)
 	{
-
 	}
 
 

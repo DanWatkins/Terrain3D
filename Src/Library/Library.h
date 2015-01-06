@@ -26,7 +26,6 @@
 
 #include <QtCore/QVector>
 #include <QtGui/QtGui>
-#include <QtWidgets/QMainWindow>
 #include <Core/OpenGLFunctions.h>
 
 #define WIN32_LEAN_AND_MEAN 1
