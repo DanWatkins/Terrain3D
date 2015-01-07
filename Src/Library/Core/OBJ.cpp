@@ -57,7 +57,8 @@ namespace t3d
 			{
 				glLineWidth(1.0f);
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				//TODO glDrawElements(GL_TRIANGLE_STRIP, mIndicies.size(), GL_UNSIGNED_INT, 0);
+				glDrawElements(GL_TRIANGLE_STRIP, 0	, GL_UNSIGNED_INT, 0); // TODO MAJOR
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			glBindVertexArray(0);
 		}
@@ -102,13 +103,9 @@ namespace t3d
 					face.textureIndex.push_back(cmp.at(1).toInt()-1);
 				if (cmp.size() > 2)
 					face.normalIndex.push_back(cmp.at(2).toInt()-1);
-
-				//mIndicies.push_back(field.at(i+1).toInt()-1);
 			}
 
 			mFaces.push_back(face);
-
-			//mIndicies.push_back(PrimitiveRestartIndex);
 		}
 		//comment
 		else if (field.at(0).startsWith("#"))

@@ -33,6 +33,8 @@ namespace t3d { namespace World
 							  configuration.terrainHeightScale,
 							  configuration.terrainBlockSize,
 							  configuration.terrainSpanSize);
+
+		mObj.load("../Meshes/cube_vn.obj");
 	}
 
 
@@ -45,6 +47,7 @@ namespace t3d { namespace World
 	void Camera::render()
 	{
 		mTerrainRenderer.render(mPosition, totalMatrix());
+		mObj.render(totalMatrix());
 	}
 
 

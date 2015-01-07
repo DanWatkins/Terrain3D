@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{43cd2e76-814c-4a90-ad1d-cad9fd686f64}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{2b4a954a-2a4a-44f7-bea0-447a8193cd4d}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Src\Core">
+      <UniqueIdentifier>{20abb4c7-2357-4900-8e4b-f1fc2617cb6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\World">
+      <UniqueIdentifier>{13f840fc-8fa4-4480-811e-b11a10ca9bbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\World\Terrain">
+      <UniqueIdentifier>{7c69a829-b4e8-4e05-ad23-d1dc7729c92e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\World\Terrain\Lighting">
+      <UniqueIdentifier>{84275190-890d-4462-a822-f36a28ad9359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\World\Terrain\Generator">
+      <UniqueIdentifier>{c76cf52e-e809-439e-b94f-8f9cfca79def}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\Library\Core\Core.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Constants.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Helper.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Image.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\MD2.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\OBJ.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Shader.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Utility.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Camera.h">
+      <Filter>Src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\World.h">
+      <Filter>Src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Data.h">
+      <Filter>Src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\HeightMap.h">
+      <Filter>Src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\IndexData.h">
+      <Filter>Src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\LightMap.h">
+      <Filter>Src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\NormalMap.h">
+      <Filter>Src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Lighting\Slope.h">
+      <Filter>Src\World\Terrain\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\FaultFormation.h">
+      <Filter>Src\World\Terrain\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\Generator.h">
+      <Filter>Src\World\Terrain\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Library.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Renderer.h">
+      <Filter>Src\World\Terrain</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FPSCounter.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FPSCounter.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_RenderThread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_RenderThread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TextureNode.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TextureNode.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_OpenGLQuickItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_OpenGLQuickItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Ext\lodepng.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Helper.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Image.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\OBJ.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\OpenGLFunctions.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\OpenGLQuickItem\OpenGLQuickItem.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\OpenGLQuickItem\RenderThread.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Shader.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\OpenGLQuickItem\TextureNode.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Utility.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Camera.cpp">
+      <Filter>Src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\World.cpp">
+      <Filter>Src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\HeightMap.cpp">
+      <Filter>Src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\IndexData.cpp">
+      <Filter>Src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\LightMap.cpp">
+      <Filter>Src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\NormalMap.cpp">
+      <Filter>Src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Data.cpp">
+      <Filter>Src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Lighting\Slope.cpp">
+      <Filter>Src\World\Terrain\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Generator\FaultFormation.cpp">
+      <Filter>Src\World\Terrain\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Generator\Generator.cpp">
+      <Filter>Src\World\Terrain\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Renderer.cpp">
+      <Filter>Src\World\Terrain</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\Src\Library\Core\OpenGLQuickItem.h">
+      <Filter>Src\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\Core\OpenGLQuickItem\RenderThread.h">
+      <Filter>Src\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\Core\OpenGLQuickItem\TextureNode.h">
+      <Filter>Src\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
+      <Filter>Src\Core</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

@@ -33,6 +33,8 @@ namespace t3d { namespace World
 		};
 
 	public:
+		OBJ mObj;
+
 		Camera();
 
 		/**
