@@ -47,7 +47,7 @@ namespace t3d
 		qint64 mSuperSampleRate, mSubSampleRate;
 		float mFps;
 
-		std::list<int> mSubList;
+		QList<int> mSubList;
 		strong<Timer> mTimer;
 	};
 }

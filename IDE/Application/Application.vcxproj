@@ -147,7 +147,7 @@
     <IntDir>./$(TargetName)/$(Configuration)\</IntDir>
     <IncludePath>../../Ext/;../../Ext/gtest/inc/;../../Ext/gtest/;../../Src/Library;../../Ext;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>../../Deployment/Bin/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
-    <TargetName>$(SolutionName)-d</TargetName>
+    <TargetName>$(SolutionName)</TargetName>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

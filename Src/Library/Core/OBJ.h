@@ -42,6 +42,11 @@ namespace t3d
 		QOpenGLShaderProgram mProgram;
 		GLuint mVao;
 
+		struct RenderInfo
+		{
+			int indexCount = 0;	//number of indicies in the index buffer including restart indicies
+		} mRenderInfo;
+
 		const GLuint PrimitiveRestartIndex = 900000000;
 
 		struct Uniforms

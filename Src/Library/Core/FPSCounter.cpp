@@ -36,21 +36,21 @@ namespace t3d
 
 	void FPSCounter::refreshFPS()
 	{
-		const int subSamples = std::min(unsigned(mSuperSampleRate/mSubSampleRate), mSubList.size());
+		const int subSamples = std::min(static_cast<int>(mSuperSampleRate/mSubSampleRate), mSubList.size());
 
 		//sum up the relevant sub list frame counts
 		mFps = 0;
 		int times = 0;
 
-		std::list<int>::reverse_iterator i = mSubList.rbegin();
-		while (i != mSubList.rend())
+		QListIterator<int> i(mSubList);
+		i.toBack();
+		while (i.hasPrevious())
 		{
 			if (times >= subSamples)
 				break;
 
 			times++;
-			mFps += *i;
-			i++;
+			mFps += i.previous();
 		}
 
 		//divide by factor to get back to a 1 second super sample rate

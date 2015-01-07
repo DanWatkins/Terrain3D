@@ -19,6 +19,7 @@
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainNormalMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Library\Library.h" />
     <ClInclude Include="..\..\Src\Tests\Tests.h" />
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +58,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>../../Deployment/Bin/</OutDir>
-    <TargetName>Terrain3DTests-d</TargetName>
+    <TargetName>Terrain3DTests</TargetName>
     <IncludePath>../../Ext/;../../Ext/gtest/inc/;../../Ext/gtest/;../../Src/Library;../../Ext;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>../../Deployment/Bin/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <LinkIncremental>false</LinkIncremental>

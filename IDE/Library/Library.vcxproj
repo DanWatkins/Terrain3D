@@ -19,7 +19,6 @@
     <ClInclude Include="..\..\Src\Library\Core\OBJ.h" />
     <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h" />
     <ClInclude Include="..\..\Src\Library\Core\Shader.h" />
-    <ClInclude Include="..\..\Src\Library\Library.h" />
     <ClInclude Include="..\..\Src\Library\World\Camera.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Data.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\FaultFormation.h" />
