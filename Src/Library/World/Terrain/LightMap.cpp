@@ -25,7 +25,7 @@ namespace t3d { namespace World { namespace Terrain
 
 	void LightMap::set(int x, int y, float value)
 	{
-		mValues[x + y*mSize] = value * float(std::numeric_limits<ValueType>::max());
+		mValues[x + y*mSize] = ValueType(value * static_cast<float>(std::numeric_limits<ValueType>::max()));
 	}
 
 

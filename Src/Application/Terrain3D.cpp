@@ -265,7 +265,7 @@ namespace t3d
 			{
 				if (theCamera)
 				{
-					const double mouseSensitivity = 0.1f;
+					const float mouseSensitivity = 0.1f;
 					QVector2D delta = consumeCursorDelta();
 					theCamera->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 

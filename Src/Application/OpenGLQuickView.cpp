@@ -74,7 +74,7 @@ namespace t3d
 			return;
 
 	#ifdef WIN32
-		SetCursorPos(mouseDeltaOffsetX, mouseDeltaOffsetY);
+		SetCursorPos(int(mouseDeltaOffsetX), int(mouseDeltaOffsetY));
         mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
 	#else
         //#error No mouse delta function for this platform

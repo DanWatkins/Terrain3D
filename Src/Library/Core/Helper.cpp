@@ -76,49 +76,14 @@ namespace t3d
 
 	
     int round(double n)
-    {
-        double result = 0.0;
-
-        //get the decimal part
-        double n2 = n - (int)n;
-
-        //see if the decimal part is closer to 0 or 1
-        if (1.0-n2 <= 0.0+n2)
-            result = n+(1.0-n2);
-        else if (1.0-n2 > 0.0+n2)
-            result = n-n2;
-
-        return (int)result;
+	{
+		return static_cast<int>(rint(n));
     }
 
 
     int round(float n)
     {
-        return (int)round((double)n);
-    }
-
-
-    int roundUp(double n)
-    {
-        return (int)std::ceil(n);
-    }
-
-	
-    int roundUp(float n)
-    {
-        return (int)std::ceil(n);
-    }
-	
-
-    int roundDown(double n)
-    {
-        return (int)std::floor(n);
-    }
-
-	
-    int roundDown(float n)
-    {
-        return (int)std::floor(n);
+        return static_cast<int>(rint(n));
     }
 
 	

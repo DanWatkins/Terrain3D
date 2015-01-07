@@ -95,7 +95,7 @@ namespace t3d { namespace World { namespace Terrain
 			glBindVertexArray(mVao);
 			{
 				int heightMapSize = mTerrainData->heightMap().size();
-				int numberOfBlocksOnASide = ceil(double(heightMapSize-1) / double(mRenderData->blockSize()));
+				int numberOfBlocksOnASide = static_cast<int>(ceil(double(heightMapSize-1) / double(mRenderData->blockSize())));
 
 				switch (mMode)
 				{
@@ -289,7 +289,7 @@ namespace t3d { namespace World { namespace Terrain
 	{
 		glUniform2i(mUniforms.blockIndex, block.x, block.y);
 
-		int patchSize = std::pow(2, block.lod+1);
+		int patchSize = static_cast<int>(pow(2, block.lod+1));
 		int patchesPerEdge = mRenderData->blockSize() / patchSize;
 		int heightMapSize = mTerrainData->heightMap().size();
 

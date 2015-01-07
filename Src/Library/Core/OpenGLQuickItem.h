@@ -1,7 +1,7 @@
 #ifndef _OPENGL_QUICK_ITEM_H
 #define _OPENGL_QUICK_ITEM_H
 
-#include <QtQuick/QQuickItem>
+
 #include <Core/OpenGLFunctions.h>
 
 namespace t3d

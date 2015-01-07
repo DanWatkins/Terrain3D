@@ -30,14 +30,12 @@ namespace t3d { namespace World
 						   configuration.generatorFaultCount,
 						   configuration.generatorSmoothing,
 						   actualSeed);
-		{
-			Terrain::Data::HeightIndex hi;
-			hi[0.25f] = 0;
-			hi[0.35f] = 1;
-			hi[0.75f] = 2;
-			hi[1.00f] = 3;
-			mTerrainData.computeTextureIndicies(hi);
-		}
+		Terrain::Data::HeightIndex hi;
+		hi[0.25f] = 0;
+		hi[0.35f] = 1;
+		hi[0.75f] = 2;
+		hi[1.00f] = 3;
+		mTerrainData.computeTextureIndicies(hi);
 
 		mTerrainData.lightMap().reserve(actualSize);
 		Terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),

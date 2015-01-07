@@ -8,7 +8,12 @@
 #ifndef _MAIN_H
 #define _MAIN_H
 
-#include <QtCore/QDebug>
+#pragma warning(push, 0)
+	#include <QtCore/QDebug>
+	#include <QtGui/QGuiApplication>
+	#include <QtCore/QSettings>
+	#include <QtQml/QQmlContext>
+#pragma warning(pop)
 
 #endif
 

@@ -34,7 +34,7 @@ namespace t3d
 		FPSCounter(qint64 superSampleRate, qint64 subSampleRate,
 				   strong<Timer> timer=strong<Timer>(new Timer));
 
-		int fps() const { return mFps; }
+		int fps() const { return round(mFps); }
 		void update();
 
 	signals:
@@ -45,7 +45,7 @@ namespace t3d
 
 	private:
 		qint64 mSuperSampleRate, mSubSampleRate;
-		int mFps;
+		float mFps;
 
 		std::list<int> mSubList;
 		strong<Timer> mTimer;

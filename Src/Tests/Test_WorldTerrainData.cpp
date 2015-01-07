@@ -28,7 +28,7 @@ protected:
 	}
 
 
-	void testComputeTextureIndiciesAdv(int size, int res, const Data::HeightIndex &hi, float *heights, GLubyte *expected)
+	void testComputeTextureIndiciesAdv(int size, const Data::HeightIndex &hi, float *heights, GLubyte *expected)
 	{
 		Data data;
 		data.setTextureMapResolution(2);
@@ -95,7 +95,7 @@ TEST_CASE(computeTextureIndicies3)
 	hi[0.75f] = 2;
 	hi[1.00f] = 3;
 
-	testComputeTextureIndiciesAdv(2, 2, hi, heights, expected);
+	testComputeTextureIndiciesAdv(2, hi, heights, expected);
 }
 
 
@@ -123,5 +123,5 @@ TEST_CASE(computeTextureIndicies4)
 	hi[0.75f] = 2;
 	hi[1.00f] = 3;
 
-	testComputeTextureIndiciesAdv(3, 2, hi, heights, expected);
+	testComputeTextureIndiciesAdv(3, hi, heights, expected);
 }

@@ -9,7 +9,7 @@
 
 namespace t3d { namespace World { namespace Terrain
 {
-	int indexForHeight(const Data::HeightIndex &hi, float height)
+	GLubyte indexForHeight(const Data::HeightIndex &hi, float height)
     {
 		Data::HeightIndex::ConstIterator iter = hi.cbegin();
 		while (iter != hi.cend())

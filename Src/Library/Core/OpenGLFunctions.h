@@ -8,7 +8,7 @@
 #ifndef _t3d_OPENGL_FUNCTIONS_H
 #define _t3d_OPENGL_FUNCTIONS_H
 
-#include <QtGui/QOpenGLFunctions_4_2_Core>
+#include <Library.h>
 
 namespace t3d
 {

@@ -24,9 +24,23 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include <QtCore/QVector>
-#include <QtGui/QtGui>
-#include <Core/OpenGLFunctions.h>
+#pragma warning(push, 0)
+	#include <QtCore/QVector>
+	#include <QtGui/QtGui>
+	#include <QtQuick\qsgsimpletexturenode.h>
+	#include <QtQuick/QQuickWindow>
+	#include <QtCore/QMutex>
+	#include <QtGui/QOpenGLFramebufferObject>
+	#include <QtGui/QOffscreenSurface>
+	#include <QtGui/QOpenGLContext>
+	#include <QtCore/QThread>
+	#include <QtCore/QMutex>
+	#include <QtGui/QGuiApplication>
+	#include <QtQuick/QQuickItem>
+	#include <QtGui/QOpenGLFunctions>
+	#include <QtGui/QOpenGLFunctions_4_2_Core>
+	#include <Core/OpenGLFunctions.h>
+#pragma warning(pop)
 
 #define WIN32_LEAN_AND_MEAN 1
 

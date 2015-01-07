@@ -109,27 +109,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_FPSCounter.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RenderThread.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RenderThread.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_TextureNode.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_TextureNode.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_OpenGLQuickItem.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_OpenGLQuickItem.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Ext\lodepng.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Library\Core\Helper.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
@@ -142,16 +121,7 @@
     <ClCompile Include="..\..\Src\Library\Core\OpenGLFunctions.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\OpenGLQuickItem\OpenGLQuickItem.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\OpenGLQuickItem\RenderThread.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Library\Core\Shader.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\OpenGLQuickItem\TextureNode.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Library\World\Terrain\Utility.cpp">
@@ -195,15 +165,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\Src\Library\Core\OpenGLQuickItem.h">
-      <Filter>Src\Core</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\Src\Library\Core\OpenGLQuickItem\RenderThread.h">
-      <Filter>Src\Core</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\Src\Library\Core\OpenGLQuickItem\TextureNode.h">
-      <Filter>Src\Core</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
       <Filter>Src\Core</Filter>
     </CustomBuild>

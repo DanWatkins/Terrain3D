@@ -17,7 +17,7 @@ namespace t3d { namespace World { namespace Terrain
 
 	int sizeForLod(int lod)
 	{
-		return std::pow(2, lod+1);
+		return static_cast<int>(pow(2, lod+1));
 	}
 
 

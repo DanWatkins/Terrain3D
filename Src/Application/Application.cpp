@@ -5,10 +5,6 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include <QtGui/QGuiApplication>
-#include <QtCore/QSettings>
-#include <QtQml/QQmlContext>
-
 #include <Application.h>
 #include "Terrain3D.h"
 #include "Settings.h"
@@ -36,19 +32,15 @@ void loadAndRun(QGuiApplication &app)
 
 		++instanceCount;
 
-		{
-			t3d::Terrain3D mainWindow(&mainSettings);
+		t3d::Terrain3D mainWindow(&mainSettings);
 
-			mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
-			mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
-			mainWindow.init();
+		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
+		mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
+		mainWindow.init();
 
-			app.exec();
-			restart = mainWindow.needsRestart();
-		}
-
-		qDebug() << "Ending all render threads";
-		//t3d::OpenGLQuickItem::endAllRenderThreads();
+		Q_UNUSED(app); // apparently MSVC freaks out on /w4 claiming app is never referenced...
+		app.exec();
+		restart = mainWindow.needsRestart();
 	}
 }
 

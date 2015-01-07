@@ -23,7 +23,7 @@ namespace t3d { namespace World { namespace Terrain
 		HeightMap& heightMap() { return mHeightMap; }
 		LightMap &lightMap() { return mLightMap; }
 
-		typedef QMap<float, int> HeightIndex;
+		typedef QMap<float, GLubyte> HeightIndex;
 		void computeTextureIndicies(const HeightIndex &heightIndex);
 
 		typedef QVector<GLubyte> TextureIndicies;
