@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_CORE_MD2_H
-#define _t3d_CORE_MD2_H
+#ifndef _t3d_CORE_OBJ_H
+#define _t3d_CORE_OBJ_H
 
 #include <Library.h>
 #include <Core/Image.h>
@@ -62,6 +62,8 @@ namespace t3d
 
 		void uploadIndexData();
 		void uploadVertexData();
+
+		void uploadVertexPositions();
 	};
 }
 

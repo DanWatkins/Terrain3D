@@ -158,6 +158,8 @@ namespace t3d
 
 	void OBJ::uploadData()
 	{
+		uploadVertexPositions();
+
 		uploadIndexData();
 		uploadVertexData();
 	}
@@ -165,31 +167,29 @@ namespace t3d
 
 	void OBJ::uploadIndexData()
 	{
-		mRenderInfo.indexCount = -1;	//start -1 because we don't need primitive restart at end
-		for (Face f : mFaces)
-			mRenderInfo.indexCount += f.vertexIndex.size()+1; //+1 for primitive restart
-
-		int *faceData = new int[mRenderInfo.indexCount];
-
-		int i=0;
-		for (Face f : mFaces)
-		{
-			for (int v : f.vertexIndex)
-				faceData[i++] = v;
-
-			if (i < mRenderInfo.indexCount)
-				faceData[i++] = PrimitiveRestartIndex;
-		}
-
 		GLuint ibo;
 		glGenBuffers(1, &ibo);
 		qDebug() << "ibo=" << ibo;
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		{
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*mRenderInfo.indexCount, faceData, GL_STATIC_DRAW);
-		}
+			QVector<GLuint> indexBuffer;
+			indexBuffer.reserve(mFaces.count() * 4 - 1);
 
-		delete[] faceData;
+			GLuint i=0;
+			for (Face f : mFaces)
+			{
+				if (!indexBuffer.isEmpty())
+					indexBuffer.append(PrimitiveRestartIndex);
+
+				for (int v : f.vertexIndex)
+				{
+					Q_UNUSED(v);
+					indexBuffer.append(i++);
+				}
+			}
+
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.count()*sizeof(GLuint), &indexBuffer[0], GL_STATIC_DRAW);
+		}
 	}
 
 
@@ -200,10 +200,37 @@ namespace t3d
 		qDebug() << "vbo=" << vbo;
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		{
-			int size = sizeof(GLfloat)*3*mVertecies.size();
-			glBufferData(GL_ARRAY_BUFFER, size, &mVertecies[0], GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+			QVector<GLuint> vertexIndicies;
+			vertexIndicies.reserve(mFaces.count()*3);
+
+			for (Face f : mFaces)
+			{
+				for (int i : f.vertexIndex)
+					vertexIndicies.append(static_cast<GLuint>(i));
+			}
+
+			glBufferData(GL_ARRAY_BUFFER, vertexIndicies.count()*sizeof(GLuint), &vertexIndicies[0], GL_STATIC_DRAW);
+			glVertexAttribPointer(0, 1, GL_UNSIGNED_INT, GL_FALSE, 0, NULL);
 			glEnableVertexAttribArray(0);
+		}
+	}
+
+
+	void OBJ::uploadVertexPositions()
+	{
+		GLuint texture;
+		glGenTextures(1, &texture);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_BUFFER, texture);
+		{
+			GLuint buffer;
+			glGenBuffers(1, &buffer);
+			qDebug() << "vertPos: " << buffer;
+			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
+			{
+				glBufferData(GL_TEXTURE_BUFFER, mVertecies.count()*3*sizeof(GLfloat), &mVertecies[0], GL_STATIC_DRAW);
+				glTexBuffer(GL_TEXTURE_BUFFER, GL_FLOAT, buffer);
+			}
 		}
 	}
 }
