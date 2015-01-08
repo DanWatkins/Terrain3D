@@ -9,10 +9,12 @@ uniform mat4 modelMatrix;
 
 void main()
 {
+	int search = vertIndex * 3;
+
 	vec4 pos;
-	pos.x = texelFetch(daBuf, vertIndex+0).r;
-	pos.y = texelFetch(daBuf, vertIndex+1).r;
-	pos.z = texelFetch(daBuf, vertIndex+2).r;
+	pos.x = texelFetch(daBuf, search+0).r;
+	pos.y = texelFetch(daBuf, search+1).r;
+	pos.z = texelFetch(daBuf, search+2).r;
 	pos.w = 1.0f;
 
 	float scale = 1.5f;
