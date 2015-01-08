@@ -1,8 +1,9 @@
 #version 420 core
 
 out vec4 color;
+in vec3 vertexNormal;
 
 void main()
 {
-	color = vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	color = vec4(vertexNormal.x, vertexNormal.y, vertexNormal.z, 1.0f);
 }

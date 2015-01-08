@@ -43,6 +43,7 @@ namespace t3d
 		{
 			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
 			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
+			mUniforms.indexCount = mProgram.uniformLocation("indexCount");
 
 			glGenVertexArrays(1, &mVao);
 			glBindVertexArray(mVao);
@@ -71,9 +72,9 @@ namespace t3d
 			glBindVertexArray(mVao);
 			{
 				glLineWidth(1.0f);
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 				glDrawElements(GL_TRIANGLES, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0); // TODO MAJOR
-				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			glBindVertexArray(0);
 		}
@@ -159,6 +160,7 @@ namespace t3d
 	void OBJ::uploadData()
 	{
 		uploadVertexPositions();
+		uploadVertexNormals();
 
 		uploadIndexData();
 		uploadVertexData();
@@ -202,17 +204,32 @@ namespace t3d
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		{
 			QVector<GLint> vertexIndicies;
-			vertexIndicies.reserve(mFaces.count()*3);
+			vertexIndicies.reserve(mFaces.count()*3*2);
 
+			//add the vertex position indicies
 			for (Face f : mFaces)
 			{
 				for (int i : f.vertexIndex)
 					vertexIndicies.append(static_cast<GLint>(i));
 			}
 
+			glUniform1i(mUniforms.indexCount, vertexIndicies.count());
+			int normalOffset = vertexIndicies.count() * sizeof(GLint);
+
+			//add the vertex normal indicies
+			for (Face f : mFaces)
+			{
+				for (int i : f.normalIndex)
+					vertexIndicies.append(static_cast<GLint>(i));
+			}
+
 			glBufferData(GL_ARRAY_BUFFER, vertexIndicies.count()*sizeof(GLuint), &vertexIndicies[0], GL_STATIC_DRAW);
+			
 			glVertexAttribIPointer(0, 1, GL_INT, 0, NULL);
 			glEnableVertexAttribArray(0);
+
+			glVertexAttribIPointer(1, 1, GL_INT, 0, (void*)normalOffset);
+			glEnableVertexAttribArray(1);
 		}
 	}
 
@@ -222,7 +239,7 @@ namespace t3d
 		GLuint texture;
 		glGenTextures(1, &texture);
 
-		qDebug() << "texture: " << texture;
+		qDebug() << "textureVertexPositions: " << texture;
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_BUFFER, texture);
 		{
@@ -236,4 +253,25 @@ namespace t3d
 			}
 		}
 	}
+
+
+	void OBJ::uploadVertexNormals()
+	{
+		GLuint texture;
+		glGenTextures(1, &texture);
+
+		qDebug() << "textureVertexNormals: " << texture;
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_BUFFER, texture);
+		{
+			GLuint buffer;
+			glGenBuffers(1, &buffer);
+			qDebug() << "vertNormals: " << buffer;
+			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
+			{
+				glBufferData(GL_TEXTURE_BUFFER, mVertexNormals.count()*3*sizeof(GLfloat), &mVertexNormals[0], GL_STATIC_DRAW);
+				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
+			}
+		}
+	}		
 }

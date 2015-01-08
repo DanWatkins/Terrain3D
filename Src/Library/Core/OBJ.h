@@ -53,6 +53,7 @@ namespace t3d
 		{
 			GLuint matrixCamera;
 			GLuint matrixModel;
+			GLint indexCount;
 		} mUniforms;
 
 	private:
@@ -64,6 +65,7 @@ namespace t3d
 		void uploadVertexData();
 
 		void uploadVertexPositions();
+		void uploadVertexNormals();
 	};
 }
 
