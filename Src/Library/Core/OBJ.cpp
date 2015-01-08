@@ -39,7 +39,22 @@ namespace t3d
 		}
 
 		loadShaders();
-		uploadData();
+		mProgram.bind();
+		{
+			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
+			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
+
+			glGenVertexArrays(1, &mVao);
+			glBindVertexArray(mVao);
+			{
+				uploadData();
+
+				glEnable(GL_PRIMITIVE_RESTART);
+				glPrimitiveRestartIndex(PrimitiveRestartIndex);
+			}
+			glBindVertexArray(0);
+		}
+		mProgram.release();
 
 		return true;
 	}
@@ -138,67 +153,57 @@ namespace t3d
 			printf("Problem linking OBJ mesh shadres\n");
 		else
 			printf("Initialized OBJ mesh shaders\n");
-
-		mProgram.bind();
-		{
-			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
-			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
-		}
-		mProgram.release();
 	}
 
 
 	void OBJ::uploadData()
 	{
-		glEnable(GL_PRIMITIVE_RESTART);
-		glPrimitiveRestartIndex(PrimitiveRestartIndex);
+		uploadIndexData();
+		uploadVertexData();
+	}
 
-		glGenVertexArrays(1, &mVao);
-		glBindVertexArray(mVao);
+
+	void OBJ::uploadIndexData()
+	{
+		mRenderInfo.indexCount = -1;	//start -1 because we don't need primitive restart at end
+		for (Face f : mFaces)
+			mRenderInfo.indexCount += f.vertexIndex.size()+1; //+1 for primitive restart
+
+		int *faceData = new int[mRenderInfo.indexCount];
+
+		int i=0;
+		for (Face f : mFaces)
 		{
-			//vertex data
-			{
-				GLuint vbo;
-				glGenBuffers(1, &vbo);
-				qDebug() << "vbo=" << vbo;
-				glBindBuffer(GL_ARRAY_BUFFER, vbo);
-				{
-					int size = sizeof(GLfloat)*3*mVertecies.size();
-					glBufferData(GL_ARRAY_BUFFER, size, &mVertecies[0], GL_STATIC_DRAW);
-					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-					glEnableVertexAttribArray(0);
-				}
-			}
+			for (int v : f.vertexIndex)
+				faceData[i++] = v;
 
-			//index data
-			{
-				mRenderInfo.indexCount = -1;	//start -1 because we don't need primitive restart at end
-				for (Face f : mFaces)
-					mRenderInfo.indexCount += f.vertexIndex.size()+1; //+1 for primitive restart
-
-				int *faceData = new int[mRenderInfo.indexCount];
-
-				int i=0;
-				for (Face f : mFaces)
-				{
-					for (int v : f.vertexIndex)
-						faceData[i++] = v;
-
-					if (i < mRenderInfo.indexCount)
-						faceData[i++] = PrimitiveRestartIndex;
-				}
-
-				GLuint ibo;
-				glGenBuffers(1, &ibo);
-				qDebug() << "ibo=" << ibo;
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-				{
-					glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*mRenderInfo.indexCount, faceData, GL_STATIC_DRAW);
-				}
-
-				delete[] faceData;
-			}
+			if (i < mRenderInfo.indexCount)
+				faceData[i++] = PrimitiveRestartIndex;
 		}
-		glBindVertexArray(0);
+
+		GLuint ibo;
+		glGenBuffers(1, &ibo);
+		qDebug() << "ibo=" << ibo;
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		{
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*mRenderInfo.indexCount, faceData, GL_STATIC_DRAW);
+		}
+
+		delete[] faceData;
+	}
+
+
+	void OBJ::uploadVertexData()
+	{
+		GLuint vbo;
+		glGenBuffers(1, &vbo);
+		qDebug() << "vbo=" << vbo;
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		{
+			int size = sizeof(GLfloat)*3*mVertecies.size();
+			glBufferData(GL_ARRAY_BUFFER, size, &mVertecies[0], GL_STATIC_DRAW);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+			glEnableVertexAttribArray(0);
+		}
 	}
 }

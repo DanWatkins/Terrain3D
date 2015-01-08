@@ -59,6 +59,9 @@ namespace t3d
 		bool parseField(const QStringList &field);
 		void loadShaders();
 		void uploadData();
+
+		void uploadIndexData();
+		void uploadVertexData();
 	};
 }
 
