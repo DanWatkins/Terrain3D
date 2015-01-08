@@ -72,7 +72,7 @@ namespace t3d
 			{
 				glLineWidth(1.0f);
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0); // TODO MAJOR
+				glDrawElements(GL_TRIANGLES, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0); // TODO MAJOR
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			glBindVertexArray(0);
@@ -188,6 +188,7 @@ namespace t3d
 				}
 			}
 
+			mRenderInfo.indexCount = indexBuffer.count();
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.count()*sizeof(GLuint), &indexBuffer[0], GL_STATIC_DRAW);
 		}
 	}
@@ -200,17 +201,17 @@ namespace t3d
 		qDebug() << "vbo=" << vbo;
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		{
-			QVector<GLuint> vertexIndicies;
+			QVector<GLint> vertexIndicies;
 			vertexIndicies.reserve(mFaces.count()*3);
 
 			for (Face f : mFaces)
 			{
 				for (int i : f.vertexIndex)
-					vertexIndicies.append(static_cast<GLuint>(i));
+					vertexIndicies.append(static_cast<GLint>(i));
 			}
 
 			glBufferData(GL_ARRAY_BUFFER, vertexIndicies.count()*sizeof(GLuint), &vertexIndicies[0], GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 1, GL_UNSIGNED_INT, GL_FALSE, 0, NULL);
+			glVertexAttribIPointer(0, 1, GL_INT, 0, NULL);
 			glEnableVertexAttribArray(0);
 		}
 	}
@@ -220,6 +221,8 @@ namespace t3d
 	{
 		GLuint texture;
 		glGenTextures(1, &texture);
+
+		qDebug() << "texture: " << texture;
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_BUFFER, texture);
 		{
@@ -229,7 +232,7 @@ namespace t3d
 			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
 			{
 				glBufferData(GL_TEXTURE_BUFFER, mVertecies.count()*3*sizeof(GLfloat), &mVertecies[0], GL_STATIC_DRAW);
-				glTexBuffer(GL_TEXTURE_BUFFER, GL_FLOAT, buffer);
+				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
 			}
 		}
 	}

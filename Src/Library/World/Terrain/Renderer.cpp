@@ -177,6 +177,9 @@ namespace t3d { namespace World { namespace Terrain
 	{
 		glGenTextures(2, &mTexture[0]);
 
+		qDebug() << "rendererTexs: " << mTexture[0] << "," << mTexture[1];
+
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_BUFFER, mTexture[0]);
 		{
 			GLuint buffer;

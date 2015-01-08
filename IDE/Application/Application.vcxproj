@@ -116,6 +116,14 @@
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Deployment\Shaders\camera-frag.glsl" />
+    <None Include="..\..\Deployment\Shaders\camera-vert.glsl" />
+    <None Include="..\..\Deployment\Shaders\mesh-obj-frag.glsl" />
+    <None Include="..\..\Deployment\Shaders\mesh-obj-vert.glsl" />
+    <None Include="..\..\Deployment\Shaders\sprite-frag.glsl" />
+    <None Include="..\..\Deployment\Shaders\sprite-vert.glsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>

@@ -25,6 +25,9 @@
     <Filter Include="Src\qml">
       <UniqueIdentifier>{3558d1df-77b8-4e8d-8207-1407541a1912}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d4b8cbd8-d682-4a85-a6b0-c177f9d8e8fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_BackgroundUpdater.cpp">
@@ -94,5 +97,25 @@
     <CustomBuild Include="..\..\Src\Application\qml\main.qrc">
       <Filter>Src\qml</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Deployment\Shaders\camera-frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Deployment\Shaders\camera-vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Deployment\Shaders\mesh-obj-frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Deployment\Shaders\mesh-obj-vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Deployment\Shaders\sprite-frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Deployment\Shaders\sprite-vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

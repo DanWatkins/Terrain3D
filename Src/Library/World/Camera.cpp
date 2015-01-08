@@ -11,7 +11,7 @@ namespace t3d { namespace World
 {
 	Camera::Camera() :
 		mTerrainRenderer(),
-		mPosition(-10, 35, -10),
+		mPosition(-20, 0, -20),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
@@ -33,7 +33,7 @@ namespace t3d { namespace World
 							  configuration.terrainHeightScale,
 							  configuration.terrainBlockSize,
 							  configuration.terrainSpanSize);
-
+							  
 		mObj.load("../Meshes/cube_tr.obj");
 	}
 
@@ -47,7 +47,7 @@ namespace t3d { namespace World
 	void Camera::render()
 	{
 		mTerrainRenderer.render(mPosition, totalMatrix());
-		//mObj.render(totalMatrix());
+		mObj.render(totalMatrix());
 	}
 
 

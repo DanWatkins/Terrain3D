@@ -91,6 +91,7 @@ Item {
             y: 0
             height: 20
             decimals: 3
+            minimumValue: -100000
             maximumValue: 100000
         }
 
@@ -100,6 +101,7 @@ Item {
             y: 0
             height: 20
             decimals: 3
+            minimumValue: -100000
             maximumValue: 100000
         }
 
@@ -109,6 +111,7 @@ Item {
             y: 0
             height: 20
             decimals: 3
+            minimumValue: -100000
             maximumValue: 100000
         }
 
