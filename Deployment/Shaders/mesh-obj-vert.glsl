@@ -35,6 +35,6 @@ void main()
 		vertexNormal.y = texelFetch(vertexNormals, search+1).r;
 		vertexNormal.z = texelFetch(vertexNormals, search+2).r;
 
-		int dick = int(vertexNormal.z);
+		
 	}
 }

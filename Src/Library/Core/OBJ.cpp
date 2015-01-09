@@ -14,9 +14,42 @@ namespace t3d
 	}
 
 
-	bool OBJ::load(const QString &filepath)
+	bool OBJ::initWithFile(const QString &filepath)
 	{
 		OpenGLFunctions::initializeOpenGLFunctions();
+		
+		bool result;
+		if (result = parseFile(filepath))
+			init();
+
+		return result;
+	}
+
+
+	void OBJ::render(const Mat4 &totalMatrix)
+	{
+		mProgram.bind();
+		{
+			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
+			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
+							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
+
+			glBindVertexArray(mVao);
+			{
+				glLineWidth(1.0f);
+				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0); // TODO MAJOR
+				//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
+			glBindVertexArray(0);
+		}
+		mProgram.release();
+	}
+
+
+	///// PRIVATE
+
+	bool OBJ::parseFile(const QString &filepath)
+	{
 		QFile file(filepath);
 
 		if (!file.open(QIODevice::ReadOnly))
@@ -38,51 +71,9 @@ namespace t3d
 			++lineNumber;
 		}
 
-		loadShaders();
-		mProgram.bind();
-		{
-			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
-			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
-			mUniforms.indexCount = mProgram.uniformLocation("indexCount");
-
-			glGenVertexArrays(1, &mVao);
-			glBindVertexArray(mVao);
-			{
-				uploadData();
-
-				glEnable(GL_PRIMITIVE_RESTART);
-				glPrimitiveRestartIndex(PrimitiveRestartIndex);
-			}
-			glBindVertexArray(0);
-		}
-		mProgram.release();
-
 		return true;
 	}
 
-
-	void OBJ::render(const Mat4 &totalMatrix)
-	{
-		mProgram.bind();
-		{
-			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
-			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
-							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
-
-			glBindVertexArray(mVao);
-			{
-				glLineWidth(1.0f);
-				//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				glDrawElements(GL_TRIANGLES, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0); // TODO MAJOR
-				//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			}
-			glBindVertexArray(0);
-		}
-		mProgram.release();
-	}
-
-
-	///// PRIVATE
 
 	bool OBJ::parseField(const QStringList &field)
 	{
@@ -140,6 +131,29 @@ namespace t3d
 	}
 
 
+	void OBJ::init()
+	{
+		loadShaders();
+		mProgram.bind();
+		{
+			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
+			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
+			mUniforms.indexCount = mProgram.uniformLocation("indexCount");
+
+			glGenVertexArrays(1, &mVao);
+			glBindVertexArray(mVao);
+			{
+				uploadData();
+
+				glEnable(GL_PRIMITIVE_RESTART);
+				glPrimitiveRestartIndex(PrimitiveRestartIndex);
+			}
+			glBindVertexArray(0);
+		}
+		mProgram.release();
+	}
+
+	
 	void OBJ::loadShaders()
 	{
 		QOpenGLShader vertexShader(QOpenGLShader::Vertex, nullptr);

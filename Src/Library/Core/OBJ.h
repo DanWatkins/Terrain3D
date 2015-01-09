@@ -19,7 +19,7 @@ namespace t3d
 	public:
 		OBJ();
 
-		bool load(const QString &filepath);
+		bool initWithFile(const QString &filepath);
 		void render(const Mat4 &totalMatrix);
 
 	private:
@@ -57,7 +57,10 @@ namespace t3d
 		} mUniforms;
 
 	private:
+		bool parseFile(const QString &filepath);
 		bool parseField(const QStringList &field);
+		void init();
+
 		void loadShaders();
 		void uploadData();
 
