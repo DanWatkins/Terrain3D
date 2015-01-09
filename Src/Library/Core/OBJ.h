@@ -23,6 +23,8 @@ namespace t3d
 		void render(const Mat4 &totalMatrix);
 
 	private:
+		QString mContainingDirectory;
+
 		struct Vertex
 		{
 			GLfloat values[3];
@@ -56,9 +58,18 @@ namespace t3d
 			GLint indexCount;
 		} mUniforms;
 
+
+		struct Material
+		{
+			QString name;
+			QString filepath;
+		} mMaterial;
+
 	private:
 		bool parseFile(const QString &filepath);
 		bool parseField(const QStringList &field);
+		bool parseMaterialLib(const QString &filepath);
+		bool parseMaterialLibField(const QStringList &field);
 		void init();
 
 		void loadShaders();
@@ -66,6 +77,7 @@ namespace t3d
 
 		void uploadIndexData();
 		void uploadVertexData();
+		void uploadMaterialData();
 
 		void uploadVertexPositions();
 		void uploadVertexNormals();

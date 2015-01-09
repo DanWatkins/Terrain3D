@@ -14,9 +14,18 @@ namespace t3d
 	}
 
 
+	void removeLastPathComponent(QString &filepath)
+	{
+		filepath = "../Meshes/"; //TODO massive temporary hack
+	}
+
+
 	bool OBJ::initWithFile(const QString &filepath)
 	{
 		OpenGLFunctions::initializeOpenGLFunctions();
+		
+		mContainingDirectory = filepath;
+		removeLastPathComponent(mContainingDirectory);
 		
 		bool result;
 		if (result = parseFile(filepath))
@@ -77,8 +86,14 @@ namespace t3d
 
 	bool OBJ::parseField(const QStringList &field)
 	{
+		//material lib
+		if (field.front() == "mtllib" && field.count() == 2)
+		{
+			parseMaterialLib(mContainingDirectory + "/" + field.at(1));
+		}
+
 		//vertex
-		if (field.front() == "v"  &&  field.size() == 4)
+		else if (field.front() == "v"  &&  field.size() == 4)
 		{
 			Vertex vertex;
 			vertex.values[0] = field.at(1).toFloat();
@@ -131,6 +146,55 @@ namespace t3d
 	}
 
 
+	bool OBJ::parseMaterialLib(const QString &filepath)
+	{
+		QFile file(filepath);
+
+		if (!file.open(QIODevice::ReadOnly))
+			return false;
+
+		QTextStream ts(&file);
+		int lineNumber = 0;
+
+		while (!ts.atEnd())
+		{
+			QString line = ts.readLine();
+			QStringList field = line.split(" ");
+
+			if (!parseMaterialLibField(field))
+			{
+				qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
+			}
+
+			++lineNumber;
+		}
+
+		return true;
+	}
+
+
+	bool OBJ::parseMaterialLibField(const QStringList &field)
+	{
+		//new material
+		if (field.front() == "newmtl" && field.count() == 2)
+		{
+			mMaterial.name = field.at(1);
+		}
+		//texture map - diffuse
+		else if (field.front() == "map_Kd" && field.count() == 2)
+		{
+			mMaterial.filepath = field.at(1);
+		}
+		else
+		{
+			//unknown
+			return false;
+		}
+
+		return true;
+	}
+
+
 	void OBJ::init()
 	{
 		loadShaders();
@@ -178,6 +242,7 @@ namespace t3d
 
 		uploadIndexData();
 		uploadVertexData();
+		uploadMaterialData();
 	}
 
 
@@ -245,6 +310,15 @@ namespace t3d
 			glVertexAttribIPointer(1, 1, GL_INT, 0, (void*)normalOffset);
 			glEnableVertexAttribArray(1);
 		}
+	}
+
+
+	void OBJ::uploadMaterialData()
+	{
+		Image image;
+		image.loadFromFile_PNG(mContainingDirectory + mMaterial.filepath);
+
+		//todo finish
 	}
 
 
