@@ -39,6 +39,7 @@ namespace t3d
 
 		QVector<Vertex> mVertecies;
 		QVector<Vertex> mVertexNormals;
+		QVector<Vertex> mTextureCoordinates;
 		QVector<Face> mFaces;
 
 		QOpenGLShaderProgram mProgram;
@@ -81,6 +82,7 @@ namespace t3d
 
 		void uploadVertexPositions();
 		void uploadVertexNormals();
+		void uploadTextureCoordinates();
 	};
 }
 

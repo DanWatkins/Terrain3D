@@ -175,7 +175,7 @@ namespace t3d { namespace World { namespace Terrain
 
 	void Renderer::loadTextures()
 	{
-		glGenTextures(2, &mTexture[0]);
+		glGenTextures(2, mTexture);
 
 		qDebug() << "rendererTexs: " << mTexture[0] << "," << mTexture[1];
 

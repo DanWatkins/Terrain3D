@@ -1,7 +1,10 @@
 #version 420 core
 
+//layout (binding = 5) uniform sampler2D material;
+
 out vec4 color;
 in vec3 vertexNormal;
+//smooth in vec2 tc;
 
 void main()
 {

@@ -4,12 +4,14 @@ layout (location = 0) in int vertIndex;
 
 layout (binding = 2) uniform samplerBuffer vertexPositions;
 layout (binding = 3) uniform samplerBuffer vertexNormals;
+//layout (binding = 4) uniform samplerBuffer texCoordinates;
 
 uniform mat4 cameraMatrix;
 uniform mat4 modelMatrix;
 uniform int indexCount;
 
 out vec3 vertexNormal;
+//smooth out vec2 tc;
 
 void main()
 {

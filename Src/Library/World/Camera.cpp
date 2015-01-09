@@ -33,7 +33,7 @@ namespace t3d { namespace World
 							  configuration.terrainHeightScale,
 							  configuration.terrainBlockSize,
 							  configuration.terrainSpanSize);
-							  
+
 		mObj.initWithFile("../Meshes/cube_vn.obj");
 	}
 

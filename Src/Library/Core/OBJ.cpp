@@ -27,11 +27,13 @@ namespace t3d
 		mContainingDirectory = filepath;
 		removeLastPathComponent(mContainingDirectory);
 		
-		bool result;
-		if (result = parseFile(filepath))
+		if (parseFile(filepath))
+		{
 			init();
+			return true;
+		}
 
-		return result;
+		return false;
 	}
 
 
@@ -46,7 +48,7 @@ namespace t3d
 			glBindVertexArray(mVao);
 			{
 				glLineWidth(1.0f);
-				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0); // TODO MAJOR
+				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0);
 				//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			glBindVertexArray(0);
@@ -109,6 +111,16 @@ namespace t3d
 			vertex.values[1] = field.at(2).toFloat();
 			vertex.values[2] = field.at(3).toFloat();
 			mVertexNormals.push_back(vertex);
+		}
+		//vertex texture coordinate
+		else if (field.front() == "vt" && field.count() == 3 || field.count() == 4)
+		{
+			Vertex vertex;
+			vertex.values[0] = field.at(1).toFloat();
+			vertex.values[1] = field.at(2).toFloat();
+			if (field.count() == 4)
+				vertex.values[2] = field.at(3).toFloat();
+			mTextureCoordinates.push_back(vertex);
 		}
 		//face
 		else if (field.front() == "f"  &&  field.size() >= 4)
@@ -239,6 +251,7 @@ namespace t3d
 	{
 		uploadVertexPositions();
 		uploadVertexNormals();
+		uploadTextureCoordinates();
 
 		uploadIndexData();
 		uploadVertexData();
@@ -317,8 +330,21 @@ namespace t3d
 	{
 		Image image;
 		image.loadFromFile_PNG(mContainingDirectory + mMaterial.filepath);
+		
+		int imageSize = image.getWidth();
+		int mipLevels = 4;
 
-		//todo finish
+		GLuint texture;
+		glActiveTexture(GL_TEXTURE5);
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGBA8, imageSize, imageSize);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize,
+						GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+		
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glSamplerParameteri(texture, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glSamplerParameteri(texture, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	}
 
 
@@ -361,5 +387,26 @@ namespace t3d
 				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
 			}
 		}
-	}		
+	}
+
+
+	void OBJ::uploadTextureCoordinates()
+	{
+		GLuint texture;
+		glGenTextures(1, &texture);
+
+		qDebug() << "textureTextureCoordinates: " << texture;
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_BUFFER, texture);
+		{
+			GLuint buffer;
+			glGenBuffers(1, &buffer);
+			qDebug() << "textureCoordinates: " << buffer;
+			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
+			{
+				glBufferData(GL_TEXTURE_BUFFER, mTextureCoordinates.count()*3*sizeof(GLfloat), &mTextureCoordinates[0], GL_STATIC_DRAW);
+				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
+			}
+		}
+	}
 }
