@@ -49,10 +49,25 @@ namespace t3d
 			{
 				glLineWidth(1.0f);
 
+				glActiveTexture(GL_TEXTURE2);
+					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexPositions);
+				glActiveTexture(GL_TEXTURE3);
+					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexNormals);
+				glActiveTexture(GL_TEXTURE4);
+					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferTextureCoordinates);
+				glActiveTexture(GL_TEXTURE5);
+					glBindTexture(GL_TEXTURE_2D, mTextures.material);
+					
 				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0);
 				
-				//glActiveTexture(0);
-				//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				glActiveTexture(GL_TEXTURE2);
+					glBindTexture(GL_TEXTURE_BUFFER, 0);
+				glActiveTexture(GL_TEXTURE3);
+					glBindTexture(GL_TEXTURE_BUFFER, 0);
+				glActiveTexture(GL_TEXTURE4);
+					glBindTexture(GL_TEXTURE_BUFFER, 0);
+				glActiveTexture(GL_TEXTURE5);
+					glBindTexture(GL_TEXTURE_2D, 0);
 			}
 			glBindVertexArray(0);
 		}
@@ -350,11 +365,8 @@ namespace t3d
 		int imageSize = image.getWidth();
 
 		glGenTextures(1, &mTextures.material);
-
-		glActiveTexture(GL_TEXTURE5);
-		{	
-			glBindTexture(GL_TEXTURE_2D, mTextures.material);
-			
+		glBindTexture(GL_TEXTURE_2D, mTextures.material);
+		{				
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageSize, imageSize, 0,
 						 GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
 			
@@ -367,9 +379,8 @@ namespace t3d
 	void OBJ::uploadVertexPositions()
 	{
 		glGenTextures(1, &mTextures.bufferVertexPositions);
-
 		qDebug() << "textureVertexPositions: " << mTextures.bufferVertexPositions;
-		glActiveTexture(GL_TEXTURE2);
+
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexPositions);
 		{
 			GLuint buffer;
@@ -387,9 +398,8 @@ namespace t3d
 	void OBJ::uploadVertexNormals()
 	{
 		glGenTextures(1, &mTextures.bufferVertexNormals);
-
 		qDebug() << "textureVertexNormals: " << mTextures.bufferVertexNormals;
-		glActiveTexture(GL_TEXTURE3);
+
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexNormals);
 		{
 			GLuint buffer;
@@ -407,9 +417,8 @@ namespace t3d
 	void OBJ::uploadTextureCoordinates()
 	{
 		glGenTextures(1, &mTextures.bufferTextureCoordinates);
-
 		qDebug() << "textureTextureCoordinates: " << mTextures.bufferTextureCoordinates;
-		glActiveTexture(GL_TEXTURE4);
+
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferTextureCoordinates);
 		{
 			GLuint buffer;
