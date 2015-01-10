@@ -50,7 +50,15 @@ namespace t3d { namespace World
 
 	void Camera::render()
 	{
-		if (enable) mTerrainRenderer.render(mPosition, totalMatrix());
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glDepthFunc(GL_LEQUAL);
+
+		glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+		if (enable)
+			mTerrainRenderer.render(mPosition, totalMatrix());
 		mObj.render(totalMatrix());
 
 		emit finishedRendering();
@@ -60,6 +68,7 @@ namespace t3d { namespace World
 	void Camera::resize(unsigned windowWidth, unsigned windowHeight)
 	{
 		mAspectRatio = (float)windowWidth / (float)windowHeight;
+		glViewport(0, 0, (GLsizei)windowWidth, (GLsizei)windowHeight);
 	}
 
 

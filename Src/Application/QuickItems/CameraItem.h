@@ -32,13 +32,14 @@ namespace t3d { namespace QuickItems
 
 	private:
 		bool mIsFrozen;
+		bool mIsSynced = false;
 		strong<World::Camera> mCamera;
 
 	signals:
 		void isLoadedChanged();
 
 	public slots:
-		//void sync();
+		void sync();
 		void cleanup();
 		void cameraFinishedRendering();
 		void render();

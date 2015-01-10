@@ -117,5 +117,11 @@
     <None Include="..\..\Deployment\Shaders\sprite-vert.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\..\Src\Application\qml\main.qml">
+      <Filter>Src\qml</Filter>
+    </None>
+    <None Include="..\..\Src\Application\qml\SettingsPane.qml">
+      <Filter>Src\qml</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -123,6 +123,8 @@
     <None Include="..\..\Deployment\Shaders\mesh-obj-vert.glsl" />
     <None Include="..\..\Deployment\Shaders\sprite-frag.glsl" />
     <None Include="..\..\Deployment\Shaders\sprite-vert.glsl" />
+    <None Include="..\..\Src\Application\qml\main.qml" />
+    <None Include="..\..\Src\Application\qml\SettingsPane.qml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>

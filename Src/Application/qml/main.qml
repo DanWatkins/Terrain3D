@@ -10,21 +10,17 @@ Item {
     width: 800
     height: 600
 
-    Rectangle {
-        anchors.fill: parent
-        color: "blue"
 
-        Camera {
-            id: mainCamera
-            objectName: "t3d_mainCamera"
-            anchors.fill: parent
+    Camera {
+        id: mainCamera
+        objectName: "t3d_mainCamera"
+		anchors.fill: parent
 
-            //we have to flip the image vertically since the FBO is upside down
-            transform: Scale { origin.y: height/2; yScale: -1.0 }
+        //we have to flip the image vertically since the FBO is upside down
+        transform: Scale { origin.y: height/2; yScale: -1.0 }
 
-            onIsLoadedChanged: {
-                menuButtons.visible = true;
-            }
+        onIsLoadedChanged: {
+            menuButtons.visible = true;
         }
     }
 
