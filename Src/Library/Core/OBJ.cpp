@@ -48,7 +48,10 @@ namespace t3d
 			glBindVertexArray(mVao);
 			{
 				glLineWidth(1.0f);
+
 				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0);
+				
+				//glActiveTexture(0);
 				//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			glBindVertexArray(0);
@@ -252,10 +255,10 @@ namespace t3d
 		uploadVertexPositions();
 		uploadVertexNormals();
 		uploadTextureCoordinates();
-
+		uploadMaterialData();
 		uploadIndexData();
 		uploadVertexData();
-		uploadMaterialData();
+		
 	}
 
 
@@ -315,6 +318,15 @@ namespace t3d
 					vertexIndicies.append(static_cast<GLint>(i));
 			}
 
+			int textureOffset = vertexIndicies.count() * sizeof(GLint);
+
+			//add the texture coordinate indicies
+			for (Face f : mFaces)
+			{
+				for (int i : f.textureIndex)
+					vertexIndicies.append(static_cast<GLint>(i));
+			}
+
 			glBufferData(GL_ARRAY_BUFFER, vertexIndicies.count()*sizeof(GLuint), &vertexIndicies[0], GL_STATIC_DRAW);
 			
 			glVertexAttribIPointer(0, 1, GL_INT, 0, NULL);
@@ -322,8 +334,12 @@ namespace t3d
 
 			glVertexAttribIPointer(1, 1, GL_INT, 0, (void*)normalOffset);
 			glEnableVertexAttribArray(1);
+
+			glVertexAttribIPointer(2, 1, GL_INT, 0, (void*)textureOffset);
+			glEnableVertexAttribArray(2);
 		}
 	}
+
 
 
 	void OBJ::uploadMaterialData()
@@ -332,30 +348,29 @@ namespace t3d
 		image.loadFromFile_PNG(mContainingDirectory + mMaterial.filepath);
 		
 		int imageSize = image.getWidth();
-		int mipLevels = 4;
 
-		GLuint texture;
+		glGenTextures(1, &mTextures.material);
+
 		glActiveTexture(GL_TEXTURE5);
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGBA8, imageSize, imageSize);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize,
-						GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
-		
-		glGenerateMipmap(GL_TEXTURE_2D);
-		glSamplerParameteri(texture, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glSamplerParameteri(texture, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		{	
+			glBindTexture(GL_TEXTURE_2D, mTextures.material);
+			
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageSize, imageSize, 0,
+						 GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+			
+			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		}
 	}
 
 
 	void OBJ::uploadVertexPositions()
 	{
-		GLuint texture;
-		glGenTextures(1, &texture);
+		glGenTextures(1, &mTextures.bufferVertexPositions);
 
-		qDebug() << "textureVertexPositions: " << texture;
+		qDebug() << "textureVertexPositions: " << mTextures.bufferVertexPositions;
 		glActiveTexture(GL_TEXTURE2);
-		glBindTexture(GL_TEXTURE_BUFFER, texture);
+		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexPositions);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
@@ -371,12 +386,11 @@ namespace t3d
 
 	void OBJ::uploadVertexNormals()
 	{
-		GLuint texture;
-		glGenTextures(1, &texture);
+		glGenTextures(1, &mTextures.bufferVertexNormals);
 
-		qDebug() << "textureVertexNormals: " << texture;
+		qDebug() << "textureVertexNormals: " << mTextures.bufferVertexNormals;
 		glActiveTexture(GL_TEXTURE3);
-		glBindTexture(GL_TEXTURE_BUFFER, texture);
+		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexNormals);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
@@ -392,12 +406,11 @@ namespace t3d
 
 	void OBJ::uploadTextureCoordinates()
 	{
-		GLuint texture;
-		glGenTextures(1, &texture);
+		glGenTextures(1, &mTextures.bufferTextureCoordinates);
 
-		qDebug() << "textureTextureCoordinates: " << texture;
+		qDebug() << "textureTextureCoordinates: " << mTextures.bufferTextureCoordinates;
 		glActiveTexture(GL_TEXTURE4);
-		glBindTexture(GL_TEXTURE_BUFFER, texture);
+		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferTextureCoordinates);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);

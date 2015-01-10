@@ -66,6 +66,16 @@ namespace t3d
 			QString filepath;
 		} mMaterial;
 
+
+		struct Textures
+		{
+			GLuint material;
+			GLuint bufferVertexPositions;
+			GLuint bufferVertexNormals;
+			GLuint bufferTextureCoordinates;
+
+		} mTextures;
+
 	private:
 		bool parseFile(const QString &filepath);
 		bool parseField(const QStringList &field);

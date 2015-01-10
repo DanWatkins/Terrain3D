@@ -234,8 +234,8 @@ namespace t3d { namespace World { namespace Terrain
 							GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
 
 			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
-			glSamplerParameteri(mTexture[1], GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glSamplerParameteri(mTexture[1], GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		}
 	}
 
