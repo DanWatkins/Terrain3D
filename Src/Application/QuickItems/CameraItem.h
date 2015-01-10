@@ -11,33 +11,37 @@
 #include <QtQuick/QQuickFramebufferObject>
 #include <World/Camera.h>
 
-namespace t3d
-{
-	extern World::Camera *theCamera;
-}
 
 namespace t3d { namespace QuickItems
 {
-	class CameraItem : public QQuickFramebufferObject
+	class CameraItem : public QQuickItem
 	{
 		Q_OBJECT
 		Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY isLoadedChanged)
 		Q_PROPERTY(bool isFrozen READ isFrozen WRITE setIsFrozen)
 
 	public:
-		CameraItem() : mIsFrozen(false) {}
+		CameraItem();
 
-		Renderer *createRenderer() const;
-		bool isLoaded() const { return theCamera != nullptr; }
-
+		//properties
+		bool isLoaded() const { return mCamera.get() != nullptr; }
 		bool isFrozen() const { return mIsFrozen; }
 		void setIsFrozen(bool isFrozen) { mIsFrozen = isFrozen; }
 
 	private:
 		bool mIsFrozen;
+		unique<World::Camera> mCamera;
 
 	signals:
 		void isLoadedChanged();
+
+	public slots:
+		void sync();
+		void cleanup();
+		void cameraFinishedRendering();
+
+	private slots:
+		void handleWindowChanged(QQuickWindow *window);
 	};
 }}
 

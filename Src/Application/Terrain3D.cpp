@@ -35,20 +35,18 @@ namespace t3d
 
 	void Terrain3D::init()
 	{
-		setPersistentOpenGLContext(true);
-		setPersistentSceneGraph(true);
-
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
-
-		QWindow::show();
-		theCamera = new World::Camera;
 
 		loadUserSettings();
 
 		mWorld.init(buildWorldConfiguration());
-		theCamera->setWorld(&mWorld);
-		theCamera->init(buildCameraConfiguration());
+
+		auto ci = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
+
+
+		//theCamera->setWorld(&mWorld);
+		//theCamera->init(buildCameraConfiguration());
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
@@ -59,6 +57,8 @@ namespace t3d
 
 		QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged,
 						 this, &Terrain3D::onFpsChanged);
+
+		QWindow::show();
 	}
 
 
@@ -86,8 +86,7 @@ namespace t3d
 	void Terrain3D::toggleWireframe()
 	{
 		using namespace World::Terrain;
-		World::Camera *camera = theCamera;
-
+		/*
 		camera->mode() == Mode::Normal ?
 					camera->setMode(Mode::WireFrame) :
 					camera->setMode(Mode::Normal);
@@ -95,13 +94,13 @@ namespace t3d
 		mMainSettings->setValue(Settings::Key::GraphicsCameraWireframe,
 								camera->mode() == Mode::WireFrame);
 
-		emit refreshSettingsMenu();
+		emit refreshSettingsMenu(); TODO */
 	}
 
 
 	void Terrain3D::settingsValueChanged(Settings::Key key, const QVariant &value)
 	{
-		#define CASE(k) case Settings::k:
+		/* TODO camera #define CASE(k) case Settings::k:
 
 		switch (key)
 		{
@@ -192,7 +191,7 @@ namespace t3d
 			}
 		}
 
-		#undef CASE
+		#undef CASE*/
 	}
 
 
@@ -203,7 +202,7 @@ namespace t3d
 	{
 		QQuickView::keyPressEvent(ev);
 
-		using namespace World::Terrain;
+		/* TODO camera using namespace World::Terrain;
 		const float speed = 1.75f;
 
 		//update the camera
@@ -246,13 +245,13 @@ namespace t3d
 
 			//toggle fullscreen
 			case Qt::Key_F11: toggleFullscreen(); break;
-		}
+		}*/
 	}
 
 
 	void Terrain3D::updateCursorPos()
 	{
-		if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
+		/* TODO camera if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
 			return;
 
 		if (QWindow::isActive())
@@ -278,7 +277,7 @@ namespace t3d
 		else
 		{
 			mPreviouslyHadFocus = false;
-		}
+		}*/
 	}
 
 

@@ -52,6 +52,8 @@ namespace t3d { namespace World
 	{
 		if (enable) mTerrainRenderer.render(mPosition, totalMatrix());
 		mObj.render(totalMatrix());
+
+		emit finishedRendering();
 	}
 
 

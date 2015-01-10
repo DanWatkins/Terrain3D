@@ -21,8 +21,10 @@ namespace t3d { namespace World
 	 * Represents an all-in-one World instance visualizer. It uses the style of a first person shooter camera. It can
 	 * move forward/backward and left/right. It can also rotate up/down and left/right.
 	 */
-	class Camera : protected OpenGLFunctions
+	class Camera : public QObject, protected OpenGLFunctions 
 	{
+		Q_OBJECT
+
 	public:
 		struct Configuration
 		{
@@ -31,6 +33,16 @@ namespace t3d { namespace World
 			int terrainBlockSize;
 			int terrainSpanSize;
 		};
+
+	public slots:
+		/**
+		 * @brief Renders everything visible by the camera using the current
+		 * OpenGL context.
+		 */
+		void render();
+
+	signals:
+		void finishedRendering();
 
 	public:
 		OBJ mObj;
@@ -47,12 +59,6 @@ namespace t3d { namespace World
 		 * @brief Deallocates all memory allocated in OpenGL on the GPU.
 		 */
 		void cleanup();
-
-		/**
-		 * @brief Renders everything visible by the camera using the current
-		 * OpenGL context.
-		 */
-		void render();
 
 		/**
 		 * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
