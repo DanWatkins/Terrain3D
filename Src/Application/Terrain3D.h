@@ -83,7 +83,7 @@ namespace t3d
 
 	private:
 		World::World mWorld;
-		QWeakPointer<World::Camera> mCamera;
+		weak<World::Camera> mCamera;
 		bool mPreviouslyHadFocus;
 		bool mNeedsRestart;
 

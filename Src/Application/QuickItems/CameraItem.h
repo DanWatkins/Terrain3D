@@ -28,17 +28,20 @@ namespace t3d { namespace QuickItems
 		bool isFrozen() const { return mIsFrozen; }
 		void setIsFrozen(bool isFrozen) { mIsFrozen = isFrozen; }
 
+		weak<World::Camera> createCamera();
+
 	private:
 		bool mIsFrozen;
-		unique<World::Camera> mCamera;
+		strong<World::Camera> mCamera;
 
 	signals:
 		void isLoadedChanged();
 
 	public slots:
-		void sync();
+		//void sync();
 		void cleanup();
 		void cameraFinishedRendering();
+		void render();
 
 	private slots:
 		void handleWindowChanged(QQuickWindow *window);

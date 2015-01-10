@@ -9,7 +9,7 @@
 
 namespace t3d { namespace World
 {
-	bool enable = false;
+	bool enable = true;
 
 	Camera::Camera() :
 		mTerrainRenderer(),

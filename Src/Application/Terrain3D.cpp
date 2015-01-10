@@ -38,15 +38,13 @@ namespace t3d
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
+		mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
+		mCamera = mCameraItem->createCamera();
+
 		loadUserSettings();
-
 		mWorld.init(buildWorldConfiguration());
-
-		auto ci = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
-
-
-		//theCamera->setWorld(&mWorld);
-		//theCamera->init(buildCameraConfiguration());
+		mCamera.lock()->setWorld(&mWorld);
+		mCamera.lock()->init(buildCameraConfiguration());
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
@@ -85,8 +83,9 @@ namespace t3d
 
 	void Terrain3D::toggleWireframe()
 	{
+		World::Camera *camera = mCamera.lock().get();
+
 		using namespace World::Terrain;
-		/*
 		camera->mode() == Mode::Normal ?
 					camera->setMode(Mode::WireFrame) :
 					camera->setMode(Mode::Normal);
@@ -94,13 +93,13 @@ namespace t3d
 		mMainSettings->setValue(Settings::Key::GraphicsCameraWireframe,
 								camera->mode() == Mode::WireFrame);
 
-		emit refreshSettingsMenu(); TODO */
+		emit refreshSettingsMenu();
 	}
 
 
 	void Terrain3D::settingsValueChanged(Settings::Key key, const QVariant &value)
 	{
-		/* TODO camera #define CASE(k) case Settings::k:
+		#define CASE(k) case Settings::k:
 
 		switch (key)
 		{
@@ -121,25 +120,25 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraPositionX) {
-				Vec3f c = theCamera->position();
-				theCamera->setPosition(Vec3f(value.toFloat(), c.y, c.z));
+				Vec3f c = mCamera.lock()->position();
+				mCamera.lock()->setPosition(Vec3f(value.toFloat(), c.y, c.z));
 				break;
 			}
 
 			CASE(GraphicsCameraPositionY) {
-				Vec3f c = theCamera->position();
-				theCamera->setPosition(Vec3f(c.x, value.toFloat(), c.z));
+				Vec3f c = mCamera.lock()->position();
+				mCamera.lock()->setPosition(Vec3f(c.x, value.toFloat(), c.z));
 				break;
 			}
 
 			CASE(GraphicsCameraPositionZ) {
-				Vec3f c = theCamera->position();
-				theCamera->setPosition(Vec3f(c.x, c.y, value.toFloat()));
+				Vec3f c = mCamera.lock()->position();
+				mCamera.lock()->setPosition(Vec3f(c.x, c.y, value.toFloat()));
 				break;
 			}
 
 			CASE(GraphicsCameraFOV) {
-				theCamera->setFieldOfView(value.toFloat());
+				mCamera.lock()->setFieldOfView(value.toFloat());
 				break;
 			}
 
@@ -148,7 +147,7 @@ namespace t3d
 				break;
 			}
 			CASE(GraphicsCameraWireframe) {
-				theCamera->setMode(value.toBool()
+				mCamera.lock()->setMode(value.toBool()
 											   ? World::Terrain::Mode::WireFrame :
 												 World::Terrain::Mode::Normal);
 			}
@@ -191,7 +190,7 @@ namespace t3d
 			}
 		}
 
-		#undef CASE*/
+		#undef CASE
 	}
 
 
@@ -202,23 +201,22 @@ namespace t3d
 	{
 		QQuickView::keyPressEvent(ev);
 
-		/* TODO camera using namespace World::Terrain;
+		using namespace World::Terrain;
 		const float speed = 1.75f;
 
 		//update the camera
-		auto cameraPtr = theCamera;
-		if (cameraPtr && !mCameraItem->isFrozen())
+		if (!mCamera.expired() && !mCameraItem->isFrozen())
 		{
 			switch (ev->key())
 			{
 				case Qt::Key_W:
-					cameraPtr->incPosition(speed * cameraPtr->forward()); break;
+					mCamera.lock()->incPosition(speed * mCamera.lock()->forward()); break;
 				case Qt::Key_S:
-					cameraPtr->incPosition(speed * -cameraPtr->forward()); break;
+					mCamera.lock()->incPosition(speed * -mCamera.lock()->forward()); break;
 				case Qt::Key_A:
-					cameraPtr->incPosition(speed * -cameraPtr->right()); break;
+					mCamera.lock()->incPosition(speed * -mCamera.lock()->right()); break;
 				case Qt::Key_D:
-					cameraPtr->incPosition(speed * cameraPtr->right()); break;
+					mCamera.lock()->incPosition(speed * mCamera.lock()->right()); break;
 
 				case Qt::Key_X:
 					toggleWireframe();
@@ -245,13 +243,13 @@ namespace t3d
 
 			//toggle fullscreen
 			case Qt::Key_F11: toggleFullscreen(); break;
-		}*/
+		}
 	}
 
 
 	void Terrain3D::updateCursorPos()
 	{
-		/* TODO camera if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
+		if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
 			return;
 
 		if (QWindow::isActive())
@@ -262,11 +260,11 @@ namespace t3d
 			}
 			else
 			{
-				if (theCamera)
+				if (!mCamera.expired())
 				{
 					const float mouseSensitivity = 0.1f;
 					QVector2D delta = consumeCursorDelta();
-					theCamera->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+					mCamera.lock()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 
 					resetCursorPosition();
 				}
@@ -277,7 +275,7 @@ namespace t3d
 		else
 		{
 			mPreviouslyHadFocus = false;
-		}*/
+		}
 	}
 
 

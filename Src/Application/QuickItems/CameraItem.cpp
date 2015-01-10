@@ -20,25 +20,27 @@ namespace t3d { namespace QuickItems
 	{
 		if (window)
 		{
-			QObject::connect(window, SIGNAL(beforeSynchronizing()), this, SLOT(sync()), Qt::DirectConnection);
+			//QObject::connect(window, SIGNAL(beforeSynchronizing()), this, SLOT(sync()), Qt::DirectConnection);
 			QObject::connect(window, SIGNAL(sceneGraphInvalidated()), this, SLOT(cleanup()), Qt::DirectConnection);
 			window->setClearBeforeRendering(false);
 		}
 	}
 
 
-	void CameraItem::sync()
+	weak<World::Camera> CameraItem::createCamera()
 	{
 		if (!mCamera)
 		{
-			mCamera = unique<World::Camera>(new World::Camera);
+			mCamera = strong<World::Camera>(new World::Camera);
 
-			QObject::connect(window(), SIGNAL(beforeRendering()), mCamera.get(), 
-							 SLOT(render()), Qt::DirectConnection);
+			QObject::connect(window(), SIGNAL(beforeRendering()),
+							 this, SLOT(render()), Qt::DirectConnection);
 
 			QObject::connect(mCamera.get(), SIGNAL(finishedRendering()),
 							 this, SLOT(cameraFinishedRendering()), Qt::DirectConnection);
 		}
+
+		return mCamera;
 	}
 
 
@@ -54,25 +56,24 @@ namespace t3d { namespace QuickItems
 
 
 
-	/*void render()
+	void CameraItem::render()
 	{
-		if (theCamera)
+		if (mCamera)
 		{
 			glEnable(GL_DEPTH_TEST);
 			glDepthMask(GL_TRUE);
 			glDepthFunc(GL_LEQUAL);
 
-			QSize frameSize = framebufferObject()->size();
-			theCamera->resize(frameSize.width(), frameSize.height());	//TODO pass QSize instead
+			mCamera->resize(width(), height());	//TODO pass QSize instead
 
 			glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 			//const qreal retinaScale = devicePixelRatio(); TODO
 			//glViewport(0, 0, width() * retinaScale, height() * retinaScale);
-			glViewport(0, 0, frameSize.width(), frameSize.height());
+			glViewport(0, 0, width(), height());
 
-			theCamera->render();
+			mCamera->render();
 		}
 		else
 		{
@@ -81,5 +82,5 @@ namespace t3d { namespace QuickItems
 		}
 
 		update();
-	}*/
+	}
 }}
