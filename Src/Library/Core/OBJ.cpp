@@ -24,7 +24,7 @@ namespace t3d
 	{
 		OpenGLFunctions::initializeOpenGLFunctions();
 		
-		mContainingDirectory = filepath;
+		mContainingDirectory = mFilepath = filepath;
 		removeLastPathComponent(mContainingDirectory);
 		
 		if (parseFile(filepath))
@@ -259,13 +259,70 @@ namespace t3d
 
 	void OBJ::uploadData()
 	{
+		checkForErrors();
+
 		uploadVertexPositions();
 		uploadVertexNormals();
 		uploadTextureCoordinates();
 		uploadMaterialData();
 		uploadIndexData();
 		uploadVertexData();
-		
+	}
+
+
+	void OBJ::checkForErrors()
+	{
+		QString error;
+
+		if (mFaces.count() == 0)
+			error = QString("No faces defined");
+		else if (mVertecies.count() == 0)
+			error = QString("No vertex positions defined");
+		else if (mVertexNormals.count() == 0)
+			error = QString("No vertex normals defined");
+		else if (mTextureCoordinates.count() == 0)
+			error = QString("No texture coordinates defined");
+		else
+		{
+			//verify every face has things for each index
+			for (int fi=0; fi<mFaces.count(); fi++)
+			{
+				Face &f = mFaces[fi];
+
+				if (f.vertexIndex.count() != f.normalIndex.count()  ||  f.vertexIndex.count() != f.textureIndex.count())
+				{
+					error = QString("Inconsistent vertex attributes for face %1").arg(fi);
+					break;
+				}
+
+				for (int i : f.vertexIndex)
+				{
+					if ((mVertecies.count() > i) == false)
+						error = QString("Vertex position attribute out of range for face %1").arg(fi);
+				}
+
+				for (int i : f.vertexIndex)
+				{
+					if ((mVertexNormals.count() > i) == false)
+						error = QString("Vertex normal attribute out of range for face %1").arg(fi);
+				}
+
+				for (int i : f.vertexIndex)
+				{
+					if ((mTextureCoordinates.count() > i) == false)
+						error = QString("Texture coordinate attribute out of range for face %1").arg(fi);
+				}
+
+				if (!error.isEmpty())
+					break;
+			}
+		}
+
+		if (!error.isEmpty())
+		{
+			QString formattedError = mFilepath + QString(" - Error: ") + error;
+			qFatal(formattedError.toStdString().c_str());
+		}
 	}
 
 

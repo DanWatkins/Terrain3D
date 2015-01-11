@@ -24,6 +24,8 @@ namespace t3d
 
 	private:
 		QString mContainingDirectory;
+		QString mFilepath;
+		QString mName;
 
 		struct Vertex
 		{
@@ -85,6 +87,7 @@ namespace t3d
 
 		void loadShaders();
 		void uploadData();
+		void checkForErrors();
 
 		void uploadIndexData();
 		void uploadVertexData();

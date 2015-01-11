@@ -34,7 +34,7 @@ namespace t3d { namespace World
 							  configuration.terrainBlockSize,
 							  configuration.terrainSpanSize);
 
-		mObj.initWithFile("../Meshes/plant_pr10y.obj");
+		mObj.initWithFile("../Meshes/monkey_tr.obj");
 	}
 
 
