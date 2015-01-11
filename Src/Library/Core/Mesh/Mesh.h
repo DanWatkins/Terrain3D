@@ -1,28 +1,39 @@
 //==================================================================================================================|
-// Created 2014.11.19 by Daniel L. Watkins
+// Created 2015.01.11 by Daniel L. Watkins
 //
 // Copyright (C) 2014-2015 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_CORE_OBJ_H
-#define _t3d_CORE_OBJ_H
+#ifndef _t3d_CORE_MESH_H
+#define _t3d_CORE_MES_H
 
 #include <Library.h>
-#include <Core/Image.h>
 #include <Core/OpenGLFunctions.h>
 
 namespace t3d
 {
-	class OBJ : protected OpenGLFunctions
+	class Mesh : protected OpenGLFunctions
 	{
 	public:
-		OBJ();
-
-		bool initWithFile(const QString &filepath);
 		void render(const Mat4 &totalMatrix);
 
-	private:
+	protected:
+		void init();
+
+		void loadShaders();
+		void uploadData();
+		void checkForErrors();
+
+		void uploadIndexData();
+		void uploadVertexData();
+		void uploadMaterialData();
+
+		void uploadVertexPositions();
+		void uploadVertexNormals();
+		void uploadTextureCoordinates();
+
+	protected:
 		QString mContainingDirectory;
 		QString mFilepath;
 		QString mName;
@@ -77,25 +88,6 @@ namespace t3d
 			GLuint bufferTextureCoordinates;
 
 		} mTextures;
-
-	private:
-		bool parseFile(const QString &filepath);
-		bool parseField(const QStringList &field);
-		bool parseMaterialLib(const QString &filepath);
-		bool parseMaterialLibField(const QStringList &field);
-		void init();
-
-		void loadShaders();
-		void uploadData();
-		void checkForErrors();
-
-		void uploadIndexData();
-		void uploadVertexData();
-		void uploadMaterialData();
-
-		void uploadVertexPositions();
-		void uploadVertexNormals();
-		void uploadTextureCoordinates();
 	};
 }
 

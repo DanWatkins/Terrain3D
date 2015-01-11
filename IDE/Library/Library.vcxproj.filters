@@ -36,6 +36,9 @@
     <Filter Include="Src\World\Terrain\Generator">
       <UniqueIdentifier>{c76cf52e-e809-439e-b94f-8f9cfca79def}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Core\Mesh">
+      <UniqueIdentifier>{db6c9634-c428-4d76-a1e1-3cb5b63e9aa1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Library\Core\Core.h">
@@ -48,12 +51,6 @@
       <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Library\Core\Image.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\MD2.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\OBJ.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h">
@@ -95,6 +92,15 @@
     <ClInclude Include="..\..\Src\Library\World\Terrain\Utility.h">
       <Filter>Src\World\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Mesh\MD2.h">
+      <Filter>Src\Core\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Mesh\OBJ.h">
+      <Filter>Src\Core\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Mesh\Mesh.h">
+      <Filter>Src\Core\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_FPSCounter.cpp">
@@ -107,12 +113,6 @@
       <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Library\Core\Image.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\OBJ.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\OpenGLFunctions.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Library\Core\Shader.cpp">
@@ -162,6 +162,12 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_Camera.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Mesh\OBJ.cpp">
+      <Filter>Src\Core\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Mesh\Mesh.cpp">
+      <Filter>Src\Core\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@
 
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Renderer.h>
-#include <Core/OBJ.h>
+#include <Core/Mesh/OBJ.h>
 
 namespace t3d { namespace World
 {

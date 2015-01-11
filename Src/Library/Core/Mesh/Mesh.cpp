@@ -1,43 +1,17 @@
 //==================================================================================================================|
-// Created 2014.11.19 by Daniel L. Watkins
+// Created 2015.01.11 by Daniel L. Watkins
 //
 // Copyright (C) 2014-2015 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "OBJ.h"
+#include "Mesh.h"
+#include <Core/Image.h>
 
 namespace t3d
 {
-	OBJ::OBJ()
-	{
-	}
 
-
-	void removeLastPathComponent(QString &filepath)
-	{
-		filepath = "../Meshes/"; //TODO massive temporary hack
-	}
-
-
-	bool OBJ::initWithFile(const QString &filepath)
-	{
-		OpenGLFunctions::initializeOpenGLFunctions();
-		
-		mContainingDirectory = mFilepath = filepath;
-		removeLastPathComponent(mContainingDirectory);
-		
-		if (parseFile(filepath))
-		{
-			init();
-			return true;
-		}
-
-		return false;
-	}
-
-
-	void OBJ::render(const Mat4 &totalMatrix)
+	void Mesh::render(const Mat4 &totalMatrix)
 	{
 		mProgram.bind();
 		{
@@ -66,158 +40,7 @@ namespace t3d
 	}
 
 
-	///// PRIVATE
-
-	bool OBJ::parseFile(const QString &filepath)
-	{
-		QFile file(filepath);
-
-		if (!file.open(QIODevice::ReadOnly))
-			return false;
-
-		QTextStream ts(&file);
-		int lineNumber = 0;
-
-		while (!ts.atEnd())
-		{
-			QString line = ts.readLine();
-			QStringList field = line.split(" ");
-
-			if (!parseField(field))
-			{
-				qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
-			}
-
-			++lineNumber;
-		}
-
-		return true;
-	}
-
-
-	bool OBJ::parseField(const QStringList &field)
-	{
-		//material lib
-		if (field.front() == "mtllib" && field.count() == 2)
-		{
-			parseMaterialLib(mContainingDirectory + "/" + field.at(1));
-		}
-
-		//vertex
-		else if (field.front() == "v"  &&  field.size() == 4)
-		{
-			Vertex vertex;
-			vertex.values[0] = field.at(1).toFloat();
-			vertex.values[1] = field.at(2).toFloat();
-			vertex.values[2] = field.at(3).toFloat();
-			mVertecies.push_back(vertex);
-		}
-		//vertex normal
-		else if (field.front() == "vn"  &&  field.size() == 4)
-		{
-			Vertex vertex;
-			vertex.values[0] = field.at(1).toFloat();
-			vertex.values[1] = field.at(2).toFloat();
-			vertex.values[2] = field.at(3).toFloat();
-			mVertexNormals.push_back(vertex);
-		}
-		//vertex texture coordinate
-		else if (field.front() == "vt" && (field.count() == 3 || field.count() == 4))
-		{
-			Vertex vertex;
-			vertex.values[0] = field.at(1).toFloat();
-			vertex.values[1] = field.at(2).toFloat();
-			if (field.count() == 4)
-				vertex.values[2] = field.at(3).toFloat();
-			mTextureCoordinates.push_back(vertex);
-		}
-		//face
-		else if (field.front() == "f"  &&  field.size() >= 4)
-		{
-			Face face;
-
-			for (int i=0; i<field.size()-1; i++)
-			{
-				QStringList cmp = field.at(i+1).split("/");
-
-				if (cmp.size() > 0)
-					face.vertexIndex.push_back(cmp.at(0).toInt()-1);
-				if (cmp.size() > 1)
-					face.textureIndex.push_back(cmp.at(1).toInt()-1);
-				if (cmp.size() > 2)
-					face.normalIndex.push_back(cmp.at(2).toInt()-1);
-			}
-
-			mFaces.push_back(face);
-		}
-		//comment
-		else if (field.at(0).startsWith("#"))
-		{
-			//do nothing
-		}
-		//blank line
-		else if (field.size() == 0)
-		{
-			//do nothing
-			qDebug() << "Blank line";
-		}
-		else
-			return false;
-
-		return true;
-	}
-
-
-	bool OBJ::parseMaterialLib(const QString &filepath)
-	{
-		QFile file(filepath);
-
-		if (!file.open(QIODevice::ReadOnly))
-			return false;
-
-		QTextStream ts(&file);
-		int lineNumber = 0;
-
-		while (!ts.atEnd())
-		{
-			QString line = ts.readLine();
-			QStringList field = line.split(" ");
-
-			if (!parseMaterialLibField(field))
-			{
-				qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
-			}
-
-			++lineNumber;
-		}
-
-		return true;
-	}
-
-
-	bool OBJ::parseMaterialLibField(const QStringList &field)
-	{
-		//new material
-		if (field.front() == "newmtl" && field.count() == 2)
-		{
-			mMaterial.name = field.at(1);
-		}
-		//texture map - diffuse
-		else if (field.front() == "map_Kd" && field.count() == 2)
-		{
-			mMaterial.filepath = field.at(1);
-		}
-		else
-		{
-			//unknown
-			return false;
-		}
-
-		return true;
-	}
-
-
-	void OBJ::init()
+	void Mesh::init()
 	{
 		loadShaders();
 		mProgram.bind();
@@ -240,24 +63,24 @@ namespace t3d
 	}
 
 	
-	void OBJ::loadShaders()
+	void Mesh::loadShaders()
 	{
 		QOpenGLShader vertexShader(QOpenGLShader::Vertex, nullptr);
-		vertexShader.compileSourceFile(gDefaultPathShaders + "mesh-obj-vert.glsl");
+		vertexShader.compileSourceFile(gDefaultPathShaders + "mesh-vert.glsl");
 		mProgram.addShader(&vertexShader);
 
 		QOpenGLShader fragmentShader(QOpenGLShader::Fragment, nullptr);
-		fragmentShader.compileSourceFile(gDefaultPathShaders + "mesh-obj-frag.glsl");
+		fragmentShader.compileSourceFile(gDefaultPathShaders + "mesh-frag.glsl");
 		mProgram.addShader(&fragmentShader);
 
 		if (mProgram.link() == false)
-			printf("Problem linking OBJ mesh shadres\n");
+			printf("Problem linking Mesh mesh shadres\n");
 		else
-			printf("Initialized OBJ mesh shaders\n");
+			printf("Initialized Mesh mesh shaders\n");
 	}
 
 
-	void OBJ::uploadData()
+	void Mesh::uploadData()
 	{
 		checkForErrors();
 
@@ -270,7 +93,7 @@ namespace t3d
 	}
 
 
-	void OBJ::checkForErrors()
+	void Mesh::checkForErrors()
 	{
 		QString error;
 
@@ -301,13 +124,13 @@ namespace t3d
 						error = QString("Vertex position attribute out of range for face %1").arg(fi);
 				}
 
-				for (int i : f.vertexIndex)
+				for (int i : f.normalIndex)
 				{
 					if ((mVertexNormals.count() > i) == false)
 						error = QString("Vertex normal attribute out of range for face %1").arg(fi);
 				}
 
-				for (int i : f.vertexIndex)
+				for (int i : f.textureIndex)
 				{
 					if ((mTextureCoordinates.count() > i) == false)
 						error = QString("Texture coordinate attribute out of range for face %1").arg(fi);
@@ -326,7 +149,7 @@ namespace t3d
 	}
 
 
-	void OBJ::uploadIndexData()
+	void Mesh::uploadIndexData()
 	{
 		GLuint ibo;
 		glGenBuffers(1, &ibo);
@@ -355,7 +178,7 @@ namespace t3d
 	}
 
 
-	void OBJ::uploadVertexData()
+	void Mesh::uploadVertexData()
 	{
 		GLuint vbo;
 		glGenBuffers(1, &vbo);
@@ -406,7 +229,7 @@ namespace t3d
 
 
 
-	void OBJ::uploadMaterialData()
+	void Mesh::uploadMaterialData()
 	{
 		Image image;
 		image.loadFromFile_PNG(mContainingDirectory + mMaterial.filepath);
@@ -429,7 +252,7 @@ namespace t3d
 	}
 
 
-	void OBJ::uploadVertexPositions()
+	void Mesh::uploadVertexPositions()
 	{
 		glActiveTexture(GL_TEXTURE2);
 		glGenTextures(1, &mTextures.bufferVertexPositions);
@@ -446,7 +269,7 @@ namespace t3d
 	}
 
 
-	void OBJ::uploadVertexNormals()
+	void Mesh::uploadVertexNormals()
 	{
 		glActiveTexture(GL_TEXTURE3);
 		glGenTextures(1, &mTextures.bufferVertexNormals);
@@ -463,7 +286,7 @@ namespace t3d
 	}
 
 
-	void OBJ::uploadTextureCoordinates()
+	void Mesh::uploadTextureCoordinates()
 	{
 		glActiveTexture(GL_TEXTURE4);
 		glGenTextures(1, &mTextures.bufferTextureCoordinates);

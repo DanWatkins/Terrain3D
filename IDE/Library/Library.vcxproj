@@ -15,8 +15,9 @@
     <ClInclude Include="..\..\Src\Library\Core\Core.h" />
     <ClInclude Include="..\..\Src\Library\Core\Helper.h" />
     <ClInclude Include="..\..\Src\Library\Core\Image.h" />
-    <ClInclude Include="..\..\Src\Library\Core\MD2.h" />
-    <ClInclude Include="..\..\Src\Library\Core\OBJ.h" />
+    <ClInclude Include="..\..\Src\Library\Core\Mesh\MD2.h" />
+    <ClInclude Include="..\..\Src\Library\Core\Mesh\Mesh.h" />
+    <ClInclude Include="..\..\Src\Library\Core\Mesh\OBJ.h" />
     <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h" />
     <ClInclude Include="..\..\Src\Library\Core\Shader.h" />
     <CustomBuild Include="..\..\Src\Library\World\Camera.h">
@@ -55,8 +56,8 @@
     <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Helper.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Image.cpp" />
-    <ClCompile Include="..\..\Src\Library\Core\OBJ.cpp" />
-    <ClCompile Include="..\..\Src\Library\Core\OpenGLFunctions.cpp" />
+    <ClCompile Include="..\..\Src\Library\Core\Mesh\Mesh.cpp" />
+    <ClCompile Include="..\..\Src\Library\Core\Mesh\OBJ.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Shader.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Camera.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Terrain\Data.cpp" />
