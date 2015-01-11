@@ -59,15 +59,6 @@ namespace t3d
 					glBindTexture(GL_TEXTURE_2D, mTextures.material);
 					
 				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0);
-				
-				glActiveTexture(GL_TEXTURE2);
-					glBindTexture(GL_TEXTURE_BUFFER, 0);
-				glActiveTexture(GL_TEXTURE3);
-					glBindTexture(GL_TEXTURE_BUFFER, 0);
-				glActiveTexture(GL_TEXTURE4);
-					glBindTexture(GL_TEXTURE_BUFFER, 0);
-				glActiveTexture(GL_TEXTURE5);
-					glBindTexture(GL_TEXTURE_2D, 0);
 			}
 			glBindVertexArray(0);
 		}
@@ -131,7 +122,7 @@ namespace t3d
 			mVertexNormals.push_back(vertex);
 		}
 		//vertex texture coordinate
-		else if (field.front() == "vt" && field.count() == 3 || field.count() == 4)
+		else if (field.front() == "vt" && (field.count() == 3 || field.count() == 4))
 		{
 			Vertex vertex;
 			vertex.values[0] = field.at(1).toFloat();
@@ -168,6 +159,7 @@ namespace t3d
 		else if (field.size() == 0)
 		{
 			//do nothing
+			qDebug() << "Blank line";
 		}
 		else
 			return false;
@@ -364,28 +356,30 @@ namespace t3d
 		
 		int imageSize = image.getWidth();
 
+		glActiveTexture(GL_TEXTURE5);
 		glGenTextures(1, &mTextures.material);
 		glBindTexture(GL_TEXTURE_2D, mTextures.material);
-		{				
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageSize, imageSize, 0,
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, imageSize, imageSize, 0,
 						 GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
-			
-			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			/*glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP_TO_EDGE);*/
 		}
 	}
 
 
 	void OBJ::uploadVertexPositions()
 	{
+		glActiveTexture(GL_TEXTURE2);
 		glGenTextures(1, &mTextures.bufferVertexPositions);
-		qDebug() << "textureVertexPositions: " << mTextures.bufferVertexPositions;
-
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexPositions);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
-			qDebug() << "vertPos: " << buffer;
 			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
 			{
 				glBufferData(GL_TEXTURE_BUFFER, mVertecies.count()*3*sizeof(GLfloat), &mVertecies[0], GL_STATIC_DRAW);
@@ -397,14 +391,12 @@ namespace t3d
 
 	void OBJ::uploadVertexNormals()
 	{
+		glActiveTexture(GL_TEXTURE3);
 		glGenTextures(1, &mTextures.bufferVertexNormals);
-		qDebug() << "textureVertexNormals: " << mTextures.bufferVertexNormals;
-
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexNormals);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
-			qDebug() << "vertNormals: " << buffer;
 			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
 			{
 				glBufferData(GL_TEXTURE_BUFFER, mVertexNormals.count()*3*sizeof(GLfloat), &mVertexNormals[0], GL_STATIC_DRAW);
@@ -416,14 +408,12 @@ namespace t3d
 
 	void OBJ::uploadTextureCoordinates()
 	{
+		glActiveTexture(GL_TEXTURE4);
 		glGenTextures(1, &mTextures.bufferTextureCoordinates);
-		qDebug() << "textureTextureCoordinates: " << mTextures.bufferTextureCoordinates;
-
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferTextureCoordinates);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
-			qDebug() << "textureCoordinates: " << buffer;
 			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
 			{
 				glBufferData(GL_TEXTURE_BUFFER, mTextureCoordinates.count()*3*sizeof(GLfloat), &mTextureCoordinates[0], GL_STATIC_DRAW);

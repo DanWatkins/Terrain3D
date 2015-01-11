@@ -1,6 +1,8 @@
 #version 420 core
 
-layout (location = 0) in int vertIndex;
+layout (location = 0) in int indexVertexPosition;
+layout (location = 1) in int indexVertexNormal;
+layout (location = 2) in int indexTextureCoordinate;
 
 layout (binding = 2) uniform samplerBuffer vertexPositions;
 layout (binding = 3) uniform samplerBuffer vertexNormals;
@@ -17,7 +19,7 @@ void main()
 {
 	//handle the vertex position
 	{
-		int search = vertIndex*3;
+		int search = indexVertexPosition*3;
 
 		vec4 pos;
 		pos.x = texelFetch(vertexPositions, search+0).r;
@@ -31,7 +33,7 @@ void main()
 
 	//handle the vertex normal
 	{
-		int search = vertIndex*3;
+		int search = indexVertexNormal*3;
 
 		vertexNormal.x = texelFetch(vertexNormals, search+0).r;
 		vertexNormal.y = texelFetch(vertexNormals, search+1).r;
@@ -40,7 +42,7 @@ void main()
 	
 	//handle the texture coordinate
 	{
-		int search = vertIndex*3;
+		int search = indexTextureCoordinate*3;
 		
 		tc.x = texelFetch(texCoordinates, search+0).r;
 		tc.y = texelFetch(texCoordinates, search+1).r;

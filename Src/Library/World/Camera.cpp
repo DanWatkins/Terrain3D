@@ -9,8 +9,6 @@
 
 namespace t3d { namespace World
 {
-	bool enable = true;
-
 	Camera::Camera() :
 		mTerrainRenderer(),
 		mPosition(-20, 0, -20),
@@ -30,21 +28,19 @@ namespace t3d { namespace World
 	{
 		initializeOpenGLFunctions();
 
-		if (enable) {
 		mTerrainRenderer.init(&mWorld->terrainData(),
 							  configuration.terrainSpacing,
 							  configuration.terrainHeightScale,
 							  configuration.terrainBlockSize,
 							  configuration.terrainSpanSize);
-		}
 
-		mObj.initWithFile("../Meshes/cube_vn.obj");
+		mObj.initWithFile("../Meshes/plant_pr10y.obj");
 	}
 
 
 	void Camera::cleanup()
 	{
-		if (enable) mTerrainRenderer.cleanup();
+		mTerrainRenderer.cleanup();
 	}
 
 
@@ -57,8 +53,7 @@ namespace t3d { namespace World
 		glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-		if (enable)
-			mTerrainRenderer.render(mPosition, totalMatrix());
+		mTerrainRenderer.render(mPosition, totalMatrix());
 		mObj.render(totalMatrix());
 
 		emit finishedRendering();
