@@ -111,4 +111,46 @@ namespace t3d
 		}
 		glBindVertexArray(0);
 	}
+
+
+	void Mesh::SubMesh::checkForErrors(const FaceData *faceData, QString &error)
+	{
+		if (mFaces.count() == 0)
+		{
+			error = QString("No faces defined for SubMesh using material ") + mMaterial;
+			return;
+		}
+
+		for (int fi=0; fi<mFaces.count(); fi++)
+		{
+			Face &f = mFaces[fi];
+
+			if (f.vertexIndex.count() != f.normalIndex.count()  ||  f.vertexIndex.count() != f.textureIndex.count())
+			{
+				error = QString("Inconsistent vertex attributes for face %1").arg(fi);
+				break;
+			}
+
+			for (int i : f.vertexIndex)
+			{
+				if ((faceData->mVertecies.count() > i) == false)
+					error = QString("Vertex position attribute out of range for face %1").arg(fi);
+			}
+
+			for (int i : f.normalIndex)
+			{
+				if ((faceData->mVertexNormals.count() > i) == false)
+					error = QString("Vertex normal attribute out of range for face %1").arg(fi);
+			}
+
+			for (int i : f.textureIndex)
+			{
+				if ((faceData->mTextureCoordinates.count() > i) == false)
+					error = QString("Texture coordinate attribute out of range for face %1").arg(fi);
+			}
+
+			if (!error.isEmpty())
+				break;
+		}
+	}
 }

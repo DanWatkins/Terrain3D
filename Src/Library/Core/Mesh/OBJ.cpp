@@ -7,9 +7,9 @@
 
 #include "OBJ.h"
 
-#include "MaterialData.h"
-#include "FaceData.h"
-#include "SubMesh.h"
+#include "./private/MaterialData.h"
+#include "./private/FaceData.h"
+#include "./private/SubMesh.h"
 
 namespace t3d
 {

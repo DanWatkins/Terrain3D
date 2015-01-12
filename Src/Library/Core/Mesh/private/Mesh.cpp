@@ -45,11 +45,6 @@ namespace t3d
 				material->bind();
 				subMesh->render();
 			}
-
-			//mMaterials.first()->bind();
-			
-			//glUniform1i(mUniforms.indexCount, mSubMesh->mIndexCount);
-			//mSubMesh->render();
 		}
 		mProgram.release();
 	}
@@ -102,9 +97,6 @@ namespace t3d
 
 		for (strong<SubMesh> subMesh : mSubMesh)
 			subMesh->uploadData();
-
-		//mMaterials.first()->uploadMaterialData(mContainingDirectory);
-		//mSubMesh->uploadData();
 	}
 
 
@@ -114,58 +106,18 @@ namespace t3d
 
 		for (strong<SubMesh> subMesh : mSubMesh)
 		{
-			if (subMesh->mFaces.count() == 0)
-			{
-				error = QString("No faces defined for SubMesh using material ") + subMesh->mMaterial;
-				break;
-			}
+			subMesh->checkForErrors(mFaceData.get(), error);
+
+			if (!error.isEmpty())
+				return;
 		}
 
-		if (!error.isEmpty())
-			;	//we already found an error - TODO this is hacky
-		else if (mFaceData->mVertecies.count() == 0)
+		if (mFaceData->mVertecies.count() == 0)
 			error = QString("No vertex positions defined");
 		else if (mFaceData->mVertexNormals.count() == 0)
 			error = QString("No vertex normals defined");
 		else if (mFaceData->mTextureCoordinates.count() == 0)
 			error = QString("No texture coordinates defined");
-		else
-		{
-			//verify every face has things for each index
-			/*for (int fi=0; fi<mSubMesh->mFaces.count(); fi++)
-			{
-				Face &f = mSubMesh->mFaces[fi];
-
-				if (f.vertexIndex.count() != f.normalIndex.count()  ||  f.vertexIndex.count() != f.textureIndex.count())
-				{
-					error = QString("Inconsistent vertex attributes for face %1").arg(fi);
-					break;
-				}
-
-				for (int i : f.vertexIndex)
-				{
-					if ((mFaceData->mVertecies.count() > i) == false)
-						error = QString("Vertex position attribute out of range for face %1").arg(fi);
-				}
-
-				for (int i : f.normalIndex)
-				{
-					if ((mFaceData->mVertexNormals.count() > i) == false)
-						error = QString("Vertex normal attribute out of range for face %1").arg(fi);
-				}
-
-				for (int i : f.textureIndex)
-				{
-					if ((mFaceData->mTextureCoordinates.count() > i) == false)
-						error = QString("Texture coordinate attribute out of range for face %1").arg(fi);
-				}
-
-				if (!error.isEmpty())
-					break;
-			}*/
-
-			//TODO move this block into SubMesh::checkForErrors
-		}
 
 		if (!error.isEmpty())
 		{

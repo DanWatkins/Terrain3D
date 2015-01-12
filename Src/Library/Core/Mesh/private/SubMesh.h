@@ -9,6 +9,7 @@
 #define _t3d_CORE_SUB_MESH_H
 
 #include "Mesh.h"
+#include "FaceData.h"
 
 namespace t3d
 {
@@ -22,6 +23,7 @@ namespace t3d
 
 		void uploadData();
 		void render();
+		void checkForErrors(const FaceData *faceData, QString &error);
 
 	private:
 		void uploadIndexData();

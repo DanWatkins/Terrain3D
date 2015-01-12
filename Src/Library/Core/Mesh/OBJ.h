@@ -9,7 +9,7 @@
 #define _t3d_CORE_OBJ_H
 
 #include <Library.h>
-#include <Core/Mesh/Mesh.h>
+#include "./private/Mesh.h"
 
 namespace t3d
 {
