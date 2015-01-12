@@ -40,7 +40,6 @@ namespace t3d
 		}
 
 
-		///// PRIVATE
 	private:
 		bool parseFile(const QString &filepath)
 		{

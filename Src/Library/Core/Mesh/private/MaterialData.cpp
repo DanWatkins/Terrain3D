@@ -17,15 +17,16 @@ namespace t3d
 		Image image;
 		image.loadFromFile_PNG(containingDirectory + mFilepath);
 		
-		int imageSize = image.getWidth();
-		int levels = std::min(static_cast<int>(log(imageSize)/log(2)), 10);
+		int smallSize = std::min(image.getWidth(), image.getHeight());
+
+		int levels = std::min(static_cast<int>(log(smallSize)/log(2)), 10);
 
 		glActiveTexture(GL_TEXTURE5);
 		glGenTextures(1, &mMaterial);
 		glBindTexture(GL_TEXTURE_2D, mMaterial);
 		{
-			glTexStorage2D(GL_TEXTURE_2D, levels, GL_RGBA8, imageSize, imageSize);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize, GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+			glTexStorage2D(GL_TEXTURE_2D, levels, GL_RGBA8, image.getWidth(), image.getHeight());
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image.getWidth(), image.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 	}
