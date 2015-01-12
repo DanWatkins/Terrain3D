@@ -31,14 +31,12 @@ namespace t3d
 		void uploadData();
 		void checkForErrors();
 
-		void uploadIndexData();
-		void uploadVertexData();
-
-
 	protected:
 		QString mContainingDirectory;
 		QString mFilepath;
 		QString mName;
+
+		static const GLuint PrimitiveRestartIndex = 900000000;
 
 		class MaterialData : public OpenGLFunctions
 		{
@@ -78,17 +76,23 @@ namespace t3d
 			QVector<int> normalIndex;
 		};
 
-		QVector<Face> mFaces;
+		class SubMesh : public OpenGLFunctions
+		{
+		public:
+			GLuint mVao;
+			QVector<Face> mFaces;
+			int mIndexCount = 0;	//number of indicies in the index buffer including restart indicies
+
+			void uploadData();
+			void render();
+
+		private:
+			void uploadIndexData();
+			void uploadVertexData();
+		} mSubMesh;
 
 		QOpenGLShaderProgram mProgram;
-		GLuint mVao;
-
-		struct RenderInfo
-		{
-			int indexCount = 0;	//number of indicies in the index buffer including restart indicies
-		} mRenderInfo;
-
-		const GLuint PrimitiveRestartIndex = 900000000;
+		
 
 		struct Uniforms
 		{

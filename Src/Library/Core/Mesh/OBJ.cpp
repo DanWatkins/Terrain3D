@@ -114,7 +114,7 @@ namespace t3d
 					face.normalIndex.push_back(cmp.at(2).toInt()-1);
 			}
 
-			mFaces.push_back(face);
+			mSubMesh.mFaces.push_back(face);
 		}
 		//comment
 		else if (field.at(0).startsWith("#"))

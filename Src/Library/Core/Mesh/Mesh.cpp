@@ -17,16 +17,10 @@ namespace t3d
 			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
 							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
-			glBindVertexArray(mVao);
-			{
-				glLineWidth(1.0f);
-
-				mFaceData.bind();
-				mMaterialData.bind();
-					
-				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0);
-			}
-			glBindVertexArray(0);
+			mMaterialData.bind();
+			mFaceData.bind();
+			glUniform1i(mUniforms.indexCount, mSubMesh.mIndexCount);
+			mSubMesh.render();
 		}
 		mProgram.release();
 	}
@@ -40,16 +34,12 @@ namespace t3d
 			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
 			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
 			mUniforms.indexCount = mProgram.uniformLocation("indexCount");
+			
+			uploadData();
 
-			glGenVertexArrays(1, &mVao);
-			glBindVertexArray(mVao);
-			{
-				uploadData();
-
-				glEnable(GL_PRIMITIVE_RESTART);
-				glPrimitiveRestartIndex(PrimitiveRestartIndex);
-			}
-			glBindVertexArray(0);
+			glEnable(GL_PRIMITIVE_RESTART);
+			glPrimitiveRestartIndex(PrimitiveRestartIndex);
+			
 		}
 		mProgram.release();
 	}
@@ -76,11 +66,9 @@ namespace t3d
 	{
 		checkForErrors();
 
-		
 		mFaceData.uploadData();
 		mMaterialData.uploadMaterialData(mContainingDirectory);
-		uploadIndexData();
-		uploadVertexData();
+		mSubMesh.uploadData();
 	}
 
 
@@ -88,7 +76,7 @@ namespace t3d
 	{
 		QString error;
 
-		if (mFaces.count() == 0)
+		if (mSubMesh.mFaces.count() == 0)
 			error = QString("No faces defined");
 		else if (mFaceData.mVertecies.count() == 0)
 			error = QString("No vertex positions defined");
@@ -99,9 +87,9 @@ namespace t3d
 		else
 		{
 			//verify every face has things for each index
-			for (int fi=0; fi<mFaces.count(); fi++)
+			for (int fi=0; fi<mSubMesh.mFaces.count(); fi++)
 			{
-				Face &f = mFaces[fi];
+				Face &f = mSubMesh.mFaces[fi];
 
 				if (f.vertexIndex.count() != f.normalIndex.count()  ||  f.vertexIndex.count() != f.textureIndex.count())
 				{
@@ -136,83 +124,6 @@ namespace t3d
 		{
 			QString formattedError = mFilepath + QString(" - Error: ") + error;
 			qFatal(formattedError.toStdString().c_str());
-		}
-	}
-
-
-	void Mesh::uploadIndexData()
-	{
-		GLuint ibo;
-		glGenBuffers(1, &ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		{
-			QVector<GLuint> indexBuffer;
-			indexBuffer.reserve(mFaces.count() * 4 - 1);
-
-			GLuint i=0;
-			for (Face f : mFaces)
-			{
-				if (!indexBuffer.isEmpty())
-					indexBuffer.append(PrimitiveRestartIndex);
-
-				for (int v : f.vertexIndex)
-				{
-					Q_UNUSED(v);
-					indexBuffer.append(i++);
-				}
-			}
-
-			mRenderInfo.indexCount = indexBuffer.count();
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.count()*sizeof(GLuint), &indexBuffer[0], GL_STATIC_DRAW);
-		}
-	}
-
-
-	void Mesh::uploadVertexData()
-	{
-		GLuint vbo;
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		{
-			QVector<GLint> vertexIndicies;
-			vertexIndicies.reserve(mFaces.count()*3*2);
-
-			//add the vertex position indicies
-			for (Face f : mFaces)
-			{
-				for (int i : f.vertexIndex)
-					vertexIndicies.append(static_cast<GLint>(i));
-			}
-
-			glUniform1i(mUniforms.indexCount, vertexIndicies.count());
-			int normalOffset = vertexIndicies.count() * sizeof(GLint);
-
-			//add the vertex normal indicies
-			for (Face f : mFaces)
-			{
-				for (int i : f.normalIndex)
-					vertexIndicies.append(static_cast<GLint>(i));
-			}
-
-			int textureOffset = vertexIndicies.count() * sizeof(GLint);
-
-			//add the texture coordinate indicies
-			for (Face f : mFaces)
-			{
-				for (int i : f.textureIndex)
-					vertexIndicies.append(static_cast<GLint>(i));
-			}
-
-			glBufferData(GL_ARRAY_BUFFER, vertexIndicies.count()*sizeof(GLuint), &vertexIndicies[0], GL_STATIC_DRAW);
-			
-			glVertexAttribIPointer(0, 1, GL_INT, 0, NULL);
-			glEnableVertexAttribArray(0);
-
-			glVertexAttribIPointer(1, 1, GL_INT, 0, (void*)normalOffset);
-			glEnableVertexAttribArray(1);
-
-			glVertexAttribIPointer(2, 1, GL_INT, 0, (void*)textureOffset);
-			glEnableVertexAttribArray(2);
 		}
 	}
 }

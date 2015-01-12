@@ -169,13 +169,13 @@
     <ClCompile Include="..\..\Src\Library\Core\Mesh\Mesh.cpp">
       <Filter>Src\Core\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\library\core\mesh\BaseData.cpp">
-      <Filter>Src\Core\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\library\core\mesh\FaceData.cpp">
       <Filter>Src\Core\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\library\core\mesh\MaterialData.cpp">
+      <Filter>Src\Core\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\library\core\mesh\SubMesh.cpp">
       <Filter>Src\Core\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
