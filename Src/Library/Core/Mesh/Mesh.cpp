@@ -6,7 +6,6 @@
 //==================================================================================================================|
 
 #include "Mesh.h"
-#include <Core/Image.h>
 
 namespace t3d
 {
@@ -28,8 +27,7 @@ namespace t3d
 					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexNormals);
 				glActiveTexture(GL_TEXTURE4);
 					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferTextureCoordinates);
-				glActiveTexture(GL_TEXTURE5);
-					glBindTexture(GL_TEXTURE_2D, mTextures.material);
+				mMaterialData.bind();
 					
 				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0);
 			}
@@ -87,7 +85,7 @@ namespace t3d
 		uploadBufferAttribute(GL_TEXTURE3, mVertexNormals, mTextures.bufferVertexNormals);
 		uploadBufferAttribute(GL_TEXTURE4, mTextureCoordinates, mTextures.bufferTextureCoordinates);
 
-		uploadMaterialData();
+		mMaterialData.uploadMaterialData(mContainingDirectory);
 		uploadIndexData();
 		uploadVertexData();
 	}
@@ -222,26 +220,6 @@ namespace t3d
 
 			glVertexAttribIPointer(2, 1, GL_INT, 0, (void*)textureOffset);
 			glEnableVertexAttribArray(2);
-		}
-	}
-
-
-
-	void Mesh::uploadMaterialData()
-	{
-		Image image;
-		image.loadFromFile_PNG(mContainingDirectory + mMaterial.filepath);
-		
-		int imageSize = image.getWidth();
-		int levels = std::min(static_cast<int>(log(imageSize)/log(2)), 10);
-
-		glActiveTexture(GL_TEXTURE5);
-		glGenTextures(1, &mTextures.material);
-		glBindTexture(GL_TEXTURE_2D, mTextures.material);
-		{
-			glTexStorage2D(GL_TEXTURE_2D, levels, GL_RGBA8, imageSize, imageSize);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize, GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
-			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 	}
 

@@ -166,12 +166,12 @@ namespace t3d
 		//new material
 		if (field.front() == "newmtl" && field.count() == 2)
 		{
-			mMaterial.name = field.at(1);
+			mMaterialData.mName = field.at(1);
 		}
 		//texture map - diffuse
 		else if (field.front() == "map_Kd" && field.count() == 2)
 		{
-			mMaterial.filepath = field.at(1);
+			mMaterialData.mFilepath = field.at(1);
 		}
 		else
 		{

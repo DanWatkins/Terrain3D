@@ -56,6 +56,9 @@
     <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Helper.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Image.cpp" />
+    <ClCompile Include="..\..\src\library\core\mesh\BaseData.cpp" />
+    <ClCompile Include="..\..\src\library\core\mesh\FaceData.cpp" />
+    <ClCompile Include="..\..\src\library\core\mesh\MaterialData.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Mesh\Mesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Mesh\OBJ.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Shader.cpp" />

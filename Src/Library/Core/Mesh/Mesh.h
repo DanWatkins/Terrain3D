@@ -33,7 +33,6 @@ namespace t3d
 
 		void uploadIndexData();
 		void uploadVertexData();
-		void uploadMaterialData();
 
 		void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
 
@@ -41,6 +40,19 @@ namespace t3d
 		QString mContainingDirectory;
 		QString mFilepath;
 		QString mName;
+
+		class MaterialData : public OpenGLFunctions
+		{
+		public: //TODO massive
+			QString mName;
+			QString mFilepath;
+
+			GLuint mMaterial;
+
+			void uploadMaterialData(const QString &containingDirectory);
+			void bind();
+		} mMaterialData;
+		
 
 		struct Face
 		{
@@ -71,17 +83,8 @@ namespace t3d
 			GLint indexCount;
 		} mUniforms;
 
-
-		struct Material
-		{
-			QString name;
-			QString filepath;
-		} mMaterial;
-
-
 		struct Textures
 		{
-			GLuint material;
 			GLuint bufferVertexPositions;
 			GLuint bufferVertexNormals;
 			GLuint bufferTextureCoordinates;
