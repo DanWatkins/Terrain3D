@@ -119,8 +119,8 @@
   <ItemGroup>
     <None Include="..\..\Deployment\Shaders\camera-frag.glsl" />
     <None Include="..\..\Deployment\Shaders\camera-vert.glsl" />
-    <None Include="..\..\Deployment\Shaders\mesh-obj-frag.glsl" />
-    <None Include="..\..\Deployment\Shaders\mesh-obj-vert.glsl" />
+    <None Include="..\..\Deployment\Shaders\mesh-frag.glsl" />
+    <None Include="..\..\Deployment\Shaders\mesh-vert.glsl" />
     <None Include="..\..\Deployment\Shaders\sprite-frag.glsl" />
     <None Include="..\..\Deployment\Shaders\sprite-vert.glsl" />
     <None Include="..\..\Src\Application\qml\main.qml" />

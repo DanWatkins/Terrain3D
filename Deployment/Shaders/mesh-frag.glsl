@@ -9,4 +9,7 @@ in vec2 tc;
 void main()
 {
 	color = texture(material, tc);
+	
+	if (color.a < 0.5)
+		discard;
 }

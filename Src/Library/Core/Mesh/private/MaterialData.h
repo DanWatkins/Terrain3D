@@ -18,7 +18,7 @@ namespace t3d
 		QString mName;
 		QString mFilepath;
 
-		GLuint mMaterial;
+		strong<QOpenGLTexture> mTexture;
 
 		void uploadMaterialData(const QString &containingDirectory);
 		void bind();
