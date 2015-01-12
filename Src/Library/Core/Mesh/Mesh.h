@@ -16,6 +16,7 @@ namespace t3d
 	class Mesh : protected OpenGLFunctions
 	{
 	public:
+		Mesh();
 		void render(const Mat4 &totalMatrix);
 
 	protected:
@@ -35,30 +36,18 @@ namespace t3d
 		QString mContainingDirectory;
 		QString mFilepath;
 		QString mName;
+		QOpenGLShaderProgram mProgram;
 
 		static const GLuint PrimitiveRestartIndex = 900000000;
 
 		class MaterialData;
 		QList<strong<MaterialData>> mMaterials;
 		
+		class FaceData;
+		strong<FaceData> mFaceData;
 
-		class FaceData : public OpenGLFunctions
-		{
-		public:  //TODO massive
-			QVector<Vertex> mVertecies;
-			QVector<Vertex> mVertexNormals;
-			QVector<Vertex> mTextureCoordinates;
-
-			GLuint bufferVertexPositions;
-			GLuint bufferVertexNormals;
-			GLuint bufferTextureCoordinates;
-
-			void uploadData();
-			void bind();
-
-		private:
-			void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
-		} mFaceData;
+		class SubMesh;
+		strong<SubMesh> mSubMesh;
 
 		struct Face
 		{
@@ -66,24 +55,6 @@ namespace t3d
 			QVector<int> textureIndex;
 			QVector<int> normalIndex;
 		};
-
-		class SubMesh : public OpenGLFunctions
-		{
-		public:
-			GLuint mVao;
-			QVector<Face> mFaces;
-			int mIndexCount = 0;	//number of indicies in the index buffer including restart indicies
-
-			void uploadData();
-			void render();
-
-		private:
-			void uploadIndexData();
-			void uploadVertexData();
-		} mSubMesh;
-
-		QOpenGLShaderProgram mProgram;
-		
 
 		struct Uniforms
 		{

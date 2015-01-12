@@ -5,23 +5,26 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_CORE_MATERIAL_DATA_H
-#define _t3d_CORE_MATERIAL_DATA_H
+#ifndef _t3d_CORE_SUB_MESH_H
+#define _t3d_CORE_SUB_MESH_H
 
 #include "Mesh.h"
 
 namespace t3d
 {
-	class Mesh::MaterialData : public OpenGLFunctions
+	class Mesh::SubMesh : public OpenGLFunctions
 	{
-	public: //TODO massive
-		QString mName;
-		QString mFilepath;
+	public:
+		GLuint mVao;
+		QVector<Face> mFaces;
+		int mIndexCount = 0;	//number of indicies in the index buffer including restart indicies
 
-		GLuint mMaterial;
+		void uploadData();
+		void render();
 
-		void uploadMaterialData(const QString &containingDirectory);
-		void bind();
+	private:
+		void uploadIndexData();
+		void uploadVertexData();
 	};
 }
 

@@ -6,10 +6,19 @@
 //==================================================================================================================|
 
 #include "Mesh.h"
+
 #include "MaterialData.h"
+#include "FaceData.h"
+#include "SubMesh.h"
 
 namespace t3d
 {
+	Mesh::Mesh() :
+		mFaceData(new FaceData),
+		mSubMesh(new SubMesh)
+	{
+	}
+
 	void Mesh::render(const Mat4 &totalMatrix)
 	{
 		mProgram.bind();
@@ -19,9 +28,9 @@ namespace t3d
 							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
 			mMaterials.first()->bind();
-			mFaceData.bind();
-			glUniform1i(mUniforms.indexCount, mSubMesh.mIndexCount);
-			mSubMesh.render();
+			mFaceData->bind();
+			glUniform1i(mUniforms.indexCount, mSubMesh->mIndexCount);
+			mSubMesh->render();
 		}
 		mProgram.release();
 	}
@@ -67,9 +76,9 @@ namespace t3d
 	{
 		checkForErrors();
 
-		mFaceData.uploadData();
+		mFaceData->uploadData();
 		mMaterials.first()->uploadMaterialData(mContainingDirectory);
-		mSubMesh.uploadData();
+		mSubMesh->uploadData();
 	}
 
 
@@ -77,20 +86,20 @@ namespace t3d
 	{
 		QString error;
 
-		if (mSubMesh.mFaces.count() == 0)
+		if (mSubMesh->mFaces.count() == 0)
 			error = QString("No faces defined");
-		else if (mFaceData.mVertecies.count() == 0)
+		else if (mFaceData->mVertecies.count() == 0)
 			error = QString("No vertex positions defined");
-		else if (mFaceData.mVertexNormals.count() == 0)
+		else if (mFaceData->mVertexNormals.count() == 0)
 			error = QString("No vertex normals defined");
-		else if (mFaceData.mTextureCoordinates.count() == 0)
+		else if (mFaceData->mTextureCoordinates.count() == 0)
 			error = QString("No texture coordinates defined");
 		else
 		{
 			//verify every face has things for each index
-			for (int fi=0; fi<mSubMesh.mFaces.count(); fi++)
+			for (int fi=0; fi<mSubMesh->mFaces.count(); fi++)
 			{
-				Face &f = mSubMesh.mFaces[fi];
+				Face &f = mSubMesh->mFaces[fi];
 
 				if (f.vertexIndex.count() != f.normalIndex.count()  ||  f.vertexIndex.count() != f.textureIndex.count())
 				{
@@ -100,19 +109,19 @@ namespace t3d
 
 				for (int i : f.vertexIndex)
 				{
-					if ((mFaceData.mVertecies.count() > i) == false)
+					if ((mFaceData->mVertecies.count() > i) == false)
 						error = QString("Vertex position attribute out of range for face %1").arg(fi);
 				}
 
 				for (int i : f.normalIndex)
 				{
-					if ((mFaceData.mVertexNormals.count() > i) == false)
+					if ((mFaceData->mVertexNormals.count() > i) == false)
 						error = QString("Vertex normal attribute out of range for face %1").arg(fi);
 				}
 
 				for (int i : f.textureIndex)
 				{
-					if ((mFaceData.mTextureCoordinates.count() > i) == false)
+					if ((mFaceData->mTextureCoordinates.count() > i) == false)
 						error = QString("Texture coordinate attribute out of range for face %1").arg(fi);
 				}
 
