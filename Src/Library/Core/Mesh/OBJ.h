@@ -9,20 +9,31 @@
 #define _t3d_CORE_OBJ_H
 
 #include <Library.h>
-#include "./private/Mesh.h"
 
 namespace t3d
 {
-	class OBJ : public Mesh
+	/**
+	 * Wavefront OBJ mesh loader and renderer.
+	 */
+	class OBJ
 	{
 	public:
+		OBJ();
+		~OBJ();
+
+		/**
+		 * Loads an OBJ mesh file into memory and prepares for rendering.
+		 */
 		bool initWithFile(const QString &filepath);
 
+		/**
+		 * 
+		 */
+		void render(const Mat4 &totalMatrix);
+
 	private:
-		bool parseFile(const QString &filepath);
-		bool parseField(const QStringList &field);
-		bool parseMaterialLib(const QString &filepath);
-		bool parseMaterialLibField(const QStringList &field);
+		class OBJPrivate;
+		unique<OBJPrivate> mPrivate;
 	};
 }
 
