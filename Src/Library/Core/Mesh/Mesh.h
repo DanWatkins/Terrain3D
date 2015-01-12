@@ -34,7 +34,6 @@ namespace t3d
 		void uploadIndexData();
 		void uploadVertexData();
 
-		void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
 
 	protected:
 		QString mContainingDirectory;
@@ -54,6 +53,24 @@ namespace t3d
 		} mMaterialData;
 		
 
+		class FaceData : public OpenGLFunctions
+		{
+		public:  //TODO massive
+			QVector<Vertex> mVertecies;
+			QVector<Vertex> mVertexNormals;
+			QVector<Vertex> mTextureCoordinates;
+
+			GLuint bufferVertexPositions;
+			GLuint bufferVertexNormals;
+			GLuint bufferTextureCoordinates;
+
+			void uploadData();
+			void bind();
+
+		private:
+			void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
+		} mFaceData;
+
 		struct Face
 		{
 			QVector<int> vertexIndex;
@@ -61,9 +78,6 @@ namespace t3d
 			QVector<int> normalIndex;
 		};
 
-		QVector<Vertex> mVertecies;
-		QVector<Vertex> mVertexNormals;
-		QVector<Vertex> mTextureCoordinates;
 		QVector<Face> mFaces;
 
 		QOpenGLShaderProgram mProgram;
@@ -82,14 +96,6 @@ namespace t3d
 			GLuint matrixModel;
 			GLint indexCount;
 		} mUniforms;
-
-		struct Textures
-		{
-			GLuint bufferVertexPositions;
-			GLuint bufferVertexNormals;
-			GLuint bufferTextureCoordinates;
-
-		} mTextures;
 	};
 }
 

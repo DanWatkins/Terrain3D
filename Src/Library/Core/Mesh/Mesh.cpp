@@ -21,12 +21,7 @@ namespace t3d
 			{
 				glLineWidth(1.0f);
 
-				glActiveTexture(GL_TEXTURE2);
-					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexPositions);
-				glActiveTexture(GL_TEXTURE3);
-					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexNormals);
-				glActiveTexture(GL_TEXTURE4);
-					glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferTextureCoordinates);
+				mFaceData.bind();
 				mMaterialData.bind();
 					
 				glDrawElements(GL_TRIANGLE_FAN, mRenderInfo.indexCount, GL_UNSIGNED_INT, 0);
@@ -81,10 +76,8 @@ namespace t3d
 	{
 		checkForErrors();
 
-		uploadBufferAttribute(GL_TEXTURE2, mVertecies, mTextures.bufferVertexPositions);
-		uploadBufferAttribute(GL_TEXTURE3, mVertexNormals, mTextures.bufferVertexNormals);
-		uploadBufferAttribute(GL_TEXTURE4, mTextureCoordinates, mTextures.bufferTextureCoordinates);
-
+		
+		mFaceData.uploadData();
 		mMaterialData.uploadMaterialData(mContainingDirectory);
 		uploadIndexData();
 		uploadVertexData();
@@ -97,11 +90,11 @@ namespace t3d
 
 		if (mFaces.count() == 0)
 			error = QString("No faces defined");
-		else if (mVertecies.count() == 0)
+		else if (mFaceData.mVertecies.count() == 0)
 			error = QString("No vertex positions defined");
-		else if (mVertexNormals.count() == 0)
+		else if (mFaceData.mVertexNormals.count() == 0)
 			error = QString("No vertex normals defined");
-		else if (mTextureCoordinates.count() == 0)
+		else if (mFaceData.mTextureCoordinates.count() == 0)
 			error = QString("No texture coordinates defined");
 		else
 		{
@@ -118,19 +111,19 @@ namespace t3d
 
 				for (int i : f.vertexIndex)
 				{
-					if ((mVertecies.count() > i) == false)
+					if ((mFaceData.mVertecies.count() > i) == false)
 						error = QString("Vertex position attribute out of range for face %1").arg(fi);
 				}
 
 				for (int i : f.normalIndex)
 				{
-					if ((mVertexNormals.count() > i) == false)
+					if ((mFaceData.mVertexNormals.count() > i) == false)
 						error = QString("Vertex normal attribute out of range for face %1").arg(fi);
 				}
 
 				for (int i : f.textureIndex)
 				{
-					if ((mTextureCoordinates.count() > i) == false)
+					if ((mFaceData.mTextureCoordinates.count() > i) == false)
 						error = QString("Texture coordinate attribute out of range for face %1").arg(fi);
 				}
 
@@ -220,23 +213,6 @@ namespace t3d
 
 			glVertexAttribIPointer(2, 1, GL_INT, 0, (void*)textureOffset);
 			glEnableVertexAttribArray(2);
-		}
-	}
-
-
-	void Mesh::uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName)
-	{
-		glActiveTexture(textureUnit);
-		glGenTextures(1, &textureName);
-		glBindTexture(GL_TEXTURE_BUFFER, textureName);
-		{
-			GLuint buffer;
-			glGenBuffers(1, &buffer);
-			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
-			{
-				glBufferData(GL_TEXTURE_BUFFER, data.count()*3*sizeof(GLfloat), &data[0], GL_STATIC_DRAW);
-				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
-			}
 		}
 	}
 }

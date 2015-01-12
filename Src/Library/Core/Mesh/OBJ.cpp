@@ -76,7 +76,7 @@ namespace t3d
 			vertex.values[0] = field.at(1).toFloat();
 			vertex.values[1] = field.at(2).toFloat();
 			vertex.values[2] = field.at(3).toFloat();
-			mVertecies.push_back(vertex);
+			mFaceData.mVertecies.push_back(vertex);
 		}
 		//vertex normal
 		else if (field.front() == "vn"  &&  field.size() == 4)
@@ -85,7 +85,7 @@ namespace t3d
 			vertex.values[0] = field.at(1).toFloat();
 			vertex.values[1] = field.at(2).toFloat();
 			vertex.values[2] = field.at(3).toFloat();
-			mVertexNormals.push_back(vertex);
+			mFaceData.mVertexNormals.push_back(vertex);
 		}
 		//vertex texture coordinate
 		else if (field.front() == "vt" && (field.count() == 3 || field.count() == 4))
@@ -95,7 +95,7 @@ namespace t3d
 			vertex.values[1] = field.at(2).toFloat();
 			if (field.count() == 4)
 				vertex.values[2] = field.at(3).toFloat();
-			mTextureCoordinates.push_back(vertex);
+			mFaceData.mTextureCoordinates.push_back(vertex);
 		}
 		//face
 		else if (field.front() == "f"  &&  field.size() >= 4)
