@@ -6,6 +6,7 @@
 //==================================================================================================================|
 
 #include "Mesh.h"
+#include "MaterialData.h"
 
 namespace t3d
 {
@@ -17,7 +18,7 @@ namespace t3d
 			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
 							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
-			mMaterialData.bind();
+			mMaterials.first()->bind();
 			mFaceData.bind();
 			glUniform1i(mUniforms.indexCount, mSubMesh.mIndexCount);
 			mSubMesh.render();
@@ -67,7 +68,7 @@ namespace t3d
 		checkForErrors();
 
 		mFaceData.uploadData();
-		mMaterialData.uploadMaterialData(mContainingDirectory);
+		mMaterials.first()->uploadMaterialData(mContainingDirectory);
 		mSubMesh.uploadData();
 	}
 

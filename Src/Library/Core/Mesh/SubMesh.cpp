@@ -5,9 +5,6 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_CORE_SUB_MESH_H
-#define _t3d_CORE_SUB_MESH_H
-
 #include "Mesh.h"
 
 namespace t3d
@@ -115,6 +112,3 @@ namespace t3d
 		glBindVertexArray(0);
 	}
 }
-
-#endif
-

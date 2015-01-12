@@ -6,6 +6,7 @@
 //==================================================================================================================|
 
 #include "OBJ.h"
+#include "MaterialData.h"
 
 namespace t3d
 {
@@ -143,35 +144,37 @@ namespace t3d
 
 		QTextStream ts(&file);
 		int lineNumber = 0;
+		strong<Mesh::MaterialData> material(new Mesh::MaterialData);
 
 		while (!ts.atEnd())
 		{
 			QString line = ts.readLine();
 			QStringList field = line.split(" ");
 
-			if (!parseMaterialLibField(field))
+			if (!parseMaterialLibField(field, material))
 			{
 				qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
 			}
 
 			++lineNumber;
 		}
-
+		
+		mMaterials.append(material);
 		return true;
 	}
 
 
-	bool OBJ::parseMaterialLibField(const QStringList &field)
+	bool OBJ::parseMaterialLibField(const QStringList &field, strong<Mesh::MaterialData> &material)
 	{
 		//new material
 		if (field.front() == "newmtl" && field.count() == 2)
 		{
-			mMaterialData.mName = field.at(1);
+			material->mName = field.at(1);
 		}
 		//texture map - diffuse
 		else if (field.front() == "map_Kd" && field.count() == 2)
 		{
-			mMaterialData.mFilepath = field.at(1);
+			material->mFilepath = field.at(1);
 		}
 		else
 		{

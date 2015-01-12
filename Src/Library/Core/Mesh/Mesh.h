@@ -6,7 +6,7 @@
 //==================================================================================================================|
 
 #ifndef _t3d_CORE_MESH_H
-#define _t3d_CORE_MES_H
+#define _t3d_CORE_MESH_H
 
 #include <Library.h>
 #include <Core/OpenGLFunctions.h>
@@ -38,17 +38,8 @@ namespace t3d
 
 		static const GLuint PrimitiveRestartIndex = 900000000;
 
-		class MaterialData : public OpenGLFunctions
-		{
-		public: //TODO massive
-			QString mName;
-			QString mFilepath;
-
-			GLuint mMaterial;
-
-			void uploadMaterialData(const QString &containingDirectory);
-			void bind();
-		} mMaterialData;
+		class MaterialData;
+		QList<strong<MaterialData>> mMaterials;
 		
 
 		class FaceData : public OpenGLFunctions

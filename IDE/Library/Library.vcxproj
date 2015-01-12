@@ -15,6 +15,7 @@
     <ClInclude Include="..\..\Src\Library\Core\Core.h" />
     <ClInclude Include="..\..\Src\Library\Core\Helper.h" />
     <ClInclude Include="..\..\Src\Library\Core\Image.h" />
+    <ClInclude Include="..\..\Src\Library\Core\Mesh\MaterialData.h" />
     <ClInclude Include="..\..\Src\Library\Core\Mesh\MD2.h" />
     <ClInclude Include="..\..\Src\Library\Core\Mesh\Mesh.h" />
     <ClInclude Include="..\..\Src\Library\Core\Mesh\OBJ.h" />
