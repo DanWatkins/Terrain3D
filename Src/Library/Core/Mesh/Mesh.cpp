@@ -14,8 +14,7 @@
 namespace t3d
 {
 	Mesh::Mesh() :
-		mFaceData(new FaceData),
-		mSubMesh(new SubMesh)
+		mFaceData(new FaceData)
 	{
 	}
 
@@ -27,10 +26,30 @@ namespace t3d
 			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
 							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
-			mMaterials.first()->bind();
 			mFaceData->bind();
-			glUniform1i(mUniforms.indexCount, mSubMesh->mIndexCount);
-			mSubMesh->render();
+
+			for (strong<SubMesh> subMesh : mSubMesh)
+			{
+				//find the material associated with this sub mesh
+				strong<MaterialData> material;
+				for (strong<MaterialData> m : mMaterials)
+				{
+					if (m->mName == subMesh->mMaterial)
+					{
+						material = m;
+						break;
+					}
+				}
+
+				glUniform1i(mUniforms.indexCount, subMesh->mIndexCount);
+				material->bind();
+				subMesh->render();
+			}
+
+			//mMaterials.first()->bind();
+			
+			//glUniform1i(mUniforms.indexCount, mSubMesh->mIndexCount);
+			//mSubMesh->render();
 		}
 		mProgram.release();
 	}
@@ -77,8 +96,15 @@ namespace t3d
 		checkForErrors();
 
 		mFaceData->uploadData();
-		mMaterials.first()->uploadMaterialData(mContainingDirectory);
-		mSubMesh->uploadData();
+
+		for (strong<MaterialData> material : mMaterials)
+			material->uploadMaterialData(mContainingDirectory);
+
+		for (strong<SubMesh> subMesh : mSubMesh)
+			subMesh->uploadData();
+
+		//mMaterials.first()->uploadMaterialData(mContainingDirectory);
+		//mSubMesh->uploadData();
 	}
 
 
@@ -86,8 +112,17 @@ namespace t3d
 	{
 		QString error;
 
-		if (mSubMesh->mFaces.count() == 0)
-			error = QString("No faces defined");
+		for (strong<SubMesh> subMesh : mSubMesh)
+		{
+			if (subMesh->mFaces.count() == 0)
+			{
+				error = QString("No faces defined for SubMesh using material ") + subMesh->mMaterial;
+				break;
+			}
+		}
+
+		if (!error.isEmpty())
+			;	//we already found an error - TODO this is hacky
 		else if (mFaceData->mVertecies.count() == 0)
 			error = QString("No vertex positions defined");
 		else if (mFaceData->mVertexNormals.count() == 0)
@@ -97,7 +132,7 @@ namespace t3d
 		else
 		{
 			//verify every face has things for each index
-			for (int fi=0; fi<mSubMesh->mFaces.count(); fi++)
+			/*for (int fi=0; fi<mSubMesh->mFaces.count(); fi++)
 			{
 				Face &f = mSubMesh->mFaces[fi];
 
@@ -127,7 +162,9 @@ namespace t3d
 
 				if (!error.isEmpty())
 					break;
-			}
+			}*/
+
+			//TODO move this block into SubMesh::checkForErrors
 		}
 
 		if (!error.isEmpty())

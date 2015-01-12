@@ -47,7 +47,7 @@ namespace t3d
 		strong<FaceData> mFaceData;
 
 		class SubMesh;
-		strong<SubMesh> mSubMesh;
+		QList<strong<SubMesh>> mSubMesh;
 
 		struct Face
 		{

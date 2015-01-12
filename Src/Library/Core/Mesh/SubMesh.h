@@ -18,6 +18,7 @@ namespace t3d
 		GLuint mVao;
 		QVector<Face> mFaces;
 		int mIndexCount = 0;	//number of indicies in the index buffer including restart indicies
+		QString mMaterial;
 
 		void uploadData();
 		void render();

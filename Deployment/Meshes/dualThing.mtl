@@ -1,0 +1,5 @@
+newmtl Steel
+map_Kd ./steel.png
+
+newmtl Wood
+map_Kd ./wood.png

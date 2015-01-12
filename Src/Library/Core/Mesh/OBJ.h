@@ -22,7 +22,7 @@ namespace t3d
 		bool parseFile(const QString &filepath);
 		bool parseField(const QStringList &field);
 		bool parseMaterialLib(const QString &filepath);
-		bool parseMaterialLibField(const QStringList &field, strong<MaterialData> &material);
+		bool parseMaterialLibField(const QStringList &field);
 	};
 }
 

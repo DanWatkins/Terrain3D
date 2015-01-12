@@ -72,9 +72,15 @@ namespace t3d
 		{
 			parseMaterialLib(mContainingDirectory + "/" + field.at(1));
 		}
+		//use material - aka create a new SubMesh
+		else if (field.front() == "usemtl" && field.count() == 2)
+		{
+			mSubMesh.append(strong<SubMesh>(new SubMesh));
+			mSubMesh.last()->mMaterial = field.at(1);
+		}
 
 		//vertex
-		else if (field.front() == "v"  &&  field.size() == 4)
+		else if (field.front() == "v" && field.count() == 4)
 		{
 			Vertex vertex;
 			vertex.values[0] = field.at(1).toFloat();
@@ -83,7 +89,7 @@ namespace t3d
 			mFaceData->mVertecies.push_back(vertex);
 		}
 		//vertex normal
-		else if (field.front() == "vn"  &&  field.size() == 4)
+		else if (field.front() == "vn" && field.count() == 4)
 		{
 			Vertex vertex;
 			vertex.values[0] = field.at(1).toFloat();
@@ -118,7 +124,7 @@ namespace t3d
 					face.normalIndex.push_back(cmp.at(2).toInt()-1);
 			}
 
-			mSubMesh->mFaces.push_back(face);
+			mSubMesh.last()->mFaces.push_back(face);
 		}
 		//comment
 		else if (field.at(0).startsWith("#"))
@@ -147,37 +153,36 @@ namespace t3d
 
 		QTextStream ts(&file);
 		int lineNumber = 0;
-		strong<Mesh::MaterialData> material(new Mesh::MaterialData);
 
 		while (!ts.atEnd())
 		{
 			QString line = ts.readLine();
 			QStringList field = line.split(" ");
 
-			if (!parseMaterialLibField(field, material))
+			if (!parseMaterialLibField(field))
 			{
 				qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
 			}
 
 			++lineNumber;
 		}
-		
-		mMaterials.append(material);
+
 		return true;
 	}
 
 
-	bool OBJ::parseMaterialLibField(const QStringList &field, strong<Mesh::MaterialData> &material)
+	bool OBJ::parseMaterialLibField(const QStringList &field)
 	{
 		//new material
 		if (field.front() == "newmtl" && field.count() == 2)
 		{
-			material->mName = field.at(1);
+			mMaterials.append(strong<MaterialData>(new MaterialData));
+			mMaterials.last()->mName = field.at(1);
 		}
 		//texture map - diffuse
 		else if (field.front() == "map_Kd" && field.count() == 2)
 		{
-			material->mFilepath = field.at(1);
+			mMaterials.last()->mFilepath = field.at(1);
 		}
 		else
 		{
