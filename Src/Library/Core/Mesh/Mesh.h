@@ -21,6 +21,12 @@ namespace t3d
 	protected:
 		void init();
 
+		struct Vertex
+		{
+			GLfloat values[3];
+		};
+
+	private:
 		void loadShaders();
 		void uploadData();
 		void checkForErrors();
@@ -29,19 +35,12 @@ namespace t3d
 		void uploadVertexData();
 		void uploadMaterialData();
 
-		void uploadVertexPositions();
-		void uploadVertexNormals();
-		void uploadTextureCoordinates();
+		void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
 
 	protected:
 		QString mContainingDirectory;
 		QString mFilepath;
 		QString mName;
-
-		struct Vertex
-		{
-			GLfloat values[3];
-		};
 
 		struct Face
 		{

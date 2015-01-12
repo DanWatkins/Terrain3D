@@ -32,9 +32,6 @@ namespace t3d
 	}
 
 
-
-
-
 	///// PRIVATE
 
 	bool OBJ::parseFile(const QString &filepath)

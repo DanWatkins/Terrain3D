@@ -10,7 +10,6 @@
 
 namespace t3d
 {
-
 	void Mesh::render(const Mat4 &totalMatrix)
 	{
 		mProgram.bind();
@@ -84,9 +83,10 @@ namespace t3d
 	{
 		checkForErrors();
 
-		uploadVertexPositions();
-		uploadVertexNormals();
-		uploadTextureCoordinates();
+		uploadBufferAttribute(GL_TEXTURE2, mVertecies, mTextures.bufferVertexPositions);
+		uploadBufferAttribute(GL_TEXTURE3, mVertexNormals, mTextures.bufferVertexNormals);
+		uploadBufferAttribute(GL_TEXTURE4, mTextureCoordinates, mTextures.bufferTextureCoordinates);
+
 		uploadMaterialData();
 		uploadIndexData();
 		uploadVertexData();
@@ -153,7 +153,6 @@ namespace t3d
 	{
 		GLuint ibo;
 		glGenBuffers(1, &ibo);
-		qDebug() << "ibo=" << ibo;
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		{
 			QVector<GLuint> indexBuffer;
@@ -182,7 +181,6 @@ namespace t3d
 	{
 		GLuint vbo;
 		glGenBuffers(1, &vbo);
-		qDebug() << "vbo=" << vbo;
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		{
 			QVector<GLint> vertexIndicies;
@@ -235,68 +233,30 @@ namespace t3d
 		image.loadFromFile_PNG(mContainingDirectory + mMaterial.filepath);
 		
 		int imageSize = image.getWidth();
+		int levels = std::min(static_cast<int>(log(imageSize)/log(2)), 10);
 
 		glActiveTexture(GL_TEXTURE5);
 		glGenTextures(1, &mTextures.material);
 		glBindTexture(GL_TEXTURE_2D, mTextures.material);
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, imageSize, imageSize, 0,
-						 GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-			/*glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP_TO_EDGE);*/
+			glTexStorage2D(GL_TEXTURE_2D, levels, GL_RGBA8, imageSize, imageSize);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize, GL_RGBA, GL_UNSIGNED_BYTE, &image.getImageData()[0]);
+			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 	}
 
 
-	void Mesh::uploadVertexPositions()
+	void Mesh::uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName)
 	{
-		glActiveTexture(GL_TEXTURE2);
-		glGenTextures(1, &mTextures.bufferVertexPositions);
-		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexPositions);
+		glActiveTexture(textureUnit);
+		glGenTextures(1, &textureName);
+		glBindTexture(GL_TEXTURE_BUFFER, textureName);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
 			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
 			{
-				glBufferData(GL_TEXTURE_BUFFER, mVertecies.count()*3*sizeof(GLfloat), &mVertecies[0], GL_STATIC_DRAW);
-				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
-			}
-		}
-	}
-
-
-	void Mesh::uploadVertexNormals()
-	{
-		glActiveTexture(GL_TEXTURE3);
-		glGenTextures(1, &mTextures.bufferVertexNormals);
-		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferVertexNormals);
-		{
-			GLuint buffer;
-			glGenBuffers(1, &buffer);
-			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
-			{
-				glBufferData(GL_TEXTURE_BUFFER, mVertexNormals.count()*3*sizeof(GLfloat), &mVertexNormals[0], GL_STATIC_DRAW);
-				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
-			}
-		}
-	}
-
-
-	void Mesh::uploadTextureCoordinates()
-	{
-		glActiveTexture(GL_TEXTURE4);
-		glGenTextures(1, &mTextures.bufferTextureCoordinates);
-		glBindTexture(GL_TEXTURE_BUFFER, mTextures.bufferTextureCoordinates);
-		{
-			GLuint buffer;
-			glGenBuffers(1, &buffer);
-			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
-			{
-				glBufferData(GL_TEXTURE_BUFFER, mTextureCoordinates.count()*3*sizeof(GLfloat), &mTextureCoordinates[0], GL_STATIC_DRAW);
+				glBufferData(GL_TEXTURE_BUFFER, data.count()*3*sizeof(GLfloat), &data[0], GL_STATIC_DRAW);
 				glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
 			}
 		}
