@@ -52,6 +52,8 @@ namespace t3d
 
 	void Mesh::init()
 	{
+		initializeOpenGLFunctions();
+
 		loadShaders();
 		mProgram.bind();
 		{
@@ -66,6 +68,43 @@ namespace t3d
 			
 		}
 		mProgram.release();
+	}
+
+
+	void Mesh::setFilepath(const QString &filepath)
+	{
+		mFilepath = filepath;
+		mContainingDirectory = "../Meshes/"; //TODO big hack
+	}
+
+
+	void Mesh::makeSubMesh()
+	{
+		mSubMesh.append(strong<SubMesh>(new SubMesh));
+	}
+	
+	
+	strong<Mesh::SubMesh> Mesh::currentSubMesh()
+	{
+		return mSubMesh.last();
+	}
+
+
+	void Mesh::addVertexPosition(const Mesh::Vertex &vertex)
+	{
+		mFaceData->mVertecies.push_back(vertex);
+	}
+
+
+	void Mesh::addVertexNormal(const Mesh::Vertex &normal)
+	{
+		mFaceData->mVertexNormals.push_back(normal);
+	}
+
+
+	void Mesh::addTextureCoordinate(const Mesh::Vertex &texCoord)
+	{
+		mFaceData->mTextureCoordinates.push_back(texCoord);
 	}
 
 	

@@ -16,19 +16,10 @@ namespace t3d
 {
 	class OBJ::OBJPrivate : public Mesh
 	{
-		void removeLastPathComponent(QString &filepath)
-		{
-			filepath = "../Meshes/"; //TODO massive temporary hack
-		}
-
-
 	public:
 		bool initWithFile(const QString &filepath)
 		{
-			OpenGLFunctions::initializeOpenGLFunctions();
-		
-			mContainingDirectory = mFilepath = filepath;
-			removeLastPathComponent(mContainingDirectory);
+			setFilepath(filepath);
 		
 			if (parseFile(filepath))
 			{
@@ -73,13 +64,13 @@ namespace t3d
 			//material lib
 			if (field.front() == "mtllib" && field.count() == 2)
 			{
-				parseMaterialLib(mContainingDirectory + "/" + field.at(1));
+				parseMaterialLib(containingDirectory() + "/" + field.at(1));
 			}
 			//use material - aka create a new SubMesh
 			else if (field.front() == "usemtl" && field.count() == 2)
 			{
-				mSubMesh.append(strong<SubMesh>(new SubMesh));
-				mSubMesh.last()->mMaterial = field.at(1);
+				makeSubMesh();
+				currentSubMesh()->mMaterial = field.at(1);
 			}
 
 			//vertex
@@ -89,7 +80,7 @@ namespace t3d
 				vertex.values[0] = field.at(1).toFloat();
 				vertex.values[1] = field.at(2).toFloat();
 				vertex.values[2] = field.at(3).toFloat();
-				mFaceData->mVertecies.push_back(vertex);
+				addVertexPosition(vertex);
 			}
 			//vertex normal
 			else if (field.front() == "vn" && field.count() == 4)
@@ -98,7 +89,7 @@ namespace t3d
 				vertex.values[0] = field.at(1).toFloat();
 				vertex.values[1] = field.at(2).toFloat();
 				vertex.values[2] = field.at(3).toFloat();
-				mFaceData->mVertexNormals.push_back(vertex);
+				addVertexNormal(vertex);
 			}
 			//vertex texture coordinate
 			else if (field.front() == "vt" && (field.count() == 3 || field.count() == 4))
@@ -108,7 +99,7 @@ namespace t3d
 				vertex.values[1] = field.at(2).toFloat();
 				if (field.count() == 4)
 					vertex.values[2] = field.at(3).toFloat();
-				mFaceData->mTextureCoordinates.push_back(vertex);
+				addTextureCoordinate(vertex);
 			}
 			//face
 			else if (field.front() == "f"  &&  field.size() >= 4)
@@ -127,7 +118,7 @@ namespace t3d
 						face.normalIndex.push_back(cmp.at(2).toInt()-1);
 				}
 
-				mSubMesh.last()->mFaces.push_back(face);
+				currentSubMesh()->mFaces.push_back(face);
 			}
 			//comment
 			else if (field.at(0).startsWith("#"))
