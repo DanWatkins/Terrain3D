@@ -24,6 +24,12 @@
     <Filter Include="Src\Core">
       <UniqueIdentifier>{20abb4c7-2357-4900-8e4b-f1fc2617cb6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Core\Mesh">
+      <UniqueIdentifier>{db6c9634-c428-4d76-a1e1-3cb5b63e9aa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core\Mesh\private">
+      <UniqueIdentifier>{ef58889c-fc6e-456e-842a-90066a8227dd}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\World">
       <UniqueIdentifier>{13f840fc-8fa4-4480-811e-b11a10ca9bbf}</UniqueIdentifier>
     </Filter>
@@ -36,11 +42,8 @@
     <Filter Include="Src\World\Terrain\Generator">
       <UniqueIdentifier>{c76cf52e-e809-439e-b94f-8f9cfca79def}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Core\Mesh">
-      <UniqueIdentifier>{db6c9634-c428-4d76-a1e1-3cb5b63e9aa1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Core\Mesh\private">
-      <UniqueIdentifier>{ef58889c-fc6e-456e-842a-90066a8227dd}</UniqueIdentifier>
+    <Filter Include="Src\World\Entity">
+      <UniqueIdentifier>{2ddfeb19-880d-4ce6-9ff5-93ec033ac7e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +193,21 @@
     <ClCompile Include="..\..\Src\Library\World\Environment.cpp">
       <Filter>Src\World</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BaseEntity.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BaseEntity.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Entity\Manager.cpp">
+      <Filter>Src\World\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Manager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Manager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
@@ -197,6 +215,15 @@
     </CustomBuild>
     <CustomBuild Include="..\..\Src\Library\World\Camera.h">
       <Filter>Src\World</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\World\Entity\BaseEntity.cpp">
+      <Filter>Src\World\Entity</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\World\Entity\BaseEntity.h">
+      <Filter>Src\World\Entity</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\World\Entity\Manager.h">
+      <Filter>Src\World\Entity</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
