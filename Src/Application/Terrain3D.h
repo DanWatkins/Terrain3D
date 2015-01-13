@@ -14,7 +14,7 @@
 
 #include <Application.h>
 #include <Core/FPSCounter.h>
-#include <World/World.h>
+#include <World/Environment.h>
 #include <World/Camera.h>
 #include "QuickItems/CameraItem.h"
 
@@ -82,7 +82,7 @@ namespace t3d
 		int fps() const { return mFPSCounter.fps(); }
 
 	private:
-		World::World mWorld;
+		World::Environment mEnvironment;
 		weak<World::Camera> mCamera;
 		bool mPreviouslyHadFocus;
 		bool mNeedsRestart;
@@ -99,7 +99,7 @@ namespace t3d
 		void loadUserSettings();
 
 		World::Camera::Configuration buildCameraConfiguration();
-		World::World::Configuration buildWorldConfiguration();
+		World::Environment::Configuration buildWorldConfiguration();
 
 	signals:
 		void toggleSettingsMenu();

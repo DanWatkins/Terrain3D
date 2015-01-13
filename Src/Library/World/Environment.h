@@ -12,7 +12,7 @@
 
 namespace t3d { namespace World
 {
-	class World
+	class Environment
 	{
 	private:
 		Terrain::Data mTerrainData;
@@ -29,7 +29,7 @@ namespace t3d { namespace World
 		};
 
 	public:
-		World();
+		Environment();
 		void init(const Configuration &configuration);
 
 		Terrain::Data& terrainData() { return mTerrainData; }

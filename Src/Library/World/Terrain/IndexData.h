@@ -9,7 +9,6 @@
 #define _t3d_TERRAIN_RENDERER_INDEX_DATA_H
 
 #include <Library.h>
-#include <World/World.h>
 #include <World/Terrain/Renderer.h>
 
 namespace t3d { namespace World { namespace Terrain

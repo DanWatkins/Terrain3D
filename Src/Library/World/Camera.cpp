@@ -28,7 +28,7 @@ namespace t3d { namespace World
 	{
 		initializeOpenGLFunctions();
 
-		mTerrainRenderer.init(&mWorld->terrainData(),
+		mTerrainRenderer.init(&mEnvironment->terrainData(),
 							  configuration.terrainSpacing,
 							  configuration.terrainHeightScale,
 							  configuration.terrainBlockSize,

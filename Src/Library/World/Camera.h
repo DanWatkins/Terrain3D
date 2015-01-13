@@ -9,7 +9,7 @@
 #define _t3d_CAMERA_H
 
 #include <Library.h>
-#include <World/World.h>
+#include <World/Environment.h>
 
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Renderer.h>
@@ -66,7 +66,7 @@ namespace t3d { namespace World
 		void resize(unsigned windowWidth, unsigned windowHeight);
 
 
-		void setWorld(World *world) { mWorld = world; }
+		void setEnvironment(Environment *environment) { mEnvironment = environment; }
 
 		void setPosition(Vec3f position) { mPosition = position; }
 		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }
@@ -93,7 +93,7 @@ namespace t3d { namespace World
 		Terrain::Mode mode() { return mTerrainRenderer.getMode(); }
 
 	private:
-		World *mWorld;
+		Environment *mEnvironment;
 		Terrain::Renderer mTerrainRenderer;
 
 		Vec3f mPosition;

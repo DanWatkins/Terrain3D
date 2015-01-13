@@ -5,19 +5,19 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "World.h"
+#include "Environment.h"
 #include <World/Terrain/Generator/FaultFormation.h>
 #include <World/Terrain/Lighting/Slope.h>
 #include <stdio.h>
 
 namespace t3d { namespace World
 {
-	World::World()
+	Environment::Environment()
 	{
 	}
 
 
-	void World::init(const World::Configuration &configuration)
+	void Environment::init(const Configuration &configuration)
 	{
 		Terrain::Generator::FaultFormation generator;
 		mTerrainData.setTextureMapResolution(configuration.generatorTextureMapResolution);

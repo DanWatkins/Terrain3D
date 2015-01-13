@@ -42,8 +42,8 @@ namespace t3d
 		mCamera = mCameraItem->createCamera();
 
 		loadUserSettings();
-		mWorld.init(buildWorldConfiguration());
-		mCamera.lock()->setWorld(&mWorld);
+		mEnvironment.init(buildWorldConfiguration());
+		mCamera.lock()->setEnvironment(&mEnvironment);
 		mCamera.lock()->init(buildCameraConfiguration());
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
@@ -308,10 +308,10 @@ namespace t3d
 	}
 
 
-	World::World::Configuration Terrain3D::buildWorldConfiguration()
+	World::Environment::Configuration Terrain3D::buildWorldConfiguration()
 	{
 		typedef Settings::Key key;
-		World::World::Configuration config;
+		World::Environment::Configuration config;
 
 		config.generatorSize = mMainSettings->value(key::WorldGeneratorSize).toInt();
 		config.generatorTextureMapResolution = mMainSettings->value(key::WorldGeneratorTextureMapResolution).toInt();
