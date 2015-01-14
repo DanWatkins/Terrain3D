@@ -10,7 +10,7 @@
 #include <World/Entity/Manager.h>
 
 using namespace t3d::World::Entity;
-#define CLASS Test_WorldEntityBaseEntity
+#define CLASS Test_WorldEntityManager
 
 TEST_CLASS
 {
@@ -23,7 +23,6 @@ TEST_CASE(simpleCreateEntity)
 	Manager manager;
 	strong<BaseEntity> entity = manager.createEntity();
 	ASSERT_TRUE(entity != nullptr);
-	ASSERT_TRUE(entity->id().isValid());
 }
 
 

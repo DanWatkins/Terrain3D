@@ -20,7 +20,6 @@ namespace t3d { namespace World { namespace Entity
 		{
 		public:
 			Id(qint64 value) { mValue = value; }
-			bool isValid() const { return true; }
 
 			bool operator==(const Id &rhs) const
 			{
@@ -37,9 +36,22 @@ namespace t3d { namespace World { namespace Entity
 		}
 
 		Id id() const { return mId; }
+		Vec3f pos() const { return mPos; }
+
+		class RenderComponent
+		{
+		public:
+			void render() {}
+		};
+
+		RenderComponent* cmp_renderable() const;
+		void createCmp_renderable();
 
 	private:
 		Id mId;
+		Vec3f mPos;
+
+		unique<RenderComponent> mCmp_renderable;
 	};
 }}}
 

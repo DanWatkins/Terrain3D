@@ -21,4 +21,8 @@
 
 #define FOR_TIMES(i, count) for (int i=0; i<count; ++i)
 
+
+#define ASSERT_NULL(what) ASSERT_TRUE(what == nullptr)
+#define ASSERT_NOT_NULL(what) ASSERT_FALSE(what == nullptr)
+
 #endif

@@ -9,5 +9,14 @@
 
 namespace t3d { namespace World { namespace Entity
 {
+	BaseEntity::RenderComponent* BaseEntity::cmp_renderable() const
+	{
+		return mCmp_renderable.get();
+	}
 
+
+	void BaseEntity::createCmp_renderable()
+	{
+		mCmp_renderable = unique<RenderComponent>(new RenderComponent);
+	}
 }}}

@@ -31,5 +31,7 @@ namespace t3d { namespace World { namespace Entity
 			if (mEntityContainer[i]->id() == id)
 				return mEntityContainer[i];
 		}
+
+		return nullptr;
 	}
 }}}
