@@ -193,12 +193,6 @@
     <ClCompile Include="..\..\Src\Library\World\Environment.cpp">
       <Filter>Src\World</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_BaseEntity.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_BaseEntity.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Library\World\Entity\Manager.cpp">
       <Filter>Src\World\Entity</Filter>
     </ClCompile>
@@ -211,6 +205,12 @@
     <ClCompile Include="..\..\Src\Library\World\Entity\Renderer.cpp">
       <Filter>Src\World\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\library\world\entity\RenderComponent.cpp">
+      <Filter>Src\World\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Entity\BaseEntity.cpp">
+      <Filter>Src\World\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
@@ -219,9 +219,6 @@
     <CustomBuild Include="..\..\Src\Library\World\Camera.h">
       <Filter>Src\World</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\Src\Library\World\Entity\BaseEntity.cpp">
-      <Filter>Src\World\Entity</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\Src\Library\World\Entity\BaseEntity.h">
       <Filter>Src\World\Entity</Filter>
     </CustomBuild>
@@ -229,6 +226,9 @@
       <Filter>Src\World\Entity</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\Src\Library\World\Entity\Renderer.h">
+      <Filter>Src\World\Entity</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\src\library\world\entity\RenderComponent.h">
       <Filter>Src\World\Entity</Filter>
     </CustomBuild>
   </ItemGroup>

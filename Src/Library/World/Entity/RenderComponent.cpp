@@ -1,4 +1,3 @@
-
 //==================================================================================================================|
 // Created 2015.01.13 by Daniel L. Watkins
 //
@@ -10,15 +9,4 @@
 
 namespace t3d { namespace World { namespace Entity
 {
-	BaseEntity::BaseEntity(int id) :
-		mId(id)
-	{
-	}
-
-
-	void BaseEntity::createRenderComponent()
-	{
-		if (!mRenderComponent)
-			mRenderComponent = unique<RenderComponent>(new RenderComponent);
-	}
 }}}

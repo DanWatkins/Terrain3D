@@ -21,7 +21,7 @@ protected:
 TEST_CASE(defaultState)
 {
 	BaseEntity entity(1);
-	ASSERT_NULL(entity.cmp_renderable());
+	ASSERT_NULL(entity.renderComponent());
 	ASSERT_EQ(0.0, entity.pos().x);
 	ASSERT_EQ(0.0, entity.pos().y);
 	ASSERT_EQ(0.0, entity.pos().z);
@@ -31,15 +31,15 @@ TEST_CASE(defaultState)
 TEST_CASE(createRenderableAndRender)
 {
 	BaseEntity entity(1);
-	entity.createCmp_renderable();
+	entity.createRenderComponent();
 
-	BaseEntity::RenderComponent *cmp = entity.cmp_renderable();
+	BaseEntity::RenderComponent *cmp = entity.renderComponent();
 	ASSERT_NOT_NULL(cmp);
 
 	//ensure the internal component doesn't get recreated on subsequent creates
-	entity.createCmp_renderable();
-	ASSERT_EQ(cmp, entity.cmp_renderable());
+	entity.createRenderComponent();
+	ASSERT_EQ(cmp, entity.renderComponent());
 
 	//can't really test the render
-	entity.cmp_renderable()->render(Mat4(1.0f));
+	entity.renderComponent()->render(Mat4(1.0f));
 }

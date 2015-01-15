@@ -24,7 +24,7 @@ namespace t3d { namespace World { namespace Entity
 	}
 
 
-	strong<BaseEntity> Manager::findEntity(const BaseEntity::Id &id)
+	strong<BaseEntity> Manager::findEntity(int id)
 	{
 		for (int i=0; i<mEntityContainer.count(); i++)
 		{

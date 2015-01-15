@@ -22,13 +22,13 @@ namespace t3d { namespace World { namespace Entity
 		Manager();
 
 		strong<BaseEntity> createEntity();
-		strong<BaseEntity> findEntity(const BaseEntity::Id &id);
+		strong<BaseEntity> findEntity(int id);
 
 		const QVector<strong<BaseEntity>> &entityContainer() const { return mEntityContainer; }
 
 	private:
 		QVector<strong<BaseEntity>> mEntityContainer;	//TODO finish ReuseVector and use it here!
-		qint64 mIdValueTrack;
+		int mIdValueTrack;
 	};
 }}}
 

@@ -1,4 +1,3 @@
-
 //==================================================================================================================|
 // Created 2015.01.13 by Daniel L. Watkins
 //
@@ -6,19 +5,19 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
+#ifndef _t3d_World_Entity_RenderComponent_H
+#define _t3d_World_Entity_RenderComponent_H
+
 #include "BaseEntity.h"
 
 namespace t3d { namespace World { namespace Entity
 {
-	BaseEntity::BaseEntity(int id) :
-		mId(id)
+	class BaseEntity::RenderComponent
 	{
-	}
-
-
-	void BaseEntity::createRenderComponent()
-	{
-		if (!mRenderComponent)
-			mRenderComponent = unique<RenderComponent>(new RenderComponent);
-	}
+	public:
+		void render(const Mat4 & cameraMatrix) {}
+	};
 }}}
+
+#endif
+

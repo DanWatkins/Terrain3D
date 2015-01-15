@@ -5,61 +5,46 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_BASE_ENTITY_H
-#define _t3d_BASE_ENTITY_H
+#ifndef _t3d_World_Entity_BaseEntity_H
+#define _t3d_World_Entity_BaseEntity_H
 
 #include <Library.h>
 
 namespace t3d { namespace World { namespace Entity
 {
-	class BaseEntity : public QObject
+	/**
+	 * @brief A central aggregate of components that make up a simulatable entity.
+	 *
+	 * After construction no components exist by default. You can request for comonents to be instantiated internally
+	 * by calling the create component associated method. For example: createRenderComponent(). The component can be
+	 * accessed by calling renderComponent(). BaseEntity is not responsible for coordinating interactions between
+	 * components.
+	 *
+	 * There is some common state information associated with the entity as a whole stored in BaseEntity.
+	 */
+	class BaseEntity
 	{
-		Q_OBJECT
 	public:
-		class Id
-		{
-		public:
-			Id(qint64 value) { mValue = value; }
-
-			bool operator==(const Id &rhs) const
-			{
-				return mValue == rhs.mValue;
-			}
-
-		private:
-			qint64 mValue;
-		};
-
-		BaseEntity(qint64 idValue) :
-			mId(idValue)
-		{
-		}
-
+		BaseEntity(int id);
 		~BaseEntity() {}
 
-		Id id() const { return mId; }
+		int id() const { return mId; }
 		Vec3f pos() const { return mPos; }
 
-		class RenderComponent
-		{
-		public:
-			void render(const Mat4 & cameraMatrix) {}
-		};
+		class RenderComponent;
 
-		RenderComponent* cmp_renderable() const { return mCmp_renderable.get(); }
-		void BaseEntity::createCmp_renderable()
-		{
-			if (!mCmp_renderable)
-				mCmp_renderable = unique<RenderComponent>(new RenderComponent);
-		}
+		RenderComponent* renderComponent() const { return mRenderComponent.get(); }
+		void createRenderComponent();
 
 	private:
-		Id mId;
+		int mId;
 		Vec3f mPos;
 
-		unique<RenderComponent> mCmp_renderable;
+		unique<RenderComponent> mRenderComponent;
 	};
 }}}
+
+#include "RenderComponent.h"
 
 #endif
 
