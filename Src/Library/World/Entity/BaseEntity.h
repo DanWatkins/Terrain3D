@@ -35,17 +35,23 @@ namespace t3d { namespace World { namespace Entity
 		{
 		}
 
+		~BaseEntity() {}
+
 		Id id() const { return mId; }
 		Vec3f pos() const { return mPos; }
 
 		class RenderComponent
 		{
 		public:
-			void render() {}
+			void render(const Mat4 & cameraMatrix) {}
 		};
 
-		RenderComponent* cmp_renderable() const;
-		void createCmp_renderable();
+		RenderComponent* cmp_renderable() const { return mCmp_renderable.get(); }
+		void BaseEntity::createCmp_renderable()
+		{
+			if (!mCmp_renderable)
+				mCmp_renderable = unique<RenderComponent>(new RenderComponent);
+		}
 
 	private:
 		Id mId;

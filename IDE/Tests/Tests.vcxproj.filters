@@ -37,6 +37,9 @@
     <ClCompile Include="..\..\src\tests\Test_WorldEntityBaseEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Tests\Test_WorldEntityRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Tests\Tests.h">

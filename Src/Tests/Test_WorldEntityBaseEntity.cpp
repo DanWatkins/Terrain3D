@@ -41,5 +41,5 @@ TEST_CASE(createRenderableAndRender)
 	ASSERT_EQ(cmp, entity.cmp_renderable());
 
 	//can't really test the render
-	entity.cmp_renderable()->render();
+	entity.cmp_renderable()->render(Mat4(1.0f));
 }

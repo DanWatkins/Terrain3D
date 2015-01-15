@@ -208,6 +208,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_Manager.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Entity\Renderer.cpp">
+      <Filter>Src\World\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
@@ -223,6 +226,9 @@
       <Filter>Src\World\Entity</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\Src\Library\World\Entity\Manager.h">
+      <Filter>Src\World\Entity</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\World\Entity\Renderer.h">
       <Filter>Src\World\Entity</Filter>
     </CustomBuild>
   </ItemGroup>

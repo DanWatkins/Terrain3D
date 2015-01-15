@@ -53,6 +53,20 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DLIBRARY_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\..\Src\Library"</Command>
     </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\World\Entity\Renderer.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+    </CustomBuild>
     <ClInclude Include="..\..\Src\Library\World\Terrain\Data.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\FaultFormation.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\Generator.h" />
@@ -86,6 +100,7 @@
     <ClCompile Include="..\..\Src\Library\Core\Mesh\private\SubMesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Shader.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Camera.cpp" />
+    <ClCompile Include="..\..\Src\Library\World\Entity\Renderer.cpp" />
     <ClCompile Include="GeneratedFiles\Release\moc_Manager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -176,6 +191,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4718</DisableSpecificWarnings>
+      <ObjectFileName>$(IntDir)/obj/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -197,6 +213,7 @@
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4718</DisableSpecificWarnings>
+      <ObjectFileName>$(IntDir)/obj/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

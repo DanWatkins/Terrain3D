@@ -15,6 +15,7 @@
     <ClCompile Include="..\..\Src\Tests\Test_CoreFPSCounter.cpp" />
     <ClCompile Include="..\..\src\tests\Test_WorldEntityBaseEntity.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldEntityManager.cpp" />
+    <ClCompile Include="..\..\Src\Tests\Test_WorldEntityRenderer.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainData.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainLightingSlope.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainLightMap.cpp" />
