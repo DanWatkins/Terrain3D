@@ -41,5 +41,7 @@ namespace t3d { namespace World
 		Terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),
 													mTerrainData.heightMap(),
 													configuration.generatorLightIntensity);
+
+		mEntityManager.init();
 	}
 }}

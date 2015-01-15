@@ -9,6 +9,7 @@
 #define _t3d_WORLD_H
 
 #include <World/Terrain/Data.h>
+#include <World/Entity/Manager.h>
 
 namespace t3d { namespace World
 {
@@ -16,6 +17,7 @@ namespace t3d { namespace World
 	{
 	private:
 		Terrain::Data mTerrainData;
+		Entity::Manager mEntityManager;
 
 	public:
 		struct Configuration
@@ -33,6 +35,7 @@ namespace t3d { namespace World
 		void init(const Configuration &configuration);
 
 		Terrain::Data& terrainData() { return mTerrainData; }
+		Entity::Manager& entityManager() { return mEntityManager; }
 	};
 }}
 

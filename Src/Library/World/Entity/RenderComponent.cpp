@@ -9,4 +9,14 @@
 
 namespace t3d { namespace World { namespace Entity
 {
+	void BaseEntity::RenderComponent::loadMesh(const QString &filepath)
+	{
+		mMesh.initWithFile(filepath);
+	}
+
+
+	void BaseEntity::RenderComponent::render(const Mat4 &cameraMatrix)
+	{
+		mMesh.render(cameraMatrix);
+	}
 }}}

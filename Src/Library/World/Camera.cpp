@@ -34,7 +34,7 @@ namespace t3d { namespace World
 							  configuration.terrainBlockSize,
 							  configuration.terrainSpanSize);
 
-		mObj.initWithFile("../Meshes/plantSmall.obj");
+		mEntityRenderer.setManager(&mEnvironment->entityManager());
 	}
 
 
@@ -54,7 +54,7 @@ namespace t3d { namespace World
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 		mTerrainRenderer.render(mPosition, totalMatrix());
-		mObj.render(totalMatrix());
+		mEntityRenderer.renderAll(totalMatrix());
 
 		emit finishedRendering();
 	}

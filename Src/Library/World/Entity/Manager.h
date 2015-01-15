@@ -21,6 +21,8 @@ namespace t3d { namespace World { namespace Entity
 	public:
 		Manager();
 
+		void init();
+
 		strong<BaseEntity> createEntity();
 		strong<BaseEntity> findEntity(int id);
 

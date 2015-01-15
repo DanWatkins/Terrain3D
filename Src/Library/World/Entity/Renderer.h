@@ -17,11 +17,11 @@ namespace t3d { namespace World { namespace Entity
 	class Renderer
 	{
 	public:
-		void setManager(weak<Manager> manager) { mManager = manager; }
+		void setManager(Manager *manager) { mManager = manager; }
 		void renderAll(const Mat4 &cameraMatrix);
 
 	private:
-		weak<Manager> mManager;
+		Manager *mManager;
 	};
 }}}
 

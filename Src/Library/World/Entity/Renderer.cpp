@@ -11,13 +11,13 @@ namespace t3d { namespace World { namespace Entity
 {
 	void Renderer::renderAll(const Mat4 &cameraMatrix)
 	{
-		if (mManager.expired())
+		if (!mManager)
 		{
 			qDebug() << "Entity::Renderer cannot renderAll because there is no valid Entity::Manager connected";
 			return;
 		}
 
-		auto entityContainer = mManager.lock()->entityContainer();
+		auto entityContainer = mManager->entityContainer();
 		for (strong<BaseEntity> entity : entityContainer)
 		{
 			if (BaseEntity::RenderComponent *cmp = entity->renderComponent())

@@ -13,7 +13,8 @@
 
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Renderer.h>
-#include <Core/Mesh/OBJ.h>
+
+#include <World/Entity/Renderer.h>
 
 namespace t3d { namespace World
 {
@@ -95,6 +96,7 @@ namespace t3d { namespace World
 	private:
 		Environment *mEnvironment;
 		Terrain::Renderer mTerrainRenderer;
+		Entity::Renderer mEntityRenderer;
 
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;

@@ -15,6 +15,14 @@ namespace t3d { namespace World { namespace Entity
 	}
 
 
+	void Manager::init()
+	{
+		strong<BaseEntity> e1 = createEntity();
+		e1->createRenderComponent();
+		e1->renderComponent()->loadMesh("../Meshes/dualThing.obj");
+	}
+
+
 	strong<BaseEntity> Manager::createEntity()
 	{
 		strong<BaseEntity> newEntity(strong<BaseEntity>(new BaseEntity(++mIdValueTrack)));
