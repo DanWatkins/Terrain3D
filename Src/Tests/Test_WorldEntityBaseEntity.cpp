@@ -8,6 +8,7 @@
 #include "Tests.h"
 
 #include <World/Entity/BaseEntity.h>
+#include <World/Entity/RenderComponent.h>
 
 using namespace t3d::World::Entity;
 #define CLASS Test_WorldEntityBaseEntity
@@ -33,7 +34,7 @@ TEST_CASE(createRenderableAndRender)
 	BaseEntity entity(1);
 	entity.createRenderComponent();
 
-	BaseEntity::RenderComponent *cmp = entity.renderComponent();
+	RenderComponent *cmp = entity.renderComponent();
 	ASSERT_NOT_NULL(cmp);
 
 	//ensure the internal component doesn't get recreated on subsequent creates

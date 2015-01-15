@@ -9,18 +9,25 @@
 #define _t3d_World_Entity_RenderComponent_H
 
 #include "BaseEntity.h"
-#include <Core/Mesh/OBJ.h>
+#include "Component.h"
+
+namespace t3d {
+	class OBJ;
+}
 
 namespace t3d { namespace World { namespace Entity
 {
-	class BaseEntity::RenderComponent
+	class RenderComponent : public Component
 	{
 	public:
+		RenderComponent() = delete;
+		RenderComponent(BaseEntity *baseEntity);
+
 		void loadMesh(const QString &filepath);
 		void render(const Mat4 &cameraMatrix);
 
 	private:
-		OBJ mMesh;
+		strong<OBJ> mMesh;
 	};
 }}}
 

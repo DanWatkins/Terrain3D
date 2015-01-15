@@ -1,33 +1,31 @@
-
 //==================================================================================================================|
-// Created 2015.01.13 by Daniel L. Watkins
+// Created 2015.01.14 by Daniel L. Watkins
 //
 // Copyright (C) 2014-2015 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
+#ifndef _t3d_World_Entity_Component_H
+#define _t3d_World_Entity_Component_H
+
 #include "BaseEntity.h"
-#include "RenderComponent.h"
 
 namespace t3d { namespace World { namespace Entity
 {
-	BaseEntity::BaseEntity(int id) :
-		mId(id)
+	class Component
 	{
-	}
+	public:
+		Component() = delete;
+		Component(BaseEntity *baseEntity) { mBaseEntity = baseEntity; }
+		virtual ~Component() {}
 
+	protected:
+		BaseEntity* baseEntity() { return mBaseEntity; }
 
-	BaseEntity::~BaseEntity() {}
-
-
-	RenderComponent* BaseEntity::renderComponent() const
-	{
-		return mRenderComponent.get();
-	}
-
-	void BaseEntity::createRenderComponent()
-	{
-		if (!mRenderComponent)
-			mRenderComponent = unique<RenderComponent>(new RenderComponent(this));
-	}
+	private:
+		BaseEntity *mBaseEntity;
+	};
 }}}
+
+#endif
+

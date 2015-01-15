@@ -5,18 +5,28 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "BaseEntity.h"
+#include "RenderComponent.h"
+#include <Core/Mesh/OBJ.h>
 
 namespace t3d { namespace World { namespace Entity
 {
-	void BaseEntity::RenderComponent::loadMesh(const QString &filepath)
+	RenderComponent::RenderComponent(BaseEntity *baseEntity) :
+		Component(baseEntity)
 	{
-		mMesh.initWithFile(filepath);
 	}
 
 
-	void BaseEntity::RenderComponent::render(const Mat4 &cameraMatrix)
+	void RenderComponent::loadMesh(const QString &filepath)
 	{
-		mMesh.render(cameraMatrix);
+		mMesh = strong<OBJ>(new OBJ);
+		mMesh->initWithFile(filepath);
+	}
+
+
+	void RenderComponent::render(const Mat4 &cameraMatrix)
+	{
+		Mat4 transformation = glm::translate(baseEntity()->pos());
+
+		mMesh->render(cameraMatrix * transformation);
 	}
 }}}

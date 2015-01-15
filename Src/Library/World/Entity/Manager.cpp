@@ -6,6 +6,7 @@
 //==================================================================================================================|
 
 #include "Manager.h"
+#include "RenderComponent.h"
 
 namespace t3d { namespace World { namespace Entity
 {
@@ -17,9 +18,19 @@ namespace t3d { namespace World { namespace Entity
 
 	void Manager::init()
 	{
-		strong<BaseEntity> e1 = createEntity();
-		e1->createRenderComponent();
-		e1->renderComponent()->loadMesh("../Meshes/dualThing.obj");
+		{
+			strong<BaseEntity> e1 = createEntity();
+			e1->setPos(Vec3f(30, 0, 30));
+			e1->createRenderComponent();
+			e1->renderComponent()->loadMesh("../Meshes/plantSmall.obj");
+		}
+
+		{
+			strong<BaseEntity> e1 = createEntity();
+			e1->setPos(Vec3f(40, 2, 20));
+			e1->createRenderComponent();
+			e1->renderComponent()->loadMesh("../Meshes/dualThing.obj");
+		}
 	}
 
 

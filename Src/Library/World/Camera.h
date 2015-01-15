@@ -46,8 +46,6 @@ namespace t3d { namespace World
 		void finishedRendering();
 
 	public:
-		OBJ mObj;
-
 		Camera();
 
 		/**

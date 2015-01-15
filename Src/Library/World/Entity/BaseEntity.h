@@ -12,6 +12,8 @@
 
 namespace t3d { namespace World { namespace Entity
 {
+	class RenderComponent;
+
 	/**
 	 * @brief A central aggregate of components that make up a simulatable entity.
 	 *
@@ -26,14 +28,13 @@ namespace t3d { namespace World { namespace Entity
 	{
 	public:
 		BaseEntity(int id);
-		~BaseEntity() {}
+		~BaseEntity();
 
 		int id() const { return mId; }
+		void setPos(const Vec3f &pos) { mPos = pos; }
 		Vec3f pos() const { return mPos; }
 
-		class RenderComponent;
-
-		RenderComponent* renderComponent() const { return mRenderComponent.get(); }
+		RenderComponent* renderComponent() const;
 		void createRenderComponent();
 
 	private:
@@ -43,8 +44,6 @@ namespace t3d { namespace World { namespace Entity
 		unique<RenderComponent> mRenderComponent;
 	};
 }}}
-
-#include "RenderComponent.h"
 
 #endif
 

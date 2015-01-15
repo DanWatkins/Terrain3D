@@ -6,6 +6,7 @@
 //==================================================================================================================|
 
 #include "Renderer.h"
+#include "RenderComponent.h"
 
 namespace t3d { namespace World { namespace Entity
 {
@@ -20,7 +21,7 @@ namespace t3d { namespace World { namespace Entity
 		auto entityContainer = mManager->entityContainer();
 		for (strong<BaseEntity> entity : entityContainer)
 		{
-			if (BaseEntity::RenderComponent *cmp = entity->renderComponent())
+			if (RenderComponent *cmp = entity->renderComponent())
 				cmp->render(cameraMatrix);
 		}
 	}

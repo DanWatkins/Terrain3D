@@ -85,6 +85,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
     </CustomBuild>
+    <ClInclude Include="..\..\Src\Library\World\Entity\Component.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Data.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\FaultFormation.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\Generator.h" />
