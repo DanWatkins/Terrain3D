@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Library\Constants.h" />
+    <ClInclude Include="..\..\Src\Library\Core\AssetManager.h" />
     <ClInclude Include="..\..\Src\Library\Core\Core.h" />
     <ClInclude Include="..\..\Src\Library\Core\Helper.h" />
     <ClInclude Include="..\..\Src\Library\Core\Image.h" />
@@ -109,6 +110,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Library\Core\AssetManager.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Helper.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Image.cpp" />

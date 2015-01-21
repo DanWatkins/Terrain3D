@@ -5,12 +5,13 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_MANAGER_H
-#define _t3d_MANAGER_H
+#ifndef _t3d_World_Entity_Manager_H
+#define _t3d_World_Entity_Manager_H
 
 #include <Library.h>
 
 #include <World/Entity/BaseEntity.h>
+#include <Core/AssetManager.h>
 
 namespace t3d { namespace World { namespace Entity
 {
@@ -21,7 +22,7 @@ namespace t3d { namespace World { namespace Entity
 	public:
 		Manager();
 
-		void init();
+		void init(const AssetManager *assetManager);
 
 		strong<BaseEntity> createEntity();
 		strong<BaseEntity> findEntity(int id);
@@ -31,6 +32,7 @@ namespace t3d { namespace World { namespace Entity
 	private:
 		QVector<strong<BaseEntity>> mEntityContainer;	//TODO finish ReuseVector and use it here!
 		int mIdValueTrack;
+		const AssetManager *mAssetManager;
 	};
 }}}
 

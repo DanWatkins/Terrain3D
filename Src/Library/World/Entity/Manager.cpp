@@ -16,20 +16,22 @@ namespace t3d { namespace World { namespace Entity
 	}
 
 
-	void Manager::init()
+	void Manager::init(const AssetManager *assetManager)
 	{
+		mAssetManager = assetManager;
+
 		{
 			strong<BaseEntity> e1 = createEntity();
 			e1->setPos(Vec3f(30, 0, 30));
 			e1->createRenderComponent();
-			e1->renderComponent()->loadMesh("../Meshes/plantSmall.obj");
+			e1->renderComponent()->setMesh(mAssetManager->meshForName("PlantPR10y"));
 		}
 
 		{
 			strong<BaseEntity> e1 = createEntity();
 			e1->setPos(Vec3f(40, 2, 20));
 			e1->createRenderComponent();
-			e1->renderComponent()->loadMesh("../Meshes/dualThing.obj");
+			e1->renderComponent()->setMesh(mAssetManager->meshForName("DualThing"));
 		}
 	}
 

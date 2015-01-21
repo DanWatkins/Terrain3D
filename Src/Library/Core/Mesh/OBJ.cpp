@@ -31,7 +31,12 @@ namespace t3d
 		}
 
 
+		QString name() const { return mName; }
+
+
 	private:
+		QString mName;
+
 		bool parseFile(const QString &filepath)
 		{
 			QFile file(filepath);
@@ -120,6 +125,10 @@ namespace t3d
 
 				currentSubMesh()->mFaces.push_back(face);
 			}
+			else if (field.front() == "o" && field.count() == 2)
+			{
+				mName = field.at(1);
+			}
 			//comment
 			else if (field.at(0).startsWith("#"))
 			{
@@ -200,6 +209,7 @@ namespace t3d
 
 	bool OBJ::initWithFile(const QString &filepath)
 	{
+		qDebug() << "Loading mesh file " << filepath;
 		return mPrivate->initWithFile(filepath);
 	}
 
@@ -207,5 +217,11 @@ namespace t3d
 	void OBJ::render(const Mat4 &totalMatrix)
 	{
 		mPrivate->render(totalMatrix);
+	}
+
+
+	QString OBJ::name() const
+	{
+		return mPrivate->name();
 	}
 }

@@ -3,6 +3,10 @@
 
 #include <gtest/gtest.h>
 
+#include <QtCore/QString>
+
+const QString gTestDir = "./TestDir/";
+
 /**
  * First #define a class identifier. Then declare this followed
  * by a brace enclosed class declaration.

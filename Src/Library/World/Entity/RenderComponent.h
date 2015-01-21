@@ -23,11 +23,11 @@ namespace t3d { namespace World { namespace Entity
 		RenderComponent() = delete;
 		RenderComponent(BaseEntity *baseEntity);
 
-		void loadMesh(const QString &filepath);
+		void setMesh(weak<OBJ> mesh);
 		void render(const Mat4 &cameraMatrix);
 
 	private:
-		strong<OBJ> mMesh;
+		weak<OBJ> mMesh;
 	};
 }}}
 

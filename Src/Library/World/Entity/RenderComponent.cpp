@@ -16,10 +16,14 @@ namespace t3d { namespace World { namespace Entity
 	}
 
 
-	void RenderComponent::loadMesh(const QString &filepath)
+	void RenderComponent::setMesh(weak<OBJ> mesh)
 	{
-		mMesh = strong<OBJ>(new OBJ);
-		mMesh->initWithFile(filepath);
+		if (mesh.expired())
+		{
+			qDebug() << "Assigning expired mesh to RenderComponent for entity " << baseEntity()->id();
+		}
+
+		mMesh = mesh;
 	}
 
 
@@ -27,6 +31,6 @@ namespace t3d { namespace World { namespace Entity
 	{
 		Mat4 transformation = glm::translate(baseEntity()->pos());
 
-		mMesh->render(cameraMatrix * transformation);
+		mMesh.lock()->render(cameraMatrix * transformation);
 	}
 }}}

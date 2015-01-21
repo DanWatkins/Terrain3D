@@ -5,11 +5,12 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_WORLD_H
-#define _t3d_WORLD_H
+#ifndef _t3d_World_Environment_H
+#define _t3d_World_Environment_H
 
 #include <World/Terrain/Data.h>
 #include <World/Entity/Manager.h>
+#include <Core/AssetManager.h>
 
 namespace t3d { namespace World
 {
@@ -18,6 +19,7 @@ namespace t3d { namespace World
 	private:
 		Terrain::Data mTerrainData;
 		Entity::Manager mEntityManager;
+		AssetManager mAssetManager;
 
 	public:
 		struct Configuration

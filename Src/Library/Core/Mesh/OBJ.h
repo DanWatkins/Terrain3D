@@ -31,6 +31,9 @@ namespace t3d
 		 */
 		void render(const Mat4 &totalMatrix);
 
+
+		QString name() const;
+
 	private:
 		class OBJPrivate;
 		unique<OBJPrivate> mPrivate;

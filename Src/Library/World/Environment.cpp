@@ -42,6 +42,7 @@ namespace t3d { namespace World
 													mTerrainData.heightMap(),
 													configuration.generatorLightIntensity);
 
-		mEntityManager.init();
+		mAssetManager.loadMeshesFromDirectory("../Meshes");
+		mEntityManager.init(&mAssetManager);
 	}
 }}
