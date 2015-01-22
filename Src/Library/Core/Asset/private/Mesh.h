@@ -11,7 +11,7 @@
 #include <Library.h>
 #include <Core/OpenGLFunctions.h>
 
-namespace t3d { namespace Asset
+namespace t3d { namespace Asset { namespace priv
 {
 	class Mesh : protected OpenGLFunctions
 	{
@@ -75,7 +75,7 @@ namespace t3d { namespace Asset
 		void addVertexNormal(const Vertex &normal);
 		void addTextureCoordinate(const Vertex &texCoord);
 	};
-}}
+}}}
 
 #endif
 

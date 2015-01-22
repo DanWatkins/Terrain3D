@@ -10,7 +10,7 @@
 
 #include "Mesh.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace Asset { namespace priv
 {
 	class Mesh::MaterialData : public OpenGLFunctions
 	{
@@ -23,7 +23,7 @@ namespace t3d { namespace Asset
 		void uploadMaterialData(const QString &containingDirectory);
 		void bind();
 	};
-}}
+}}}
 
 #endif
 

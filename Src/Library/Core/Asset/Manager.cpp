@@ -20,7 +20,7 @@ namespace t3d { namespace Asset
 			{
 				if (info.suffix() == "obj")
 				{
-					strong<OBJ> obj(new OBJ);
+					strong<priv::OBJ> obj(new priv::OBJ);
 					if (obj->initWithFile(info.filePath()))
 						mMeshList.append(obj);
 				}
@@ -29,14 +29,14 @@ namespace t3d { namespace Asset
 	}
 
 
-	strong<OBJ> Manager::meshForName(const QString name) const
+	strong<priv::OBJ> Manager::meshForName(const QString name) const
 	{
-		QListIterator<strong<OBJ>> iter(mMeshList);
+		QListIterator<strong<priv::OBJ>> iter(mMeshList);
 		iter.toFront();
 
 		while (iter.hasNext())
 		{
-			strong<OBJ> current = iter.next();
+			strong<priv::OBJ> current = iter.next();
 			if (current->name() == name)
 				return current;
 		}

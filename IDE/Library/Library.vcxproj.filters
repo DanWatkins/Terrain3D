@@ -99,10 +99,7 @@
       <Filter>Src\World\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Library\Constants.h" />
-    <ClInclude Include="..\..\Src\Library\Core\Asset\MD2.h">
-      <Filter>Src\Core\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Asset\OBJ.h">
+    <ClInclude Include="..\..\Src\Library\Core\Asset\Manager.h">
       <Filter>Src\Core\Asset</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\FaceData.h">
@@ -111,14 +108,17 @@
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\MaterialData.h">
       <Filter>Src\Core\Asset\private</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\private\MD2.h">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\Mesh.h">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\private\OBJ.h">
       <Filter>Src\Core\Asset\private</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\SubMesh.h">
       <Filter>Src\Core\Asset\private</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Asset\Manager.h">
-      <Filter>Src\Core\Asset</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +200,7 @@
     <ClCompile Include="..\..\Src\Library\World\Entity\BaseEntity.cpp">
       <Filter>Src\World\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Asset\OBJ.cpp">
+    <ClCompile Include="..\..\Src\Library\Core\Asset\Manager.cpp">
       <Filter>Src\Core\Asset</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\FaceData.cpp">
@@ -212,11 +212,11 @@
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\Mesh.cpp">
       <Filter>Src\Core\Asset\private</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Asset\private\SubMesh.cpp">
+    <ClCompile Include="..\..\Src\Library\Core\Asset\private\OBJ.cpp">
       <Filter>Src\Core\Asset\private</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Asset\Manager.cpp">
-      <Filter>Src\Core\Asset</Filter>
+    <ClCompile Include="..\..\Src\Library\Core\Asset\private\SubMesh.cpp">
+      <Filter>Src\Core\Asset\private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

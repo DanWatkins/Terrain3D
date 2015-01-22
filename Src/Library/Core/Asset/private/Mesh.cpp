@@ -11,7 +11,7 @@
 #include "FaceData.h"
 #include "SubMesh.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace Asset { namespace priv
 {
 	Mesh::Mesh() :
 		mFaceData(new FaceData)
@@ -164,4 +164,4 @@ namespace t3d { namespace Asset
 			qFatal(formattedError.toStdString().c_str());
 		}
 	}
-}}
+}}}

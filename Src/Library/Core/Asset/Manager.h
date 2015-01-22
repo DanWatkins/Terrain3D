@@ -9,7 +9,7 @@
 #define _t3d_AssetManager_H
 
 #include <Library.h>
-#include <Core/Asset/OBJ.h>
+#include <Core/Asset/private/OBJ.h>
 
 namespace t3d { namespace Asset
 {
@@ -18,10 +18,10 @@ namespace t3d { namespace Asset
 	public:
 		void loadMeshesFromDirectory(const QString path);
 		int meshCount() const { return mMeshList.count(); }
-		strong<OBJ> meshForName(const QString name) const;
+		strong<priv::OBJ> meshForName(const QString name) const;
 
 	private:
-		QList<strong<OBJ>> mMeshList;
+		QList<strong<priv::OBJ>> mMeshList;
 	};
 }}
 

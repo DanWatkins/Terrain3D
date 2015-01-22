@@ -10,7 +10,7 @@
 
 #include <Library.h>
 
-namespace t3d { namespace Asset
+namespace t3d { namespace Asset { namespace priv
 {
 	/**
 	 * Wavefront OBJ mesh loader and renderer.
@@ -38,7 +38,7 @@ namespace t3d { namespace Asset
 		class OBJPrivate;
 		unique<OBJPrivate> mPrivate;
 	};
-}}
+}}}
 
 #endif
 

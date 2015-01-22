@@ -7,12 +7,12 @@
 
 #include "OBJ.h"
 
-#include "./private/Mesh.h"
-#include "./private/MaterialData.h"
-#include "./private/FaceData.h"
-#include "./private/SubMesh.h"
+#include "Mesh.h"
+#include "MaterialData.h"
+#include "FaceData.h"
+#include "SubMesh.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace Asset { namespace priv
 {
 	class OBJ::OBJPrivate : public Mesh
 	{
@@ -224,4 +224,4 @@ namespace t3d { namespace Asset
 	{
 		return mPrivate->name();
 	}
-}}
+}}}

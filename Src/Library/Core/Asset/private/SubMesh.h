@@ -11,7 +11,7 @@
 #include "Mesh.h"
 #include "FaceData.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace Asset { namespace priv
 {
 	class Mesh::SubMesh : public OpenGLFunctions
 	{
@@ -29,7 +29,7 @@ namespace t3d { namespace Asset
 		void uploadIndexData();
 		void uploadVertexData();
 	};
-}}
+}}}
 
 #endif
 

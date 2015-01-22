@@ -10,7 +10,7 @@
 
 #include "Mesh.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace Asset { namespace priv
 {
 	class Mesh::FaceData : public OpenGLFunctions
 	{
@@ -29,7 +29,7 @@ namespace t3d { namespace Asset
 	private:
 		void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
 	};
-}}
+}}}
 
 #endif
 
