@@ -25,7 +25,7 @@ namespace t3d { namespace World { namespace Entity
 			strong<BaseEntity> e1 = createEntity();
 			e1->setPos(Vec3f(20, 0, 20));
 			e1->createRenderComponent();
-			e1->renderComponent()->setMesh(mAssetManager->meshForName("Tree"));
+			e1->renderComponent()->setMesh(mAssetManager->meshForName("DualThing"));
 		}
 	}
 

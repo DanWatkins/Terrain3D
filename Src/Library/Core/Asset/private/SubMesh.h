@@ -8,10 +8,10 @@
 #ifndef _t3d_CORE_SUB_MESH_H
 #define _t3d_CORE_SUB_MESH_H
 
-#include "Mesh.h"
+#include <Core/Asset/Mesh.h>
 #include "FaceData.h"
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
 	class Mesh::SubMesh : public OpenGLFunctions
 	{
@@ -29,7 +29,7 @@ namespace t3d { namespace Asset { namespace priv
 		void uploadIndexData();
 		void uploadVertexData();
 	};
-}}}
+}}
 
 #endif
 

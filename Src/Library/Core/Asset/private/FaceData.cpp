@@ -7,7 +7,7 @@
 
 #include "FaceData.h"
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
 	void Mesh::FaceData::uploadData()
 	{
@@ -45,4 +45,4 @@ namespace t3d { namespace Asset { namespace priv
 			}
 		}
 	}
-}}}
+}}

@@ -8,9 +8,9 @@
 #ifndef _t3d_CORE_FACE_DATA_H
 #define _t3d_CORE_FACE_DATA_H
 
-#include "Mesh.h"
+#include <Core/Asset/Mesh.h>
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
 	class Mesh::FaceData : public OpenGLFunctions
 	{
@@ -29,7 +29,7 @@ namespace t3d { namespace Asset { namespace priv
 	private:
 		void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
 	};
-}}}
+}}
 
 #endif
 

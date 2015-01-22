@@ -8,7 +8,7 @@
 #include "MaterialData.h"
 #include <Core/Image.h>
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
 	void Mesh::MaterialData::uploadMaterialData(const QString &containingDirectory)
 	{
@@ -25,4 +25,4 @@ namespace t3d { namespace Asset { namespace priv
 		glActiveTexture(GL_TEXTURE5);
 		mTexture->bind();
 	}
-}}}
+}}

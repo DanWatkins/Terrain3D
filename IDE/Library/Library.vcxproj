@@ -13,10 +13,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\Library\Constants.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\Manager.h" />
+    <ClInclude Include="..\..\Src\Library\Core\Asset\Mesh.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\FaceData.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\MaterialData.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\MD2.h" />
-    <ClInclude Include="..\..\Src\Library\Core\Asset\private\Mesh.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\OBJ.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\SubMesh.h" />
     <ClInclude Include="..\..\Src\Library\Core\Core.h" />
@@ -111,9 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Library\Core\Asset\Manager.cpp" />
+    <ClCompile Include="..\..\Src\Library\Core\Asset\Mesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\FaceData.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\MaterialData.cpp" />
-    <ClCompile Include="..\..\Src\Library\Core\Asset\private\Mesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\OBJ.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\SubMesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp" />

@@ -7,7 +7,7 @@
 
 #include "SubMesh.h"
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
 	void Mesh::SubMesh::uploadData()
 	{
@@ -153,4 +153,4 @@ namespace t3d { namespace Asset { namespace priv
 				break;
 		}
 	}
-}}}
+}}

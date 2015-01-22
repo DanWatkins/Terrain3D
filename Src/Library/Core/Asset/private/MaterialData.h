@@ -8,9 +8,9 @@
 #ifndef _t3d_CORE_MATERIAL_DATA_H
 #define _t3d_CORE_MATERIAL_DATA_H
 
-#include "Mesh.h"
+#include <Core/Asset/Mesh.h>
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
 	class Mesh::MaterialData : public OpenGLFunctions
 	{
@@ -23,7 +23,7 @@ namespace t3d { namespace Asset { namespace priv
 		void uploadMaterialData(const QString &containingDirectory);
 		void bind();
 	};
-}}}
+}}
 
 #endif
 

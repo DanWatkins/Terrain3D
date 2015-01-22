@@ -10,35 +10,24 @@
 
 #include <Library.h>
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
-	/**
-	 * Wavefront OBJ mesh loader and renderer.
-	 */
+	class Mesh;
+
 	class OBJ
 	{
 	public:
-		OBJ();
-		~OBJ();
-
-		/**
-		 * Loads an OBJ mesh file into memory and prepares for rendering.
-		 */
-		bool initWithFile(const QString &filepath);
-
-		/**
-		 * 
-		 */
-		void render(const Mat4 &totalMatrix);
-
-
-		QString name() const;
+		bool initWithFile(const QString &filepath, Mesh *mesh);
 
 	private:
-		class OBJPrivate;
-		unique<OBJPrivate> mPrivate;
+		Mesh *mCurrentMesh;
+
+		bool parseFile(const QString &filepath);
+		bool parseField(const QStringList &field);
+		bool parseMaterialLib(const QString &filepath);
+		bool parseMaterialLibField(const QStringList &field);
 	};
-}}}
+}}
 
 #endif
 

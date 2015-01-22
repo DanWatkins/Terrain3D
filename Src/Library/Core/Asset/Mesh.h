@@ -5,25 +5,28 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_CORE_MESH_H
-#define _t3d_CORE_MESH_H
+#ifndef _t3d_Core_Asset_Mesh_H
+#define _t3d_Core_Asset_Mesh_H
 
 #include <Library.h>
 #include <Core/OpenGLFunctions.h>
+#include "./private/OBJ.h"
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace Asset
 {
 	class Mesh : protected OpenGLFunctions
 	{
 	public:
+		friend class OBJ;
 		Mesh();
 		void init();
+		bool initWithFile(const QString &filepath);
 		void render(const Mat4 &totalMatrix);
 
 		void setFilepath(const QString &filepath);
 		QString filepath() { return mFilepath; }
 		QString containingDirectory() { return mContainingDirectory; }
-		void setName(const QString &name);
+		void setName(const QString &name) { mName = name; }
 		QString name() { return mName; }
 
 	protected:
@@ -75,7 +78,7 @@ namespace t3d { namespace Asset { namespace priv
 		void addVertexNormal(const Vertex &normal);
 		void addTextureCoordinate(const Vertex &texCoord);
 	};
-}}}
+}}
 
 #endif
 
