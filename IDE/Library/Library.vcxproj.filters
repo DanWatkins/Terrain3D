@@ -24,12 +24,6 @@
     <Filter Include="Src\Core">
       <UniqueIdentifier>{20abb4c7-2357-4900-8e4b-f1fc2617cb6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Core\Mesh">
-      <UniqueIdentifier>{db6c9634-c428-4d76-a1e1-3cb5b63e9aa1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Core\Mesh\private">
-      <UniqueIdentifier>{ef58889c-fc6e-456e-842a-90066a8227dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\World">
       <UniqueIdentifier>{13f840fc-8fa4-4480-811e-b11a10ca9bbf}</UniqueIdentifier>
     </Filter>
@@ -44,6 +38,12 @@
     </Filter>
     <Filter Include="Src\World\Entity">
       <UniqueIdentifier>{2ddfeb19-880d-4ce6-9ff5-93ec033ac7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core\Asset">
+      <UniqueIdentifier>{d892ea26-e526-4dd4-95f9-0bb3e1ada5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core\Asset\private">
+      <UniqueIdentifier>{235cdf59-0e6d-4522-8b59-d22b778f5c58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -92,34 +92,34 @@
     <ClInclude Include="..\..\Src\Library\World\Terrain\Utility.h">
       <Filter>Src\World\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Mesh\MD2.h">
-      <Filter>Src\Core\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Mesh\OBJ.h">
-      <Filter>Src\Core\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Mesh\private\FaceData.h">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Mesh\private\MaterialData.h">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Mesh\private\SubMesh.h">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\Mesh\private\Mesh.h">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Library\World\Environment.h">
       <Filter>Src\World</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Library\World\Entity\Component.h">
       <Filter>Src\World\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Core\AssetManager.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Library\Constants.h" />
+    <ClInclude Include="..\..\Src\Library\Core\Asset\MD2.h">
+      <Filter>Src\Core\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\OBJ.h">
+      <Filter>Src\Core\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\private\FaceData.h">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\private\MaterialData.h">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\private\Mesh.h">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\private\SubMesh.h">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Asset\Manager.h">
+      <Filter>Src\Core\Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_FPSCounter.cpp">
@@ -179,21 +179,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_Camera.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Mesh\OBJ.cpp">
-      <Filter>Src\Core\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Mesh\private\FaceData.cpp">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Mesh\private\MaterialData.cpp">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Mesh\private\SubMesh.cpp">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\Mesh\private\Mesh.cpp">
-      <Filter>Src\Core\Mesh\private</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Library\World\Environment.cpp">
       <Filter>Src\World</Filter>
     </ClCompile>
@@ -215,8 +200,23 @@
     <ClCompile Include="..\..\Src\Library\World\Entity\BaseEntity.cpp">
       <Filter>Src\World\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\AssetManager.cpp">
-      <Filter>Src\Core</Filter>
+    <ClCompile Include="..\..\Src\Library\Core\Asset\OBJ.cpp">
+      <Filter>Src\Core\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Asset\private\FaceData.cpp">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Asset\private\MaterialData.cpp">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Asset\private\Mesh.cpp">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Asset\private\SubMesh.cpp">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\Asset\Manager.cpp">
+      <Filter>Src\Core\Asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

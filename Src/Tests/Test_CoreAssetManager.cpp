@@ -7,7 +7,7 @@
 
 #include "Tests.h"
 
-#include <Core/AssetManager.h>
+#include <Core/Asset/Manager.h>
 
 using namespace t3d;
 #define CLASS Test_CoreAssetManager

@@ -10,7 +10,7 @@
 
 #include <World/Terrain/Data.h>
 #include <World/Entity/Manager.h>
-#include <Core/AssetManager.h>
+#include <Core/Asset/Manager.h>
 
 namespace t3d { namespace World
 {
@@ -19,7 +19,7 @@ namespace t3d { namespace World
 	private:
 		Terrain::Data mTerrainData;
 		Entity::Manager mEntityManager;
-		AssetManager mAssetManager;
+		Asset::Manager mAssetManager;
 
 	public:
 		struct Configuration

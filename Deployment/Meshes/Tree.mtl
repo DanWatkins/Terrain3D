@@ -1,0 +1,5 @@
+newmtl Bark
+map_Kd ./bark.png
+
+newmtl Leaf
+map_Kd ./leaf.png

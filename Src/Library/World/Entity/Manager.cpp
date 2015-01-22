@@ -16,25 +16,18 @@ namespace t3d { namespace World { namespace Entity
 	}
 
 
-	void Manager::init(const AssetManager *assetManager)
+	void Manager::init(const Asset::Manager *assetManager)
 	{
 		mAssetManager = assetManager;
 
-		{
-			strong<BaseEntity> e1 = createEntity();
-			e1->setPos(Vec3f(30, 0, 30));
-			e1->createRenderComponent();
-			e1->renderComponent()->setMesh(mAssetManager->meshForName("PlantPR10y"));
-		}
 
 		{
 			strong<BaseEntity> e1 = createEntity();
-			e1->setPos(Vec3f(40, 2, 20));
+			e1->setPos(Vec3f(20, 0, 20));
 			e1->createRenderComponent();
-			e1->renderComponent()->setMesh(mAssetManager->meshForName("DualThing"));
+			e1->renderComponent()->setMesh(mAssetManager->meshForName("Tree"));
 		}
 	}
-
 
 	strong<BaseEntity> Manager::createEntity()
 	{
