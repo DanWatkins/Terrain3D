@@ -9,7 +9,7 @@
 
 namespace t3d { namespace Asset
 {
-	void Mesh::MeshPrivate::FaceData::uploadData()
+	void mesh_p::FaceData::uploadData()
 	{
 		initializeOpenGLFunctions();
 
@@ -19,7 +19,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::FaceData::bind()
+	void mesh_p::FaceData::bind()
 	{
 		glActiveTexture(GL_TEXTURE2);
 			glBindTexture(GL_TEXTURE_BUFFER, bufferVertexPositions);
@@ -30,7 +30,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::FaceData::uploadBufferAttribute(GLenum textureUnit, const QVector<Mesh::MeshPrivate::Vertex> &data, GLuint &textureName)
+	void mesh_p::FaceData::uploadBufferAttribute(GLenum textureUnit, const QVector<mesh_p::Vertex> &data, GLuint &textureName)
 	{
 		glActiveTexture(textureUnit);
 		glGenTextures(1, &textureName);

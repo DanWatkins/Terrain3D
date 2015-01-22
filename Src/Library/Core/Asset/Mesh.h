@@ -13,21 +13,17 @@
 
 namespace t3d { namespace Asset
 {
-	class OBJ;
-
 	class Mesh
 	{
 	public:
-		friend class OBJ;
-
 		Mesh();
 		bool initWithFile(const QString &filepath);
 		void render(const Mat4 &totalMatrix);
 		QString name() const;
 
+		class MeshPrivate;
 
 	private:
-		class MeshPrivate;
 		strong<MeshPrivate> mPrivate;
 	};
 }}

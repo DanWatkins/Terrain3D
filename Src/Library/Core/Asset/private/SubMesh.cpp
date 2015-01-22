@@ -9,7 +9,7 @@
 
 namespace t3d { namespace Asset
 {
-	void Mesh::MeshPrivate::SubMesh::uploadData()
+	void mesh_p::SubMesh::uploadData()
 	{
 		initializeOpenGLFunctions();
 
@@ -23,7 +23,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::SubMesh::uploadIndexData()
+	void mesh_p::SubMesh::uploadIndexData()
 	{
 		GLuint ibo;
 		glGenBuffers(1, &ibo);
@@ -36,7 +36,7 @@ namespace t3d { namespace Asset
 			for (Face f : mFaces)
 			{
 				if (!indexBuffer.isEmpty())
-					indexBuffer.append(Mesh::MeshPrivate::PrimitiveRestartIndex);
+					indexBuffer.append(mesh_p::PrimitiveRestartIndex);
 
 				for (int v : f.vertexIndex)
 				{
@@ -51,7 +51,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::SubMesh::uploadVertexData()
+	void mesh_p::SubMesh::uploadVertexData()
 	{
 		GLuint vbo;
 		glGenBuffers(1, &vbo);
@@ -101,7 +101,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::SubMesh::render()
+	void mesh_p::SubMesh::render()
 	{
 		glBindVertexArray(mVao);
 		{
@@ -113,7 +113,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::SubMesh::checkForErrors(const FaceData *faceData, QString &error)
+	void mesh_p::SubMesh::checkForErrors(const FaceData *faceData, QString &error)
 	{
 		if (mFaces.count() == 0)
 		{

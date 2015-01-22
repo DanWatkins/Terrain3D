@@ -77,6 +77,8 @@ namespace t3d { namespace Asset
 		void addVertexNormal(const Vertex &normal);
 		void addTextureCoordinate(const Vertex &texCoord);
 	};
+
+	typedef Mesh::MeshPrivate mesh_p;
 }}
 
 #endif

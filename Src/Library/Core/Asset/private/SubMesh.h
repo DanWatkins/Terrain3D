@@ -13,7 +13,7 @@
 
 namespace t3d { namespace Asset
 {
-	class Mesh::MeshPrivate::SubMesh : public OpenGLFunctions
+	class mesh_p::SubMesh : public OpenGLFunctions
 	{
 	public:
 		GLuint mVao;

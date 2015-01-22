@@ -15,12 +15,12 @@
 
 namespace t3d { namespace Asset
 {
-	Mesh::MeshPrivate::MeshPrivate() :
+	mesh_p::MeshPrivate() :
 		mFaceData(new FaceData)
 	{
 	}
 
-	void Mesh::MeshPrivate::render(const Mat4 &totalMatrix)
+	void mesh_p::render(const Mat4 &totalMatrix)
 	{
 		mProgram.bind();
 		{
@@ -52,7 +52,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::init()
+	void mesh_p::init()
 	{
 		initializeOpenGLFunctions();
 
@@ -73,50 +73,50 @@ namespace t3d { namespace Asset
 	}
 
 
-	bool Mesh::MeshPrivate::initWithFile(const QString &filepath)
+	bool mesh_p::initWithFile(const QString &filepath)
 	{
 		return OBJ().initWithFile(filepath, this);
 	}
 
 
-	void Mesh::MeshPrivate::setFilepath(const QString &filepath)
+	void mesh_p::setFilepath(const QString &filepath)
 	{
 		mFilepath = filepath;
 		mContainingDirectory = "../Meshes/"; //TODO big hack
 	}
 
 
-	void Mesh::MeshPrivate::makeSubMesh()
+	void mesh_p::makeSubMesh()
 	{
 		mSubMesh.append(strong<SubMesh>(new SubMesh));
 	}
 	
 	
-	strong<Mesh::MeshPrivate::SubMesh> Mesh::MeshPrivate::currentSubMesh()
+	strong<mesh_p::SubMesh> mesh_p::currentSubMesh()
 	{
 		return mSubMesh.last();
 	}
 
 
-	void Mesh::MeshPrivate::addVertexPosition(const Mesh::MeshPrivate::Vertex &vertex)
+	void mesh_p::addVertexPosition(const mesh_p::Vertex &vertex)
 	{
 		mFaceData->mVertecies.push_back(vertex);
 	}
 
 
-	void Mesh::MeshPrivate::addVertexNormal(const Mesh::MeshPrivate::Vertex &normal)
+	void mesh_p::addVertexNormal(const mesh_p::Vertex &normal)
 	{
 		mFaceData->mVertexNormals.push_back(normal);
 	}
 
 
-	void Mesh::MeshPrivate::addTextureCoordinate(const Mesh::MeshPrivate::Vertex &texCoord)
+	void mesh_p::addTextureCoordinate(const mesh_p::Vertex &texCoord)
 	{
 		mFaceData->mTextureCoordinates.push_back(texCoord);
 	}
 
 	
-	void Mesh::MeshPrivate::loadShaders()
+	void mesh_p::loadShaders()
 	{
 		QOpenGLShader vertexShader(QOpenGLShader::Vertex, nullptr);
 		vertexShader.compileSourceFile(gDefaultPathShaders + "mesh-vert.glsl");
@@ -133,7 +133,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::uploadData()
+	void mesh_p::uploadData()
 	{
 		checkForErrors();
 
@@ -147,7 +147,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MeshPrivate::checkForErrors()
+	void mesh_p::checkForErrors()
 	{
 		QString error;
 

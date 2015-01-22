@@ -16,10 +16,10 @@ namespace t3d { namespace Asset
 	class OBJ
 	{
 	public:
-		bool initWithFile(const QString &filepath, Mesh::MeshPrivate *mesh);
+		bool initWithFile(const QString &filepath, mesh_p *mesh);
 
 	private:
-		Mesh::MeshPrivate *mCurrentMesh;
+		mesh_p *mCurrentMesh;
 
 		bool parseFile(const QString &filepath);
 		bool parseField(const QStringList &field);
