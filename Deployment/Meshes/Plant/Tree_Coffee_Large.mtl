@@ -1,0 +1,11 @@
+newmtl Bark1
+map_Kd /TR08brk1.tif
+
+newmtl Bark2
+map_Kd /TR08brk2.tif
+
+newmtl Fruit1
+map_Kd /TR08frt1.tif
+
+newmtl Leaf1
+map_Kd /TR08lef1.tif
