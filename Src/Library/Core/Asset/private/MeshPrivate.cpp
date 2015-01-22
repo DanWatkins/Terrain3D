@@ -67,7 +67,6 @@ namespace t3d { namespace Asset
 
 			glEnable(GL_PRIMITIVE_RESTART);
 			glPrimitiveRestartIndex(PrimitiveRestartIndex);
-			
 		}
 		mProgram.release();
 	}
@@ -82,7 +81,7 @@ namespace t3d { namespace Asset
 	void mesh_p::setFilepath(const QString &filepath)
 	{
 		mFilepath = filepath;
-		mContainingDirectory = "../Meshes/"; //TODO big hack
+		mContainingDirectory = QFileInfo(filepath).absolutePath() + "/";
 	}
 
 
@@ -127,9 +126,7 @@ namespace t3d { namespace Asset
 		mProgram.addShader(&fragmentShader);
 
 		if (mProgram.link() == false)
-			printf("Problem linking Mesh mesh shadres\n");
-		else
-			printf("Initialized Mesh mesh shaders\n");
+			qDebug() << "Problem linking Mesh mesh shadres";
 	}
 
 

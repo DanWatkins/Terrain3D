@@ -45,7 +45,7 @@ namespace t3d { namespace Asset
 
 			if (!parseField(field))
 			{
-				qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
+				//qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
 			}
 
 			++lineNumber;
@@ -155,7 +155,7 @@ namespace t3d { namespace Asset
 
 			if (!parseMaterialLibField(field))
 			{
-				qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
+				//qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
 			}
 
 			++lineNumber;

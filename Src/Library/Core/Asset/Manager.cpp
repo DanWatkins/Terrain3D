@@ -11,6 +11,8 @@ namespace t3d { namespace Asset
 {
 	void Manager::loadMeshesFromDirectory(const QString path)
 	{
+		qDebug() << "Loading meshes...";
+
 		QDirIterator iter(path, QDirIterator::Subdirectories);
 		while (iter.hasNext())
 		{
