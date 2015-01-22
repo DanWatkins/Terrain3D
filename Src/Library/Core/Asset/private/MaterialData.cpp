@@ -10,7 +10,7 @@
 
 namespace t3d { namespace Asset
 {
-	void Mesh::MaterialData::uploadMaterialData(const QString &containingDirectory)
+	void Mesh::MeshPrivate::MaterialData::uploadMaterialData(const QString &containingDirectory)
 	{
 		initializeOpenGLFunctions();
 
@@ -20,7 +20,7 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::MaterialData::bind()
+	void Mesh::MeshPrivate::MaterialData::bind()
 	{
 		glActiveTexture(GL_TEXTURE5);
 		mTexture->bind();

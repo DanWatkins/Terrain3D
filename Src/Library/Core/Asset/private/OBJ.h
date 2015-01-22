@@ -9,18 +9,17 @@
 #define _t3d_CORE_OBJ_H
 
 #include <Library.h>
+#include "MeshPrivate.h"
 
 namespace t3d { namespace Asset
 {
-	class Mesh;
-
 	class OBJ
 	{
 	public:
-		bool initWithFile(const QString &filepath, Mesh *mesh);
+		bool initWithFile(const QString &filepath, Mesh::MeshPrivate *mesh);
 
 	private:
-		Mesh *mCurrentMesh;
+		Mesh::MeshPrivate *mCurrentMesh;
 
 		bool parseFile(const QString &filepath);
 		bool parseField(const QStringList &field);

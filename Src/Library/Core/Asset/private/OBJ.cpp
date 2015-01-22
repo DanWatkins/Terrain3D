@@ -7,15 +7,13 @@
 
 #include "OBJ.h"
 
-#include <Core/Asset/Mesh.h>
-
 #include "MaterialData.h"
 #include "FaceData.h"
 #include "SubMesh.h"
 
 namespace t3d { namespace Asset
 {
-	bool OBJ::initWithFile(const QString &filepath, Mesh *mesh)
+	bool OBJ::initWithFile(const QString &filepath, Mesh::MeshPrivate *mesh)
 	{
 		mCurrentMesh = mesh;
 		mCurrentMesh->setFilepath(filepath);
@@ -74,7 +72,7 @@ namespace t3d { namespace Asset
 		//vertex
 		else if (field.front() == "v" && field.count() == 4)
 		{
-			Mesh::Vertex vertex;
+			Mesh::MeshPrivate::Vertex vertex;
 			vertex.values[0] = field.at(1).toFloat();
 			vertex.values[1] = field.at(2).toFloat();
 			vertex.values[2] = field.at(3).toFloat();
@@ -83,7 +81,7 @@ namespace t3d { namespace Asset
 		//vertex normal
 		else if (field.front() == "vn" && field.count() == 4)
 		{
-			Mesh::Vertex vertex;
+			Mesh::MeshPrivate::Vertex vertex;
 			vertex.values[0] = field.at(1).toFloat();
 			vertex.values[1] = field.at(2).toFloat();
 			vertex.values[2] = field.at(3).toFloat();
@@ -92,7 +90,7 @@ namespace t3d { namespace Asset
 		//vertex texture coordinate
 		else if (field.front() == "vt" && (field.count() == 3 || field.count() == 4))
 		{
-			Mesh::Vertex vertex;
+			Mesh::MeshPrivate::Vertex vertex;
 			vertex.values[0] = field.at(1).toFloat();
 			vertex.values[1] = field.at(2).toFloat();
 			if (field.count() == 4)
@@ -102,7 +100,7 @@ namespace t3d { namespace Asset
 		//face
 		else if (field.front() == "f"  &&  field.size() >= 4)
 		{
-			Mesh::Face face;
+			Mesh::MeshPrivate::Face face;
 
 			for (int i=0; i<field.size()-1; i++)
 			{
@@ -172,7 +170,7 @@ namespace t3d { namespace Asset
 		//new material
 		if (field.front() == "newmtl" && field.count() == 2)
 		{
-			mCurrentMesh->mMaterials.append(strong<Mesh::MaterialData>(new Mesh::MaterialData));
+			mCurrentMesh->mMaterials.append(strong<Mesh::MeshPrivate::MaterialData>(new Mesh::MeshPrivate::MaterialData));
 			mCurrentMesh->mMaterials.last()->mName = field.at(1);
 		}
 		//texture map - diffuse

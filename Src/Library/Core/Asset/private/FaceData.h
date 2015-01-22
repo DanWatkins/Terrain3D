@@ -8,11 +8,11 @@
 #ifndef _t3d_CORE_FACE_DATA_H
 #define _t3d_CORE_FACE_DATA_H
 
-#include <Core/Asset/Mesh.h>
+#include "MeshPrivate.h"
 
 namespace t3d { namespace Asset
 {
-	class Mesh::FaceData : public OpenGLFunctions
+	class Mesh::MeshPrivate::FaceData : public OpenGLFunctions
 	{
 	public:  //TODO massive
 		QVector<Vertex> mVertecies;

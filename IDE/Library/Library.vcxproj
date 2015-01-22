@@ -17,6 +17,7 @@
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\FaceData.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\MaterialData.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\MD2.h" />
+    <ClInclude Include="..\..\src\library\core\asset\private\MeshPrivate.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\OBJ.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\SubMesh.h" />
     <ClInclude Include="..\..\Src\Library\Core\Core.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="..\..\Src\Library\Core\Asset\Mesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\FaceData.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\MaterialData.cpp" />
+    <ClCompile Include="..\..\src\library\core\asset\private\MeshPrivate.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\OBJ.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\SubMesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp" />

@@ -8,12 +8,12 @@
 #ifndef _t3d_CORE_SUB_MESH_H
 #define _t3d_CORE_SUB_MESH_H
 
-#include <Core/Asset/Mesh.h>
+#include "MeshPrivate.h"
 #include "FaceData.h"
 
 namespace t3d { namespace Asset
 {
-	class Mesh::SubMesh : public OpenGLFunctions
+	class Mesh::MeshPrivate::SubMesh : public OpenGLFunctions
 	{
 	public:
 		GLuint mVao;

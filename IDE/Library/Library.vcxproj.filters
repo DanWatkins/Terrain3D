@@ -120,6 +120,9 @@
     <ClInclude Include="..\..\Src\Library\Core\Asset\Mesh.h">
       <Filter>Src\Core\Asset</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\library\core\asset\private\MeshPrivate.h">
+      <Filter>Src\Core\Asset\private</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_FPSCounter.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Library\Core\Asset\Mesh.cpp">
       <Filter>Src\Core\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\library\core\asset\private\MeshPrivate.cpp">
+      <Filter>Src\Core\Asset\private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
