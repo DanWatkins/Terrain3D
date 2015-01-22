@@ -82,6 +82,7 @@ namespace t3d { namespace World
 		Mat4 orientaion() const;
 		void setAspectRatio(float aspectRatio) { mAspectRatio = aspectRatio; }
 		float aspectRatio() { return mAspectRatio; }
+		void setLodFactor(float lodFactor);
 
 		void lookAt(Vec3f position);
 		Vec3f forward() const;

@@ -119,7 +119,8 @@ namespace t3d { namespace World { namespace Terrain
 				{
 					for (int x=0; x<numberOfBlocksOnASide; x++)
 					{
-						blockLod[x][y] = lodForDistance(lodDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y), mRenderData->blockSize()), mRenderData->blockSize());
+						double distance = lodDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y), mRenderData->blockSize());
+						blockLod[x][y] = lodForDistance(distance, mRenderData->blockSize(), mLodFactor);
 					}
 				}
 

@@ -31,6 +31,7 @@ namespace t3d { namespace World { namespace Terrain
 		void cleanup();
 		void render(Vec3f cameraPos, Mat4 totalMatrix);
 
+		void setLodFactor(float lodFactor) { mLodFactor = lodFactor; }
 		void setMode(Mode mode) { mMode = mode; }
 		Mode getMode() { return mMode; }
 
@@ -44,8 +45,9 @@ namespace t3d { namespace World { namespace Terrain
 		GLuint mVao;
 		GLuint mTexture[2];
 		GLuint mVbo[2];
-		Mode mMode;
 
+		float mLodFactor;
+		Mode mMode;
 
 		struct Uniforms
 		{

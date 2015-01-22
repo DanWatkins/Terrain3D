@@ -63,7 +63,6 @@ namespace t3d
 	void Terrain3D::toggleCaptureCursor()
 	{
 		setCapturesCursor(!capturesCursor());
-		//TODO add as setting
 	}
 
 
@@ -143,7 +142,7 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraLOD) {
-				//TODO implement a LOD factor!
+				mCamera.lock()->setLodFactor(value.toFloat());
 				break;
 			}
 			CASE(GraphicsCameraWireframe) {
