@@ -20,7 +20,7 @@ namespace t3d { namespace Asset
 
 			if (info.isFile())
 			{
-				if (info.suffix() == "obj")
+				if (info.suffix() == "t3m")
 				{
 					strong<Mesh> mesh(new Mesh);
 					if (mesh->initWithFile(info.filePath()))

@@ -25,8 +25,10 @@ namespace t3d { namespace Asset
 		void setFilepath(const QString &filepath);
 		QString filepath() const { return mFilepath; }
 		QString containingDirectory() const { return mContainingDirectory; }
+		
 		void setName(const QString &name) { mName = name; }
 		QString name() const { return mName; }
+		void setBaseScale(const Vec3f &baseScale) { mBaseScale = baseScale; }
 
 	protected:
 		struct Vertex
@@ -52,8 +54,10 @@ namespace t3d { namespace Asset
 	private:
 		QString mContainingDirectory;
 		QString mFilepath;
-		QString mName;
 		QOpenGLShaderProgram mProgram;
+
+		QString mName;
+		Vec3f mBaseScale;
 
 		strong<FaceData> mFaceData;
 		QList<strong<SubMesh>> mSubMesh;
@@ -62,7 +66,7 @@ namespace t3d { namespace Asset
 		{
 			GLuint matrixCamera;
 			GLuint matrixModel;
-			GLint indexCount;
+			GLuint indexCount;
 		} mUniforms;
 
 		void loadShaders();

@@ -5,12 +5,13 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "MeshPrivate.h"
+#include <QtCore/QJsonDocument>
+#include <QtCore/QJsonObject>
 
+#include "MeshPrivate.h"
 #include "SubMesh.h"
 #include "FaceData.h"
 #include "MaterialData.h"
-
 #include "OBJ.h"
 
 namespace t3d { namespace Asset
@@ -24,7 +25,9 @@ namespace t3d { namespace Asset
 	{
 		mProgram.bind();
 		{
-			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
+			Mat4 resultMatrix = totalMatrix * glm::scale(mBaseScale);
+
+			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(resultMatrix));
 			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
 							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
 
@@ -74,7 +77,21 @@ namespace t3d { namespace Asset
 
 	bool mesh_p::initWithFile(const QString &filepath)
 	{
-		return OBJ().initWithFile(filepath, this);
+		QFile file(filepath);
+		if (!file.open(QIODevice::ReadOnly))
+			return false;
+
+		QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+		QJsonObject object = doc.object();
+
+		setName(object["name"].toString());
+
+		QJsonArray scale = object["baseScale"].toArray();
+		setBaseScale(Vec3f(scale[0].toDouble(), scale[1].toDouble(), scale[2].toDouble()));
+
+		QString meshFile = object["meshFile"].toString();
+
+		return OBJ().initWithFile(QFileInfo(filepath).absolutePath() + "/" + meshFile, this);
 	}
 
 

@@ -32,6 +32,12 @@ namespace t3d { namespace Asset
 
 	void mesh_p::FaceData::uploadBufferAttribute(GLenum textureUnit, const QVector<mesh_p::Vertex> &data, GLuint &textureName)
 	{
+		if (data.isEmpty())
+		{
+			qDebug() << "Warning: Empty vertex attribute data for FaceData";
+			return;
+		}
+
 		glActiveTexture(textureUnit);
 		glGenTextures(1, &textureName);
 		glBindTexture(GL_TEXTURE_BUFFER, textureName);

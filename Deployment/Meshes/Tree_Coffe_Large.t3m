@@ -1,0 +1,5 @@
+{
+	"name": "Tree_Coffee_Large",
+	"meshFile": "/Plant/Tree_Coffee_Large.obj",
+	"baseScale": [0.05, 0.05, 0.05]
+}
