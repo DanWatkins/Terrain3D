@@ -8,7 +8,9 @@
 #include "Environment.h"
 #include <World/Terrain/Generator/FaultFormation.h>
 #include <World/Terrain/Lighting/Slope.h>
-#include <stdio.h>
+
+#include <World/Entity/BaseEntity.h>
+#include <World/Entity/RenderComponent.h>
 
 namespace t3d { namespace World
 {
@@ -44,5 +46,36 @@ namespace t3d { namespace World
 
 		mAssetManager.loadMeshesFromDirectory("../Meshes");
 		mEntityManager.init(&mAssetManager);
+
+		generateEntities();
+	}
+
+
+	void Environment::generateEntities()
+	{
+		Terrain::HeightMap &hm = mTerrainData.heightMap();
+		const int density = 8;
+		const int NumTreesAttempt = (density*hm.size()/64) * (density*hm.size()/64);
+
+		//randomly place trees on the "grass" areas
+		for (int i=0; i<NumTreesAttempt; i++)
+		{
+			int x = randInt(0, hm.size()-1);
+			int y = randInt(0, hm.size()-1);
+
+			//is there grass at this texture index?
+			int res = mTerrainData.textureMapResolution();
+			if (mTerrainData.textureIndicies()[x*res + y*hm.size()*res] == 2)
+			{
+				strong<Entity::BaseEntity> e1 = mEntityManager.createEntity();
+				
+				float height = hm.get(x, y);
+				e1->setPos(Vec3f(x, 20*height, y));	//hardcoded, GROSS TODO
+
+				e1->createRenderComponent();
+				QString treeName = (randFloat() < 0.3f) ? "Tree_Ash_Medium" : "Tree_Coffee_Large";
+				e1->renderComponent()->setMesh(mAssetManager.meshForName(treeName));
+			}
+		}
 	}
 }}

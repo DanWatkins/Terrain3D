@@ -19,14 +19,6 @@ namespace t3d { namespace World { namespace Entity
 	void Manager::init(const Asset::Manager *assetManager)
 	{
 		mAssetManager = assetManager;
-
-
-		{
-			strong<BaseEntity> e1 = createEntity();
-			e1->setPos(Vec3f(20, 15, 20));
-			e1->createRenderComponent();
-			e1->renderComponent()->setMesh(mAssetManager->meshForName("Tree_Ash_Medium"));
-		}
 	}
 
 	strong<BaseEntity> Manager::createEntity()

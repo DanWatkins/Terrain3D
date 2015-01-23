@@ -16,11 +16,6 @@ namespace t3d { namespace World
 {
 	class Environment
 	{
-	private:
-		Terrain::Data mTerrainData;
-		Entity::Manager mEntityManager;
-		Asset::Manager mAssetManager;
-
 	public:
 		struct Configuration
 		{
@@ -38,6 +33,14 @@ namespace t3d { namespace World
 
 		Terrain::Data& terrainData() { return mTerrainData; }
 		Entity::Manager& entityManager() { return mEntityManager; }
+
+
+	private:
+		void generateEntities();
+
+		Terrain::Data mTerrainData;
+		Entity::Manager mEntityManager;
+		Asset::Manager mAssetManager;
 	};
 }}
 
