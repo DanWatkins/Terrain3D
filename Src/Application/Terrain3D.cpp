@@ -196,37 +196,31 @@ namespace t3d
 //========================================
 // Private
 //========================================
+	void Terrain3D::focusOutEvent(QFocusEvent *ev)
+	{
+		OpenGLQuickView::focusOutEvent(ev);
+		mMovementKeys.clear();
+	}
+
+
 	void Terrain3D::keyPressEvent(QKeyEvent *ev)
 	{
-		QQuickView::keyPressEvent(ev);
-
+		OpenGLQuickView::keyPressEvent(ev);
 		using namespace World::Terrain;
-		const float speed = 1.75f;
-
-		//update the camera
-		if (!mCamera.expired() && !mCameraItem->isFrozen())
-		{
-			switch (ev->key())
-			{
-				case Qt::Key_W:
-					mCamera.lock()->incPosition(speed * mCamera.lock()->forward()); break;
-				case Qt::Key_S:
-					mCamera.lock()->incPosition(speed * -mCamera.lock()->forward()); break;
-				case Qt::Key_A:
-					mCamera.lock()->incPosition(speed * -mCamera.lock()->right()); break;
-				case Qt::Key_D:
-					mCamera.lock()->incPosition(speed * mCamera.lock()->right()); break;
-
-				case Qt::Key_X:
-					toggleWireframe();
-			}
-		}
 
 		switch (ev->key())
 		{
 			//quit
 			case Qt::Key_Escape:
 				close(); break;
+
+			case Qt::Key_X:
+			{
+				if (!mCamera.expired() && !mCameraItem->isFrozen())
+					toggleWireframe();
+
+				break;
+			}
 
 			//toggle cursor capture
 			case Qt::Key_F1:
@@ -242,12 +236,54 @@ namespace t3d
 
 			//toggle fullscreen
 			case Qt::Key_F11: toggleFullscreen(); break;
+
+			case Qt::Key_W:
+				mMovementKeys.w = true; break;
+			case Qt::Key_A:
+				mMovementKeys.a = true; break;
+			case Qt::Key_S:
+				mMovementKeys.s = true; break;
+			case Qt::Key_D:
+				mMovementKeys.d = true; break;
+		}
+	}
+
+
+
+	void Terrain3D::keyReleaseEvent(QKeyEvent *ev)
+	{
+		OpenGLQuickView::keyReleaseEvent(ev);
+		
+		switch (ev->key())
+		{
+		case Qt::Key_W:
+			mMovementKeys.w = false; break;
+		case Qt::Key_A:
+			mMovementKeys.a = false; break;
+		case Qt::Key_S:
+			mMovementKeys.s = false; break;
+		case Qt::Key_D:
+			mMovementKeys.d = false; break;
 		}
 	}
 
 
 	void Terrain3D::updateCursorPos()
 	{
+		if (!mCamera.expired() && !mCameraItem->isFrozen())
+		{
+			float speed = 0.06f;
+
+			if (mMovementKeys.w)
+				mCamera.lock()->incPosition(speed * mCamera.lock()->forward());
+			if (mMovementKeys.s)
+				mCamera.lock()->incPosition(speed * -mCamera.lock()->forward());
+			if (mMovementKeys.a)
+				mCamera.lock()->incPosition(speed * -mCamera.lock()->right());
+			if (mMovementKeys.d)
+				mCamera.lock()->incPosition(speed * mCamera.lock()->right());
+		}
+
 		if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
 			return;
 

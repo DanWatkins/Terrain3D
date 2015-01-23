@@ -93,7 +93,17 @@ namespace t3d
 		FPSCounter mFPSCounter;
 
 	private:
+		struct MovementKeys
+		{
+			bool w, a, s, d;
+			MovementKeys() { clear(); }
+			void clear() { w=a=s=d=false; }
+		}mMovementKeys;
+
+		void focusOutEvent(QFocusEvent *ev) override;
 		void keyPressEvent(QKeyEvent *ev) override;
+		void keyReleaseEvent(QKeyEvent *ev) override;
+		
 
 		void updateCursorPos();
 		void loadUserSettings();
