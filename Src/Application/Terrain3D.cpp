@@ -272,7 +272,7 @@ namespace t3d
 	{
 		if (!mCamera.expired() && !mCameraItem->isFrozen())
 		{
-			float speed = 0.06f;
+			float speed = 0.5f;
 
 			if (mMovementKeys.w)
 				mCamera.lock()->incPosition(speed * mCamera.lock()->forward());

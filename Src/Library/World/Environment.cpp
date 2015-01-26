@@ -5,6 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
+#include <iostream>
+
 #include "Environment.h"
 #include <World/Terrain/Generator/FaultFormation.h>
 #include <World/Terrain/Lighting/Slope.h>
@@ -54,8 +56,16 @@ namespace t3d { namespace World
 	void Environment::generateEntities()
 	{
 		Terrain::HeightMap &hm = mTerrainData.heightMap();
-		const int density = 25;
+		const int density = 5;
 		const int NumTreesAttempt = (density*hm.size()/64) * (density*hm.size()/64);
+
+		QVector<QString> treeList;
+		treeList.append("Tree_Ash_Medium");
+		treeList.append("Tree_Coffee_Large");
+		treeList.append("Tree_Coffee_Large");
+		treeList.append("Tree_Coffee_Large");
+		treeList.append("Tree_Ash_Large");
+		treeList.append("Bush_Myrtle_01");
 
 		//randomly place trees on the "grass" areas
 		for (int i=0; i<NumTreesAttempt; i++)
@@ -65,15 +75,15 @@ namespace t3d { namespace World
 
 			//is there grass at this texture index?
 			int res = mTerrainData.textureMapResolution();
-			if (mTerrainData.textureIndicies()[x*res + y*hm.size()*res] == 2)
+			if (mTerrainData.textureIndicies()[x*res + y*hm.size()*res*res] == 2)
 			{
 				strong<Entity::BaseEntity> e1 = mEntityManager.createEntity();
 				
 				float height = hm.get(x, y);
-				e1->setPos(Vec3f(x, 20*height, y));	//hardcoded, GROSS TODO
+				e1->setPos(Vec3f(x, 30*height, y));	//hardcoded, GROSS TODO
 
 				e1->createRenderComponent();
-				QString treeName = (randFloat() < 0.3f) ? "Tree_Ash_Medium" : "Tree_Coffee_Large";
+				QString treeName = treeList[randInt(0, treeList.size()-1)];
 				e1->renderComponent()->setMesh(mAssetManager.meshForName(treeName));
 			}
 		}

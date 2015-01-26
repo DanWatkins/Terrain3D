@@ -1,0 +1,17 @@
+newmtl BARK1
+map_Kd .\OC57brk1.tif
+
+newmtl BRANCH3
+map_Kd .\OC57brn3.tif
+
+newmtl FRUIT1
+map_Kd .\OC57frt1.tif
+
+newmtl ROOTS1
+map_Kd .\OC57brk1.tif
+
+newmtl TRUNK1
+map_Kd .\OC57brk1.tif
+
+newmtl TWIG1
+map_Kd .\OC57brk1.tif

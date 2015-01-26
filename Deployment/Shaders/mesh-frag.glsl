@@ -10,6 +10,6 @@ void main()
 {
 	color = texture(material, tc);
 	
-	if (color.a < 0.05)
+	if (color.a <= 0.1)
 		discard;
 }

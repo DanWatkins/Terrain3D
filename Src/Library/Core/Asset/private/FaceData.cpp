@@ -34,7 +34,7 @@ namespace t3d { namespace Asset
 	{
 		if (data.isEmpty())
 		{
-			qDebug() << "Warning: Empty vertex attribute data for FaceData";
+			qDebug() << "Warning: Empty vertex attribute data for FaceData for texture unit " << textureUnit;
 			return;
 		}
 
