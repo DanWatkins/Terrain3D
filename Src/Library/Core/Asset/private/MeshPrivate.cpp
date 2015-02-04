@@ -28,7 +28,6 @@ namespace t3d { namespace asset
 
 		for (strong<SubMesh> subMesh : mSubMesh)
 		{
-			qDebug() << "      Batch rending SubMesh";
 			//find the material associated with this sub mesh
 			strong<MaterialData> material;
 			for (strong<MaterialData> m : mMaterials)
@@ -46,7 +45,6 @@ namespace t3d { namespace asset
 
 			for (const Mat4 &mat : matricies)
 			{
-				qDebug() << "         Rending SubMesh instance";
 				Mat4 resultMatrix = mat * glm::scale(mBaseScale);
 
 				glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(resultMatrix));

@@ -102,7 +102,7 @@ namespace t3d { namespace asset
 
 
 	void mesh_p::SubMesh::render()
-	{		
+	{
 		glDrawElements(GL_TRIANGLE_FAN, mIndexCount, GL_UNSIGNED_INT, 0);		
 	}
 

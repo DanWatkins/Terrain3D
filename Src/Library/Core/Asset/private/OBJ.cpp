@@ -21,6 +21,10 @@ namespace t3d { namespace asset
 		if (parseFile(filepath))
 		{
 			mCurrentMesh->init();
+
+			qDebug() << "Mesh: " << mCurrentMesh->name();
+			qDebug() << "  Vertex Count: " << mCurrentMesh->mFaceData->mVertecies.count();
+
 			return true;
 		}
 
