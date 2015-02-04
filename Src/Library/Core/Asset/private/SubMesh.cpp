@@ -102,13 +102,20 @@ namespace t3d { namespace asset
 
 
 	void mesh_p::SubMesh::render()
+	{		
+		glDrawElements(GL_TRIANGLE_FAN, mIndexCount, GL_UNSIGNED_INT, 0);		
+	}
+
+
+	void mesh_p::SubMesh::bind()
 	{
 		glBindVertexArray(mVao);
-		{
-			glLineWidth(1.0f);
-					
-			glDrawElements(GL_TRIANGLE_FAN, mIndexCount, GL_UNSIGNED_INT, 0);
-		}
+		glLineWidth(1.0f);
+	}
+	
+	
+	void mesh_p::SubMesh::unbind()
+	{
 		glBindVertexArray(0);
 	}
 

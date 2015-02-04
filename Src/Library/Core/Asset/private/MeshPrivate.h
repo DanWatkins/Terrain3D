@@ -74,7 +74,6 @@ namespace t3d { namespace asset
 		void uploadData();
 		void checkForErrors();
 
-		void render(const Mat4 &totalMatrix);
 		void bindForRender();
 		void unbindAfterRender();
 

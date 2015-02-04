@@ -26,8 +26,39 @@ namespace t3d { namespace asset
 	{
 		bindForRender();
 
-		for (const Mat4 &mat : matricies)
-			render(mat);
+		for (strong<SubMesh> subMesh : mSubMesh)
+		{
+			qDebug() << "      Batch rending SubMesh";
+			//find the material associated with this sub mesh
+			strong<MaterialData> material;
+			for (strong<MaterialData> m : mMaterials)
+			{
+				if (m->mName == subMesh->mMaterial)
+				{
+					material = m;
+					break;
+				}
+			}
+
+			glUniform1i(mUniforms.indexCount, subMesh->mIndexCount);
+			material->bind();
+			subMesh->bind();
+
+			for (const Mat4 &mat : matricies)
+			{
+				qDebug() << "         Rending SubMesh instance";
+				Mat4 resultMatrix = mat * glm::scale(mBaseScale);
+
+				glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(resultMatrix));
+				glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
+									glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
+
+				
+				subMesh->render();
+			}
+
+			subMesh->unbind();
+		}
 
 		unbindAfterRender();
 	}
@@ -162,38 +193,6 @@ namespace t3d { namespace asset
 		{
 			QString formattedError = mFilepath + QString(" - Error: ") + error;
 			qFatal(formattedError.toStdString().c_str());
-		}
-	}
-
-
-	void mesh_p::render(const Mat4 &totalMatrix)
-	{
-		{
-			Mat4 resultMatrix = totalMatrix * glm::scale(mBaseScale);
-
-			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(resultMatrix));
-			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
-							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
-
-			
-
-			for (strong<SubMesh> subMesh : mSubMesh)
-			{
-				//find the material associated with this sub mesh
-				strong<MaterialData> material;
-				for (strong<MaterialData> m : mMaterials)
-				{
-					if (m->mName == subMesh->mMaterial)
-					{
-						material = m;
-						break;
-					}
-				}
-
-				glUniform1i(mUniforms.indexCount, subMesh->mIndexCount);
-				material->bind();
-				subMesh->render();
-			}
 		}
 	}
 

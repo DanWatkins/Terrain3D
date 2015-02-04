@@ -23,6 +23,9 @@ namespace t3d { namespace asset
 
 		void uploadData();
 		void render();
+		void bind();
+		void unbind();
+
 		void checkForErrors(const FaceData *faceData, QString &error);
 
 	private:

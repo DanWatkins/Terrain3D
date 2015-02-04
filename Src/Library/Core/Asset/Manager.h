@@ -25,8 +25,10 @@ namespace t3d { namespace asset
 
 		void renderAllQueued()
 		{
+			qDebug() << "Rendering all queued Meshes";
 			for (MeshQueue &mq : mMeshQueues)
 			{
+				qDebug() << "   Rendering queue for " << mq.mesh->name();
 				mq.mesh->batchRender(mq.matricies);
 
 				mq.matricies.clear();
