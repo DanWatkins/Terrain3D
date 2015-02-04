@@ -33,6 +33,7 @@ namespace t3d { namespace World
 
 		Terrain::Data& terrainData() { return mTerrainData; }
 		Entity::Manager& entityManager() { return mEntityManager; }
+		Asset::Manager& assetManager() { return mAssetManager; }
 
 
 	private:

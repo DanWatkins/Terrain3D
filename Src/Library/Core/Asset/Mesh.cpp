@@ -6,6 +6,7 @@
 //==================================================================================================================|
 
 #include "Mesh.h"
+#include "Manager.h"
 
 #include "./private/MeshPrivate.h"
 
@@ -16,9 +17,16 @@ namespace t3d { namespace Asset
 	{
 	}
 
-	bool Mesh::initWithFile(const QString &filepath)
+	bool Mesh::init(Manager *manager, const QString &filepath)
 	{
+		mManager = manager;
 		return mPrivate->initWithFile(filepath);
+	}
+
+
+	void Mesh::queueRender(const Mat4 &totalMatrix)
+	{
+		mManager->queueMeshRender(this, totalMatrix);
 	}
 
 

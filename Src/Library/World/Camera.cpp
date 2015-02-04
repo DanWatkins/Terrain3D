@@ -55,6 +55,7 @@ namespace t3d { namespace World
 
 		mTerrainRenderer.render(mPosition, totalMatrix());
 		mEntityRenderer.renderAll(totalMatrix());
+		mEnvironment->assetManager().renderAllQueued();
 
 		emit finishedRendering();
 	}

@@ -30,7 +30,6 @@ namespace t3d { namespace World { namespace Entity
 	void RenderComponent::render(const Mat4 &cameraMatrix)
 	{
 		Mat4 transformation = glm::translate(baseEntity()->pos());
-
-		mMesh.lock()->render(cameraMatrix * transformation);
+		mMesh.lock()->queueRender(cameraMatrix * transformation);
 	}
 }}}

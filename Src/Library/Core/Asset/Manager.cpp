@@ -23,8 +23,12 @@ namespace t3d { namespace Asset
 				if (info.suffix() == "t3m")
 				{
 					strong<Mesh> mesh(new Mesh);
-					if (mesh->initWithFile(info.filePath()))
-						mMeshList.append(mesh);
+					if (mesh->init(this, info.filePath()))
+					{
+						MeshQueue mq;
+						mq.mesh = mesh;
+						mMeshQueues.append(mq);
+					}
 				}
 			}
 		}
@@ -33,14 +37,10 @@ namespace t3d { namespace Asset
 
 	strong<Mesh> Manager::meshForName(const QString name) const
 	{
-		QListIterator<strong<Mesh>> iter(mMeshList);
-		iter.toFront();
-
-		while (iter.hasNext())
+		for (const MeshQueue &mq : mMeshQueues)
 		{
-			strong<Mesh> current = iter.next();
-			if (current->name() == name)
-				return current;
+			if (mq.mesh->name() == name)
+				return mq.mesh;
 		}
 
 		return nullptr;

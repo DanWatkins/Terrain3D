@@ -13,18 +13,24 @@
 
 namespace t3d { namespace Asset
 {
+	class Manager;
+
 	class Mesh
 	{
 	public:
+		friend class Manager;
 		Mesh();
-		bool initWithFile(const QString &filepath);
-		void render(const Mat4 &totalMatrix);
+
+		bool init(Manager *manager, const QString &filepath);
+		void queueRender(const Mat4 &totalMatrix);
 		QString name() const;
 
 		class MeshPrivate;
 
 	private:
 		strong<MeshPrivate> mPrivate;
+		Manager *mManager = nullptr;
+		void render(const Mat4 &totalMatrix);
 	};
 }}
 

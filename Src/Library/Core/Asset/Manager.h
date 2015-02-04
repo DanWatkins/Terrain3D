@@ -16,12 +16,42 @@ namespace t3d { namespace Asset
 	class Manager
 	{
 	public:
+		friend class Mesh;
+
 		void loadMeshesFromDirectory(const QString path);
-		int meshCount() const { return mMeshList.count(); }
+		int meshCount() const { return mMeshQueues.count(); }
 		strong<Mesh> meshForName(const QString name) const;
 
+
+		void renderAllQueued()
+		{
+			for (MeshQueue &mq : mMeshQueues)
+			{
+				for (Mat4 &m : mq.matricies)
+					mq.mesh->render(m);
+			}
+		}
+
 	private:
-		QList<strong<Mesh>> mMeshList;
+		struct MeshQueue
+		{
+			strong<Mesh> mesh;
+			QVector<Mat4> matricies;
+		};
+
+		QList<MeshQueue> mMeshQueues;
+
+		void queueMeshRender(Mesh *mesh, const Mat4 &totalMatrix)
+		{
+			for (MeshQueue &mq : mMeshQueues)
+			{
+				if (mq.mesh.get() == mesh)
+				{
+					mq.matricies.append(totalMatrix);
+					break;
+				}
+			}
+		}
 	};
 }}
 
