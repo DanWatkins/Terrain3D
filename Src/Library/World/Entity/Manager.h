@@ -13,7 +13,7 @@
 #include <World/Entity/BaseEntity.h>
 #include <Core/Asset/Manager.h>
 
-namespace t3d { namespace World { namespace Entity
+namespace t3d { namespace world { namespace entity
 {
 	class Manager : public QObject
 	{
@@ -22,7 +22,7 @@ namespace t3d { namespace World { namespace Entity
 	public:
 		Manager();
 
-		void init(const Asset::Manager *assetManager);
+		void init(const asset::Manager *assetManager);
 
 		strong<BaseEntity> createEntity();
 		strong<BaseEntity> findEntity(int id);
@@ -32,7 +32,7 @@ namespace t3d { namespace World { namespace Entity
 	private:
 		QVector<strong<BaseEntity>> mEntityContainer;	//TODO finish ReuseVector and use it here!
 		int mIdValueTrack;
-		const Asset::Manager *mAssetManager;
+		const asset::Manager *mAssetManager;
 	};
 }}}
 

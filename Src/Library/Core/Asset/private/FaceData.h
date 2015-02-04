@@ -10,7 +10,7 @@
 
 #include "MeshPrivate.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	class mesh_p::FaceData : public OpenGLFunctions
 	{

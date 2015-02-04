@@ -8,7 +8,7 @@
 #include "Manager.h"
 #include "RenderComponent.h"
 
-namespace t3d { namespace World { namespace Entity
+namespace t3d { namespace world { namespace entity
 {
 	Manager::Manager() :
 		mIdValueTrack(0)
@@ -16,7 +16,7 @@ namespace t3d { namespace World { namespace Entity
 	}
 
 
-	void Manager::init(const Asset::Manager *assetManager)
+	void Manager::init(const asset::Manager *assetManager)
 	{
 		mAssetManager = assetManager;
 	}

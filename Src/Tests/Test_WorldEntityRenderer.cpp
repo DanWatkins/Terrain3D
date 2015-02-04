@@ -9,7 +9,7 @@
 
 #include <World/Entity/Renderer.h>
 
-using namespace t3d::World::Entity;
+using namespace t3d::world::entity;
 #define CLASS Test_WorldEntityRenderer
 
 TEST_CLASS

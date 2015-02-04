@@ -14,7 +14,7 @@
 #include <World/Entity/BaseEntity.h>
 #include <World/Entity/RenderComponent.h>
 
-namespace t3d { namespace World
+namespace t3d { namespace world
 {
 	Environment::Environment()
 	{
@@ -23,7 +23,7 @@ namespace t3d { namespace World
 
 	void Environment::init(const Configuration &configuration)
 	{
-		Terrain::Generator::FaultFormation generator;
+		terrain::Generator::FaultFormation generator;
 		mTerrainData.setTextureMapResolution(configuration.generatorTextureMapResolution);
 
 		int actualSize = configuration.generatorSize+1;
@@ -34,7 +34,7 @@ namespace t3d { namespace World
 						   configuration.generatorFaultCount,
 						   configuration.generatorSmoothing,
 						   actualSeed);
-		Terrain::Data::HeightIndex hi;
+		terrain::Data::HeightIndex hi;
 		hi[0.25f] = 0;
 		hi[0.35f] = 1;
 		hi[0.75f] = 2;
@@ -42,7 +42,7 @@ namespace t3d { namespace World
 		mTerrainData.computeTextureIndicies(hi);
 
 		mTerrainData.lightMap().reserve(actualSize);
-		Terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),
+		terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),
 													mTerrainData.heightMap(),
 													configuration.generatorLightIntensity);
 
@@ -55,7 +55,7 @@ namespace t3d { namespace World
 
 	void Environment::generateEntities()
 	{
-		Terrain::HeightMap &hm = mTerrainData.heightMap();
+		terrain::HeightMap &hm = mTerrainData.heightMap();
 		const int density = 10;
 		const int NumTreesAttempt = (density*hm.size()/64) * (density*hm.size()/64);
 
@@ -77,7 +77,7 @@ namespace t3d { namespace World
 			int res = mTerrainData.textureMapResolution();
 			if (mTerrainData.textureIndicies()[x*res + y*hm.size()*res*res] == 2)
 			{
-				strong<Entity::BaseEntity> e1 = mEntityManager.createEntity();
+				strong<entity::BaseEntity> e1 = mEntityManager.createEntity();
 				
 				float height = hm.get(x, y);
 				e1->setPos(Vec3f(x, 30*height, y));	//hardcoded, GROSS TODO

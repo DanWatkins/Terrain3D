@@ -12,7 +12,7 @@
 #include <World/Entity/Manager.h>
 #include <Core/Asset/Manager.h>
 
-namespace t3d { namespace World
+namespace t3d { namespace world
 {
 	class Environment
 	{
@@ -31,17 +31,17 @@ namespace t3d { namespace World
 		Environment();
 		void init(const Configuration &configuration);
 
-		Terrain::Data& terrainData() { return mTerrainData; }
-		Entity::Manager& entityManager() { return mEntityManager; }
-		Asset::Manager& assetManager() { return mAssetManager; }
+		terrain::Data& terrainData() { return mTerrainData; }
+		entity::Manager& entityManager() { return mEntityManager; }
+		asset::Manager& assetManager() { return mAssetManager; }
 
 
 	private:
 		void generateEntities();
 
-		Terrain::Data mTerrainData;
-		Entity::Manager mEntityManager;
-		Asset::Manager mAssetManager;
+		terrain::Data mTerrainData;
+		entity::Manager mEntityManager;
+		asset::Manager mAssetManager;
 	};
 }}
 

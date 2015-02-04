@@ -10,7 +10,7 @@
 
 #include "./private/MeshPrivate.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	Mesh::Mesh() :
 		mPrivate(new MeshPrivate)

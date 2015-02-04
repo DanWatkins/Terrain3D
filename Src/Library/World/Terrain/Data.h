@@ -12,7 +12,7 @@
 #include <World/Terrain/HeightMap.h>
 #include <World/Terrain/LightMap.h>
 
-namespace t3d { namespace World { namespace Terrain
+namespace t3d { namespace world { namespace terrain
 {
 	class Data
 	{

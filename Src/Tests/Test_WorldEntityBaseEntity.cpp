@@ -10,7 +10,7 @@
 #include <World/Entity/BaseEntity.h>
 #include <World/Entity/RenderComponent.h>
 
-using namespace t3d::World::Entity;
+using namespace t3d::world::entity;
 #define CLASS Test_WorldEntityBaseEntity
 
 TEST_CLASS

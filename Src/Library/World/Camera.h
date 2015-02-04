@@ -16,7 +16,7 @@
 
 #include <World/Entity/Renderer.h>
 
-namespace t3d { namespace World
+namespace t3d { namespace world
 {
 	/**
 	 * Represents an all-in-one World instance visualizer. It uses the style of a first person shooter camera. It can
@@ -89,13 +89,13 @@ namespace t3d { namespace World
 		Vec3f right() const;
 		Vec3f up() const;
 
-		void setMode(Terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
-		Terrain::Mode mode() { return mTerrainRenderer.getMode(); }
+		void setMode(terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
+		terrain::Mode mode() { return mTerrainRenderer.getMode(); }
 
 	private:
 		Environment *mEnvironment;
-		Terrain::Renderer mTerrainRenderer;
-		Entity::Renderer mEntityRenderer;
+		terrain::Renderer mTerrainRenderer;
+		entity::Renderer mEntityRenderer;
 
 		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;

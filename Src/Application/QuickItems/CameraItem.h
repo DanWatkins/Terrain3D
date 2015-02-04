@@ -28,12 +28,12 @@ namespace t3d { namespace QuickItems
 		bool isFrozen() const { return mIsFrozen; }
 		void setIsFrozen(bool isFrozen) { mIsFrozen = isFrozen; }
 
-		weak<World::Camera> createCamera();
+		weak<world::Camera> createCamera();
 
 	private:
 		bool mIsFrozen;
 		bool mIsSynced = false;
-		strong<World::Camera> mCamera;
+		strong<world::Camera> mCamera;
 
 	signals:
 		void isLoadedChanged();

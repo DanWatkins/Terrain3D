@@ -1,6 +1,6 @@
 #include "FaultFormation.h"
 
-namespace t3d { namespace World { namespace Terrain { namespace Generator
+namespace t3d { namespace world { namespace terrain { namespace Generator
 {
     void applyRandomFault(HeightMap &heightMap, float faultAmount)
     {

@@ -8,7 +8,7 @@
 #include "RenderComponent.h"
 #include <Core/Asset/Mesh.h>
 
-namespace t3d { namespace World { namespace Entity
+namespace t3d { namespace world { namespace entity
 {
 	RenderComponent::RenderComponent(BaseEntity *baseEntity) :
 		Component(baseEntity)
@@ -16,7 +16,7 @@ namespace t3d { namespace World { namespace Entity
 	}
 
 
-	void RenderComponent::setMesh(weak<Asset::Mesh> mesh)
+	void RenderComponent::setMesh(weak<asset::Mesh> mesh)
 	{
 		if (mesh.expired())
 		{

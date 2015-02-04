@@ -9,7 +9,7 @@
 
 #include <World/Entity/Manager.h>
 
-using namespace t3d::World::Entity;
+using namespace t3d::world::entity;
 #define CLASS Test_WorldEntityManager
 
 TEST_CLASS

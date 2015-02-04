@@ -8,7 +8,7 @@
 #include "MaterialData.h"
 #include <Core/Image.h>
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	void mesh_p::MaterialData::uploadMaterialData(const QString &containingDirectory)
 	{

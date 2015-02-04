@@ -1,7 +1,7 @@
 #include "Tests.h"
 #include <World/Terrain/Data.h>
 
-using namespace t3d::World::Terrain;
+using namespace t3d::world::terrain;
 
 #define CLASS Test_WorldTerrainData
 

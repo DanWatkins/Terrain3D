@@ -82,8 +82,8 @@ namespace t3d
 		int fps() const { return mFPSCounter.fps(); }
 
 	private:
-		World::Environment mEnvironment;
-		weak<World::Camera> mCamera;
+		world::Environment mEnvironment;
+		weak<world::Camera> mCamera;
 		bool mPreviouslyHadFocus;
 		bool mNeedsRestart;
 
@@ -108,8 +108,8 @@ namespace t3d
 		void updateCursorPos();
 		void loadUserSettings();
 
-		World::Camera::Configuration buildCameraConfiguration();
-		World::Environment::Configuration buildWorldConfiguration();
+		world::Camera::Configuration buildCameraConfiguration();
+		world::Environment::Configuration buildWorldConfiguration();
 
 	signals:
 		void toggleSettingsMenu();

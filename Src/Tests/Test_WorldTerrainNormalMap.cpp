@@ -3,7 +3,7 @@
 #include <World/Terrain/HeightMap.h>
 #include <World/Terrain/NormalMap.h>
 
-using namespace t3d::World::Terrain;
+using namespace t3d::world::terrain;
 
 class Test_WorldTerrainNormalMap : public ::testing::Test
 {

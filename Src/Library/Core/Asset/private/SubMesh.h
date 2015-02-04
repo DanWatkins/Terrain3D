@@ -11,7 +11,7 @@
 #include "MeshPrivate.h"
 #include "FaceData.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	class mesh_p::SubMesh : public OpenGLFunctions
 	{

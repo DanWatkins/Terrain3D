@@ -14,7 +14,7 @@
 #include "MaterialData.h"
 #include "OBJ.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	mesh_p::MeshPrivate() :
 		mFaceData(new FaceData)

@@ -7,7 +7,7 @@
 
 #include "SubMesh.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	void mesh_p::SubMesh::uploadData()
 	{

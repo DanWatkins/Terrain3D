@@ -11,7 +11,7 @@
 #include "FaceData.h"
 #include "SubMesh.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	bool OBJ::initWithFile(const QString &filepath, mesh_p *mesh)
 	{

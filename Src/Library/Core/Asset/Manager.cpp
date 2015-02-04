@@ -7,7 +7,7 @@
 
 #include "Manager.h"
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	void Manager::loadMeshesFromDirectory(const QString path)
 	{

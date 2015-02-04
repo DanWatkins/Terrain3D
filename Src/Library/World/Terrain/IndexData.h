@@ -11,7 +11,7 @@
 #include <Library.h>
 #include <World/Terrain/Renderer.h>
 
-namespace t3d { namespace World { namespace Terrain
+namespace t3d { namespace world { namespace terrain
 {
 	const GLuint PrimitiveRestartIndex = 900000000;
 	const GLubyte VertexEliminationCombinations = 16;

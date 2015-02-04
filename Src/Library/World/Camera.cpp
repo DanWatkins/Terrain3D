@@ -7,7 +7,7 @@
 
 #include "Camera.h"
 
-namespace t3d { namespace World
+namespace t3d { namespace world
 {
 	Camera::Camera() :
 		mTerrainRenderer(),

@@ -8,13 +8,13 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
 
-namespace t3d { namespace World { namespace Entity
+namespace t3d { namespace world { namespace entity
 {
 	void Renderer::renderAll(const Mat4 &cameraMatrix)
 	{
 		if (!mManager)
 		{
-			qDebug() << "Entity::Renderer cannot renderAll because there is no valid Entity::Manager connected";
+			qDebug() << "entity::Renderer cannot renderAll because there is no valid entity::Manager connected";
 			return;
 		}
 

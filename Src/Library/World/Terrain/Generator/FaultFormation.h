@@ -3,7 +3,7 @@
 
 #include <World/Terrain/Generator/Generator.h>
 
-namespace t3d { namespace World { namespace Terrain { namespace Generator
+namespace t3d { namespace world { namespace terrain { namespace Generator
 {
     class FaultFormation : public Generator
     {

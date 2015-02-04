@@ -10,7 +10,7 @@
 
 #include <Library.h>
 
-namespace t3d { namespace World { namespace Terrain
+namespace t3d { namespace world { namespace terrain
 {
 	/*
 	 * Stores normalized floats (0.0 - 1.0) indicating the brightness for a given

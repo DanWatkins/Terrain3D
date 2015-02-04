@@ -12,7 +12,7 @@
 #include <Core/Image.h>
 #include <Core/OpenGLFunctions.h>
 
-namespace t3d { namespace Asset { namespace priv
+namespace t3d { namespace asset { namespace priv
 {
 	class MD2 : protected OpenGLFunctions
 	{

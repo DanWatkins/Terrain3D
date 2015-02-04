@@ -11,7 +11,7 @@
 #include <Library.h>
 #include <Core/OpenGLFunctions.h>
 
-namespace t3d { namespace Asset
+namespace t3d { namespace asset
 {
 	class Manager;
 

@@ -41,16 +41,16 @@ namespace t3d { namespace QuickItems
 		}
 		else if (!mCamera)
 		{
-			qFatal("CameraItem hasn't had it's internal World::Camera created yet");
+			qFatal("CameraItem hasn't had it's internal world::Camera created yet");
 		}
 	}
 
 
-	weak<World::Camera> CameraItem::createCamera()
+	weak<world::Camera> CameraItem::createCamera()
 	{
 		if (!mCamera)
 		{
-			mCamera = strong<World::Camera>(new World::Camera);
+			mCamera = strong<world::Camera>(new world::Camera);
 		}
 
 		return mCamera;

@@ -82,9 +82,9 @@ namespace t3d
 
 	void Terrain3D::toggleWireframe()
 	{
-		World::Camera *camera = mCamera.lock().get();
+		world::Camera *camera = mCamera.lock().get();
 
-		using namespace World::Terrain;
+		using namespace world::terrain;
 		camera->mode() == Mode::Normal ?
 					camera->setMode(Mode::WireFrame) :
 					camera->setMode(Mode::Normal);
@@ -147,8 +147,8 @@ namespace t3d
 			}
 			CASE(GraphicsCameraWireframe) {
 				mCamera.lock()->setMode(value.toBool()
-											   ? World::Terrain::Mode::WireFrame :
-												 World::Terrain::Mode::Normal);
+											   ? world::terrain::Mode::WireFrame :
+												 world::terrain::Mode::Normal);
 			}
 
 
@@ -206,7 +206,7 @@ namespace t3d
 	void Terrain3D::keyPressEvent(QKeyEvent *ev)
 	{
 		OpenGLQuickView::keyPressEvent(ev);
-		using namespace World::Terrain;
+		using namespace world::terrain;
 
 		switch (ev->key())
 		{
@@ -329,10 +329,10 @@ namespace t3d
 	}
 
 
-	World::Camera::Configuration Terrain3D::buildCameraConfiguration()
+	world::Camera::Configuration Terrain3D::buildCameraConfiguration()
 	{
 		typedef Settings::Key key;
-		World::Camera::Configuration config;
+		world::Camera::Configuration config;
 
 		config.terrainBlockSize = mMainSettings->value(key::WorldTerrainBlockSize).toInt();
 		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
@@ -343,10 +343,10 @@ namespace t3d
 	}
 
 
-	World::Environment::Configuration Terrain3D::buildWorldConfiguration()
+	world::Environment::Configuration Terrain3D::buildWorldConfiguration()
 	{
 		typedef Settings::Key key;
-		World::Environment::Configuration config;
+		world::Environment::Configuration config;
 
 		config.generatorSize = mMainSettings->value(key::WorldGeneratorSize).toInt();
 		config.generatorTextureMapResolution = mMainSettings->value(key::WorldGeneratorTextureMapResolution).toInt();

@@ -10,7 +10,7 @@
 
 #include <Library.h>
 
-namespace t3d { namespace World { namespace Entity
+namespace t3d { namespace world { namespace entity
 {
 	class RenderComponent;
 
