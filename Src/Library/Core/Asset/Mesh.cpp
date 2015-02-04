@@ -30,9 +30,9 @@ namespace t3d { namespace Asset
 	}
 
 
-	void Mesh::render(const Mat4 &totalMatrix)
+	void Mesh::batchRender(const QVector<Mat4> &matricies)
 	{
-		mPrivate->render(totalMatrix);
+		mPrivate->batchRender(matricies);
 	}
 
 

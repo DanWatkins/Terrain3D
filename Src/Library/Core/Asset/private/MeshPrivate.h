@@ -20,7 +20,8 @@ namespace t3d { namespace Asset
 		MeshPrivate();
 		void init();
 		bool initWithFile(const QString &filepath);
-		void render(const Mat4 &totalMatrix);
+
+		void batchRender(const QVector<Mat4> &matricies);
 
 		void setFilepath(const QString &filepath);
 		QString filepath() const { return mFilepath; }
@@ -72,6 +73,10 @@ namespace t3d { namespace Asset
 		void loadShaders();
 		void uploadData();
 		void checkForErrors();
+
+		void render(const Mat4 &totalMatrix);
+		void bindForRender();
+		void unbindAfterRender();
 
 
 	protected:

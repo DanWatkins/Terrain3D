@@ -30,7 +30,7 @@ namespace t3d { namespace Asset
 	private:
 		strong<MeshPrivate> mPrivate;
 		Manager *mManager = nullptr;
-		void render(const Mat4 &totalMatrix);
+		void batchRender(const QVector<Mat4> &matricies);
 	};
 }}
 

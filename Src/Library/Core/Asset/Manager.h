@@ -27,8 +27,9 @@ namespace t3d { namespace Asset
 		{
 			for (MeshQueue &mq : mMeshQueues)
 			{
-				for (Mat4 &m : mq.matricies)
-					mq.mesh->render(m);
+				mq.mesh->batchRender(mq.matricies);
+
+				mq.matricies.clear();
 			}
 		}
 
