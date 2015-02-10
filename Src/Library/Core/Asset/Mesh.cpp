@@ -13,7 +13,7 @@
 namespace t3d { namespace asset
 {
 	Mesh::Mesh() :
-		mPrivate(new MeshPrivate)
+		mPrivate(new MeshPrivate(this))
 	{
 	}
 

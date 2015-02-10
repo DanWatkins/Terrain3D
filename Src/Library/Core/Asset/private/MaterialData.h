@@ -22,6 +22,7 @@ namespace t3d { namespace asset
 
 		void uploadMaterialData(const QString &containingDirectory);
 		void bind();
+		void release();
 	};
 }}
 

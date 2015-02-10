@@ -1,5 +1,9 @@
 {
 	"name": "Bush_Myrtle_01",
 	"meshFile": "/Plant/Bush_Myrtle_01.obj",
-	"baseScale": [6, 6, 6]
+	"baseScale": [6, 6, 6],
+	"boundingSphere": {
+		"radius": 2.0,
+		"offset": [0.0, 0.0, 0.0]
+	}
 }

@@ -1,0 +1,1 @@
+The meshes in this directory are used in hardcoded situations for things such as drawing bounding volumes. These are loaded before any other meshes.

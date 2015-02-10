@@ -1,5 +1,9 @@
 {
 	"name": "Tree_Ash_Large",
 	"meshFile": "/Plant/Tree_Ash_Large.obj",
-	"baseScale": [0.05, 0.05, 0.05]
+	"baseScale": [0.05, 0.05, 0.05],
+	"boundingSphere": {
+		"radius": 2.0,
+		"offset": [0.0, 0.0, 0.0]
+	}
 }

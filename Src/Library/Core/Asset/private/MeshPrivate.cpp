@@ -16,10 +16,7 @@
 
 namespace t3d { namespace asset
 {
-	mesh_p::MeshPrivate() :
-		mFaceData(new FaceData)
-	{
-	}
+	mesh_p::MeshPrivate(Mesh *mesh) : mMesh(mesh), mFaceData(new FaceData) {}
 
 
 	void mesh_p::batchRender(const QVector<Mat4> &matricies)
@@ -40,7 +37,7 @@ namespace t3d { namespace asset
 			}
 
 			glUniform1i(mUniforms.indexCount, subMesh->mIndexCount);
-			material->bind();
+			if (material) material->bind();
 			subMesh->bind();
 
 			for (const Mat4 &mat : matricies)
@@ -56,6 +53,7 @@ namespace t3d { namespace asset
 			}
 
 			subMesh->unbind();
+			if (material) material->release();
 		}
 
 		unbindAfterRender();
@@ -88,17 +86,20 @@ namespace t3d { namespace asset
 		if (!file.open(QIODevice::ReadOnly))
 			return false;
 
+		//read values from the JSON T3D file
 		QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
 		QJsonObject object = doc.object();
+		{
+			setName(object["name"].toString());
+			QJsonArray scale = object["baseScale"].toArray();
+			setBaseScale(Vec3f(scale[0].toDouble(), scale[1].toDouble(), scale[2].toDouble()));
+			QJsonObject boundingSphere = object["boundingSphere"].toObject();
+				mMesh->boundingSphere().radius = boundingSphere["radius"].toDouble();
+				QJsonArray bsOffset = boundingSphere["offset"].toArray();
+				mMesh->boundingSphere().offset = Vec3f(bsOffset[0].toDouble(), bsOffset[1].toDouble(), bsOffset[2].toDouble());
+		}
 
-		setName(object["name"].toString());
-
-		QJsonArray scale = object["baseScale"].toArray();
-		setBaseScale(Vec3f(scale[0].toDouble(), scale[1].toDouble(), scale[2].toDouble()));
-
-		QString meshFile = object["meshFile"].toString();
-
-		return OBJ().initWithFile(QFileInfo(filepath).absolutePath() + "/" + meshFile, this);
+		return OBJ().initWithFile(QFileInfo(filepath).absolutePath() + "/" + object["meshFile"].toString(), this);
 	}
 
 

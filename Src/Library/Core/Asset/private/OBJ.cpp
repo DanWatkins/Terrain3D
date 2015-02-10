@@ -67,10 +67,12 @@ namespace t3d { namespace asset
 			parseMaterialLib(mCurrentMesh->containingDirectory() + "/" + field.at(1));
 		}
 		//use material - aka create a new SubMesh
-		else if (field.front() == "usemtl" && field.count() == 2)
+		else if (field.front() == "usemtl" && field.count() <=2)
 		{
 			mCurrentMesh->makeSubMesh();
-			mCurrentMesh->currentSubMesh()->mMaterial = field.at(1);
+
+			if (field.count() == 2)
+				mCurrentMesh->currentSubMesh()->mMaterial = field.at(1);
 		}
 
 		//vertex

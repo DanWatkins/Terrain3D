@@ -1,0 +1,9 @@
+{
+	"name": "Sphere",
+	"meshFile": "/Raw/Sphere.obj",
+	"baseScale": [1.0, 1.0, 1.0],
+	"boundingSphere": {
+		"radius": 1.0,
+		"offset": [0.0, 0.0, 0.0]
+	}
+}

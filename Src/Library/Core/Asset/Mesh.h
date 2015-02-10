@@ -17,13 +17,23 @@ namespace t3d { namespace asset
 
 	class Mesh
 	{
+	private:
+		struct BoundingSphere
+		{
+			float radius;
+			Vec3f offset;
+		};
+
 	public:
 		friend class Manager;
 		Mesh();
 
 		bool init(Manager *manager, const QString &filepath);
 		void queueRender(const Mat4 &totalMatrix);
+
 		QString name() const;
+		BoundingSphere& boundingSphere() { return mBoundingSphere; }
+		const BoundingSphere& boundingSphere() const { return mBoundingSphere; }
 
 		class MeshPrivate;
 
@@ -31,6 +41,8 @@ namespace t3d { namespace asset
 		strong<MeshPrivate> mPrivate;
 		Manager *mManager = nullptr;
 		void batchRender(const QVector<Mat4> &matricies);
+
+		BoundingSphere mBoundingSphere;
 	};
 }}
 

@@ -42,6 +42,9 @@ namespace t3d { namespace asset
 
 		QList<MeshQueue> mMeshQueues;
 
+		void loadSystemMeshes(const QString &path);
+		void loadMesh(const QString &path);
+
 		void queueMeshRender(Mesh *mesh, const Mat4 &totalMatrix)
 		{
 			for (MeshQueue &mq : mMeshQueues)

@@ -17,7 +17,8 @@ namespace t3d { namespace asset
 	{
 	public:
 		friend class OBJ;
-		MeshPrivate();
+		MeshPrivate() = delete;
+		MeshPrivate(Mesh *mesh);
 		void init();
 		bool initWithFile(const QString &filepath);
 
@@ -53,6 +54,9 @@ namespace t3d { namespace asset
 		QList<strong<MaterialData>> mMaterials;
 
 	private:
+		Mesh *mMesh = nullptr;	//the host mesh using this
+		weak<Mesh> mSphere;
+
 		QString mContainingDirectory;
 		QString mFilepath;
 		QOpenGLShaderProgram mProgram;

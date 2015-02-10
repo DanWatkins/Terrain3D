@@ -10,7 +10,5 @@
 
 #include "../Library.h"
 
-#include "Shader.h"
-
 #endif
 

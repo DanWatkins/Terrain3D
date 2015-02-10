@@ -12,23 +12,46 @@ namespace t3d { namespace asset
 	void Manager::loadMeshesFromDirectory(const QString path)
 	{
 		qDebug() << "Loading meshes...";
+		loadSystemMeshes(path + "/_system/");
 
-		QDirIterator iter(path, QDirIterator::Subdirectories);
+		QDirIterator iter(path);
 		while (iter.hasNext())
 		{
 			QFileInfo info(iter.next());
+			
+			//skip the system dir
+			if (info.dir().dirName() == "_system")
+				continue;
 
-			if (info.isFile())
+			loadMesh(info.absoluteFilePath());
+		}
+	}
+
+
+	void Manager::loadSystemMeshes(const QString &path)
+	{
+		QDirIterator iter(path);
+		while (iter.hasNext())
+		{
+			loadMesh(iter.next());
+		}
+	}
+
+
+	void Manager::loadMesh(const QString &path)
+	{
+		QFileInfo info(path);
+
+		if (info.isFile())
+		{
+			if (info.suffix() == "t3m")
 			{
-				if (info.suffix() == "t3m")
+				strong<Mesh> mesh(new Mesh);
+				if (mesh->init(this, info.filePath()))
 				{
-					strong<Mesh> mesh(new Mesh);
-					if (mesh->init(this, info.filePath()))
-					{
-						MeshQueue mq;
-						mq.mesh = mesh;
-						mMeshQueues.append(mq);
-					}
+					MeshQueue mq;
+					mq.mesh = mesh;
+					mMeshQueues.append(mq);
 				}
 			}
 		}

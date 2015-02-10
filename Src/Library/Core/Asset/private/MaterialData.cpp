@@ -25,4 +25,10 @@ namespace t3d { namespace asset
 		glActiveTexture(GL_TEXTURE5);
 		mTexture->bind();
 	}
+
+
+	void mesh_p::MaterialData::release()
+	{
+		mTexture->release();
+	}
 }}
