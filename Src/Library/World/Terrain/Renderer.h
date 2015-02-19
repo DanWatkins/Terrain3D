@@ -23,13 +23,11 @@ namespace t3d { namespace world { namespace terrain
 	class Renderer : protected OpenGLFunctions
 	{
 	public:
-		Renderer();
-		~Renderer();
+		Renderer() {}
 
-		void init(Data *terrainData, float spacing, float heightScale,
-				  int blockSize, int spanSize);
+		void init(Data *terrainData);
 		void cleanup();
-		void render(Vec3f cameraPos, Mat4 totalMatrix);
+		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
 		void setLodFactor(float lodFactor) { mLodFactor = lodFactor; }
 		void setMode(Mode mode) { mMode = mode; }
@@ -37,53 +35,36 @@ namespace t3d { namespace world { namespace terrain
 
 	private:
 		Q_DISABLE_COPY(Renderer)
-		class IndexData;
-		std::unique_ptr<IndexData> mRenderData;
 
 		Data *mTerrainData;
 		QOpenGLShaderProgram mProgram;
 		GLuint mVao;
-		GLuint mTexture[2];
 		GLuint mVbo[2];
 
 		float mLodFactor;
-		Mode mMode;
+		Mode mMode = Mode::Normal;
 
-		struct Uniforms
+		struct
 		{
-			GLuint matrixCamera;
-			GLuint matrixModel;
-			GLuint spacing;
-			GLuint heightScale;
-			GLuint heightMapSize;
-			GLuint blockSize;
-			GLuint spanSize;
-			GLuint blockIndex;
-			GLuint textureMapResolution;
+			GLint terrainSize;
+			GLint height;
+			GLint mvMatrix;
+			GLint projMatrix;
 		} mUniforms;
 
-		struct Block
+		struct
 		{
-			int x, y;
-			int lod, baseVertex;
+			GLuint heightMap;
+			GLuint indicies;
+			GLuint terrain;
+		} mTextures;
 
-			struct NeighborLod
-			{
-				int top, right, bottom, left;
-				NeighborLod() : top(0), right(0), bottom(0), left(0) {}
-			} neighborLod;
-
-			Block() : x(0), y(0), lod(0), baseVertex(0) {}
-		};
 
 	private:
 		void loadShaders();
 		void loadTextures();
-		Vec2i cameraPosToBlockPosition(Vec3f cameraPos);
 
 		void uploadTerrainData();
-		void uploadVertexData();
-		void renderBlock(const Block &block);
 	};
 }}}
 

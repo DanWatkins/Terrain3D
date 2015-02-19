@@ -42,21 +42,8 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
-	void HeightMap::buildVertexData(float spacing)
+	const float* HeightMap::raw() const
 	{
-		mVertexData.reserve(mSize*mSize*3);
-
-		qDebug() << "Building Vertex Data";
-
-		for (int y=0; y<mSize; y++)
-		{
-			for (int x = 0; x<mSize; x++)
-			{
-				mVertexData.push_back(spacing*(float)x);
-				float height = mHeightData.at(y*mSize + x);
-				mVertexData.push_back(height);
-				mVertexData.push_back(spacing*(float)y);
-			}
-		}
+		return mHeightData.isEmpty() ? nullptr : &mHeightData[0];
 	}
 }}}

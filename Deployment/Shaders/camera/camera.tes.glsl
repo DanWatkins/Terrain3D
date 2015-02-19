@@ -1,4 +1,4 @@
-#version 430 core
+#version 420 core
 
 layout (quads, fractional_odd_spacing) in;
 

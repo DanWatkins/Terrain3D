@@ -65,9 +65,6 @@
     <ClInclude Include="..\..\Src\Library\World\Terrain\HeightMap.h">
       <Filter>Src\World\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Library\World\Terrain\IndexData.h">
-      <Filter>Src\World\Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Library\World\Terrain\LightMap.h">
       <Filter>Src\World\Terrain</Filter>
     </ClInclude>
@@ -141,9 +138,6 @@
       <Filter>Src\World</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Library\World\Terrain\HeightMap.cpp">
-      <Filter>Src\World\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Library\World\Terrain\IndexData.cpp">
       <Filter>Src\World\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Library\World\Terrain\LightMap.cpp">

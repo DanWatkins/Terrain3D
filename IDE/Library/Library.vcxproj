@@ -92,7 +92,6 @@
     <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\FaultFormation.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Generator\Generator.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\HeightMap.h" />
-    <ClInclude Include="..\..\Src\Library\World\Terrain\IndexData.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\Lighting\Slope.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\LightMap.h" />
     <ClInclude Include="..\..\Src\Library\World\Terrain\NormalMap.h" />
@@ -133,7 +132,6 @@
     <ClCompile Include="..\..\Src\Library\World\Terrain\Generator\FaultFormation.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Terrain\Generator\Generator.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Terrain\HeightMap.cpp" />
-    <ClCompile Include="..\..\Src\Library\World\Terrain\IndexData.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Terrain\Lighting\Slope.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Terrain\LightMap.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Terrain\NormalMap.cpp" />

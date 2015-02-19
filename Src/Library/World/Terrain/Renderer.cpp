@@ -7,50 +7,29 @@
 
 #include <Core/Image.h>
 #include <World/Terrain/Renderer.h>
-#include "IndexData.h"
 #include "Utility.h"
 
 namespace t3d { namespace world { namespace terrain
 {
-	Renderer::Renderer() :
-		mMode(Mode::Normal)
-	{
-		mRenderData = std::unique_ptr<IndexData>(new IndexData(&mProgram));
-	}
-
-
-	Renderer::~Renderer()
-	{
-	}
-
-
-	void Renderer::init(Data *terrainData, float spacing, float heightScale,
-						int blockSize, int spanSize)
+	void Renderer::init(Data *terrainData)
 	{
 		initializeOpenGLFunctions();
-
 		mTerrainData = terrainData;
-		mRenderData->init(mTerrainData, spacing, heightScale, blockSize, spanSize);
-
 		loadShaders();
 		
 		mProgram.bind();
 		{
-			mUniforms.matrixCamera = mProgram.uniformLocation("cameraMatrix");
-			mUniforms.matrixModel = mProgram.uniformLocation("modelMatrix");
-			mUniforms.spacing = mProgram.uniformLocation("spacing");
-			mUniforms.heightScale = mProgram.uniformLocation("heightScale");
-			mUniforms.heightMapSize = mProgram.uniformLocation("heightMapSize");
-			mUniforms.blockSize = mProgram.uniformLocation("blockSize");
-			mUniforms.spanSize = mProgram.uniformLocation("spanSize");
-			mUniforms.blockIndex = mProgram.uniformLocation("blockIndex");
-			mUniforms.textureMapResolution = mProgram.uniformLocation("textureMapResolution");
-			mRenderData->queryUniforms();
+			mUniforms.terrainSize = mProgram.uniformLocation("terrainSize");
+			mUniforms.height = mProgram.uniformLocation("height");
+			mUniforms.mvMatrix = mProgram.uniformLocation("mvMatrix");
+			mUniforms.projMatrix = mProgram.uniformLocation("projMatrix");
 
 			glGenVertexArrays(1, &mVao);
 
 			glBindVertexArray(mVao);
 			{
+				glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
+
 				uploadTerrainData();
 				loadTextures();
 			}
@@ -63,40 +42,25 @@ namespace t3d { namespace world { namespace terrain
 	void Renderer::cleanup()
 	{
 		mTerrainData->cleanup();
-		mRenderData->cleanup();
 
 		mProgram.removeAllShaders();
 		glDeleteBuffers(2, mVbo);
-		glDeleteTextures(2, mTexture);
+		glDeleteTextures(1, &mTextures.heightMap);
+		glDeleteTextures(1, &mTextures.indicies);
+		glDeleteTextures(1, &mTextures.terrain);
 		glDeleteVertexArrays(1, &mVao);
 	}
 
 
-	Vec2i Renderer::cameraPosToBlockPosition(Vec3f cameraPos)
-	{
-		double blocksPerMapEdge = mRenderData->blockSize();
-
-		Vec2i pos;
-		pos.x = int(cameraPos.x / blocksPerMapEdge + 0.5) - 1;
-		pos.y = int(cameraPos.z / blocksPerMapEdge + 0.5) - 1;
-
-		return pos;
-	}
-
-
-	void Renderer::render(Vec3f cameraPos, Mat4 totalMatrix)
+	void Renderer::render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
 	{
 		mProgram.bind();
 		{
-			glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(totalMatrix));
-			glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
-							   glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
+			glUniformMatrix4fv(mUniforms.mvMatrix, 1, GL_FALSE, glm::value_ptr(modelViewMatrix));
+			glUniformMatrix4fv(mUniforms.projMatrix, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
 
 			glBindVertexArray(mVao);
 			{
-				int heightMapSize = mTerrainData->heightMap().size();
-				int numberOfBlocksOnASide = static_cast<int>(ceil(double(heightMapSize-1) / double(mRenderData->blockSize())));
-
 				switch (mMode)
 				{
 					case Mode::Normal:
@@ -112,41 +76,11 @@ namespace t3d { namespace world { namespace terrain
 					}
 				}
 
-				//calculate the lod for every block
-				QVector<QVector<int>> blockLod(numberOfBlocksOnASide, QVector<int>(numberOfBlocksOnASide, 0));
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 
-				for (int y=0; y<numberOfBlocksOnASide; y++)
-				{
-					for (int x=0; x<numberOfBlocksOnASide; x++)
-					{
-						double distance = lodDistanceBetweenPos(cameraPosToBlockPosition(cameraPos), Vec2i(x,y), mRenderData->blockSize());
-						blockLod[x][y] = lodForDistance(distance, mRenderData->blockSize(), mLodFactor);
-					}
-				}
-
-				//render all of the blocks
-				for (int y=0; y<numberOfBlocksOnASide; y++)
-				{
-					int offsetY = y * (mRenderData->blockSize()*numberOfBlocksOnASide + 1)*mRenderData->blockSize();
-
-					for (int x=0; x<numberOfBlocksOnASide; x++)
-					{
-						int offsetX = x*mRenderData->blockSize();
-
-						Block block;
-						block.x = x;
-						block.y = y;
-						block.lod = blockLod[x][y];
-						block.baseVertex = offsetX+offsetY;
-
-						block.neighborLod.left = blockLod[std::max(x-1, 0)][y];
-						block.neighborLod.right = blockLod[std::min(x+1, int(blockLod.size())-1)][y];
-						block.neighborLod.top = blockLod[x][std::max(y-1, 0)];
-						block.neighborLod.bottom = blockLod[x][std::min(y+1, int(blockLod[x].size())-1)];
-
-						renderBlock(block);
-					}
-				}
+				HeightMap &hm = mTerrainData->heightMap();
+				glDrawArraysInstanced(GL_PATCHES, 0, 4, hm.size()*hm.size());
 			}
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
@@ -177,12 +111,9 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::loadTextures()
 	{
-		glGenTextures(2, mTexture);
-
-		qDebug() << "rendererTexs: " << mTexture[0] << "," << mTexture[1];
-
+		glGenTextures(1, &mTextures.indicies);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_BUFFER, mTexture[0]);
+		glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
@@ -193,6 +124,7 @@ namespace t3d { namespace world { namespace terrain
 			}
 		}
 
+		glGenTextures(1, &mTextures.terrain);
 		glActiveTexture(GL_TEXTURE1);
 		{
 			Image imageWater;
@@ -210,7 +142,7 @@ namespace t3d { namespace world { namespace terrain
 			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
 			//glGenTextures(1, &mTexture[1]);
-			glBindTexture(GL_TEXTURE_2D_ARRAY, mTexture[1]);
+			glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
 
 			int mipLevels = 8;
 			glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
@@ -244,89 +176,15 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::uploadTerrainData()
 	{
-		uploadVertexData();
-		mRenderData->uploadIndexData();
+		glGenTextures(1, &mTextures.heightMap);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 
-		glEnable(GL_PRIMITIVE_RESTART);
-		glPrimitiveRestartIndex(PrimitiveRestartIndex);
-	}
+		HeightMap &hm = mTerrainData->heightMap();
+		glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
 
-
-	void Renderer::uploadVertexData()
-	{
-		mTerrainData->heightMap().buildVertexData(mRenderData->spacing());
-		mProgram.setUniformValue(mUniforms.spacing, mRenderData->spacing());
-		mProgram.setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
-		mProgram.setUniformValue(mUniforms.heightScale, mRenderData->heightScale());
-		mProgram.setUniformValue(mUniforms.blockSize, float(mRenderData->blockSize()));
-		mProgram.setUniformValue(mUniforms.spanSize, float(mRenderData->spanSize()));
-		mProgram.setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
-		const QVector<float> *terrainVertexData = mTerrainData->heightMap().getVertexData();
-
-
-		glGenBuffers(2, mVbo);
-
-		//vertex data
-		{
-			//position
-			glBindBuffer(GL_ARRAY_BUFFER, mVbo[0]);
-			{
-				GLuint size = sizeof(GLfloat)*terrainVertexData->size();
-				glBufferData(GL_ARRAY_BUFFER, size, &(*terrainVertexData)[0], GL_STATIC_DRAW);
-
-				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-				glEnableVertexAttribArray(0);
-			}
-			//lighting brightness
-			glBindBuffer(GL_ARRAY_BUFFER, mVbo[1]);
-			{
-				GLuint size = sizeof(LightMap::ValueType) * mTerrainData->lightMap().raw()->size();
-				glBufferData(GL_ARRAY_BUFFER, size, &mTerrainData->lightMap().raw()->at(0), GL_STATIC_DRAW);
-
-				glVertexAttribIPointer(1, 1, GL_UNSIGNED_SHORT, 0, NULL);
-				glEnableVertexAttribArray(1);
-			}
-		}
-	}
-
-
-	void Renderer::renderBlock(const Block &block)
-	{
-		glUniform2i(mUniforms.blockIndex, block.x, block.y);
-
-		int patchSize = static_cast<int>(pow(2, block.lod+1));
-		int patchesPerEdge = mRenderData->blockSize() / patchSize;
-		int heightMapSize = mTerrainData->heightMap().size();
-
-		//render all the patches (triangle fans) that make up this block
-		for (int y=0; y<patchesPerEdge; y++)
-		{
-			int offsetY = y * patchSize * heightMapSize;
-
-			for (int x=0; x<patchesPerEdge; x++)
-			{
-				VertexElimination ve = VertexEliminationNone;
-
-				//request elimination of vertecies to blend with a higher lod neighbor
-				if (x == 0  &&  block.neighborLod.left > block.lod)
-					ve = ve | VertexEliminationLeft;
-				if (x == patchesPerEdge-1  &&  block.neighborLod.right > block.lod)
-					ve = ve | VertexEliminationRight;
-				if (y == 0  &&  block.neighborLod.top > block.lod)
-					ve = ve | VertexEliminationTop;
-				if (y == patchesPerEdge-1  &&  block.neighborLod.bottom > block.lod)
-					ve = ve | VertexEliminationBottom;
-
-				LodIndexBlock lib;
-				lib = mRenderData->lodIndexBlockForLod(block.lod, GLubyte(ve));
-
-				int offsetX = x * patchSize;
-				int baseVertex = block.baseVertex+offsetX+offsetY;
-
-
-
-				glDrawElementsBaseVertex(GL_TRIANGLE_FAN, lib.count, GL_UNSIGNED_INT, (void*)lib.offset, baseVertex);
-			}
-		}
+		glPatchParameteri(GL_PATCH_VERTICES, 4);
+		//TODO RenderData is useless now
 	}
 }}}

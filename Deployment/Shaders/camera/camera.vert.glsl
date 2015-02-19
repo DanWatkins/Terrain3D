@@ -1,31 +1,26 @@
 #version 420 core
 
-layout (location = 0) in vec4 position;
-layout (location = 1) in int brightness;
+uniform int terrainSize;
 
-uniform mat4 cameraMatrix;
-uniform mat4 modelMatrix;
-uniform float heightScale = 10.0f;
-uniform float spacing;
-uniform float blockSize;
-uniform ivec2 blockIndex;
-uniform float spanSize;
+out VSOut
+{
+	vec2 heightTc;
+} vsOut;
 
-smooth out vec2 tc;
-smooth out vec4 outPos;
-smooth out float vsBrightness;
 
 void main()
 {
-	float repeatFactor = blockSize / spanSize;
+	const float M = 0.5f;
+	const vec4 vertices[] = vec4[](vec4(-M, 0.0, -M, 1.0),
+                                   vec4( M, 0.0, -M, 1.0),
+                                   vec4(-M, 0.0,  M, 1.0),
+                                   vec4( M, 0.0,  M, 1.0));
+	
+	
+	vec2 pos;
+	pos.x = gl_InstanceID & (terrainSize-1);
+	pos.y = gl_InstanceID / terrainSize;
 
-	tc.x = repeatFactor * (position.x/spacing - float(blockIndex.x)*blockSize) / blockSize;
-	tc.y = repeatFactor * (position.z/spacing - float(blockIndex.y)*blockSize) / blockSize;
-
-	outPos = position;
-
-	vsBrightness = float(brightness) / 65535.0f;
-
-	vec4 scaledPosition = vec4(position.x, position.y*heightScale, position.z, position.w);
-	gl_Position = cameraMatrix * modelMatrix * scaledPosition;
+	vsOut.heightTc = (vertices[gl_VertexID].xz + pos + vec2(M)) / terrainSize;
+	gl_Position = vertices[gl_VertexID] + vec4(pos.x - terrainSize/2, 0, pos.y - terrainSize/2, 0);	
 }

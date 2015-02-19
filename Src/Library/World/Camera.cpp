@@ -28,11 +28,7 @@ namespace t3d { namespace world
 	{
 		initializeOpenGLFunctions();
 
-		mTerrainRenderer.init(&mEnvironment->terrainData(),
-							  configuration.terrainSpacing,
-							  configuration.terrainHeightScale,
-							  configuration.terrainBlockSize,
-							  configuration.terrainSpanSize);
+		mTerrainRenderer.init(&mEnvironment->terrainData());
 
 		mEntityRenderer.setManager(&mEnvironment->entityManager());
 	}
@@ -53,7 +49,8 @@ namespace t3d { namespace world
 		glClearColor(1.0f, 0.9f, 0.8f , 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-		mTerrainRenderer.render(mPosition, totalMatrix());
+		mTerrainRenderer.render(mPosition, viewMatrix(), perspectiveMatrix());
+		
 		mEntityRenderer.renderAll(totalMatrix());
 		mEnvironment->assetManager().renderAllQueued();
 

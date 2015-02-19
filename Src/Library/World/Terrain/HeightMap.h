@@ -16,26 +16,16 @@ namespace t3d { namespace world { namespace terrain
 	{
 	private:
 		QVector<float> mHeightData;
-		int mSize;
-
-		QVector<float> mVertexData;
+		int mSize = 0;
 
 	public:
-		HeightMap()
-		{
-			mSize = 0;
-		}
-
-
 		void reserve(int size);
 		void set(int index, float height);
 		void set(int indexX, int indexY, float height);
 		float get(int index) const;
 		float get(int indexX, int indexY) const;
 
-		void buildVertexData(float spacing);
-		const QVector<float> *getVertexData() const { return &mVertexData; }
-
+		const float* raw() const;
 		int size() const { return mSize; }
 	};
 }}}
