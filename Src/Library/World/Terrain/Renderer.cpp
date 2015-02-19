@@ -29,9 +29,12 @@ namespace t3d { namespace world { namespace terrain
 			glBindVertexArray(mVao);
 			{
 				glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
+				glUniform1f(mUniforms.height, 10.0f);
 
 				uploadTerrainData();
-				loadTextures();
+
+				glPatchParameteri(GL_PATCH_VERTICES, 4);
+				//loadTextures();
 			}
 			glBindVertexArray(0);
 		}
@@ -79,8 +82,8 @@ namespace t3d { namespace world { namespace terrain
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 
-				HeightMap &hm = mTerrainData->heightMap();
-				glDrawArraysInstanced(GL_PATCHES, 0, 4, hm.size()*hm.size());
+				int terrainSize = mTerrainData->heightMap().size();
+				glDrawArraysInstanced(GL_PATCHES, 0, 4, terrainSize*terrainSize);
 			}
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
@@ -112,7 +115,7 @@ namespace t3d { namespace world { namespace terrain
 	void Renderer::loadTextures()
 	{
 		glGenTextures(1, &mTextures.indicies);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
 		{
 			GLuint buffer;
@@ -125,7 +128,7 @@ namespace t3d { namespace world { namespace terrain
 		}
 
 		glGenTextures(1, &mTextures.terrain);
-		glActiveTexture(GL_TEXTURE1);
+		glActiveTexture(GL_TEXTURE2);
 		{
 			Image imageWater;
 			imageWater.loadFromFile_PNG(gDefaultPathTextures + "water.png");
@@ -183,8 +186,6 @@ namespace t3d { namespace world { namespace terrain
 		HeightMap &hm = mTerrainData->heightMap();
 		glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
-
-		glPatchParameteri(GL_PATCH_VERTICES, 4);
 		//TODO RenderData is useless now
 	}
 }}}
