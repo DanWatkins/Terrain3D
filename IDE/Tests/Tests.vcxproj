@@ -23,7 +23,6 @@
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainNormalMap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Library\Library.h" />
     <ClInclude Include="..\..\Src\Tests\Tests.h" />
   </ItemGroup>
   <ItemGroup>

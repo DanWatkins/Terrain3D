@@ -48,8 +48,5 @@
     <ClInclude Include="..\..\Src\Tests\Tests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Library\Library.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

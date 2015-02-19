@@ -159,13 +159,14 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::loadShaders()
 	{
-		QOpenGLShader vertexShader(QOpenGLShader::Vertex, nullptr);
-		vertexShader.compileSourceFile(gDefaultPathShaders + "camera-vert.glsl");
-		mProgram.addShader(&vertexShader);
+#define LOAD_SHADER_FROM_FILE(type, filename) { QOpenGLShader shader(QOpenGLShader::type); shader.compileSourceFile(gDefaultPathShaders + "/camera/" + filename); mProgram.addShader(&shader); }
 
-		QOpenGLShader fragmentShader(QOpenGLShader::Fragment, nullptr);
-		fragmentShader.compileSourceFile(gDefaultPathShaders + "camera-frag.glsl");
-		mProgram.addShader(&fragmentShader);
+		LOAD_SHADER_FROM_FILE(Vertex, "camera.vert.glsl");
+		LOAD_SHADER_FROM_FILE(TessellationControl, "camera.tcs.glsl");
+		LOAD_SHADER_FROM_FILE(TessellationEvaluation, "camera.tes.glsl");
+		LOAD_SHADER_FROM_FILE(Fragment, "camera.frag.glsl");
+
+#undef LOAD_SHADER_FROM_FILE
 
 		if (mProgram.link() == false)
 			qFatal("Problem linking shaders");

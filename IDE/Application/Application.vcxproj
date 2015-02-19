@@ -117,12 +117,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Deployment\Shaders\camera-frag.glsl" />
-    <None Include="..\..\Deployment\Shaders\camera-vert.glsl" />
-    <None Include="..\..\Deployment\Shaders\mesh-frag.glsl" />
-    <None Include="..\..\Deployment\Shaders\mesh-vert.glsl" />
-    <None Include="..\..\Deployment\Shaders\sprite-frag.glsl" />
-    <None Include="..\..\Deployment\Shaders\sprite-vert.glsl" />
+    <None Include="..\..\Deployment\Shaders\camera\camera.frag.glsl" />
+    <None Include="..\..\Deployment\Shaders\camera\camera.tcs.glsl" />
+    <None Include="..\..\Deployment\Shaders\camera\camera.tes.glsl" />
+    <None Include="..\..\Deployment\Shaders\camera\camera.vert.glsl" />
+    <None Include="..\..\Deployment\Shaders\mesh\mesh.frag.glsl" />
+    <None Include="..\..\Deployment\Shaders\mesh\mesh.vert.glsl" />
     <None Include="..\..\Src\Application\qml\main.qml" />
     <None Include="..\..\Src\Application\qml\SettingsPane.qml" />
   </ItemGroup>

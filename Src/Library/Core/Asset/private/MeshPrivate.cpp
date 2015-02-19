@@ -142,12 +142,14 @@ namespace t3d { namespace asset
 	
 	void mesh_p::loadShaders()
 	{
-		QOpenGLShader vertexShader(QOpenGLShader::Vertex, nullptr);
-		vertexShader.compileSourceFile(gDefaultPathShaders + "mesh-vert.glsl");
+		QString basePath = gDefaultPathShaders + "/mesh/";
+
+		QOpenGLShader vertexShader(QOpenGLShader::Vertex);
+		vertexShader.compileSourceFile(basePath + "mesh.vert.glsl");
 		mProgram.addShader(&vertexShader);
 
-		QOpenGLShader fragmentShader(QOpenGLShader::Fragment, nullptr);
-		fragmentShader.compileSourceFile(gDefaultPathShaders + "mesh-frag.glsl");
+		QOpenGLShader fragmentShader(QOpenGLShader::Fragment);
+		fragmentShader.compileSourceFile(basePath + "mesh.frag.glsl");
 		mProgram.addShader(&fragmentShader);
 
 		if (mProgram.link() == false)

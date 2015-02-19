@@ -28,6 +28,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{d4b8cbd8-d682-4a85-a6b0-c177f9d8e8fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\camera">
+      <UniqueIdentifier>{957790a7-76f1-4277-8bc4-8c804a2bf1ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\mesh">
+      <UniqueIdentifier>{57f28f98-965f-4dbe-bae5-e9c8f8f56c36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_BackgroundUpdater.cpp">
@@ -105,23 +111,23 @@
     <None Include="..\..\Src\Application\qml\SettingsPane.qml">
       <Filter>Src\qml</Filter>
     </None>
-    <None Include="..\..\Deployment\Shaders\camera-frag.glsl">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Deployment\Shaders\camera\camera.frag.glsl">
+      <Filter>Shaders\camera</Filter>
     </None>
-    <None Include="..\..\Deployment\Shaders\camera-vert.glsl">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Deployment\Shaders\camera\camera.tcs.glsl">
+      <Filter>Shaders\camera</Filter>
     </None>
-    <None Include="..\..\Deployment\Shaders\mesh-frag.glsl">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Deployment\Shaders\camera\camera.tes.glsl">
+      <Filter>Shaders\camera</Filter>
     </None>
-    <None Include="..\..\Deployment\Shaders\mesh-vert.glsl">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Deployment\Shaders\camera\camera.vert.glsl">
+      <Filter>Shaders\camera</Filter>
     </None>
-    <None Include="..\..\Deployment\Shaders\sprite-frag.glsl">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Deployment\Shaders\mesh\mesh.frag.glsl">
+      <Filter>Shaders\mesh</Filter>
     </None>
-    <None Include="..\..\Deployment\Shaders\sprite-vert.glsl">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Deployment\Shaders\mesh\mesh.vert.glsl">
+      <Filter>Shaders\mesh</Filter>
     </None>
   </ItemGroup>
 </Project>
