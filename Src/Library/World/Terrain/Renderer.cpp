@@ -186,6 +186,9 @@ namespace t3d { namespace world { namespace terrain
 		HeightMap &hm = mTerrainData->heightMap();
 		glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		//TODO RenderData is useless now
 	}
 }}}

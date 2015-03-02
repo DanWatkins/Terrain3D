@@ -1,10 +1,15 @@
+//==================================================================================================================|
+// Copyright (C) 2014-2015 Daniel L. Watkins
+// This file is licensed under the MIT License.
+//==================================================================================================================|
+
 #version 420 core
 
 uniform int terrainSize;
 
 out VSOut
 {
-	vec2 heightTc;
+	vec2 tc;
 } vsOut;
 
 
@@ -21,6 +26,6 @@ void main()
 	pos.x = gl_InstanceID & (terrainSize-1);
 	pos.y = gl_InstanceID / terrainSize;
 
-	vsOut.heightTc = (vertices[gl_VertexID].xz + pos + vec2(M)) / terrainSize;
+	vsOut.tc = (vertices[gl_VertexID].xz + pos + vec2(M)) / terrainSize;
 	gl_Position = vertices[gl_VertexID] + vec4(pos.x - terrainSize/2, 0, pos.y - terrainSize/2, 0);	
 }
