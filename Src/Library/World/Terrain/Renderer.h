@@ -50,6 +50,10 @@ namespace t3d { namespace world { namespace terrain
 			GLint height;
 			GLint mvMatrix;
 			GLint projMatrix;
+
+			GLint spacing;
+			GLint textureMapResolution;
+			GLint heightMapSize;
 		} mUniforms;
 
 		struct

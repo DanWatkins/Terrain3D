@@ -1,9 +1,9 @@
+#version 420 core
+
 //==================================================================================================================|
 // Copyright (C) 2014-2015 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //==================================================================================================================|
-
-#version 420 core
 
 in TESOut
 {
@@ -16,9 +16,33 @@ out vec4 color;
 
 uniform float height;
 
+layout (binding = 1) uniform usamplerBuffer buffer;
+layout (binding = 2) uniform sampler2DArray sampler;
+
+uniform int terrainSize;
+uniform float spacing;
+uniform int heightMapSize;
+uniform int textureMapResolution;
+
+
+vec4 texelForIndex(uint index)
+{
+	vec3 pos;
+	pos.x = fsIn.tc.x * 8.0;
+	pos.y = fsIn.tc.y * 8.0;
+	pos.z = index;
+
+	return texture(sampler, pos);
+}
+
 
 void main()
 {
-	float scale = fsIn.worldCoord.y / height;
-	color = vec4(scale, scale, scale, 1.0);
+	int tcms = (heightMapSize-1) * textureMapResolution + 1;
+
+	int x = int(fsIn.tc.x * tcms + 0.5f);
+	int y = int(fsIn.tc.y * tcms + 0.5f);
+	int index = x + y*tcms;
+
+	color = texelForIndex(texelFetch(buffer, index).r);
 }

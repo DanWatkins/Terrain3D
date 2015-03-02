@@ -17,7 +17,6 @@ namespace t3d { namespace world { namespace terrain { namespace Lighting
 		if (lm.size() != hm.size())
 			return false;
 
-		//just max out the lightmap for now since the sun will shine everywhere max
 		for (int y=0; y<lm.size(); y++)
 		{
 			for (int x=0; x<lm.size(); x++)

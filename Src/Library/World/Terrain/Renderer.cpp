@@ -24,6 +24,10 @@ namespace t3d { namespace world { namespace terrain
 			mUniforms.mvMatrix = mProgram.uniformLocation("mvMatrix");
 			mUniforms.projMatrix = mProgram.uniformLocation("projMatrix");
 
+			mUniforms.spacing = mProgram.uniformLocation("spacing");
+			mUniforms.textureMapResolution = mProgram.uniformLocation("textureMapResolution");
+			mUniforms.heightMapSize = mProgram.uniformLocation("heightMapSize");
+
 			glGenVertexArrays(1, &mVao);
 
 			glBindVertexArray(mVao);
@@ -34,7 +38,7 @@ namespace t3d { namespace world { namespace terrain
 				uploadTerrainData();
 
 				glPatchParameteri(GL_PATCH_VERTICES, 4);
-				//loadTextures();
+				loadTextures();
 			}
 			glBindVertexArray(0);
 		}
@@ -144,7 +148,6 @@ namespace t3d { namespace world { namespace terrain
 
 			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
-			//glGenTextures(1, &mTexture[1]);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
 
 			int mipLevels = 8;
@@ -190,5 +193,9 @@ namespace t3d { namespace world { namespace terrain
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		//TODO RenderData is useless now
+
+		mProgram.setUniformValue(mUniforms.spacing, 1.0f); //TODO
+		mProgram.setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
+		mProgram.setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 	}
 }}}

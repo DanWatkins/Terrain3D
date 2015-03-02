@@ -55,6 +55,8 @@ namespace t3d { namespace world
 
 	void Environment::generateEntities()
 	{
+		return;
+
 		terrain::HeightMap &hm = mTerrainData.heightMap();
 		const int density = 7;
 		const int NumTreesAttempt = (density*hm.size()/64) * (density*hm.size()/64);
@@ -80,7 +82,7 @@ namespace t3d { namespace world
 				strong<entity::BaseEntity> e1 = mEntityManager.createEntity();
 				
 				float height = hm.get(x, y);
-				e1->setPos(Vec3f(x, 30*height, y));	//hardcoded, GROSS TODO
+				e1->setPos(Vec3f(x, height*3.0, y));	//hardcoded, GROSS TODO
 
 				e1->createRenderComponent();
 				QString treeName = treeList[randInt(0, treeList.size()-1)];
