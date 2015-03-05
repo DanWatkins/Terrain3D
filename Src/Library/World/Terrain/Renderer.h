@@ -29,6 +29,9 @@ namespace t3d { namespace world { namespace terrain
 		void cleanup();
 		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
+		void setHeightScale(float heightScale);
+		void setSpanSize(int spanSize);
+
 		void setLodFactor(float lodFactor) { mLodFactor = lodFactor; }
 		void setMode(Mode mode) { mMode = mode; }
 		Mode getMode() { return mMode; }
@@ -46,10 +49,12 @@ namespace t3d { namespace world { namespace terrain
 
 		struct
 		{
-			GLint terrainSize;
-			GLint height;
 			GLint mvMatrix;
 			GLint projMatrix;
+
+			GLint terrainSize;
+			GLint heightScale;
+			GLint spanSize;
 
 			GLint spacing;
 			GLint textureMapResolution;

@@ -29,6 +29,8 @@ namespace t3d { namespace world
 		initializeOpenGLFunctions();
 
 		mTerrainRenderer.init(&mEnvironment->terrainData());
+		mTerrainRenderer.setHeightScale(configuration.terrainHeightScale);
+		mTerrainRenderer.setSpanSize(configuration.terrainSpanSize);
 
 		mEntityRenderer.setManager(&mEnvironment->entityManager());
 	}

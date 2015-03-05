@@ -21,6 +21,7 @@ layout (binding = 2) uniform usamplerBuffer textureLayers;
 layout (binding = 3) uniform sampler2DArray terrainTexture;
 
 uniform int terrainSize;
+uniform int spanSize;
 uniform float spacing;
 uniform int heightMapSize;
 uniform int textureMapResolution;
@@ -33,8 +34,8 @@ vec4 mixes[3];
 vec4 texelForIndex(int index)
 {
 	vec3 pos;
-	pos.x = fsIn.tc.x * 8.0;
-	pos.y = fsIn.tc.y * 8.0;
+	pos.x = fsIn.tc.x / spanSize * terrainSize;
+	pos.y = fsIn.tc.y / spanSize * terrainSize;
 	pos.z = texelFetch(textureLayers, index).r;
 
 	return texture(terrainTexture, pos);

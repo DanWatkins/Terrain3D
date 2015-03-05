@@ -19,21 +19,25 @@ namespace t3d { namespace world { namespace terrain
 		
 		mProgram.bind();
 		{
-			mUniforms.terrainSize = mProgram.uniformLocation("terrainSize");
-			mUniforms.height = mProgram.uniformLocation("height");
-			mUniforms.mvMatrix = mProgram.uniformLocation("mvMatrix");
-			mUniforms.projMatrix = mProgram.uniformLocation("projMatrix");
+#define ULOC(id) mUniforms.id = mProgram.uniformLocation(#id)
+			ULOC(mvMatrix);
+			ULOC(projMatrix);
 
-			mUniforms.spacing = mProgram.uniformLocation("spacing");
-			mUniforms.textureMapResolution = mProgram.uniformLocation("textureMapResolution");
-			mUniforms.heightMapSize = mProgram.uniformLocation("heightMapSize");
+			ULOC(terrainSize);
+			ULOC(heightScale);
+			ULOC(spanSize);
+
+			ULOC(spacing);
+			ULOC(textureMapResolution);
+			ULOC(heightMapSize);
+#undef ULOC
+
 
 			glGenVertexArrays(1, &mVao);
 
 			glBindVertexArray(mVao);
 			{
 				glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
-				glUniform1f(mUniforms.height, 10.0f);
 
 				uploadTerrainData();
 
@@ -98,6 +102,22 @@ namespace t3d { namespace world { namespace terrain
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
 		}
+		mProgram.release();
+	}
+
+
+	void Renderer::setHeightScale(float heightScale)
+	{
+		mProgram.bind();
+		glUniform1f(mUniforms.heightScale, heightScale);
+		mProgram.release();
+	}
+
+
+	void Renderer::setSpanSize(int spanSize)
+	{
+		mProgram.bind();
+		glUniform1i(mUniforms.spanSize, spanSize);
 		mProgram.release();
 	}
 
