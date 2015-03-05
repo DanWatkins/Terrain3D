@@ -35,6 +35,7 @@ namespace t3d
 	{
 		Q_OBJECT
 		Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
+		Q_PROPERTY(QString pos READ pos NOTIFY posChanged);
 
 	public:
 		Terrain3D(Settings *mainSettings);
@@ -81,6 +82,16 @@ namespace t3d
 
 		int fps() const { return mFPSCounter.fps(); }
 
+		QString pos() const
+		{
+			if (auto camera = mCamera.lock())
+			{
+				return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->position().x, camera->position().y, camera->position().z);
+			}
+
+			return "Unknown";
+		}
+
 	private:
 		world::Environment mEnvironment;
 		weak<world::Camera> mCamera;
@@ -115,11 +126,13 @@ namespace t3d
 		void toggleSettingsMenu();
 		void refreshSettingsMenu();
 		void fpsChanged();
+		void posChanged();
 
 	public slots:
 		void willUpdate();
 		void beforeRendering();
-		void onFpsChanged();
+		void onFpsChanged() { emit fpsChanged(); }
+		void onPosChanged() { emit posChanged(); }
 	};
 }
 

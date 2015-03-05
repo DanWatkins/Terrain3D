@@ -122,6 +122,12 @@ Item {
                 font.pointSize: 16
                 color: "white"
             }
+
+            Text {
+                text: "Pos: " + terrain3D.pos;
+                font.pointSize: 16
+                color: "white"
+            }
         }
     }
 }

@@ -44,6 +44,7 @@ namespace t3d { namespace world
 
 	signals:
 		void finishedRendering();
+		void posChanged();
 
 	public:
 		Camera();
@@ -67,8 +68,8 @@ namespace t3d { namespace world
 
 		void setEnvironment(Environment *environment) { mEnvironment = environment; }
 
-		void setPosition(Vec3f position) { mPosition = position; }
-		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; }
+		void setPosition(Vec3f position) { mPosition = position; emit posChanged(); }
+		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; emit posChanged();}
 		Vec3f position() const { return mPosition; }
 
 		void setFieldOfView(float fieldOfView) { mFieldOfView = fieldOfView; }

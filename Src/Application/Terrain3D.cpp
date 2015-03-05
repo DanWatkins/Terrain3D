@@ -56,6 +56,9 @@ namespace t3d
 		QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged,
 						 this, &Terrain3D::onFpsChanged);
 
+		QObject::connect(mCamera.lock().get(), &world::Camera::posChanged,
+						 this, &Terrain3D::onPosChanged);
+
 		QWindow::show();
 	}
 
@@ -380,11 +383,5 @@ namespace t3d
 		mFPSCounter.update();
 		glClearColor(1.0f, 0.0f, 0.8f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	}
-
-
-	void Terrain3D::onFpsChanged()
-	{
-		emit fpsChanged();
 	}
 }
