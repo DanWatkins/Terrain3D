@@ -40,8 +40,8 @@ void main()
 {
 	int tcms = (heightMapSize-1) * textureMapResolution + 1;
 
-	int x = int(fsIn.tc.x * tcms + 0.5f);
-	int y = int(fsIn.tc.y * tcms + 0.5f);
+	int x = int(fsIn.tc.x * tcms);
+	int y = int(fsIn.tc.y * tcms);
 	int index = x + y*tcms;
 
 	color = texelForIndex(texelFetch(buffer, index).r);
