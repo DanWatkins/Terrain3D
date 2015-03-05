@@ -65,6 +65,8 @@ namespace t3d { namespace world
 		 */
 		void resize(unsigned windowWidth, unsigned windowHeight);
 
+		void reloadShaders();
+
 
 		void setEnvironment(Environment *environment) { mEnvironment = environment; }
 

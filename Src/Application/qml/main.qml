@@ -95,6 +95,12 @@ Item {
                 height: 30
                 onClicked: terrain3D.requestRestart();
             }
+			Button {
+                id: button_reloadShaders
+                text: "Realod Shaders (F6)"
+                height: 30
+                onClicked: terrain3D.reloadShaders();
+            }
             Button {
                 id: button_settings
                 text: "Settings (F10)"

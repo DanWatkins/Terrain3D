@@ -16,37 +16,6 @@ namespace t3d { namespace world { namespace terrain
 		initializeOpenGLFunctions();
 		mTerrainData = terrainData;
 		loadShaders();
-		
-		mProgram.bind();
-		{
-#define ULOC(id) mUniforms.id = mProgram.uniformLocation(#id)
-			ULOC(mvMatrix);
-			ULOC(projMatrix);
-
-			ULOC(terrainSize);
-			ULOC(heightScale);
-			ULOC(spanSize);
-
-			ULOC(spacing);
-			ULOC(textureMapResolution);
-			ULOC(heightMapSize);
-#undef ULOC
-
-
-			glGenVertexArrays(1, &mVao);
-
-			glBindVertexArray(mVao);
-			{
-				glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
-
-				uploadTerrainData();
-
-				glPatchParameteri(GL_PATCH_VERTICES, 4);
-				loadTextures();
-			}
-			glBindVertexArray(0);
-		}
-		mProgram.release();
 	}
 
 
@@ -54,7 +23,7 @@ namespace t3d { namespace world { namespace terrain
 	{
 		mTerrainData->cleanup();
 
-		mProgram.removeAllShaders();
+		mProgram->removeAllShaders();
 		glDeleteBuffers(2, mVbo);
 		glDeleteTextures(1, &mTextures.heightMap);
 		glDeleteTextures(1, &mTextures.indicies);
@@ -65,7 +34,7 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
 	{
-		mProgram.bind();
+		mProgram->bind();
 		{
 			glUniformMatrix4fv(mUniforms.mvMatrix, 1, GL_FALSE, glm::value_ptr(modelViewMatrix));
 			glUniformMatrix4fv(mUniforms.projMatrix, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
@@ -102,23 +71,31 @@ namespace t3d { namespace world { namespace terrain
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
 		}
-		mProgram.release();
+		mProgram->release();
+	}
+
+
+	void Renderer::reloadShaders()
+	{
+		loadShaders();
 	}
 
 
 	void Renderer::setHeightScale(float heightScale)
 	{
-		mProgram.bind();
-		glUniform1f(mUniforms.heightScale, heightScale);
-		mProgram.release();
+		mHeightScale = heightScale;
+		mProgram->bind();
+		glUniform1f(mUniforms.heightScale, mHeightScale);
+		mProgram->release();
 	}
 
 
 	void Renderer::setSpanSize(int spanSize)
 	{
-		mProgram.bind();
-		glUniform1i(mUniforms.spanSize, spanSize);
-		mProgram.release();
+		mSpanSize = spanSize;
+		mProgram->bind();
+		glUniform1i(mUniforms.spanSize, mSpanSize);
+		mProgram->release();
 	}
 
 
@@ -126,19 +103,50 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::loadShaders()
 	{
-#define LOAD_SHADER_FROM_FILE(type, filename) { QOpenGLShader shader(QOpenGLShader::type); shader.compileSourceFile(gDefaultPathShaders + "/camera/" + filename); mProgram.addShader(&shader); }
+		mProgram = std::make_unique<QOpenGLShaderProgram>();
 
+#define LOAD_SHADER_FROM_FILE(type, filename) { QOpenGLShader shader(QOpenGLShader::type); shader.compileSourceFile(gDefaultPathShaders + "/camera/" + filename); mProgram->addShader(&shader); }
 		LOAD_SHADER_FROM_FILE(Vertex, "camera.vert.glsl");
 		LOAD_SHADER_FROM_FILE(TessellationControl, "camera.tcs.glsl");
 		LOAD_SHADER_FROM_FILE(TessellationEvaluation, "camera.tes.glsl");
 		LOAD_SHADER_FROM_FILE(Fragment, "camera.frag.glsl");
-
 #undef LOAD_SHADER_FROM_FILE
 
-		if (mProgram.link() == false)
+		if (mProgram->link() == false)
 			qFatal("Problem linking shaders");
 		else
 			qDebug() << "Initialized shaders";
+
+		mProgram->bind();
+		{
+#define ULOC(id) mUniforms.id = mProgram->uniformLocation(#id)
+			ULOC(mvMatrix);
+			ULOC(projMatrix);
+
+			ULOC(terrainSize);
+			ULOC(heightScale);
+			ULOC(spanSize);
+
+			ULOC(spacing);
+			ULOC(textureMapResolution);
+			ULOC(heightMapSize);
+#undef ULOC
+
+			glGenVertexArrays(1, &mVao);
+			glBindVertexArray(mVao);
+			{
+				glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
+				glUniform1f(mUniforms.heightScale, mHeightScale);
+				glUniform1i(mUniforms.spanSize, mSpanSize);
+
+				uploadTerrainData();
+
+				glPatchParameteri(GL_PATCH_VERTICES, 4);
+				loadTextures();
+			}
+			glBindVertexArray(0);
+		}
+		mProgram->release();
 	}
 
 
@@ -235,8 +243,8 @@ namespace t3d { namespace world { namespace terrain
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		}
 
-		mProgram.setUniformValue(mUniforms.spacing, 1.0f); //TODO
-		mProgram.setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
-		mProgram.setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
+		mProgram->setUniformValue(mUniforms.spacing, 1.0f); //TODO
+		mProgram->setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
+		mProgram->setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 	}
 }}}

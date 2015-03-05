@@ -233,6 +233,10 @@ namespace t3d
 			case Qt::Key_F5:
 				requestRestart(); break;
 
+			//reload shaders
+			case Qt::Key_F6:
+				reloadShaders(); break;
+
 			//toggle settings menu
 			case Qt::Key_F10:
 				emit toggleSettingsMenu(); break;

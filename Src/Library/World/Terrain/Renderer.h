@@ -28,6 +28,7 @@ namespace t3d { namespace world { namespace terrain
 		void init(Data *terrainData);
 		void cleanup();
 		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
+		void reloadShaders();
 
 		void setHeightScale(float heightScale);
 		void setSpanSize(int spanSize);
@@ -40,10 +41,12 @@ namespace t3d { namespace world { namespace terrain
 		Q_DISABLE_COPY(Renderer)
 
 		Data *mTerrainData;
-		QOpenGLShaderProgram mProgram;
+		unique<QOpenGLShaderProgram> mProgram;
 		GLuint mVao;
 		GLuint mVbo[2];
 
+		float mHeightScale;
+		float mSpanSize;
 		float mLodFactor;
 		Mode mMode = Mode::Normal;
 

@@ -58,6 +58,8 @@ namespace t3d
 		 */
 		Q_INVOKABLE void requestRestart() { mNeedsRestart = true; QQuickView::close(); }
 
+		Q_INVOKABLE void reloadShaders() { if (auto camera = mCamera.lock()) camera->reloadShaders(); }
+
 		/**
 		 *
 		 */

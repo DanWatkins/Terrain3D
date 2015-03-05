@@ -67,6 +67,12 @@ namespace t3d { namespace world
 	}
 
 
+	void Camera::reloadShaders()
+	{
+		mTerrainRenderer.reloadShaders();
+	}
+
+
 	Mat4 Camera::orientaion() const
 	{
 		Mat4 orientation;
