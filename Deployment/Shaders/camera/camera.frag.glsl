@@ -10,14 +10,15 @@ in TESOut
 	vec2 tc;
 	vec3 worldCoord;
 	vec3 eyeCoord;
+	float brightness;
 } fsIn;
 
 out vec4 color;
 
 uniform float height;
 
-layout (binding = 1) uniform usamplerBuffer buffer;
-layout (binding = 2) uniform sampler2DArray sampler;
+layout (binding = 2) uniform usamplerBuffer textureLayers;
+layout (binding = 3) uniform sampler2DArray terrainTexture;
 
 uniform int terrainSize;
 uniform float spacing;
@@ -34,9 +35,9 @@ vec4 texelForIndex(int index)
 	vec3 pos;
 	pos.x = fsIn.tc.x * 8.0;
 	pos.y = fsIn.tc.y * 8.0;
-	pos.z = texelFetch(buffer, index).r;
+	pos.z = texelFetch(textureLayers, index).r;
 
-	return texture(sampler, pos);
+	return texture(terrainTexture, pos);
 }
 
 #define TOP_LEFT		0
@@ -95,13 +96,13 @@ void computeMixes()
 		float topLerp = local.y / 0.5;	//TODO IDK which way Y goes
 		float bottomLerp = (local.y-0.5) / 0.5;
 
-		if (local.y < 0.5)
+		if (local.y > 0.5)
 		{
-			color = mix(mixes[0], mixes[1], topLerp);
+			color = mix(mixes[1], mixes[2], topLerp);
 		}
 		else
 		{
-			color = mix(mixes[1], mixes[2], bottomLerp);
+			color = mix(mixes[0], mixes[1], bottomLerp);
 		}
 	}
 
@@ -112,4 +113,7 @@ void main()
 {
 	buildParts();
 	computeMixes();
+
+	const vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
+	color = mix(black, color, fsIn.brightness);
 }

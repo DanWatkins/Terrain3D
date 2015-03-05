@@ -29,7 +29,7 @@ namespace t3d { namespace world { namespace terrain
 
 		int size() const { return mSize; }
 
-		ValueVector* raw() { return &mValues; }
+		const ValueType* raw() const { return &mValues.at(0); }
 
 	private:
 		ValueVector mValues;

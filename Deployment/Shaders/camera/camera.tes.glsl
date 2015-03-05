@@ -18,6 +18,7 @@ out TESOut
 	vec2 tc;
 	vec3 worldCoord;
 	vec3 eyeCoord;
+	float brightness;
 } tesOut;
 
 uniform mat4 mvMatrix;
@@ -25,7 +26,7 @@ uniform mat4 projMatrix;
 uniform float height;
 
 layout (binding = 0) uniform sampler2D heightMapSampler;
-
+layout (binding = 1) uniform sampler2D lightMapSampler;
 
 void main()
 {
@@ -42,6 +43,7 @@ void main()
 
 	tesOut.tc = tc;
 	tesOut.worldCoord = pos.xyz;
+	tesOut.brightness = texture(lightMapSampler, tc).r;
 
 	vec4 eyeCoord = mvMatrix * pos;
 	tesOut.eyeCoord = eyeCoord.xyz;

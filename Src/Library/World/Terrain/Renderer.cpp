@@ -85,6 +85,12 @@ namespace t3d { namespace world { namespace terrain
 
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
+				glActiveTexture(GL_TEXTURE1);
+				glBindTexture(GL_TEXTURE_2D, mTextures.lightMap);
+				glActiveTexture(GL_TEXTURE2);
+				glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
+				glActiveTexture(GL_TEXTURE3);
+				glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
 
 				int terrainSize = mTerrainData->heightMap().size();
 				glDrawArraysInstanced(GL_PATCHES, 0, 4, terrainSize*terrainSize);
@@ -119,7 +125,6 @@ namespace t3d { namespace world { namespace terrain
 	void Renderer::loadTextures()
 	{
 		glGenTextures(1, &mTextures.indicies);
-		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
 		{
 			GLuint buffer;
@@ -132,7 +137,6 @@ namespace t3d { namespace world { namespace terrain
 		}
 
 		glGenTextures(1, &mTextures.terrain);
-		glActiveTexture(GL_TEXTURE2);
 		{
 			Image imageWater;
 			imageWater.loadFromFile_PNG(gDefaultPathTextures + "water.png");
@@ -182,17 +186,34 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::uploadTerrainData()
 	{
-		glGenTextures(1, &mTextures.heightMap);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
+		//height map
+		{
+			glGenTextures(1, &mTextures.heightMap);
 
-		HeightMap &hm = mTerrainData->heightMap();
-		glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
+			glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		//TODO RenderData is useless now
+			HeightMap &hm = mTerrainData->heightMap();
+			glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+
+
+		//light map
+		{
+			glGenTextures(1, &mTextures.lightMap);
+			qDebug() << mTextures.lightMap;
+			glBindTexture(GL_TEXTURE_2D, mTextures.lightMap);
+
+			LightMap &lm = mTerrainData->lightMap();
+			glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, lm.size(), lm.size());
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, lm.size(), lm.size(), GL_RED, GL_UNSIGNED_SHORT, lm.raw());
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
 
 		mProgram.setUniformValue(mUniforms.spacing, 1.0f); //TODO
 		mProgram.setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());

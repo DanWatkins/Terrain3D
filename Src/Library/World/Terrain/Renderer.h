@@ -59,6 +59,7 @@ namespace t3d { namespace world { namespace terrain
 		struct
 		{
 			GLuint heightMap;
+			GLuint lightMap;
 			GLuint indicies;
 			GLuint terrain;
 		} mTextures;
