@@ -74,39 +74,40 @@ void computeMixes()
 	local.x = local.x - int(local.x);
 	local.y = local.y - int(local.y);
 
-	//phase 1
+	if (local.x < 0.5)
 	{
-		if (local.x < 0.5)
+		vec4 cur = mix(parts[LEFT], parts[CENTER], local.x + 0.5);
+
+		if (local.y < 0.5)
 		{
-			float leftLerp = local.x / 0.5;
-			mixes[0] = mix(parts[TOP_LEFT], parts[TOP], leftLerp);
-			mixes[1] = mix(parts[LEFT], parts[CENTER], leftLerp);
-			mixes[2] = mix(parts[BOTTOM_LEFT], parts[BOTTOM], leftLerp);
+			vec4 top = mix(parts[TOP_LEFT], parts[TOP], local.x + 0.5);
+			color = mix(top, cur, local.y + 0.5);
 		}
 		else
 		{
-			float rightLerp = (local.x-0.5) / 0.5;
-			mixes[0] = mix(parts[TOP], parts[TOP_RIGHT], rightLerp);
-			mixes[1] = mix(parts[CENTER], parts[RIGHT], rightLerp);
-			mixes[2] = mix(parts[BOTTOM], parts[BOTTOM_RIGHT], rightLerp);
+			vec4 bottom = mix(parts[BOTTOM_LEFT], parts[BOTTOM], local.x + 0.5);
+			color = mix(cur, bottom, local.y - 0.5);
 		}
 	}
-
-	//phase 2
+	else
 	{
-		float topLerp = local.y / 0.5;	//TODO IDK which way Y goes
-		float bottomLerp = (local.y-0.5) / 0.5;
-
-		if (local.y > 0.5)
+		vec4 cur = mix(parts[CENTER], parts[RIGHT], local.x - 0.5);
+		
+		if (local.y < 0.5)
 		{
-			color = mix(mixes[1], mixes[2], topLerp);
+			vec4 top = mix(parts[TOP], parts[TOP_RIGHT], local.x - 0.5);
+			color = mix(top, cur, local.y + 0.5);
 		}
 		else
 		{
-			color = mix(mixes[0], mixes[1], bottomLerp);
+			vec4 bottom = mix(parts[BOTTOM], parts[BOTTOM_RIGHT], local.x - 0.5);
+			color = mix(cur, bottom, local.y - 0.5);
 		}
 	}
 
+
+	if (local.y < 0.5 && local.x < 0.5)
+		color = mix(color, vec4(1, 0, 0, 1), 0.0);
 }
 
 
