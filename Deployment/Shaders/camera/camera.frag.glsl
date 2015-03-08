@@ -54,17 +54,26 @@ vec4 texelForIndex(int index)
 
 void buildParts()
 {
-	parts[TOP_LEFT]		= texelForIndex(centerIndex-tcms-1);
-	parts[TOP]			= texelForIndex(centerIndex-tcms);
-	parts[TOP_RIGHT]	= texelForIndex(centerIndex-tcms+1);
+	ivec2 gridPos;
+	gridPos.x = int(fsIn.tc.x * terrainSize);
+	gridPos.y = int(fsIn.tc.y * terrainSize);
 
-	parts[LEFT]			= texelForIndex(centerIndex-1);
+	int topDelta = (gridPos.y == 0) ? 0 : tcms;
+	int bottomDelta = (gridPos.y == terrainSize-1) ? 0 : tcms;
+	int leftDelta = (gridPos.x == 0) ? 0 : 1;
+	int rightDelta = (gridPos.x == terrainSize-1) ? 0 : 1;
+
+	parts[TOP_LEFT]		= texelForIndex(centerIndex-topDelta-leftDelta);
+	parts[TOP]			= texelForIndex(centerIndex-topDelta);
+	parts[TOP_RIGHT]	= texelForIndex(centerIndex-topDelta+rightDelta);
+
+	parts[LEFT]			= texelForIndex(centerIndex-leftDelta);
 	parts[CENTER]		= texelForIndex(centerIndex);
-	parts[RIGHT]		= texelForIndex(centerIndex+1);
+	parts[RIGHT]		= texelForIndex(centerIndex+rightDelta);
 
-	parts[BOTTOM_LEFT]	= texelForIndex(centerIndex+tcms-1);
-	parts[BOTTOM]		= texelForIndex(centerIndex+tcms);
-	parts[BOTTOM_RIGHT]	= texelForIndex(centerIndex+tcms+1);
+	parts[BOTTOM_LEFT]	= texelForIndex(centerIndex+bottomDelta-leftDelta);
+	parts[BOTTOM]		= texelForIndex(centerIndex+bottomDelta);
+	parts[BOTTOM_RIGHT]	= texelForIndex(centerIndex+bottomDelta+rightDelta);
 }
 
 
