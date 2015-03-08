@@ -73,41 +73,26 @@ void computeMixes()
 	vec2 local = fsIn.tc * float(tcms);
 	local.x = local.x - int(local.x);
 	local.y = local.y - int(local.y);
+	
+	float centerIntensity = 0.50;
 
-	if (local.x < 0.5)
-	{
-		vec4 cur = mix(parts[LEFT], parts[CENTER], local.x + 0.5);
+	vec4 hCenter = mix(mix(parts[LEFT], parts[RIGHT], local.x), parts[CENTER], centerIntensity);
+	vec4 vCenter = mix(mix(parts[TOP], parts[BOTTOM], local.y), parts[CENTER], centerIntensity);
 
-		if (local.y < 0.5)
-		{
-			vec4 top = mix(parts[TOP_LEFT], parts[TOP], local.x + 0.5);
-			color = mix(top, cur, local.y + 0.5);
-		}
-		else
-		{
-			vec4 bottom = mix(parts[BOTTOM_LEFT], parts[BOTTOM], local.x + 0.5);
-			color = mix(cur, bottom, local.y - 0.5);
-		}
-	}
-	else
-	{
-		vec4 cur = mix(parts[CENTER], parts[RIGHT], local.x - 0.5);
-		
-		if (local.y < 0.5)
-		{
-			vec4 top = mix(parts[TOP], parts[TOP_RIGHT], local.x - 0.5);
-			color = mix(top, cur, local.y + 0.5);
-		}
-		else
-		{
-			vec4 bottom = mix(parts[BOTTOM], parts[BOTTOM_RIGHT], local.x - 0.5);
-			color = mix(cur, bottom, local.y - 0.5);
-		}
-	}
+	vec4 topBar = mix(mix(parts[TOP_LEFT], parts[TOP_RIGHT], local.x), parts[TOP], centerIntensity);
+	vec4 bottomBar = mix(mix(parts[BOTTOM_LEFT], parts[BOTTOM_RIGHT], local.x), parts[BOTTOM], centerIntensity);
+
+	vec4 leftBar = mix(mix(parts[TOP_LEFT], parts[BOTTOM_LEFT], local.y), parts[LEFT], centerIntensity);
+	vec4 rightBar = mix(mix(parts[TOP_RIGHT], parts[BOTTOM_RIGHT], local.y), parts[RIGHT], centerIntensity);
 
 
-	if (local.y < 0.5 && local.x < 0.5)
-		color = mix(color, vec4(1, 0, 0, 1), 0.0);
+	vec4 hSides = mix(topBar, bottomBar, local.y);
+	vec4 vSides = mix(leftBar, rightBar, local.x);
+
+	vec4 hTotal = mix(hSides, hCenter, centerIntensity);
+	vec4 vTotal = mix(vSides, vCenter, centerIntensity);
+	
+	color = mix(hTotal, vTotal, 0.5);
 }
 
 
