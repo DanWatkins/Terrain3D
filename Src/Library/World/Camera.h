@@ -26,15 +26,6 @@ namespace t3d { namespace world
 	{
 		Q_OBJECT
 
-	public:
-		struct Configuration
-		{
-			float terrainSpacing;
-			float terrainHeightScale;
-			int terrainBlockSize;
-			int terrainSpanSize;
-		};
-
 	public slots:
 		/**
 		 * @brief Renders everything visible by the camera using the current
@@ -53,7 +44,7 @@ namespace t3d { namespace world
 		 * @brief Gets the instance ready for rendering.
 		 * @param configuration Contains various configuration information
 		 */
-		void init(const Configuration &configuration);
+		void init();
 
 		/**
 		 * @brief Deallocates all memory allocated in OpenGL on the GPU.

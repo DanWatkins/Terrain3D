@@ -25,6 +25,11 @@ namespace t3d { namespace world
 			int generatorSeed;
 			float generatorSmoothing;
 			float generatorLightIntensity;
+
+			float terrainSpacing;
+			float terrainHeightScale;
+			int terrainBlockSize;
+			int terrainSpanSize;
 		};
 
 	public:
@@ -37,7 +42,7 @@ namespace t3d { namespace world
 
 
 	private:
-		void generateEntities();
+		void generateEntities(const Configuration &configuration);
 
 		terrain::Data mTerrainData;
 		entity::Manager mEntityManager;

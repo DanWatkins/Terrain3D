@@ -44,7 +44,7 @@ namespace t3d
 		loadUserSettings();
 		mEnvironment.init(buildWorldConfiguration());
 		mCamera.lock()->setEnvironment(&mEnvironment);
-		mCamera.lock()->init(buildCameraConfiguration());
+		mCamera.lock()->init();
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
@@ -336,20 +336,6 @@ namespace t3d
 	}
 
 
-	world::Camera::Configuration Terrain3D::buildCameraConfiguration()
-	{
-		typedef Settings::Key key;
-		world::Camera::Configuration config;
-
-		config.terrainBlockSize = mMainSettings->value(key::WorldTerrainBlockSize).toInt();
-		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
-		config.terrainSpacing = mMainSettings->value(key::WorldTerrainSpacing).toFloat();
-		config.terrainSpanSize = mMainSettings->value(key::WorldTerrainSpanSize).toInt();
-
-		return config;
-	}
-
-
 	world::Environment::Configuration Terrain3D::buildWorldConfiguration()
 	{
 		typedef Settings::Key key;
@@ -361,6 +347,11 @@ namespace t3d
 		config.generatorFaultCount = mMainSettings->value(key::WorldGeneratorFaultCount).toInt();
 		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
 		config.generatorLightIntensity = mMainSettings->value(key::WorldTerrainLightIntensity).toFloat();
+
+		config.terrainBlockSize = mMainSettings->value(key::WorldTerrainBlockSize).toInt();
+		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
+		config.terrainSpacing = mMainSettings->value(key::WorldTerrainSpacing).toFloat();
+		config.terrainSpanSize = mMainSettings->value(key::WorldTerrainSpanSize).toInt();
 
 		return config;
 	}

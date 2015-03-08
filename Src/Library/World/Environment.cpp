@@ -40,6 +40,9 @@ namespace t3d { namespace world
 		hi[0.75f] = 2;
 		hi[1.00f] = 3;
 		mTerrainData.computeTextureIndicies(hi);
+		mTerrainData.setHeightScale(configuration.terrainHeightScale);
+		mTerrainData.setSpacing(configuration.terrainSpacing);
+		mTerrainData.setSpanSize(configuration.terrainSpanSize);
 
 		mTerrainData.lightMap().reserve(configuration.generatorSize);
 		terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),
@@ -49,17 +52,15 @@ namespace t3d { namespace world
 		mAssetManager.loadMeshesFromDirectory("../Meshes");
 		mEntityManager.init(&mAssetManager);
 
-		generateEntities();
+		generateEntities(configuration);
 	}
 
 
-	void Environment::generateEntities()
+	void Environment::generateEntities(const Configuration &configuration)
 	{
-		return;
-
 		terrain::HeightMap &hm = mTerrainData.heightMap();
-		const int density = 5;
-		const int NumTreesAttempt = (density*hm.size()/64) * (density*hm.size()/64);
+		const double density = 0.10f;
+		const int NumTreesAttempt = density*hm.size() * density*hm.size();
 
 		QVector<QString> treeList;
 		treeList.append("Tree_Ash_Medium");
@@ -72,8 +73,8 @@ namespace t3d { namespace world
 		//randomly place trees on the "grass" areas
 		for (int i=0; i<NumTreesAttempt; i++)
 		{
-			int x = randInt(0, hm.size()-1);
-			int y = randInt(0, hm.size()-1);
+			int x = randInt(0, hm.size()-2);
+			int y = randInt(0, hm.size()-2);
 
 			//is there grass at this texture index?
 			int res = mTerrainData.textureMapResolution();
@@ -82,7 +83,7 @@ namespace t3d { namespace world
 				strong<entity::BaseEntity> e1 = mEntityManager.createEntity();
 				
 				float height = hm.get(x, y);
-				e1->setPos(Vec3f(x, height*3.0, y));	//hardcoded, GROSS TODO
+				e1->setPos(Vec3f(x, height*mTerrainData.heightScale(), y));	//hardcoded, GROSS TODO
 
 				e1->createRenderComponent();
 				QString treeName = treeList[randInt(0, treeList.size()-1)];

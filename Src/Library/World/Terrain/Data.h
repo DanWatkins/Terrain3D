@@ -31,6 +31,12 @@ namespace t3d { namespace world { namespace terrain
 
 		void setTextureMapResolution(int resolution) { mTextureMapResolution = resolution; }
 		int textureMapResolution() { return mTextureMapResolution; }
+		void setSpacing(float spacing) { mSpacing = spacing; }
+		float spacing() { return mSpacing; }
+		void setHeightScale(float heightScale) { mHeightScale = heightScale; }
+		float heightScale() { return mHeightScale; }
+		void setSpanSize(float spanSize) { mSpanSize = spanSize; }
+		float spanSize() { return mSpanSize; }
 
 	private:
 		HeightMap mHeightMap;
@@ -38,6 +44,9 @@ namespace t3d { namespace world { namespace terrain
 		TextureIndicies mTextureIndicies;
 
 		int mTextureMapResolution;
+		float mSpacing;
+		float mHeightScale;
+		int mSpanSize;
 	};
 }}}
 

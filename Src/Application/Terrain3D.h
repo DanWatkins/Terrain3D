@@ -121,7 +121,6 @@ namespace t3d
 		void updateCursorPos();
 		void loadUserSettings();
 
-		world::Camera::Configuration buildCameraConfiguration();
 		world::Environment::Configuration buildWorldConfiguration();
 
 	signals:

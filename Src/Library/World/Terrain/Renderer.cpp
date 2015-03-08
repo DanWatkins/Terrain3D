@@ -95,24 +95,6 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
-	void Renderer::setHeightScale(float heightScale)
-	{
-		mHeightScale = heightScale;
-		mProgram->bind();
-		glUniform1f(mUniforms.heightScale, mHeightScale);
-		mProgram->release();
-	}
-
-
-	void Renderer::setSpanSize(int spanSize)
-	{
-		mSpanSize = spanSize;
-		mProgram->bind();
-		glUniform1i(mUniforms.spanSize, mSpanSize);
-		mProgram->release();
-	}
-
-
 ///// PRIVATE
 	void Renderer::loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType)
 	{
@@ -159,8 +141,8 @@ namespace t3d { namespace world { namespace terrain
 			#undef ULOC
 
 			glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
-			glUniform1f(mUniforms.heightScale, mHeightScale);
-			glUniform1i(mUniforms.spanSize, mSpanSize);
+			glUniform1f(mUniforms.heightScale, mTerrainData->heightScale());
+			glUniform1i(mUniforms.spanSize, mTerrainData->spanSize());
 			mProgram->setUniformValue(mUniforms.spacing, 1.0f); //TODO
 			mProgram->setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
 			mProgram->setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
