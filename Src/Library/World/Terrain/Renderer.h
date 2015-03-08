@@ -74,6 +74,7 @@ namespace t3d { namespace world { namespace terrain
 
 
 	private:
+		void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
 		void loadShaders();
 		void loadTextures();
 

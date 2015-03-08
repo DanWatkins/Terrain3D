@@ -46,10 +46,10 @@ namespace t3d { namespace world
 													mTerrainData.heightMap(),
 													configuration.generatorLightIntensity);
 
-		//mAssetManager.loadMeshesFromDirectory("../Meshes");
-		//mEntityManager.init(&mAssetManager);
+		mAssetManager.loadMeshesFromDirectory("../Meshes");
+		mEntityManager.init(&mAssetManager);
 
-		//generateEntities();
+		generateEntities();
 	}
 
 
@@ -58,7 +58,7 @@ namespace t3d { namespace world
 		return;
 
 		terrain::HeightMap &hm = mTerrainData.heightMap();
-		const int density = 7;
+		const int density = 5;
 		const int NumTreesAttempt = (density*hm.size()/64) * (density*hm.size()/64);
 
 		QVector<QString> treeList;

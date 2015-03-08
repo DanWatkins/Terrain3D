@@ -226,7 +226,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <DisableSpecificWarnings>4718; 4127</DisableSpecificWarnings>
       <ObjectFileName>$(IntDir)/obj/%(RelativeDir)/</ObjectFileName>
     </ClCompile>

@@ -114,22 +114,34 @@ namespace t3d { namespace world { namespace terrain
 
 
 ///// PRIVATE
+	void Renderer::loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType)
+	{
+		qDebug() << "Loading shader " << filename << "...";
+
+		QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
+		if (!shader->compileSourceFile(gDefaultPathShaders + "/camera/" + filename))
+			qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
+		
+		if (!mProgram->addShader(shader))
+			qDebug() << "Error adding shader " << filename << " of type " << static_cast<int>(shaderType);
+	}
+
 
 	void Renderer::loadShaders()
 	{
 		mProgram = std::make_unique<QOpenGLShaderProgram>();
 
-		#define LOAD_SHADER_FROM_FILE(type, filename) { QOpenGLShader shader(QOpenGLShader::type); shader.compileSourceFile(gDefaultPathShaders + "/camera/" + filename); mProgram->addShader(&shader); }
-		LOAD_SHADER_FROM_FILE(Vertex, "camera.vert.glsl");
-		LOAD_SHADER_FROM_FILE(TessellationControl, "camera.tcs.glsl");
-		LOAD_SHADER_FROM_FILE(TessellationEvaluation, "camera.tes.glsl");
-		LOAD_SHADER_FROM_FILE(Fragment, "camera.frag.glsl");
-		#undef LOAD_SHADER_FROM_FILE
+		loadShader("camera.vert.glsl", QOpenGLShader::Vertex);
+		loadShader("camera.tcs.glsl", QOpenGLShader::TessellationControl);
+		loadShader("camera.tes.glsl", QOpenGLShader::TessellationEvaluation);
+		loadShader("camera.frag.glsl", QOpenGLShader::Fragment);
 
 		if (mProgram->link() == false)
 			qFatal("Problem linking shaders");
 		else
 			qDebug() << "Initialized shaders";
+
+		qDebug() << "We have " << mProgram->shaders().count() << " shaders attached";
 
 		mProgram->bind();
 		{
@@ -239,7 +251,6 @@ namespace t3d { namespace world { namespace terrain
 		//light map
 		{
 			glGenTextures(1, &mTextures.lightMap);
-			qDebug() << mTextures.lightMap;
 			glBindTexture(GL_TEXTURE_2D, mTextures.lightMap);
 
 			LightMap &lm = mTerrainData->lightMap();
