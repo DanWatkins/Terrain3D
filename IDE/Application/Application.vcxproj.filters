@@ -34,6 +34,9 @@
     <Filter Include="Shaders\mesh">
       <UniqueIdentifier>{57f28f98-965f-4dbe-bae5-e9c8f8f56c36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\water">
+      <UniqueIdentifier>{8f85b160-1a04-4fc5-bfac-94b5733f4f03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_BackgroundUpdater.cpp">
@@ -128,6 +131,12 @@
     </None>
     <None Include="..\..\Deployment\Shaders\mesh\mesh.vert.glsl">
       <Filter>Shaders\mesh</Filter>
+    </None>
+    <None Include="..\..\Deployment\Shaders\water\water.fs.glsl">
+      <Filter>Shaders\water</Filter>
+    </None>
+    <None Include="..\..\Deployment\Shaders\water\water.vs.glsl">
+      <Filter>Shaders\water</Filter>
     </None>
   </ItemGroup>
 </Project>

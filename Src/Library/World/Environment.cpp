@@ -35,7 +35,7 @@ namespace t3d { namespace world
 						   configuration.generatorSmoothing,
 						   actualSeed);
 		terrain::Data::HeightIndex hi;
-		hi[0.25f] = 0;
+		hi[0.15f] = 0;
 		hi[0.35f] = 1;
 		hi[0.75f] = 2;
 		hi[1.00f] = 3;

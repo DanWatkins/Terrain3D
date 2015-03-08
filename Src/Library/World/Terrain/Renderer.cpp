@@ -30,12 +30,15 @@ namespace t3d { namespace world { namespace terrain
 			glBindVertexArray(0);
 		}
 		mProgram->release();
+
+		mWaterRenderer.init(mTerrainData, mTerrainData->heightScale()*0.30f);
 	}
 
 
 	void Renderer::cleanup()
 	{
 		mTerrainData->cleanup();
+		mWaterRenderer.cleanup();
 
 		mProgram->removeAllShaders();
 		glDeleteBuffers(2, mVbo);
@@ -86,12 +89,15 @@ namespace t3d { namespace world { namespace terrain
 			glBindVertexArray(0);
 		}
 		mProgram->release();
+
+		mWaterRenderer.render(cameraPos, modelViewMatrix, perspectiveMatrix);
 	}
 
 
 	void Renderer::reloadShaders()
 	{
 		loadShaders();
+		mWaterRenderer.reloadShaders();
 	}
 
 
@@ -168,7 +174,7 @@ namespace t3d { namespace world { namespace terrain
 		glGenTextures(1, &mTextures.terrain);
 		{
 			Image imageWater;
-			imageWater.loadFromFile_PNG(gDefaultPathTextures + "water.png");
+			imageWater.loadFromFile_PNG(gDefaultPathTextures + "dirt.png");
 
 			Image imageSand;
 			imageSand.loadFromFile_PNG(gDefaultPathTextures + "sand.png");

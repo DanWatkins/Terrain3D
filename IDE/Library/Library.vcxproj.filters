@@ -45,6 +45,9 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Src\World\Terrain\Water">
+      <UniqueIdentifier>{50de4e6f-c28d-4873-ab7d-b2bebc121e25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Library\Core\Core.h">
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Library\Library.h">
       <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Water\Renderer.h">
+      <Filter>Src\World\Terrain\Water</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\library\core\asset\private\MeshPrivate.cpp">
       <Filter>Src\Core\Asset\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Water\Renderer.cpp">
+      <Filter>Src\World\Terrain\Water</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

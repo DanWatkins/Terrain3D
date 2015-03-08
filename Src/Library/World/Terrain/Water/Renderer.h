@@ -1,85 +1,56 @@
 //==================================================================================================================|
-// Created 2014.10.19 by Daniel L. Watkins
+// Created 2015.03.08 by Daniel L. Watkins
 //
 // Copyright (C) 2014-2015 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_TERRAIN_RENDERER_H
-#define _t3d_TERRAIN_RENDERER_H
+#ifndef _t3d_world_terrain_water_Renderer_H
+#define _t3d_world_terrain_water_Renderer_H
 
 #include <Library.h>
 #include <World/Terrain/Data.h>
-#include <World/Terrain/Water/Renderer.h>
 
-namespace t3d { namespace world { namespace terrain
+namespace t3d { namespace world { namespace terrain { namespace water
 {
-	enum class Mode
-	{
-		Normal,
-		WireFrame
-	};
-
-
 	class Renderer : protected OpenGLFunctions
 	{
 	public:
 		Renderer() {}
 
-		void init(Data *terrainData);
+		void init(Data *terrainData, float waterLevel);
 		void cleanup();
 		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 		void reloadShaders();
 
-		void setLodFactor(float lodFactor) { mLodFactor = lodFactor; }
-		void setMode(Mode mode) { mMode = mode; }
-		Mode getMode() { return mMode; }
-
 	private:
 		Q_DISABLE_COPY(Renderer)
 
-		Data *mTerrainData;
-		water::Renderer mWaterRenderer;
 		unique<QOpenGLShaderProgram> mProgram;
-		GLuint mVao;
-		GLuint mVbo[2];
-
-		float mHeightScale;
-		float mSpanSize;
-		float mLodFactor;
-		Mode mMode = Mode::Normal;
 
 		struct
 		{
 			GLint mvMatrix;
 			GLint projMatrix;
-
-			GLint terrainSize;
-			GLint heightScale;
+			GLint size;
 			GLint spanSize;
-
-			GLint spacing;
-			GLint textureMapResolution;
-			GLint heightMapSize;
+			GLint waterLevel;
 		} mUniforms;
 
 		struct
 		{
-			GLuint heightMap;
-			GLuint lightMap;
-			GLuint indicies;
-			GLuint terrain;
+			GLuint water;
 		} mTextures;
 
+		Data *mTerrainData;
+		float mWaterLevel;
 
 	private:
 		void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
 		void loadShaders();
 		void loadTextures();
-
-		void uploadTerrainData();
 	};
-}}}
+}}}}
 
 #endif
 

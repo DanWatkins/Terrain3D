@@ -24,6 +24,7 @@
     <ClInclude Include="..\..\Src\Library\Core\Helper.h" />
     <ClInclude Include="..\..\Src\Library\Core\Image.h" />
     <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h" />
+    <ClInclude Include="..\..\Src\Library\World\Terrain\Water\Renderer.h" />
     <CustomBuild Include="..\..\Src\Library\World\Camera.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing Camera.h...</Message>
@@ -124,6 +125,7 @@
     <ClCompile Include="..\..\Src\Library\World\Entity\BaseEntity.cpp" />
     <ClCompile Include="..\..\src\library\world\entity\RenderComponent.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Entity\Renderer.cpp" />
+    <ClCompile Include="..\..\Src\Library\World\Terrain\Water\Renderer.cpp" />
     <ClCompile Include="GeneratedFiles\Release\moc_Manager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>

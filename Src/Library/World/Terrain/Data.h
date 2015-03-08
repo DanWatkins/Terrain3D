@@ -36,7 +36,7 @@ namespace t3d { namespace world { namespace terrain
 		void setHeightScale(float heightScale) { mHeightScale = heightScale; }
 		float heightScale() { return mHeightScale; }
 		void setSpanSize(float spanSize) { mSpanSize = spanSize; }
-		float spanSize() { return mSpanSize; }
+		int spanSize() { return mSpanSize; }
 
 	private:
 		HeightMap mHeightMap;
