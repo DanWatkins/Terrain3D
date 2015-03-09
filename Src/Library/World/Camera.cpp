@@ -15,8 +15,8 @@ namespace t3d { namespace world
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
 		mFieldOfView(50.0f),
-		mNearPlane(0.01f),
-		mFarPlane(1500),
+		mNearPlane(1.0f),
+		mFarPlane(1500.0f),
 		mAspectRatio(1), 
 		mMaxVerticalAngle(95.0f)
 	{
