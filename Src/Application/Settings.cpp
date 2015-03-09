@@ -141,7 +141,7 @@ void Settings::initDefaultValues()
 	d[WorldGeneratorSmoothing] = {0.65, true};
 	d[WorldTerrainSpacing] = {1.0f, true};
 	d[WorldTerrainHeightScale] = {30.0f, true};
-	d[WorldTerrainBlockSize] = {32, true};
+	d[WorldTerrainChunkSize] = {32, true};
 	d[WorldTerrainSpanSize] = {8, true};
 	d[WorldTerrainLightIntensity] = {10, true};
 

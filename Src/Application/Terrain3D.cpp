@@ -181,7 +181,7 @@ namespace t3d
 				break;
 			}
 
-			CASE(WorldTerrainBlockSize) {
+			CASE(WorldTerrainChunkSize) {
 				//TODO
 				break;
 			}
@@ -348,7 +348,7 @@ namespace t3d
 		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
 		config.generatorLightIntensity = mMainSettings->value(key::WorldTerrainLightIntensity).toFloat();
 
-		config.terrainBlockSize = mMainSettings->value(key::WorldTerrainBlockSize).toInt();
+		config.terrainChunkSize = mMainSettings->value(key::WorldTerrainChunkSize).toInt();
 		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
 		config.terrainSpacing = mMainSettings->value(key::WorldTerrainSpacing).toFloat();
 		config.terrainSpanSize = mMainSettings->value(key::WorldTerrainSpanSize).toInt();

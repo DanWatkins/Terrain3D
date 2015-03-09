@@ -43,6 +43,7 @@ namespace t3d { namespace world
 		mTerrainData.setHeightScale(configuration.terrainHeightScale);
 		mTerrainData.setSpacing(configuration.terrainSpacing);
 		mTerrainData.setSpanSize(configuration.terrainSpanSize);
+		mTerrainData.setChunkSize(configuration.terrainChunkSize);
 
 		mTerrainData.lightMap().reserve(configuration.generatorSize);
 		terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),

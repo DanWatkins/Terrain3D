@@ -6,6 +6,8 @@
 //==================================================================================================================|
 
 uniform int terrainSize;
+uniform int chunkSize;
+uniform ivec2 chunkPos;
 
 out VSOut
 {
@@ -22,8 +24,8 @@ void main()
 	
 	
 	vec2 pos;
-	pos.x = gl_InstanceID % terrainSize;
-	pos.y = gl_InstanceID / terrainSize;
+	pos.x = gl_InstanceID % chunkSize + (chunkPos.x * chunkSize);
+	pos.y = gl_InstanceID / chunkSize + (chunkPos.y * chunkSize);
 
 	vsOut.tc = (vertices[gl_VertexID].xz + pos) / terrainSize;
 	gl_Position = vertices[gl_VertexID] + vec4(pos.x, 0, pos.y, 0);	

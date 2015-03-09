@@ -55,7 +55,7 @@ public:
 		WorldGeneratorSmoothing				= 205,
 		WorldTerrainSpacing					= 210,
 		WorldTerrainHeightScale				= 211,
-		WorldTerrainBlockSize				= 212,
+		WorldTerrainChunkSize				= 212,
 		WorldTerrainSpanSize				= 213,
 		WorldTerrainLightIntensity			= 214
 

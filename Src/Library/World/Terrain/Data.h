@@ -19,7 +19,6 @@ namespace t3d { namespace world { namespace terrain
 	public:
 		void cleanup() { /*nothing to cleanup*/ }
 
-		//TODO PURE HACKERY HERE
 		HeightMap& heightMap() { return mHeightMap; }
 		LightMap &lightMap() { return mLightMap; }
 
@@ -30,13 +29,15 @@ namespace t3d { namespace world { namespace terrain
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
 
 		void setTextureMapResolution(int resolution) { mTextureMapResolution = resolution; }
-		int textureMapResolution() { return mTextureMapResolution; }
+		int textureMapResolution() const { return mTextureMapResolution; }
 		void setSpacing(float spacing) { mSpacing = spacing; }
-		float spacing() { return mSpacing; }
+		float spacing() const { return mSpacing; }
 		void setHeightScale(float heightScale) { mHeightScale = heightScale; }
-		float heightScale() { return mHeightScale; }
-		void setSpanSize(float spanSize) { mSpanSize = spanSize; }
-		int spanSize() { return mSpanSize; }
+		float heightScale() const { return mHeightScale; }
+		void setSpanSize(int spanSize) { mSpanSize = spanSize; }
+		int spanSize() const { return mSpanSize; }
+		void setChunkSize(int chunkSize) { mChunkSize = chunkSize; }
+		int chunkSize() const { return mChunkSize; }
 
 	private:
 		HeightMap mHeightMap;
@@ -47,6 +48,7 @@ namespace t3d { namespace world { namespace terrain
 		float mSpacing;
 		float mHeightScale;
 		int mSpanSize;
+		int mChunkSize;
 	};
 }}}
 

@@ -11,7 +11,7 @@ Item {
         SaveLoad.valueRead(Settings.WorldGeneratorFaultCount, spinBox_faultCount);
         SaveLoad.cbRead(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
         SaveLoad.cbRead(Settings.WorldGeneratorTextureMapResolution,comboBox_generatorTextureMapResolution);
-        SaveLoad.cbRead(Settings.WorldTerrainBlockSize,comboBox_terrainBlockSize);
+        SaveLoad.cbRead(Settings.WorldTerrainChunkSize,comboBox_terrainChunkSize);
         SaveLoad.valueRead(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
         SaveLoad.valueRead(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
         SaveLoad.cbRead(Settings.WorldTerrainSpanSize,comboBox_terrainSpanSize);
@@ -24,7 +24,7 @@ Item {
         SaveLoad.valueSave(Settings.WorldGeneratorFaultCount, spinBox_faultCount);
         SaveLoad.cbSave(Settings.WorldGeneratorSize, comboBox_worldGeneratorSize);
         SaveLoad.cbSave(Settings.WorldGeneratorTextureMapResolution, comboBox_generatorTextureMapResolution);
-        SaveLoad.cbSave(Settings.WorldTerrainBlockSize, comboBox_terrainBlockSize);
+        SaveLoad.cbSave(Settings.WorldTerrainChunkSize, comboBox_terrainChunkSize);
         SaveLoad.valueSave(Settings.WorldTerrainHeightScale, spinBox_terrainHeightScale);
         SaveLoad.valueSave(Settings.WorldTerrainSpacing, spinBox_terrainSpacing);
         SaveLoad.cbSave(Settings.WorldTerrainSpanSize, comboBox_terrainSpanSize);
@@ -187,11 +187,11 @@ Item {
             id: label6
             x: 23
             y: 57
-            text: qsTr("Block Size:")
+            text: qsTr("Chunk Size:")
         }
 
         ComboBox {
-            id: comboBox_terrainBlockSize
+            id: comboBox_terrainChunkSize
             x: 79
             y: 53
             width: 125

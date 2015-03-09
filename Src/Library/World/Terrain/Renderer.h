@@ -44,8 +44,6 @@ namespace t3d { namespace world { namespace terrain
 		GLuint mVao;
 		GLuint mVbo[2];
 
-		float mHeightScale;
-		float mSpanSize;
 		float mLodFactor;
 		Mode mMode = Mode::Normal;
 
@@ -55,6 +53,8 @@ namespace t3d { namespace world { namespace terrain
 			GLint projMatrix;
 
 			GLint terrainSize;
+			GLint chunkSize;
+			GLint chunkPos;
 			GLint heightScale;
 			GLint spanSize;
 

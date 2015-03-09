@@ -21,7 +21,7 @@ void main()
                                    vec4(0.0, 0.0, 0.0, 1.0),
                                    vec4(0.0, 0.0, 1.0, 1.0));
 	
-	float tds = timeDelta / 32000.0f;
+	float tds = timeDelta / 64000.0f;
 	float timeOffset = abs(tds - int(tds));
 
 	vec4 pos = vertices[gl_VertexID];

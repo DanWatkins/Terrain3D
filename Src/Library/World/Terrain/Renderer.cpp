@@ -82,9 +82,21 @@ namespace t3d { namespace world { namespace terrain
 				glActiveTexture(GL_TEXTURE3);
 				glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
 
-				int terrainSize = mTerrainData->heightMap().size();
-				glDrawArraysInstanced(GL_PATCHES, 0, 4, terrainSize*terrainSize);
+				const int terrainSize = mTerrainData->heightMap().size();
+				const int chunkSize = mTerrainData->chunkSize();
+				const int chunksPerSide = terrainSize / chunkSize;
+
+				//render each chunk individually
+				for (int y=0; y<chunksPerSide; y++)
+				{
+					for (int x=0; x<chunksPerSide; x++)
+					{
+						glUniform2i(mUniforms.chunkPos, x, y);
+						glDrawArraysInstanced(GL_PATCHES, 0, 4, chunkSize*chunkSize);
+					}
+				}
 			}
+
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
 		}
@@ -138,6 +150,8 @@ namespace t3d { namespace world { namespace terrain
 			ULOC(projMatrix);
 
 			ULOC(terrainSize);
+			ULOC(chunkSize);
+			ULOC(chunkPos);
 			ULOC(heightScale);
 			ULOC(spanSize);
 
@@ -146,9 +160,10 @@ namespace t3d { namespace world { namespace terrain
 			ULOC(heightMapSize);
 			#undef ULOC
 
-			glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
-			glUniform1f(mUniforms.heightScale, mTerrainData->heightScale());
-			glUniform1i(mUniforms.spanSize, mTerrainData->spanSize());
+			mProgram->setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
+			mProgram->setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
+			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
+			mProgram->setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
 			mProgram->setUniformValue(mUniforms.spacing, 1.0f); //TODO
 			mProgram->setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
 			mProgram->setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());

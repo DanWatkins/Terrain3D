@@ -28,7 +28,7 @@ namespace t3d { namespace world
 
 			float terrainSpacing;
 			float terrainHeightScale;
-			int terrainBlockSize;
+			int terrainChunkSize;
 			int terrainSpanSize;
 		};
 
