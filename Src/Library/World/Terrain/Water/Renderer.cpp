@@ -23,6 +23,8 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			loadTextures();
 		}
 		mProgram->release();
+
+		mElapsedTimer.start();
 	}
 
 
@@ -39,6 +41,8 @@ namespace t3d { namespace world { namespace terrain { namespace water
 		{
 			glUniformMatrix4fv(mUniforms.mvMatrix, 1, GL_FALSE, glm::value_ptr(modelViewMatrix));
 			glUniformMatrix4fv(mUniforms.projMatrix, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
+
+			mProgram->setUniformValue(mUniforms.timeDelta, int(mElapsedTimer.elapsed()));
 
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, mTextures.water);
@@ -91,6 +95,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			ULOC(size);
 			ULOC(spanSize);
 			ULOC(waterLevel);
+			ULOC(timeDelta);
 			#undef ULOC
 
 			mProgram->setUniformValue(mUniforms.size, mTerrainData->heightMap().size());

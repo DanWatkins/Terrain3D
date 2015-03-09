@@ -35,6 +35,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			GLint size;
 			GLint spanSize;
 			GLint waterLevel;
+			GLint timeDelta;
 		} mUniforms;
 
 		struct
@@ -44,6 +45,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 
 		Data *mTerrainData;
 		float mWaterLevel;
+		QElapsedTimer mElapsedTimer;
 
 	private:
 		void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
