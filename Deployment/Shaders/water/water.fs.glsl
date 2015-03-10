@@ -13,5 +13,5 @@ layout (binding = 0) uniform sampler2D waterTexture;
 
 void main()
 {
-	outColor = vec4(texture(waterTexture, tc).xyz, 0.85);
+	outColor = vec4(texture(waterTexture, tc).xyz, 0.75);
 }

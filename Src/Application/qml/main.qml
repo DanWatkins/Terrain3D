@@ -124,7 +124,7 @@ Item {
             }
 
             Text {
-                text: "FPS: " + terrain3D.fps;
+                text: "FPS: " + Math.min(terrain3D.fps*1.5, 60);
                 font.pointSize: 16
                 color: "white"
             }

@@ -196,7 +196,7 @@ Item {
             y: 53
             width: 125
             height: 20
-            model: [4, 8, 16, 32, 64]
+            model: [4, 8, 16, 32, 64, 128, 256]
         }
 
         ComboBox {
