@@ -10,8 +10,6 @@
 #include <QtCore/QDir>
 #include <QtCore\QMetaEnum>
 
-//TODO man, you need to unit test this
-
 void Settings::init()
 {
 	initDefaultValues();

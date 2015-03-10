@@ -57,9 +57,11 @@ namespace t3d
 						 this, &Terrain3D::onFpsChanged);
 
 		QObject::connect(mCamera.lock().get(), &world::Camera::posChanged,
-						 this, &Terrain3D::onPosChanged);
+						 this, &Terrain3D::onCameraPosChanged);
 
 		QWindow::show();
+
+		emit cameraPosChanged();
 	}
 
 

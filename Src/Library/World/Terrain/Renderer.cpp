@@ -115,7 +115,7 @@ namespace t3d { namespace world { namespace terrain
 		qDebug() << "Loading shader " << filename << "...";
 
 		QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
-		if (!shader->compileSourceFile(gDefaultPathShaders + "/camera/" + filename))
+		if (!shader->compileSourceFile(gDefaultPathShaders + "/terrain/" + filename))
 			qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
 		
 		if (!mProgram->addShader(shader))
@@ -127,10 +127,10 @@ namespace t3d { namespace world { namespace terrain
 	{
 		mProgram = std::make_unique<QOpenGLShaderProgram>();
 
-		loadShader("camera.vert.glsl", QOpenGLShader::Vertex);
-		loadShader("camera.tcs.glsl", QOpenGLShader::TessellationControl);
-		loadShader("camera.tes.glsl", QOpenGLShader::TessellationEvaluation);
-		loadShader("camera.frag.glsl", QOpenGLShader::Fragment);
+		loadShader("terrain.vs.glsl", QOpenGLShader::Vertex);
+		loadShader("terrain.tcs.glsl", QOpenGLShader::TessellationControl);
+		loadShader("terrain.tes.glsl", QOpenGLShader::TessellationEvaluation);
+		loadShader("terrain.fs.glsl", QOpenGLShader::Fragment);
 
 		if (mProgram->link() == false)
 			qFatal("Problem linking shaders");
@@ -162,7 +162,7 @@ namespace t3d { namespace world { namespace terrain
 			mProgram->setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
 			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
 			mProgram->setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
-			mProgram->setUniformValue(mUniforms.spacing, 1.0f); //TODO
+			mProgram->setUniformValue(mUniforms.spacing, mTerrainData->spacing());
 			mProgram->setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
 			mProgram->setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 		}

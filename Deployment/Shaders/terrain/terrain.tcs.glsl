@@ -21,12 +21,15 @@ out TCSOut
 uniform int terrainSize;
 uniform int chunkSize;
 uniform float lod;
-uniform float ivd; //everything within this distance should be full detail
+uniform float ivd; //immediate view distance
 uniform vec3 cameraPos;
 
 const float minLevel = 1.0;
 const float maxLevel = 100.0;
 
+/**
+ * @returns the tessellation level the chunk at pos \p chunkPos should have.
+ */
 int lodForChunkPos(ivec2 chunkPos)
 {
 	vec3 realPos;

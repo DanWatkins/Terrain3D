@@ -130,7 +130,7 @@ Item {
             }
 
             Text {
-                text: "Pos: " + terrain3D.pos;
+                text: "Pos: " + terrain3D.cameraPos;
                 font.pointSize: 16
                 color: "white"
             }

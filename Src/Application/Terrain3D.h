@@ -35,7 +35,7 @@ namespace t3d
 	{
 		Q_OBJECT
 		Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
-		Q_PROPERTY(QString pos READ pos NOTIFY posChanged);
+		Q_PROPERTY(QString cameraPos READ cameraPos NOTIFY cameraPosChanged);
 
 	public:
 		Terrain3D(Settings *mainSettings);
@@ -82,9 +82,15 @@ namespace t3d
 		 */
 		void settingsValueChanged(Settings::Key key, const QVariant &value);
 
+		/**
+		 * @returns the current overall frame rate.
+		 */
 		int fps() const { return mFPSCounter.fps(); }
 
-		QString pos() const
+		/**
+		 * @returns the position of the camera formatted as a string.
+		 */
+		QString cameraPos() const
 		{
 			if (auto camera = mCamera.lock())
 			{
@@ -116,7 +122,6 @@ namespace t3d
 		void focusOutEvent(QFocusEvent *ev) override;
 		void keyPressEvent(QKeyEvent *ev) override;
 		void keyReleaseEvent(QKeyEvent *ev) override;
-		
 
 		void updateCursorPos();
 		void loadUserSettings();
@@ -127,13 +132,13 @@ namespace t3d
 		void toggleSettingsMenu();
 		void refreshSettingsMenu();
 		void fpsChanged();
-		void posChanged();
+		void cameraPosChanged();
 
 	public slots:
 		void willUpdate();
 		void beforeRendering();
 		void onFpsChanged() { emit fpsChanged(); }
-		void onPosChanged() { emit posChanged(); }
+		void onCameraPosChanged() { emit cameraPosChanged(); }
 	};
 }
 

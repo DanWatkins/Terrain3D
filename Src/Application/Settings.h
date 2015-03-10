@@ -43,9 +43,9 @@ public:
 		GraphicsCameraPositionX				= 103,
 		GraphicsCameraPositionY				= 104,
 		GraphicsCameraPositionZ				= 105,
-		GraphicsCameraFOV					= 106,
-		GraphicsCameraLOD					= 107,
-		GraphicsCameraIVD					= 108,
+		GraphicsCameraFOV					= 106,  /* Field of view: Degrees measurment of the camera's viewing angle */
+		GraphicsCameraLOD					= 107,  /* Level of detail: A scale factor to adjust the overall level of detail */
+		GraphicsCameraIVD					= 108,	/* Immediate view distance: Everything within this distance should be full detail */
 		GraphicsCameraWireframe				= 109,
 
 		//world
@@ -59,8 +59,6 @@ public:
 		WorldTerrainChunkSize				= 212,
 		WorldTerrainSpanSize				= 213,
 		WorldTerrainLightIntensity			= 214
-
-
 	}; Q_ENUMS(Key)
 
 	/**
@@ -140,6 +138,7 @@ private:
 	void initDefaultValues();
 	void checkForMissingMetaKeyInfoValues();
 };
+
 
 class SettingsListener
 {

@@ -117,12 +117,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Deployment\Shaders\camera\camera.frag.glsl" />
-    <None Include="..\..\Deployment\Shaders\camera\camera.tcs.glsl" />
-    <None Include="..\..\Deployment\Shaders\camera\camera.tes.glsl" />
-    <None Include="..\..\Deployment\Shaders\camera\camera.vert.glsl" />
     <None Include="..\..\Deployment\Shaders\mesh\mesh.frag.glsl" />
     <None Include="..\..\Deployment\Shaders\mesh\mesh.vert.glsl" />
+    <None Include="..\..\Deployment\Shaders\terrain\terrain.fs.glsl" />
+    <None Include="..\..\Deployment\Shaders\terrain\terrain.tes.glsl" />
+    <None Include="..\..\Deployment\Shaders\terrain\terrain.vs.glsl" />
+    <None Include="..\..\Deployment\Shaders\terrain\terrsin.tcs.glsl" />
     <None Include="..\..\Deployment\Shaders\water\water.fs.glsl" />
     <None Include="..\..\Deployment\Shaders\water\water.vs.glsl" />
     <None Include="..\..\Src\Application\qml\main.qml" />
