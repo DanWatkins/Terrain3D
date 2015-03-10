@@ -11,6 +11,7 @@ uniform int chunkSize;
 out VSOut
 {
 	vec2 tc;
+	int instanceId;
 } vsOut;
 
 
@@ -31,6 +32,7 @@ void main()
 	vec2 pos = vertices[gl_VertexID].xz * chunkSize + offset;
 
 	vsOut.tc = pos / vec2(terrainSize, terrainSize);
+	vsOut.instanceId = gl_InstanceID;
 
 	gl_Position = vec4(pos.x, 0.0, pos.y, 1.0);
 }
