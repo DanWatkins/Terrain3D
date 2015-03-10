@@ -7,7 +7,6 @@
 
 uniform int terrainSize;
 uniform int chunkSize;
-uniform ivec2 chunkPos;
 
 out VSOut
 {
@@ -17,16 +16,21 @@ out VSOut
 
 void main()
 {
-	const vec4 vertices[] = vec4[](vec4(1.0, 0.0, 0.0, 1.0),
-                                   vec4(1.0, 0.0, 1.0, 1.0),
-                                   vec4(0.0, 0.0, 0.0, 1.0),
-                                   vec4(0.0, 0.0, 1.0, 1.0));
+	const vec3 vertices[] = vec3[](vec3(1.0, 0.0, 0.0),
+                                   vec3(1.0, 0.0, 1.0),
+                                   vec3(0.0, 0.0, 0.0),
+                                   vec3(0.0, 0.0, 1.0));
 	
 	
-	vec2 pos;
-	pos.x = gl_InstanceID % chunkSize + (chunkPos.x * chunkSize);
-	pos.y = gl_InstanceID / chunkSize + (chunkPos.y * chunkSize);
+	const int chunksPerSide = terrainSize / chunkSize;
 
-	vsOut.tc = (vertices[gl_VertexID].xz + pos) / terrainSize;
-	gl_Position = vertices[gl_VertexID] + vec4(pos.x, 0, pos.y, 0);	
+	vec2 offset;
+	offset.x = (gl_InstanceID % chunksPerSide) * chunkSize;
+	offset.y = (gl_InstanceID / chunksPerSide) * chunkSize;
+
+	vec2 pos = vertices[gl_VertexID].xz * chunkSize + offset;
+
+	vsOut.tc = pos / vec2(terrainSize, terrainSize);
+
+	gl_Position = vec4(pos.x, 0.0, pos.y, 1.0);
 }

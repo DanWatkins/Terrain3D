@@ -17,20 +17,23 @@ out TCSOut
 	vec2 tc;
 } tcsOut[];
 
+uniform int terrainSize;
+uniform int chunkSize;
+uniform vec3 cameraPos;
 
 void main()
 {
 	if (gl_InvocationID == 0)
 	{
-		const int base = 1;
+		const int base = 40;
 	
 		gl_TessLevelOuter[0] = base;
 		gl_TessLevelOuter[1] = base;
 		gl_TessLevelOuter[2] = base;
 		gl_TessLevelOuter[3] = base;
 		
-		gl_TessLevelInner[0] = base;
-		gl_TessLevelInner[1] = base;
+		gl_TessLevelInner[0] = 20;
+		gl_TessLevelInner[1] = 20;
 	}
 	
 	

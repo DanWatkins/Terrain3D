@@ -54,7 +54,7 @@ namespace t3d { namespace world { namespace terrain
 
 			GLint terrainSize;
 			GLint chunkSize;
-			GLint chunkPos;
+			GLint cameraPos;
 			GLint heightScale;
 			GLint spanSize;
 
