@@ -10,13 +10,13 @@ in TESOut
 	vec2 tc;
 	vec3 worldCoord;
 	vec3 eyeCoord;
-	float brightness;
 } fsIn;
 
 out vec4 color;
 
 uniform float height;
 
+layout (binding = 1) uniform sampler2D lightMapSampler;
 layout (binding = 2) uniform usamplerBuffer textureLayers;
 layout (binding = 3) uniform sampler2DArray terrainTexture;
 
@@ -111,5 +111,5 @@ void main()
 	computeMixes();
 
 	const vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
-	color = mix(black, color, fsIn.brightness);
+	color = mix(black, color, texture(lightMapSampler, fsIn.tc).r);
 }
