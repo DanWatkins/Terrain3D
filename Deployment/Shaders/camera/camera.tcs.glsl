@@ -20,18 +20,22 @@ out TCSOut
 
 uniform int terrainSize;
 uniform int chunkSize;
+uniform float lod;
+uniform float ivd; //everything within this distance should be full detail
 uniform vec3 cameraPos;
 
+const float minLevel = 1.0;
+const float maxLevel = 100.0;
 
-int lodForChunkPos(ivec2 chunkPos, float minLevel, float maxLevel)
+int lodForChunkPos(ivec2 chunkPos)
 {
 	vec3 realPos;
 	realPos.x = float(chunkPos.x) * chunkSize + (chunkSize/2.0);
 	realPos.y = 4.0;
 	realPos.z = float(chunkPos.y) * chunkSize + (chunkSize/2.0);
 
-	float invDistance = (terrainSize-distance(cameraPos, realPos)) / float(terrainSize);
-	return int(max(invDistance * maxLevel, minLevel)) / 2;
+	float invDistance = (terrainSize-distance(cameraPos, realPos) + ivd) / float(terrainSize);
+	return int(max(invDistance * maxLevel * lod, minLevel));
 }
 
 
@@ -44,7 +48,7 @@ void main()
 		chunkPos.x = tcsIn[0].instanceId % chunksPerSide;
 		chunkPos.y = tcsIn[0].instanceId / chunksPerSide;
 
-		int inner = lodForChunkPos(chunkPos, 4, 100);
+		int inner = lodForChunkPos(chunkPos);
 
 		gl_TessLevelOuter[0] = inner;
 		gl_TessLevelOuter[1] = inner;
@@ -52,8 +56,8 @@ void main()
 		gl_TessLevelInner[1] = inner;
 
 		//succumb to your neighbor to avoid cracking
-		gl_TessLevelOuter[2] = lodForChunkPos(chunkPos+ivec2(0,1), 4, 100);
-		gl_TessLevelOuter[3] = lodForChunkPos(chunkPos+ivec2(1,0), 4, 100);
+		gl_TessLevelOuter[2] = lodForChunkPos(chunkPos+ivec2(0,1));
+		gl_TessLevelOuter[3] = lodForChunkPos(chunkPos+ivec2(1,0));
 	}
 	
 	

@@ -32,6 +32,7 @@ namespace t3d { namespace world { namespace terrain
 		void reloadShaders();
 
 		void setLodFactor(float lodFactor) { mLodFactor = lodFactor; }
+		void setIvdFactor(float ivdFactor) { mIvdFactor = ivdFactor; }
 		void setMode(Mode mode) { mMode = mode; }
 		Mode getMode() { return mMode; }
 
@@ -45,6 +46,7 @@ namespace t3d { namespace world { namespace terrain
 		GLuint mVbo[2];
 
 		float mLodFactor;
+		float mIvdFactor;
 		Mode mMode = Mode::Normal;
 
 		struct
@@ -54,6 +56,8 @@ namespace t3d { namespace world { namespace terrain
 
 			GLint terrainSize;
 			GLint chunkSize;
+			GLint lod;
+			GLint ivd;
 			GLint cameraPos;
 			GLint heightScale;
 			GLint spanSize;

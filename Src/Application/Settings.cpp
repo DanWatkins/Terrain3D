@@ -131,6 +131,7 @@ void Settings::initDefaultValues()
 	d[GraphicsCameraPositionZ] = {0.0f, false};
 	d[GraphicsCameraFOV] = {50.0f, false};
 	d[GraphicsCameraLOD] = {1.0f, false};
+	d[GraphicsCameraIVD] = {70.0f, false};
 	d[GraphicsCameraWireframe] = {false, false};
 
 	//world
@@ -143,7 +144,7 @@ void Settings::initDefaultValues()
 	d[WorldTerrainHeightScale] = {30.0f, true};
 	d[WorldTerrainChunkSize] = {32, true};
 	d[WorldTerrainSpanSize] = {8, true};
-	d[WorldTerrainLightIntensity] = {10, true};
+	d[WorldTerrainLightIntensity] = {18, true};
 
 	#undef d
 }

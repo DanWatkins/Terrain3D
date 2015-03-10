@@ -77,6 +77,7 @@ namespace t3d { namespace world
 		void setAspectRatio(float aspectRatio) { mAspectRatio = aspectRatio; }
 		float aspectRatio() { return mAspectRatio; }
 		void setLodFactor(float lodFactor);
+		void setIvdFactor(float ivdFactor);
 
 		void lookAt(Vec3f position);
 		Vec3f forward() const;

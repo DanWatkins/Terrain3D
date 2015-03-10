@@ -45,7 +45,8 @@ public:
 		GraphicsCameraPositionZ				= 105,
 		GraphicsCameraFOV					= 106,
 		GraphicsCameraLOD					= 107,
-		GraphicsCameraWireframe				= 108,
+		GraphicsCameraIVD					= 108,
+		GraphicsCameraWireframe				= 109,
 
 		//world
 		WorldGeneratorSize					= 201,

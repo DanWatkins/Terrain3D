@@ -5,7 +5,7 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-layout (quads, fractional_odd_spacing) in;
+layout (quads, fractional_even_spacing) in;
 
 in TCSOut
 {

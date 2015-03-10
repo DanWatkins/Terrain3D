@@ -94,6 +94,12 @@ namespace t3d { namespace world
 	}
 
 
+	void Camera::setIvdFactor(float ivdFactor)
+	{
+		mTerrainRenderer.setIvdFactor(ivdFactor);
+	}
+
+
 	void Camera::lookAt(Vec3f position)
 	{
 		if (position == mPosition)

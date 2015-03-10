@@ -13,6 +13,7 @@ Item {
 
         SaveLoad.valueRead(Settings.GraphicsCameraFOV, slider_cameraFOV);
         SaveLoad.valueRead(Settings.GraphicsCameraLOD, slider_cameraLOD);
+        SaveLoad.valueRead(Settings.GraphicsCameraIVD, slider_cameraIVD)
         SaveLoad.valueRead(Settings.GraphicsCameraPositionX,spinBox_cameraPositionX);
         SaveLoad.valueRead(Settings.GraphicsCameraPositionY,spinBox_cameraPositionY);
         SaveLoad.valueRead(Settings.GraphicsCameraPositionZ,spinBox_cameraPositionZ);
@@ -26,6 +27,7 @@ Item {
 
         SaveLoad.valueSave(Settings.GraphicsCameraFOV, slider_cameraFOV);
         SaveLoad.valueSave(Settings.GraphicsCameraLOD, slider_cameraLOD);
+        SaveLoad.valueSave(Settings.GraphicsCameraIVD, slider_cameraIVD);
         SaveLoad.valueSave(Settings.GraphicsCameraPositionX, spinBox_cameraPositionX);
         SaveLoad.valueSave(Settings.GraphicsCameraPositionY, spinBox_cameraPositionY);
         SaveLoad.valueSave(Settings.GraphicsCameraPositionZ, spinBox_cameraPositionZ);
@@ -38,7 +40,7 @@ Item {
     GroupBox {
         x: 8
         y: 8
-        width: 196
+        width: 238
         height: 66
         title: "Screen"
 
@@ -53,7 +55,7 @@ Item {
             id: spinBox_screenSizeWidth
             x: 60
             y: 0
-            width: 58
+            width: 75
             height: 20
             value: 800
             maximumValue: 10000
@@ -61,9 +63,9 @@ Item {
 
         SpinBox {
             id: spinBox_screenSizeHeight
-            x: 124
-            y: 0
-            width: 58
+            x: 144
+            y: 1
+            width: 75
             height: 20
             value: 600
             maximumValue: 10000
@@ -79,10 +81,10 @@ Item {
 
     GroupBox {
         id: groupBox1
-        x: 210
+        x: 252
         y: 8
-        width: 325
-        height: 128
+        width: 320
+        height: 157
         title: qsTr("Camera")
 
         SpinBox {
@@ -123,7 +125,6 @@ Item {
             height: 22
             stepSize: 1
             maximumValue: 180
-            tickmarksEnabled: false
         }
 
         Slider {
@@ -133,13 +134,24 @@ Item {
             width: 215
             height: 22
             stepSize: 0.05
-            tickmarksEnabled: true
+        }
+
+        Slider {
+            id: slider_cameraIVD
+            x: 47
+            y: 89
+            width: 215
+            height: 22
+            minimumValue: 10
+            value: 10
+            maximumValue: 200
+            stepSize: 2
         }
 
         CheckBox {
             id: checkBox_cameraWireframe
             x: 47
-            y: 89
+            y: 117
             text: qsTr("Render wireframe")
         }
 
@@ -165,6 +177,15 @@ Item {
             text: qsTr("LOD:")
         }
 
+
+        Label {
+            id: label5
+            x: 11
+            y: 94
+            text: qsTr("IVD:")
+        }
+
+
         Label {
             id: label_fovValue
             x: 268
@@ -181,6 +202,16 @@ Item {
             width: 41
             height: 13
             text: slider_cameraLOD.value
+        }
+
+
+        Label {
+            id: label_ivdValue
+            x: 268
+            y: 94
+            width: 41
+            height: 13
+            text: slider_cameraIVD.value
         }
     }
 }

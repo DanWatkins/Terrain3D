@@ -85,9 +85,10 @@ namespace t3d { namespace world { namespace terrain
 				const int terrainSize = mTerrainData->heightMap().size();
 				const int chunkSize = mTerrainData->chunkSize();
 				const int chunksPerSide = terrainSize / chunkSize;
-				const int chunkDetail = 4;
 
 				glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
+				mProgram->setUniformValue(mUniforms.lod, mLodFactor);
+				mProgram->setUniformValue(mUniforms.ivd, mIvdFactor);
 
 				glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide*chunksPerSide);
 			}
@@ -146,6 +147,8 @@ namespace t3d { namespace world { namespace terrain
 
 			ULOC(terrainSize);
 			ULOC(chunkSize);
+			ULOC(lod);
+			ULOC(ivd);
 			ULOC(cameraPos);
 			ULOC(heightScale);
 			ULOC(spanSize);

@@ -148,6 +148,11 @@ namespace t3d
 				mCamera.lock()->setLodFactor(value.toFloat());
 				break;
 			}
+
+			CASE(GraphicsCameraIVD) {
+				mCamera.lock()->setIvdFactor(value.toFloat());
+			}
+
 			CASE(GraphicsCameraWireframe) {
 				mCamera.lock()->setMode(value.toBool()
 											   ? world::terrain::Mode::WireFrame :
