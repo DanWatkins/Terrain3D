@@ -19,8 +19,8 @@
 namespace t3d { namespace world
 {
 	/**
-	 * Represents an all-in-one World instance visualizer. It uses the style of a first person shooter camera. It can
-	 * move forward/backward and left/right. It can also rotate up/down and left/right.
+	 * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
+	 * rotate up/down and left/right.
 	 */
 	class Camera : public QObject, protected OpenGLFunctions 
 	{
@@ -45,6 +45,12 @@ namespace t3d { namespace world
 		 * @param configuration Contains various configuration information
 		 */
 		void init();
+
+		/**
+		 * Does the heavy lifting loading. Loads large resources from file and uploads data to the GPU.
+		 * Must be called after init.
+		 */
+		void prepareForRendering();
 
 		/**
 		 * @brief Deallocates all memory allocated in OpenGL on the GPU.
@@ -76,8 +82,6 @@ namespace t3d { namespace world
 		Mat4 orientaion() const;
 		void setAspectRatio(float aspectRatio) { mAspectRatio = aspectRatio; }
 		float aspectRatio() { return mAspectRatio; }
-		void setLodFactor(float lodFactor);
-		void setIvdFactor(float ivdFactor);
 
 		void lookAt(Vec3f position);
 		Vec3f forward() const;
@@ -86,6 +90,8 @@ namespace t3d { namespace world
 
 		void setMode(terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
 		terrain::Mode mode() { return mTerrainRenderer.getMode(); }
+
+		terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
 
 	private:
 		Environment *mEnvironment;

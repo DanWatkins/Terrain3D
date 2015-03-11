@@ -31,7 +31,7 @@ Item {
         id: rectPane
         anchors.centerIn: parent
         width: 600
-        height: 420
+        height: 390
 
         color: "#4a65a3"
         radius: 6
@@ -57,7 +57,7 @@ Item {
             anchors.top: parent.top
             anchors.right: parent.right
             anchors.margins: 10
-            height: 360
+            height: 320
 
 
             Tab {
@@ -88,7 +88,7 @@ Item {
         Button {
             id: button_confirm
             x: 10
-            y: 376
+            y: 340
             width: 75
             height: 36
             text: qsTr("OK")
@@ -113,7 +113,7 @@ Item {
         Button {
             id: button_cancel
             x: 91
-            y: 376
+            y: 340
             width: 75
             height: 36
             text: qsTr("Cancel")
@@ -122,14 +122,6 @@ Item {
                 root.visible = false;
                 hasFinished();
             }
-        }
-
-        Text {
-            id: statusText
-            x: 172
-            y: 388
-            width: 418
-            height: 13
         }
     }
 }

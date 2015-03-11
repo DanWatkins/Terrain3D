@@ -54,7 +54,6 @@ public:
 		WorldGeneratorSeed					= 203,
 		WorldGeneratorFaultCount			= 204,
 		WorldGeneratorSmoothing				= 205,
-		WorldTerrainSpacing					= 210,
 		WorldTerrainHeightScale				= 211,
 		WorldTerrainChunkSize				= 212,
 		WorldTerrainSpanSize				= 213,

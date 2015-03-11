@@ -17,6 +17,12 @@ namespace t3d { namespace world { namespace terrain
 		mTerrainData = terrainData;
 		loadShaders();
 
+		mWaterRenderer.init(mTerrainData, mTerrainData->heightScale()*0.30f);
+	}
+
+
+	void Renderer::prepareForRendering()
+	{
 		mProgram->bind();
 		{
 			glGenVertexArrays(1, &mVao);
@@ -30,8 +36,6 @@ namespace t3d { namespace world { namespace terrain
 			glBindVertexArray(0);
 		}
 		mProgram->release();
-
-		mWaterRenderer.init(mTerrainData, mTerrainData->heightScale()*0.30f);
 	}
 
 
@@ -90,6 +94,9 @@ namespace t3d { namespace world { namespace terrain
 				mProgram->setUniformValue(mUniforms.lod, mLodFactor);
 				mProgram->setUniformValue(mUniforms.ivd, mIvdFactor);
 
+				if (mNeedsToReloadUniforms)
+					reloadUniforms();
+
 				glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide*chunksPerSide);
 			}
 
@@ -139,34 +146,7 @@ namespace t3d { namespace world { namespace terrain
 
 		qDebug() << "We have " << mProgram->shaders().count() << " shaders attached";
 
-		mProgram->bind();
-		{
-			#define ULOC(id) mUniforms.id = mProgram->uniformLocation(#id)
-			ULOC(mvMatrix);
-			ULOC(projMatrix);
-
-			ULOC(terrainSize);
-			ULOC(chunkSize);
-			ULOC(lod);
-			ULOC(ivd);
-			ULOC(cameraPos);
-			ULOC(heightScale);
-			ULOC(spanSize);
-
-			ULOC(spacing);
-			ULOC(textureMapResolution);
-			ULOC(heightMapSize);
-			#undef ULOC
-
-			mProgram->setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
-			mProgram->setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
-			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
-			mProgram->setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
-			mProgram->setUniformValue(mUniforms.spacing, mTerrainData->spacing());
-			mProgram->setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
-			mProgram->setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
-		}
-		mProgram->release();
+		reloadUniforms();
 	}
 
 
@@ -229,6 +209,39 @@ namespace t3d { namespace world { namespace terrain
 			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		}
+	}
+
+
+	void Renderer::reloadUniforms()
+	{
+		mProgram->bind();
+		{
+			#define ULOC(id) mUniforms.id = mProgram->uniformLocation(#id)
+			ULOC(mvMatrix);
+			ULOC(projMatrix);
+
+			ULOC(terrainSize);
+			ULOC(chunkSize);
+			ULOC(lod);
+			ULOC(ivd);
+			ULOC(cameraPos);
+			ULOC(heightScale);
+			ULOC(spanSize);
+
+			ULOC(textureMapResolution);
+			ULOC(heightMapSize);
+			#undef ULOC
+
+			mProgram->setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
+			mProgram->setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
+			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
+			mProgram->setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
+			mProgram->setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
+			mProgram->setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
+		}
+		mProgram->release();
+
+		mNeedsToReloadUniforms = false;
 	}
 
 

@@ -41,10 +41,19 @@ namespace t3d
 		mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
 		mCamera = mCameraItem->createCamera();
 
-		loadUserSettings();
-		mEnvironment.init(buildWorldConfiguration());
-		mCamera.lock()->setEnvironment(&mEnvironment);
-		mCamera.lock()->init();
+		if (auto camera = mCamera.lock())
+		{
+			loadUserSettings();
+			mEnvironment.init(buildWorldConfiguration());
+			camera->setEnvironment(&mEnvironment);
+			camera->init();
+			camera->prepareForRendering();
+		}
+		else
+		{
+			qFatal("Null camera instance");
+			return;
+		}
 
 		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
 				this, &Terrain3D::willUpdate);
@@ -147,12 +156,12 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraLOD) {
-				mCamera.lock()->setLodFactor(value.toFloat());
+				mCamera.lock()->terrainRenderer().setLodFactor(value.toFloat());
 				break;
 			}
 
 			CASE(GraphicsCameraIVD) {
-				mCamera.lock()->setIvdFactor(value.toFloat());
+				mCamera.lock()->terrainRenderer().setIvdFactor(value.toFloat());
 			}
 
 			CASE(GraphicsCameraWireframe) {
@@ -178,23 +187,27 @@ namespace t3d
 				break;
 			}
 
-			CASE(WorldTerrainSpacing) {
-				//TODO
-				break;
-			}
-
 			CASE(WorldTerrainHeightScale) {
-				//TODO
+				if (auto camera = mCamera.lock()) {
+					mEnvironment.terrainData().setHeightScale(value.toFloat()); 
+					camera->terrainRenderer().requestUniformReload();
+				}
 				break;
 			}
 
 			CASE(WorldTerrainChunkSize) {
-				//TODO
+				if (auto camera = mCamera.lock()) {
+					mEnvironment.terrainData().setChunkSize(value.toInt()); 
+					camera->terrainRenderer().requestUniformReload();
+				}
 				break;
 			}
 
 			CASE(WorldTerrainSpanSize) {
-				//TODO
+				if (auto camera = mCamera.lock()) {
+					mEnvironment.terrainData().setSpanSize(value.toInt()); 
+					camera->terrainRenderer().requestUniformReload();
+				}
 				break;
 			}
 		}
@@ -331,7 +344,7 @@ namespace t3d
 	void Terrain3D::loadUserSettings()
 	{
 		const QMetaObject &mo = Settings::staticMetaObject;
-		QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("Key"));
+		const QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("Key"));
 
 		//loop through every Settings::Key and tell ourself that a value has
 		//changed to effectively load the value
@@ -357,7 +370,6 @@ namespace t3d
 
 		config.terrainChunkSize = mMainSettings->value(key::WorldTerrainChunkSize).toInt();
 		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
-		config.terrainSpacing = mMainSettings->value(key::WorldTerrainSpacing).toFloat();
 		config.terrainSpanSize = mMainSettings->value(key::WorldTerrainSpanSize).toInt();
 
 		return config;

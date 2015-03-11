@@ -27,6 +27,8 @@ namespace t3d { namespace world { namespace terrain
 		Renderer() {}
 
 		void init(Data *terrainData);
+		void prepareForRendering();
+
 		void cleanup();
 		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 		void reloadShaders();
@@ -35,6 +37,8 @@ namespace t3d { namespace world { namespace terrain
 		void setIvdFactor(float ivdFactor) { mIvdFactor = ivdFactor; }
 		void setMode(Mode mode) { mMode = mode; }
 		Mode getMode() { return mMode; }
+
+		void requestUniformReload() { mNeedsToReloadUniforms = true; }
 
 	private:
 		Q_DISABLE_COPY(Renderer)
@@ -48,6 +52,7 @@ namespace t3d { namespace world { namespace terrain
 		float mLodFactor;
 		float mIvdFactor;
 		Mode mMode = Mode::Normal;
+		bool mNeedsToReloadUniforms = true;
 
 		struct
 		{
@@ -62,7 +67,6 @@ namespace t3d { namespace world { namespace terrain
 			GLint heightScale;
 			GLint spanSize;
 
-			GLint spacing;
 			GLint textureMapResolution;
 			GLint heightMapSize;
 		} mUniforms;
@@ -81,6 +85,7 @@ namespace t3d { namespace world { namespace terrain
 		void loadShaders();
 		void loadTextures();
 
+		void reloadUniforms();
 		void uploadTerrainData();
 	};
 }}}

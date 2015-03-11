@@ -34,6 +34,12 @@ namespace t3d { namespace world
 	}
 
 
+	void Camera::prepareForRendering()
+	{
+		mTerrainRenderer.prepareForRendering();
+	}
+
+
 	void Camera::cleanup()
 	{
 		mTerrainRenderer.cleanup();
@@ -85,18 +91,6 @@ namespace t3d { namespace world
 		mHorizontalAngle += rightAngle;
 		mVerticalAngle += upAngle;
 		normalizeAngles();
-	}
-
-
-	void Camera::setLodFactor(float lodFactor)
-	{
-		mTerrainRenderer.setLodFactor(lodFactor);
-	}
-
-
-	void Camera::setIvdFactor(float ivdFactor)
-	{
-		mTerrainRenderer.setIvdFactor(ivdFactor);
 	}
 
 

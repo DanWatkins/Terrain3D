@@ -127,21 +127,20 @@ void Settings::initDefaultValues()
 	d[GraphicsCameraPositionX] = {0.0f, false};
 	d[GraphicsCameraPositionY] = {0.0f, false};
 	d[GraphicsCameraPositionZ] = {0.0f, false};
-	d[GraphicsCameraFOV] = {50.0f, false};
+	d[GraphicsCameraFOV] = {60.0f, false};
 	d[GraphicsCameraLOD] = {1.0f, false};
-	d[GraphicsCameraIVD] = {70.0f, false};
+	d[GraphicsCameraIVD] = {140.0f, false};
 	d[GraphicsCameraWireframe] = {false, false};
 
 	//world
-	d[WorldGeneratorSize] = {128, true};
+	d[WorldGeneratorSize] = {256, true};
 	d[WorldGeneratorTextureMapResolution] = {1, true};
-	d[WorldGeneratorFaultCount] = {250, true};
+	d[WorldGeneratorFaultCount] = {300, true};
 	d[WorldGeneratorSeed] = {0, true};
-	d[WorldGeneratorSmoothing] = {0.65, true};
-	d[WorldTerrainSpacing] = {1.0f, true};
-	d[WorldTerrainHeightScale] = {30.0f, true};
-	d[WorldTerrainChunkSize] = {32, true};
-	d[WorldTerrainSpanSize] = {8, true};
+	d[WorldGeneratorSmoothing] = {0.70, true};
+	d[WorldTerrainHeightScale] = {30.0f, false};
+	d[WorldTerrainChunkSize] = {64, false};
+	d[WorldTerrainSpanSize] = {16, false};
 	d[WorldTerrainLightIntensity] = {18, true};
 
 	#undef d

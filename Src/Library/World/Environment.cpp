@@ -41,7 +41,6 @@ namespace t3d { namespace world
 		hi[1.00f] = 3;
 		mTerrainData.computeTextureIndicies(hi);
 		mTerrainData.setHeightScale(configuration.terrainHeightScale);
-		mTerrainData.setSpacing(configuration.terrainSpacing);
 		mTerrainData.setSpanSize(configuration.terrainSpanSize);
 		mTerrainData.setChunkSize(configuration.terrainChunkSize);
 

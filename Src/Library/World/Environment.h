@@ -26,7 +26,6 @@ namespace t3d { namespace world
 			float generatorSmoothing;
 			float generatorLightIntensity;
 
-			float terrainSpacing;
 			float terrainHeightScale;
 			int terrainChunkSize;
 			int terrainSpanSize;
