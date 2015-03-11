@@ -134,7 +134,7 @@ void Settings::initDefaultValues()
 
 	//world
 	d[WorldGeneratorSize] = {128, true};
-	d[WorldGeneratorTextureMapResolution] = {2, true};
+	d[WorldGeneratorTextureMapResolution] = {1, true};
 	d[WorldGeneratorFaultCount] = {250, true};
 	d[WorldGeneratorSeed] = {0, true};
 	d[WorldGeneratorSmoothing] = {0.65, true};
