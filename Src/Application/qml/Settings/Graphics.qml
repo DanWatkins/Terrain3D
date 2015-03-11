@@ -35,12 +35,10 @@ Item {
     }
 
 
-    width: 600
-    height: 400
     GroupBox {
-        x: 8
-        y: 8
-        width: 238
+        x: 0
+        y: 0
+        width: 300
         height: 66
         title: "Screen"
 
@@ -81,9 +79,9 @@ Item {
 
     GroupBox {
         id: groupBox1
-        x: 252
-        y: 8
-        width: 320
+        x: 0
+        y: 75
+        width: 300
         height: 157
         title: qsTr("Camera")
 

@@ -10,8 +10,25 @@ Item {
     function saveSettings() {
     }
 
-    Text {
-        anchors.centerIn: parent
-        text: qsTr("Not implemented yet...")
+
+    ScrollView {
+       anchors.fill: parent
+       anchors.margins: 5
+
+       GroupBox {
+           x: 0
+           y: 0
+           width: 200
+           height: 500
+
+           title: "Terrain"
+
+           Slider {
+               x: 10
+               y: 10
+               width: 180
+               height: 30
+           }
+       }
     }
 }

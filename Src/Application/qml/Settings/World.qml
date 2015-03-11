@@ -6,6 +6,7 @@ import Terrain3D 1.0
 import "SaveLoad.js" as SaveLoad
 
 Item {
+    id: item1
     function loadSettings() {
         SaveLoad.valueRead(Settings.WorldGeneratorSeed, spinBox_generatorSeed);
         SaveLoad.valueRead(Settings.WorldGeneratorFaultCount, spinBox_faultCount);
@@ -35,44 +36,17 @@ Item {
 
     GroupBox {
         id: groupBox1
-        x: 8
-        y: 8
-        width: 264
-        height: 278
+        width: parent.width
+        height: parent.height
         title: qsTr("Terrain")
 
-
-        ComboBox {
-            id: comboBox_worldGeneratorSize
-            x: 130
-            y: 0
-            width: 120
-            height: 20
-            model: [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192]
-        }
-
-        ComboBox {
-            id: comboBox_generatorTextureMapResolution
-            x: 130
-            y: 80
-            width: 120
-            height: 20
-            model: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        }
-
-        SpinBox {
-            id: spinBox_generatorSeed
-            x: 130
-            y: 169
-            width: 120
-            height: 20
-            maximumValue: 9999999
-        }
 
         Label {
             id: label1
             x: 101
             y: 4
+            width: 23
+            height: 5
             text: qsTr("Size:")
             horizontalAlignment: Text.AlignRight
         }
@@ -93,15 +67,6 @@ Item {
             horizontalAlignment: Text.AlignRight
         }
 
-        SpinBox {
-            id: spinBox_faultCount
-            x: 130
-            y: 138
-            width: 120
-            height: 20
-            maximumValue: 100000
-        }
-
         Label {
             id: label8
             x: 66
@@ -110,16 +75,6 @@ Item {
             height: 13
             text: qsTr("Fault Count:")
             horizontalAlignment: Text.AlignRight
-        }
-
-        Slider {
-            id: slider_generatorSmoothIntensity
-            x: 130
-            y: 195
-            width: 90
-            height: 22
-            stepSize: 0.01
-            value: 0.65
         }
 
         Label {
@@ -133,15 +88,6 @@ Item {
         }
 
         Label {
-            id: label_genSmoothIntensity
-            x: 226
-            y: 199
-            width: 25
-            height: 15
-            text: slider_generatorSmoothIntensity.value
-        }
-
-        Label {
             id: label11
             x: 40
             y: 228
@@ -149,35 +95,6 @@ Item {
             height: 13
             text: qsTr("Light Intensity:")
             horizontalAlignment: Text.AlignRight
-        }
-
-        Label {
-            id: label10
-            x: 226
-            y: 227
-            width: 25
-            height: 15
-            text: slider_terrainLightIntensity.value
-        }
-
-        Slider {
-            id: slider_terrainLightIntensity
-            x: 130
-            y: 223
-            width: 90
-            height: 22
-            stepSize: 1
-            maximumValue: 50
-            value: 12.0
-        }
-
-        ComboBox {
-            id: comboBox_terrainChunkSize
-            x: 130
-            y: 26
-            width: 120
-            height: 20
-            model: [4, 8, 16, 32, 64, 128, 256]
         }
 
         Label {
@@ -194,15 +111,6 @@ Item {
             text: qsTr("Span Size:")
         }
 
-        ComboBox {
-            id: comboBox_terrainSpanSize
-            x: 130
-            y: 52
-            width: 120
-            height: 20
-            model: [8, 16, 32, 64, 128, 256, 512, 1024]
-        }
-
         Label {
             id: label5
             x: 61
@@ -210,18 +118,89 @@ Item {
             text: qsTr("Height Scale:")
         }
 
-        SpinBox {
-            id: spinBox_terrainHeightScale
-            x: 130
-            y: 107
-            width: 120
-            height: 20
+        Column {
+            id: item2
+            anchors.left: parent.left
+            anchors.leftMargin: 130
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            spacing: 5
+
+            ComboBox {
+                id: comboBox_terrainSpanSize
+                x: 5
+                Layout.fillWidth: parent
+                height: 20
+                model: [8, 16, 32, 64, 128, 256, 512, 1024]
+            }
+
+            ComboBox {
+                id: comboBox_terrainChunkSize
+                x: 5
+                Layout.fillWidth: parent
+                height: 20
+                model: [4, 8, 16, 32, 64, 128, 256]
+            }
+
+            ComboBox {
+                id: comboBox_generatorTextureMapResolution
+                x: 5
+                Layout.fillWidth: parent
+                height: 20
+                model: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            }
+
+            ComboBox {
+                id: comboBox_worldGeneratorSize
+                x: 5
+                Layout.fillWidth: parent
+                height: 20
+                model: [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192]
+            }
+
+            SpinBox {
+                id: spinBox_terrainHeightScale
+                x: 5
+                Layout.fillWidth: parent
+                height: 20
+            }
+
+            SpinBox {
+                id: spinBox_faultCount
+                x: 5
+                Layout.fillWidth: parent
+                height: 20
+                maximumValue: 100000
+            }
+
+            SpinBox {
+                id: spinBox_generatorSeed
+                x: 5
+                Layout.fillWidth: parent
+                height: 20
+                maximumValue: 9999999
+            }
+
+            Slider {
+                id: slider_terrainLightIntensity
+                width: 90
+                height: 22
+                stepSize: 1
+                maximumValue: 50
+                value: 12.0
+            }
+
+            Slider {
+                id: slider_generatorSmoothIntensity
+                        width: 90
+                        height: 22
+                        stepSize: 0.01
+                        value: 0.65
+            }
         }
-
-
-
-
-
-
     }
 }

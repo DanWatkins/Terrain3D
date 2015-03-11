@@ -26,14 +26,17 @@ Item {
 
     Loader {
         id: settingsPane
-        anchors.fill: parent
-        anchors.centerIn: parent
+
         source:"SettingsPane.qml"
         visible: false
 
         onLoaded: {
             settingsPane.item.loadSettings();
             settingsPane.item.visible = false;
+
+            settingsPane.anchors.top = topBar.bottom;
+            settingsPane.anchors.left = parent.left;
+            settingsPane.anchors.bottom = parent.bottom;
             visible = true;
         }
     }
@@ -60,6 +63,7 @@ Item {
     }
 
     Item {
+        id: topBar
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right

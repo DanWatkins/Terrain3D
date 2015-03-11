@@ -6,6 +6,13 @@ import "./Settings"
 
 Item {
     id: root
+
+    anchors.left: parent.left
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+
+    width: 300
+
     signal hasFinished()
 
     //dim the whole screen
@@ -29,98 +36,82 @@ Item {
     //the main settings pane
     Rectangle {
         id: rectPane
-        anchors.centerIn: parent
-        width: 600
-        height: 390
+        anchors.fill: parent
 
-        color: "#4a65a3"
-        radius: 6
+        color: "#ffffff"
         anchors.verticalCenterOffset: 0
         anchors.horizontalCenterOffset: -20
-        opacity: 0.85
+        opacity: 0.80
 
         function loadAllSettings() {
-            tab_graphics.item.loadSettings();
-            tab_world.item.loadSettings();
-            tab_controls.item.loadSettings();
+            paneGraphics.loadSettings();
+            paneWorld.loadSettings();
         }
 
         function saveAllSettings() {
-            tab_graphics.item.saveSettings();
-            tab_world.item.saveSettings();
-            tab_controls.item.saveSettings();
+            paneGraphics.saveSettings();
+            paneWorld.saveSettings();
         }
 
-        TabView {
-            id: tabView
-            anchors.left: parent.left
-            anchors.top: parent.top
+
+        ColumnLayout {
+            id: columnLayout1
+            anchors.fill: parent
+            anchors.margins: 5
+
+            Graphics {
+                id: paneGraphics
+                Layout.fillWidth: parent
+            }
+
+
+            World {
+                id: paneWorld
+                Layout.fillWidth: parent
+            }
+        }
+
+        RowLayout {
             anchors.right: parent.right
-            anchors.margins: 10
-            height: 320
+            anchors.rightMargin: 5
+            anchors.left: parent.left
+            anchors.leftMargin: 5
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
+            Button {
+                id: button_confirm
 
+                Layout.fillHeight: parent
+                Layout.fillWidth: parent
+                text: qsTr("Apply")
 
-            Tab {
-                id: tab_graphics
-                title: "Graphics"
-                active: true
-                asynchronous: false
-                Graphics {}
-            }
+                onClicked: {
+                    parent.saveAllSettings();
+                    var needsRestart = appSettings.containsQueuedValueRequiringRestart();
 
-            Tab {
-                id: tab_world
-                title: "World"
-                active: true
-                asynchronous: false
-                World {}
-            }
+                    if (needsRestart) {
+                        appSettings.applyQueuedValuesNoNotify();
+                        terrain3D.requestRestart();
+                    }
+                    else {
+                        appSettings.applyQueuedValues();
+                    }
 
-            Tab {
-                id: tab_controls
-                title: "Controls"
-                active: true
-                asynchronous: false
-                Controls {}
-            }
-        }
-
-        Button {
-            id: button_confirm
-            x: 10
-            y: 340
-            width: 75
-            height: 36
-            text: qsTr("OK")
-
-            onClicked: {
-                parent.saveAllSettings();
-                var needsRestart = appSettings.containsQueuedValueRequiringRestart();
-
-                if (needsRestart) {
-                    appSettings.applyQueuedValuesNoNotify();
-                    terrain3D.requestRestart();
+                    root.visible = false;
+                    hasFinished();
                 }
-                else {
-                    appSettings.applyQueuedValues();
-                }
-
-                root.visible = false;
-                hasFinished();
             }
-        }
 
-        Button {
-            id: button_cancel
-            x: 91
-            y: 340
-            width: 75
-            height: 36
-            text: qsTr("Cancel")
+            Button {
+                id: button_cancel
+                Layout.fillHeight: parent
+                Layout.fillWidth: parent
+                text: qsTr("Cancel")
 
-            onClicked: {
-                root.visible = false;
-                hasFinished();
+                onClicked: {
+                    root.visible = false;
+                    hasFinished();
+                }
             }
         }
     }
