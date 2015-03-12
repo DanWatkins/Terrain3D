@@ -1,5 +1,5 @@
 //==================================================================================================================|
-// Created 2015.03.11 by Daniel L. Watkins
+// Created 2015.03.12 by Daniel L. Watkins
 //
 // Copyright (C) 2014-2015 Daniel L. Watkins
 // This file is licensed under the MIT License.
@@ -11,23 +11,20 @@ import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
 
-Item {
+SettingBaseControl {
     id: root
 
     width: 200
     height: 30
 
-    property int settingsKey: 0
-    property string title: ""
-
-    function load() {
-        spinBox.value = appSettings.value(settingsKey);
+    function assignFromSettingsValue(value) {
+        spinBox.value = value;
     }
 
-    function save() {
-        appSettings.enqueueValue(settingsKey, spinBox.value);
-        appSettings.applyQueuedValues();
+    function provideSettingsValue() {
+        return spinBox.value;
     }
+
 
     SpinBox {
         id: spinBox
@@ -54,9 +51,5 @@ Item {
         text: root.title
         horizontalAlignment: Text.AlignRight
         font.pixelSize: 12
-    }
-
-    Component.onCompleted: {
-        load();
     }
 }

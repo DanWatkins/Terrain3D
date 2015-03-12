@@ -6,6 +6,7 @@
     <file>Settings/World.qml</file>
     <file>Settings/SaveLoad.js</file>
 
+    <file>Controls/SettingBaseControl.qml</file>
     <file>Controls/SettingCheckBox.qml</file>
     <file>Controls/SettingComboBox.qml</file>
     <file>Controls/SettingSpinBox.qml</file>

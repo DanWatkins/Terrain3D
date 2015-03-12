@@ -52,33 +52,55 @@ Item {
         opacity: 0.80
 
         function loadAllSettings() {
-            paneGraphics.loadSettings();
-            paneWorld.loadSettings();
         }
 
         function saveAllSettings() {
-            paneGraphics.saveSettings();
-            paneWorld.saveSettings();
         }
 
         ColumnLayout {
-            id: columnLayout1
+            id: sidePane
             anchors.fill: parent
             anchors.margins: 5
 
-            Graphics {
-                id: paneGraphics
-                Layout.fillWidth: parent
-            }
+			GroupBox {
+				id: testGroup
+				title: "Test Settings"
+				Layout.fillWidth: true
 
+				Column {
+					anchors.fill: parent
 
-            World {
-                id: paneWorld
-                Layout.fillWidth: parent
-            }
-        }
+                    SettingSpinBox {
+                        title: "Chunk Size:"
+                        settingsKey: Settings.WorldTerrainChunkSize
+                    }
+
+                    SettingComboBox {
+                        title: "Span Size:"
+                        settingsKey: Settings.WorldTerrainSpanSize
+                    }
+
+					SettingSlider {
+                        title: "LOD:"
+                        settingsKey: Settings.GraphicsCameraLOD
+
+						minimumValue: 0.1
+						maximumValue: 2.0
+						stepSize: 0.05
+						tickmarksEnabled: true
+					}
+
+                    SettingCheckBox {
+                        title: "Fullscreen"
+                        settingsKey: Settings.GraphicsScreenIsFullscreen
+                    }
+				}
+			}
+        }	
+
 
         RowLayout {
+			id: confirmBar
             anchors.right: parent.right
             anchors.rightMargin: 5
             anchors.left: parent.left
@@ -119,16 +141,6 @@ Item {
                     root.visible = false;
                     hasFinished();
                 }
-            }
-
-            SettingSlider {
-                title: "Size:"
-                settingsKey: Settings.GraphicsCameraLOD
-
-				minimumValue: 0.1
-				maximumValue: 2.0
-				stepSize: 0.05
-				tickmarksEnabled: true
             }
         }
     }

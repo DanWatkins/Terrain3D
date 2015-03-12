@@ -11,23 +11,20 @@ import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
 
-Item {
+SettingBaseControl {
     id: root
 
     width: 200
     height: 30
 
-    property int settingsKey: 0
-    property string title: ""
     property var model: null
 
-    function load() {
-        comboBox.currentIndex = comboBox.find(appSettings.value(settingsKey).toString());
+    function assignFromSettingsValue(value) {
+        comboBox.currentIndex = comboBox.find(value);
     }
 
-    function save() {
-        appSettings.enqueueValue(settingsKey, comboBox.currentText);
-        appSettings.applyQueuedValues();
+    function provideSettingsValue() {
+        return comboBox.currentText;
     }
 
     ComboBox {
@@ -57,9 +54,5 @@ Item {
         text: root.title
         horizontalAlignment: Text.AlignRight
         font.pixelSize: 12
-    }
-
-    Component.onCompleted: {
-        load();
     }
 }

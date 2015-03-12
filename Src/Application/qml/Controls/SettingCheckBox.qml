@@ -11,22 +11,18 @@ import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
 
-Item {
+SettingBaseControl {
     id: root
 
     width: 200
     height: 30
 
-    property int settingsKey: 0
-    property string title: "";
-
-    function load() {
-        checkBox.checked = appSettings.value(settingsKey);
+    function assignFromSettingsValue(value) {
+        checkBox.checked = value;
     }
 
-    function save() {
-        appSettings.enqueueValue(settingsKey, checkBox.checked);
-        appSettings.applyQueuedValues();
+    function provideSettingsValue() {
+        return checkBox.checked;
     }
 
     CheckBox {
@@ -42,9 +38,5 @@ Item {
         onClicked: {
             root.save();
         }
-    }
-
-    Component.onCompleted: {
-        load();
     }
 }
