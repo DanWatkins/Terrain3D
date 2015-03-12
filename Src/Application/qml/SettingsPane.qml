@@ -2,7 +2,10 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import Terrain3D 1.0
+
 import "./Settings"
+import "./Controls"
 
 Item {
     id: root
@@ -52,7 +55,6 @@ Item {
             paneGraphics.saveSettings();
             paneWorld.saveSettings();
         }
-
 
         ColumnLayout {
             id: columnLayout1
@@ -113,6 +115,12 @@ Item {
                     hasFinished();
                 }
             }
+			
+            SettingCheckBox {
+                id: settingsBox
+				title: "Dan"
+                settingsKey: Settings.GraphicsScreenIsFullscreen
+			}
         }
     }
 }

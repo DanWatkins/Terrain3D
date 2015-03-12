@@ -1,10 +1,12 @@
 <RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-        <file>SettingsPane.qml</file>
-        <file>Settings/Controls.qml</file>
-        <file>Settings/Graphics.qml</file>
-        <file>Settings/World.qml</file>
-        <file>Settings/SaveLoad.js</file>
-    </qresource>
+  <qresource prefix="/">
+    <file>main.qml</file>
+    <file>SettingsPane.qml</file>
+    <file>Settings/Controls.qml</file>
+    <file>Settings/Graphics.qml</file>
+    <file>Settings/World.qml</file>
+    <file>Settings/SaveLoad.js</file>
+
+    <file>Controls/SettingCheckBox.qml</file>
+  </qresource>
 </RCC>
