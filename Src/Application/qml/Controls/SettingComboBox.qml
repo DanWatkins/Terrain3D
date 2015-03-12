@@ -18,31 +18,46 @@ Item {
     height: 30
 
     property int settingsKey: 0
-    property string title: "";
+    property string title: ""
+    property var model: null
 
     function load() {
-        checkBox.checked = appSettings.value(settingsKey);
+        comboBox.currentIndex = comboBox.find(appSettings.value(settingsKey).toString());
     }
 
     function save() {
-        appSettings.enqueueValue(settingsKey, checkBox.checked);
+        console.log("Saving ComboBox here");
+        appSettings.enqueueValue(settingsKey, comboBox.currentText);
         appSettings.applyQueuedValues();
     }
 
-    CheckBox {
-        id: checkBox
-        text: title
+    ComboBox {
+        id: comboBox
+        anchors.right: parent.right
+        anchors.rightMargin: 6
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 6
         anchors.top: parent.top
         anchors.topMargin: 6
-        anchors.left: parent.left
-        anchors.leftMargin: 8
+        anchors.left: text.right
+        anchors.leftMargin: 6
 
-        onClicked: {
+        model: root.model
+
+        onCurrentTextChanged: {
             root.save();
         }
+    }
 
+    Text {
+        id: text
+        x: 8
+        y: 8
+        width: 100
+        height: 14
+        text: root.title
+        horizontalAlignment: Text.AlignRight
+        font.pixelSize: 12
     }
 
     Component.onCompleted: {

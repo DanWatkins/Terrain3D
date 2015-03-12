@@ -138,5 +138,8 @@
     <None Include="..\..\Deployment\Shaders\terrain\terrsin.tcs.glsl">
       <Filter>Shaders\terrain</Filter>
     </None>
+    <None Include="..\..\Src\Application\qml\Controls\SettingComboBox.qml">
+      <Filter>Src\qml</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,3 +1,8 @@
+//==================================================================================================================|
+// Copyright (C) 2014-2015 Daniel L. Watkins
+// This file is licensed under the MIT License.
+//==================================================================================================================|
+
 //checked
 function checkedRead(key, checkBox) {
     checkBox.checked = appSettings.value(key);
