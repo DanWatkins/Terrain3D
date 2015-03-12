@@ -8,5 +8,6 @@
 
     <file>Controls/SettingCheckBox.qml</file>
     <file>Controls/SettingComboBox.qml</file>
+    <file>Controls/SettingSpinBox.qml</file>
   </qresource>
 </RCC>

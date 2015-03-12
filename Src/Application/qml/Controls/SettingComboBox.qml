@@ -26,7 +26,6 @@ Item {
     }
 
     function save() {
-        console.log("Saving ComboBox here");
         appSettings.enqueueValue(settingsKey, comboBox.currentText);
         appSettings.applyQueuedValues();
     }

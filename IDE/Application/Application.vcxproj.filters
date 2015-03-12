@@ -63,9 +63,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_Terrain3D.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_main.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Application\Application.cpp">
       <Filter>Src</Filter>
     </ClCompile>
@@ -80,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Application\QuickItems\CameraItem.cpp">
       <Filter>Src\QuickItems</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_main.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,12 +108,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Src\Application\qml\main.qml">
-      <Filter>Src\qml</Filter>
-    </None>
-    <None Include="..\..\Src\Application\qml\SettingsPane.qml">
-      <Filter>Src\qml</Filter>
-    </None>
     <None Include="..\..\Deployment\Shaders\mesh\mesh.frag.glsl">
       <Filter>Shaders\mesh</Filter>
     </None>
@@ -138,7 +132,10 @@
     <None Include="..\..\Deployment\Shaders\terrain\terrsin.tcs.glsl">
       <Filter>Shaders\terrain</Filter>
     </None>
-    <None Include="..\..\Src\Application\qml\Controls\SettingComboBox.qml">
+    <None Include="..\..\Src\Application\qml\main.qml">
+      <Filter>Src\qml</Filter>
+    </None>
+    <None Include="..\..\Src\Application\qml\SettingsPane.qml">
       <Filter>Src\qml</Filter>
     </None>
   </ItemGroup>

@@ -18,30 +18,42 @@ Item {
     height: 30
 
     property int settingsKey: 0
-    property string title: "";
+    property string title: ""
 
     function load() {
-        checkBox.checked = appSettings.value(settingsKey);
+        spinBox.value = appSettings.value(settingsKey);
     }
 
     function save() {
-        appSettings.enqueueValue(settingsKey, checkBox.checked);
+        appSettings.enqueueValue(settingsKey, spinBox.value);
         appSettings.applyQueuedValues();
     }
 
-    CheckBox {
-        id: checkBox
-        text: title
+    SpinBox {
+        id: spinBox
+        anchors.right: parent.right
+        anchors.rightMargin: 6
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 6
         anchors.top: parent.top
         anchors.topMargin: 6
-        anchors.left: parent.left
-        anchors.leftMargin: 8
+        anchors.left: text.right
+        anchors.leftMargin: 6
 
-        onClicked: {
+        onValueChanged: {
             root.save();
         }
+    }
+
+    Text {
+        id: text
+        x: 8
+        y: 8
+        width: 100
+        height: 14
+        text: root.title
+        horizontalAlignment: Text.AlignRight
+        font.pixelSize: 12
     }
 
     Component.onCompleted: {

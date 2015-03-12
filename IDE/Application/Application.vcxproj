@@ -92,21 +92,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\Src\Application\qml\main.qrc">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);..\..\Src\Application\qml\main.qml;..\..\Src\Application\qml\SettingsPane.qml;..\..\Src\Application\qml\Settings\Controls.qml;..\..\Src\Application\qml\Settings\Graphics.qml;..\..\Src\Application\qml\Settings\World.qml;..\..\Src\Application\qml\Controls\SettingCheckBox.qml;..\..\Src\Application\qml\Controls\SettingComboBox.qml;..\..\Src\Application\qml\Settings\SaveLoad.js;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);..\..\Src\Application\qml\main.qml;..\..\Src\Application\qml\SettingsPane.qml;..\..\Src\Application\qml\Settings\Controls.qml;..\..\Src\Application\qml\Settings\Graphics.qml;..\..\Src\Application\qml\Settings\World.qml;..\..\Src\Application\qml\Controls\SettingCheckBox.qml;..\..\Src\Application\qml\Controls\SettingComboBox.qml;..\..\Src\Application\qml\Settings\SaveLoad.js;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
-      <SubType>Designer</SubType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\External\External.vcxproj">
       <Project>{66a2df4c-41fc-4d40-83df-b25c4f294073}</Project>
     </ProjectReference>
@@ -128,7 +113,16 @@
     <None Include="..\..\Deployment\Shaders\terrain\terrsin.tcs.glsl" />
     <None Include="..\..\Deployment\Shaders\water\water.fs.glsl" />
     <None Include="..\..\Deployment\Shaders\water\water.vs.glsl" />
-    <None Include="..\..\Src\Application\qml\Controls\SettingComboBox.qml" />
+    <CustomBuild Include="..\..\Src\Application\qml\main.qrc">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);..\..\Src\Application\qml\main.qml;..\..\Src\Application\qml\SettingsPane.qml;..\..\Src\Application\qml\Settings\Controls.qml;..\..\Src\Application\qml\Settings\Graphics.qml;..\..\Src\Application\qml\Settings\World.qml;..\..\Src\Application\qml\Controls\SettingCheckBox.qml;..\..\Src\Application\qml\Controls\SettingComboBox.qml;..\..\Src\Application\qml\Settings\SaveLoad.js;../../Src/Application/qml/Controls/SettingSpinBox.qml;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);..\..\Src\Application\qml\main.qml;..\..\Src\Application\qml\SettingsPane.qml;..\..\Src\Application\qml\Settings\Controls.qml;..\..\Src\Application\qml\Settings\Graphics.qml;..\..\Src\Application\qml\Settings\World.qml;..\..\Src\Application\qml\Controls\SettingCheckBox.qml;..\..\Src\Application\qml\Controls\SettingComboBox.qml;..\..\Src\Application\qml\Settings\SaveLoad.js;../../Src/Application/qml/Controls/SettingSpinBox.qml;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+    </CustomBuild>
     <None Include="..\..\Src\Application\qml\main.qml" />
     <None Include="..\..\Src\Application\qml\SettingsPane.qml" />
   </ItemGroup>
