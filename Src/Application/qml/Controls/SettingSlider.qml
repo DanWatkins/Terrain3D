@@ -12,7 +12,6 @@ import QtQuick.Controls 1.2
 SettingBaseControl {
     id: root
 
-    width: 200
     height: 30
 
     property real minimumValue: 0
@@ -73,6 +72,6 @@ SettingBaseControl {
         anchors.right: parent.right
         anchors.rightMargin: 6
         anchors.left: parent.right
-        anchors.leftMargin: -40
+        anchors.leftMargin: -30
     }
 }

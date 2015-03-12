@@ -14,7 +14,6 @@ import Terrain3D 1.0
 SettingBaseControl {
     id: root
 
-    width: 200
     height: 30
 
     property var model: null

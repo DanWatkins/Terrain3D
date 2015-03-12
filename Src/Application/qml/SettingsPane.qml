@@ -32,13 +32,17 @@ Item {
     }
 
     function loadSettings() {
-        console.log("loading settings from the settings pane");
-        rectPane.loadAllSettings();
+        testGroup.load();
+    }
+
+
+    function saveSettings() {
+        testGroup.save();
     }
 
     function refreshIfNeeded() {
         if (visible)
-            loadSettings();
+            testGroup.load();
     }
 
     //the main settings pane
@@ -51,50 +55,44 @@ Item {
         anchors.horizontalCenterOffset: -20
         opacity: 0.80
 
-        function loadAllSettings() {
-        }
-
-        function saveAllSettings() {
-        }
-
         ColumnLayout {
             id: sidePane
             anchors.fill: parent
             anchors.margins: 5
 
-			GroupBox {
+            SettingGroupBox {
 				id: testGroup
 				title: "Test Settings"
 				Layout.fillWidth: true
 
-				Column {
-					anchors.fill: parent
+                SettingSpinBox {
+                    title: "Chunk Size:"
+                    settingsKey: Settings.WorldTerrainChunkSize
+                }
 
-                    SettingSpinBox {
-                        title: "Chunk Size:"
-                        settingsKey: Settings.WorldTerrainChunkSize
-                    }
+                SettingComboBox {
+                    title: "Span Size:"
+                    settingsKey: Settings.WorldTerrainSpanSize
+                }
 
-                    SettingComboBox {
-                        title: "Span Size:"
-                        settingsKey: Settings.WorldTerrainSpanSize
-                    }
+                SettingSlider {
+                    title: "LOD:"
+                    settingsKey: Settings.GraphicsCameraLOD
 
-					SettingSlider {
-                        title: "LOD:"
-                        settingsKey: Settings.GraphicsCameraLOD
+                    minimumValue: 0.1
+                    maximumValue: 2.0
+                    stepSize: 0.05
+                    tickmarksEnabled: true
+                }
 
-						minimumValue: 0.1
-						maximumValue: 2.0
-						stepSize: 0.05
-						tickmarksEnabled: true
-					}
+                SettingCheckBox {
+                    title: "Fullscreen"
+                    settingsKey: Settings.GraphicsScreenIsFullscreen
+                }
 
-                    SettingCheckBox {
-                        title: "Fullscreen"
-                        settingsKey: Settings.GraphicsScreenIsFullscreen
-                    }
-				}
+                Component.onCompleted: {
+                    console.log("We just did the column");
+                }
 			}
         }	
 
@@ -115,7 +113,7 @@ Item {
                 text: qsTr("Apply")
 
                 onClicked: {
-                    parent.saveAllSettings();
+                    root.saveSettings();
                     var needsRestart = appSettings.containsQueuedValueRequiringRestart();
 
                     if (needsRestart) {
