@@ -121,9 +121,14 @@ Item {
                 }
             }
 
-            SettingSpinBox {
+            SettingSlider {
                 title: "Size:"
-                settingsKey: Settings.WorldTerrainChunkSize
+                settingsKey: Settings.GraphicsCameraLOD
+
+				minimumValue: 0.1
+				maximumValue: 2.0
+				stepSize: 0.05
+				tickmarksEnabled: true
             }
         }
     }
