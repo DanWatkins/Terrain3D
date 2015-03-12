@@ -33,15 +33,19 @@ Item {
 
     function loadSettings() {
         settings_graphics.load();
+        settings_world.load();
     }
 
     function saveSettings() {
         settings_graphics.save();
+        settings_world.save();
     }
 
     function refreshIfNeeded() {
-        if (visible)
+        if (visible) {
             settings_graphics.load();
+            settings_world.load();
+        }
     }
 
     //the main settings pane
@@ -64,9 +68,10 @@ Item {
                 Layout.fillWidth: true
             }
 
-            /*World {
+            World {
+                id: settings_world
                 Layout.fillWidth: true
-            }*/
+            }
         }	
 
         RowLayout {

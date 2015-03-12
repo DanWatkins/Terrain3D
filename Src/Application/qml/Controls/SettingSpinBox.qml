@@ -17,6 +17,7 @@ SettingBaseControl {
 
     property int minimumValue: 0
     property int maximumValue: 100
+    property int stepSize: 1
 
     function assignFromSettingsValue(value) {
         spinBox.value = value;
@@ -39,6 +40,7 @@ SettingBaseControl {
 
         minimumValue: root.minimumValue
         maximumValue: root.maximumValue
+        stepSize: root.stepSize
 
         onValueChanged: {
             root.save();
@@ -49,7 +51,7 @@ SettingBaseControl {
         id: text
         x: 8
         y: 8
-        width: 100
+        width: 150
         height: 14
         text: root.title
         horizontalAlignment: Text.AlignRight

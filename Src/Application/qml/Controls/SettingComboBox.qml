@@ -48,7 +48,7 @@ SettingBaseControl {
         id: text
         x: 8
         y: 8
-        width: 100
+        width: 150
         height: 14
         text: root.title
         horizontalAlignment: Text.AlignRight
