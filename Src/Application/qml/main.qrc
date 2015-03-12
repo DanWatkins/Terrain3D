@@ -4,7 +4,6 @@
     <file>SettingsPane.qml</file>
     <file>Settings/Graphics.qml</file>
     <file>Settings/World.qml</file>
-    <file>Settings/SaveLoad.js</file>
 
     <file>Controls/SettingGroupBox.qml</file>
     <file>Controls/SettingBaseControl.qml</file>

@@ -8,213 +8,81 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import Terrain3D 1.0
-import "SaveLoad.js" as SaveLoad
 
-Item {
-    function loadSettings() {
-        SaveLoad.valueRead(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth);
-        SaveLoad.valueRead(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight);
-        SaveLoad.checkedRead(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen);
+import "../Controls/"
 
-        SaveLoad.valueRead(Settings.GraphicsCameraFOV, slider_cameraFOV);
-        SaveLoad.valueRead(Settings.GraphicsCameraLOD, slider_cameraLOD);
-        SaveLoad.valueRead(Settings.GraphicsCameraIVD, slider_cameraIVD)
-        SaveLoad.valueRead(Settings.GraphicsCameraPositionX,spinBox_cameraPositionX);
-        SaveLoad.valueRead(Settings.GraphicsCameraPositionY,spinBox_cameraPositionY);
-        SaveLoad.valueRead(Settings.GraphicsCameraPositionZ,spinBox_cameraPositionZ);
-        SaveLoad.checkedRead(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe);
+SettingGroupBox {
+    title: "Graphics"
+
+    SettingSpinBox {
+        title: "Screen Width"
+        settingsKey: Settings.GraphicsScreenResolutionWidth
+
+        minimumValue: 640
+        maximumValue: 10000
     }
 
-    function saveSettings() {
-        SaveLoad.valueSave(Settings.GraphicsScreenResolutionWidth, spinBox_screenSizeWidth);
-        SaveLoad.valueSave(Settings.GraphicsScreenResolutionHeight, spinBox_screenSizeHeight);
-        SaveLoad.checkedSave(Settings.GraphicsScreenIsFullscreen, checkBox_screenIsFullscreen);
+    SettingSpinBox {
+        title: "Screen Height"
+        settingsKey: Settings.GraphicsScreenResolutionHeight
 
-        SaveLoad.valueSave(Settings.GraphicsCameraFOV, slider_cameraFOV);
-        SaveLoad.valueSave(Settings.GraphicsCameraLOD, slider_cameraLOD);
-        SaveLoad.valueSave(Settings.GraphicsCameraIVD, slider_cameraIVD);
-        SaveLoad.valueSave(Settings.GraphicsCameraPositionX, spinBox_cameraPositionX);
-        SaveLoad.valueSave(Settings.GraphicsCameraPositionY, spinBox_cameraPositionY);
-        SaveLoad.valueSave(Settings.GraphicsCameraPositionZ, spinBox_cameraPositionZ);
-        SaveLoad.checkedSave(Settings.GraphicsCameraWireframe, checkBox_cameraWireframe);
+        minimumValue: 480
+        maximumValue: 10000
     }
 
-
-    GroupBox {
-        x: 0
-        y: 0
-        width: 300
-        height: 66
-        title: "Screen"
-
-        Label {
-            id: label1
-            x: 0
-            y: 4
-            text: qsTr("Resolution:")
-        }
-
-        SpinBox {
-            id: spinBox_screenSizeWidth
-            x: 60
-            y: 0
-            width: 75
-            height: 20
-            value: 800
-            maximumValue: 10000
-        }
-
-        SpinBox {
-            id: spinBox_screenSizeHeight
-            x: 144
-            y: 1
-            width: 75
-            height: 20
-            value: 600
-            maximumValue: 10000
-        }
-
-        CheckBox {
-            id: checkBox_screenIsFullscreen
-            x: 0
-            y: 26
-            text: qsTr("Fullscreen")
-        }
+    SettingCheckBox {
+        title: "Fullscreen"
+        settingsKey: Settings.GraphicsScreenIsFullscreen
     }
 
-    GroupBox {
-        id: groupBox1
-        x: 0
-        y: 75
-        width: 300
-        height: 157
-        title: qsTr("Camera")
+    SettingSpinBox {
+        title: "Camera Pos.x"
+        settingsKey: Settings.GraphicsCameraPositionX
 
-        SpinBox {
-            id: spinBox_cameraPositionX
-            x: 47
-            y: 0
-            height: 20
-            decimals: 3
-            minimumValue: -100000
-            maximumValue: 100000
-        }
+        minimumValue: -10000
+        maximumValue: 10000
+    }
 
-        SpinBox {
-            id: spinBox_cameraPositionY
-            x: 133
-            y: 0
-            height: 20
-            decimals: 3
-            minimumValue: -100000
-            maximumValue: 100000
-        }
+    SettingSpinBox {
+        title: "Camera Pos.y"
+        settingsKey: Settings.GraphicsCameraPositionY
 
-        SpinBox {
-            id: spinBox_cameraPositionZ
-            x: 219
-            y: 0
-            height: 20
-            decimals: 3
-            minimumValue: -100000
-            maximumValue: 100000
-        }
+        minimumValue: -10000
+        maximumValue: 10000
+    }
 
-        Slider {
-            id: slider_cameraFOV
-            x: 47
-            y: 33
-            width: 215
-            height: 22
-            stepSize: 1
-            maximumValue: 180
-        }
+    SettingSpinBox {
+        title: "Camera Pos.z"
+        settingsKey: Settings.GraphicsCameraPositionZ
 
-        Slider {
-            id: slider_cameraLOD
-            x: 47
-            y: 61
-            width: 215
-            height: 22
-            stepSize: 0.05
-        }
+        minimumValue: -10000
+        maximumValue: 10000
+    }
 
-        Slider {
-            id: slider_cameraIVD
-            x: 47
-            y: 89
-            width: 215
-            height: 22
-            minimumValue: 10
-            value: 10
-            maximumValue: 200
-            stepSize: 2
-        }
+    SettingSlider {
+        title: "Camera FOV"
+        settingsKey: Settings.GraphicsCameraFOV
 
-        CheckBox {
-            id: checkBox_cameraWireframe
-            x: 47
-            y: 117
-            text: qsTr("Render wireframe")
-        }
+        minimumValue: 0
+        maximumValue: 160
+        stepSize: 1
+    }
 
-        ////////// LABELS
-        Label {
-            id: label2
-            x: 0
-            y: 4
-            text: qsTr("Position:")
-        }
+    SettingSlider {
+        title: "Camera LOD"
+        settingsKey: Settings.GraphicsCameraLOD
 
-        Label {
-            id: label3
-            x: 8
-            y: 38
-            text: qsTr("FOV:")
-        }
+        minimumValue: 0.1
+        maximumValue: 1.0
+        stepSize: 0.05
+    }
 
-        Label {
-            id: label4
-            x: 8
-            y: 66
-            text: qsTr("LOD:")
-        }
+    SettingSlider {
+        title: "Camera IVD"
+        settingsKey: Settings.GraphicsCameraIVD
 
-
-        Label {
-            id: label5
-            x: 11
-            y: 94
-            text: qsTr("IVD:")
-        }
-
-
-        Label {
-            id: label_fovValue
-            x: 268
-            y: 42
-            width: 41
-            height: 13
-            text: slider_cameraFOV.value
-        }
-
-        Label {
-            id: label_lodValue
-            x: 268
-            y: 66
-            width: 41
-            height: 13
-            text: slider_cameraLOD.value
-        }
-
-
-        Label {
-            id: label_ivdValue
-            x: 268
-            y: 94
-            width: 41
-            height: 13
-            text: slider_cameraIVD.value
-        }
+        minimumValue: 0
+        maximumValue: 1000
+        stepSize: 50
     }
 }

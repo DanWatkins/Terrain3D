@@ -32,17 +32,16 @@ Item {
     }
 
     function loadSettings() {
-        testGroup.load();
+        settings_graphics.load();
     }
 
-
     function saveSettings() {
-        testGroup.save();
+        settings_graphics.save();
     }
 
     function refreshIfNeeded() {
         if (visible)
-            testGroup.load();
+            settings_graphics.load();
     }
 
     //the main settings pane
@@ -60,42 +59,15 @@ Item {
             anchors.fill: parent
             anchors.margins: 5
 
-            SettingGroupBox {
-				id: testGroup
-				title: "Test Settings"
-				Layout.fillWidth: true
+            Graphics {
+                id: settings_graphics
+                Layout.fillWidth: true
+            }
 
-                SettingSpinBox {
-                    title: "Chunk Size:"
-                    settingsKey: Settings.WorldTerrainChunkSize
-                }
-
-                SettingComboBox {
-                    title: "Span Size:"
-                    settingsKey: Settings.WorldTerrainSpanSize
-                }
-
-                SettingSlider {
-                    title: "LOD:"
-                    settingsKey: Settings.GraphicsCameraLOD
-
-                    minimumValue: 0.1
-                    maximumValue: 2.0
-                    stepSize: 0.05
-                    tickmarksEnabled: true
-                }
-
-                SettingCheckBox {
-                    title: "Fullscreen"
-                    settingsKey: Settings.GraphicsScreenIsFullscreen
-                }
-
-                Component.onCompleted: {
-                    console.log("We just did the column");
-                }
-			}
+            /*World {
+                Layout.fillWidth: true
+            }*/
         }	
-
 
         RowLayout {
 			id: confirmBar

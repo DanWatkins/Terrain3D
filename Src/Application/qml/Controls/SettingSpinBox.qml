@@ -13,8 +13,10 @@ import Terrain3D 1.0
 
 SettingBaseControl {
     id: root
-
     height: 30
+
+    property int minimumValue: 0
+    property int maximumValue: 100
 
     function assignFromSettingsValue(value) {
         spinBox.value = value;
@@ -23,7 +25,6 @@ SettingBaseControl {
     function provideSettingsValue() {
         return spinBox.value;
     }
-
 
     SpinBox {
         id: spinBox
@@ -35,6 +36,9 @@ SettingBaseControl {
         anchors.topMargin: 6
         anchors.left: text.right
         anchors.leftMargin: 6
+
+        minimumValue: root.minimumValue
+        maximumValue: root.maximumValue
 
         onValueChanged: {
             root.save();
