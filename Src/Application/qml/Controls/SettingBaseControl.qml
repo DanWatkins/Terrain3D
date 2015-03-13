@@ -25,14 +25,12 @@ Item {
     }
 
     function load() {
-        console.log("Load called");
         assignFromSettingsValue(appSettings.value(settingsKey));
         internal.loaded = true;
     }
 
     function save() {
         if (internal.loaded) {
-            console.log("Save called");
             appSettings.enqueueValue(settingsKey, provideSettingsValue())
             appSettings.applyQueuedValues();
         }

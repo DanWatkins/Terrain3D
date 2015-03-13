@@ -19,7 +19,7 @@ SettingBaseControl {
     property var model: null
 
     function assignFromSettingsValue(value) {
-        comboBox.currentIndex = comboBox.find(value);
+        comboBox.currentIndex = comboBox.find(String(value));
     }
 
     function provideSettingsValue() {

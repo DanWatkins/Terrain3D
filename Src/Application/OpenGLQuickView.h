@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_OPENGL_QUICK_VIEW_H
-#define _t3d_OPENGL_QUICK_VIEW_H
+#ifndef _t3d_OpenGLQuickView_H
+#define _t3d_OpenGLQuickView_H
 
 #include <Library.h>
 #include <QtQuick/QQuickView>

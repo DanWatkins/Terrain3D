@@ -119,8 +119,6 @@ namespace t3d { namespace world { namespace terrain
 ///// PRIVATE
 	void Renderer::loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType)
 	{
-		qDebug() << "Loading shader " << filename << "...";
-
 		QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
 		if (!shader->compileSourceFile(gDefaultPathShaders + "/terrain/" + filename))
 			qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
@@ -143,8 +141,6 @@ namespace t3d { namespace world { namespace terrain
 			qFatal("Problem linking shaders");
 		else
 			qDebug() << "Initialized shaders";
-
-		qDebug() << "We have " << mProgram->shaders().count() << " shaders attached";
 
 		reloadUniforms();
 	}

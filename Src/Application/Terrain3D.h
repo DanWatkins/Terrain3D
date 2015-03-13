@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _GL_TERRAIN3D_H
-#define _GL_TERRAIN3D_H
+#ifndef _t3d_Terrain3D_H
+#define _t3d_Terrain3D_H
 
 #include "OpenGLQuickView.h"
 #include "BackgroundUpdater.h"
@@ -20,14 +20,6 @@
 
 namespace t3d
 {
-	struct UniformLocations
-	{
-		GLuint matrix_cameraToClip;
-		GLuint matrix_modelToWorld;
-		GLuint matrix_worldToCamera;
-	};
-
-
 	/**
 	 * Represents the main application
 	 */

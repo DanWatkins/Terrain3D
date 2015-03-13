@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _MAIN_H
-#define _MAIN_H
+#ifndef _t3d_Application_H
+#define _t3d_Application_H
 
 #pragma warning(push, 0)
 	#include <QtCore/QDebug>

@@ -62,8 +62,6 @@ namespace t3d { namespace world { namespace terrain { namespace water
 ///// PRIVATE
 	void Renderer::loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType)
 	{	//TODO move this function into a common base class since it's used in a lot of other places
-		qDebug() << "Loading shader " << filename << "...";
-
 		QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
 		if (!shader->compileSourceFile(gDefaultPathShaders + "/water/" + filename))
 			qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
@@ -84,8 +82,6 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			qFatal("Problem linking shaders");
 		else
 			qDebug() << "Initialized shaders";
-
-		qDebug() << "We have " << mProgram->shaders().count() << " shaders attached";
 
 		mProgram->bind();
 		{
@@ -118,8 +114,6 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
 
 			glBindTexture(GL_TEXTURE_2D, mTextures.water);
-
-			qDebug()  << "water texture is " << mTextures.water;
 
 			int mipLevels = 8;
 			glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGBA8, imageSize, imageSize);

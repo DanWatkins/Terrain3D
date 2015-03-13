@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_SETTINGS_H
-#define _t3d_SETTINGS_H
+#ifndef _t3d_Settings_H
+#define _t3d_Settings_H
 
 #include <QtCore/QSettings>
 #include <QtCore/QHash>

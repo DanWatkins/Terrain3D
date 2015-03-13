@@ -35,7 +35,7 @@ SettingGroupBox {
     SettingComboBox {
         title: "Span Size"
         settingsKey: Settings.WorldTerrainSpanSize
-        model: [32, 64, 128, 256, 512, 1024]
+        model: [8, 16, 32, 64, 128, 256, 512, 1024]
     }
 
 

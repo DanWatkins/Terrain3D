@@ -31,7 +31,6 @@ GroupBox {
      * refreshing values if they changed from an outside call.
      */
     function load() {
-        console.log("Refreshing all children...");
         for (var i=0; i<body.children.length; i++)
             body.children[i].load();
 
