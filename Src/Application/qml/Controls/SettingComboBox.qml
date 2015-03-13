@@ -29,29 +29,15 @@ SettingBaseControl {
     ComboBox {
         id: comboBox
         anchors.right: parent.right
-        anchors.rightMargin: 6
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 6
         anchors.top: parent.top
-        anchors.topMargin: 6
-        anchors.left: text.right
-        anchors.leftMargin: 6
+        anchors.left: titleText.right
+        anchors.margins: 6
 
         model: root.model
 
         onCurrentTextChanged: {
             root.save();
         }
-    }
-
-    Text {
-        id: text
-        x: 8
-        y: 8
-        width: 150
-        height: 14
-        text: root.title
-        horizontalAlignment: Text.AlignRight
-        font.pixelSize: 12
     }
 }

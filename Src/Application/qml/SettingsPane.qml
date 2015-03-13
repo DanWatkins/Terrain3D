@@ -63,6 +63,8 @@ Item {
             anchors.fill: parent
             anchors.margins: 5
 
+            Layout.alignment: Qt.AlignTop
+
             Graphics {
                 id: settings_graphics
                 Layout.fillWidth: true
@@ -72,7 +74,13 @@ Item {
                 id: settings_world
                 Layout.fillWidth: true
             }
+
+            Item {  //fill remaining vertical space
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
         }	
+
 
         RowLayout {
 			id: confirmBar

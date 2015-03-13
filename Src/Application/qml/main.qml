@@ -93,24 +93,28 @@ Item {
                     settingsPane.item.refreshIfNeeded();
                 }
             }
+
             Button {
                 id: button_restart
                 text: "Restart (F5)"
                 height: 30
                 onClicked: terrain3D.requestRestart();
             }
+
 			Button {
                 id: button_reloadShaders
                 text: "Realod Shaders (F6)"
                 height: 30
                 onClicked: terrain3D.reloadShaders();
             }
+
             Button {
                 id: button_settings
                 text: "Settings (F10)"
                 height: 30
                 onClicked: toggleSettingsPane();
             }
+
             Button {
                 id: button_fullscreen
                 text: "Fullscreen (F11)"
@@ -120,6 +124,7 @@ Item {
                     settingsPane.item.refreshIfNeeded();
                 }
             }
+
             Button {
                 id: button_exit
                 text: "Exit (Esc)"

@@ -38,10 +38,17 @@ Item {
         }
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "black"
-        opacity: 0.4
+    property var titleText: text
+
+    Text {
+        id: text
+        x: 8
+        y: 8
+        width: 150
+        height: 14
+        text: root.title
+        horizontalAlignment: Text.AlignRight
+        font.pixelSize: 12
     }
 
     Component.onCompleted: {

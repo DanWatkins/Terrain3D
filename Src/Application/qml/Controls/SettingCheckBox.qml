@@ -26,14 +26,12 @@ SettingBaseControl {
 
     CheckBox {
         id: checkBox
-        text: title
+        text: ""
+        anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 6
         anchors.top: parent.top
-        anchors.topMargin: 6
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-
+        anchors.left: titleText.right
+        anchors.margins: 6
         onClicked: {
             root.save();
         }

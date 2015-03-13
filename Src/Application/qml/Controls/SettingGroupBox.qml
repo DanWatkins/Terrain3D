@@ -49,6 +49,7 @@ GroupBox {
         }
     }
 
+
     Column {
         id: body
         anchors.fill: parent
