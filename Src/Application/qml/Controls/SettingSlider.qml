@@ -41,7 +41,7 @@ SettingBaseControl {
         tickmarksEnabled: root.tickmarksEnabled
 
         onValueChanged: {
-            root.save();
+            root.userChangedValue();
         }
     }
 

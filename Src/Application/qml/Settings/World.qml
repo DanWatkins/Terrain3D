@@ -38,6 +38,13 @@ SettingGroupBox {
         model: [8, 16, 32, 64, 128, 256, 512, 1024]
     }
 
+    SettingSpinBox {
+        title: "Seed"
+        settingsKey: Settings.WorldGeneratorSeed
+        minimumValue: 0
+        maximumValue: 2000000000;
+        stepSize: 1
+    }
 
     SettingSpinBox {
         title: "Fault Count"

@@ -36,11 +36,6 @@ Item {
         settings_world.load();
     }
 
-    function saveSettings() {
-        settings_graphics.save();
-        settings_world.save();
-    }
-
     function refreshIfNeeded() {
         if (visible) {
             settings_graphics.load();

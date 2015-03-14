@@ -22,6 +22,15 @@ Item {
     QtObject {
         id: internal
         property bool loaded: false
+
+        function flagText() {
+            titleText.color = "red";
+        }
+
+        function animateOutFlagText() {
+            console.log("TODO We need to animate to black");
+            titleText.color = "black";
+        }
     }
 
     function load() {
@@ -29,10 +38,19 @@ Item {
         internal.loaded = true;
     }
 
-    function save() {
+    function userChangedValue() {
         if (internal.loaded) {
-            appSettings.enqueueValue(settingsKey, provideSettingsValue())
-            appSettings.applyQueuedValues();
+            if (appSettings.updateTypeForKey(settingsKey) === Settings.Instant) {
+                console.log("vagina");
+                internal.flagText();
+                appSettings.setValue(settingsKey, provideSettingsValue());
+                internal.animateOutFlagText();
+            }
+            else {
+                console.log("dick");
+                internal.flagText();
+                appSettings.enqueueValue(settingsKey, provideSettingsValue());
+            }
         }
     }
 

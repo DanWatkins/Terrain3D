@@ -60,6 +60,12 @@ public:
 		WorldTerrainLightIntensity			= 214
 	}; Q_ENUMS(Key)
 
+	enum KeyUpdateType
+	{
+		Instant,
+		Queued
+	}; Q_ENUMS(KeyUpdateType)
+
 	/**
 	 * @brief Assigns \p value to be associated with \p key. The internal QSettings
 	 * instance is also synced.
@@ -67,7 +73,7 @@ public:
 	 * @param key The key to associate with
 	 * @param value The value to associate with
 	 */
-	void setValue(Key key, const QVariant &newValue);
+	Q_INVOKABLE void setValue(Key key, const QVariant &newValue);
 
 	/**
 	 * @returns The value associated with \p key. If the key does not exists, a
@@ -117,6 +123,11 @@ public:
 	 */
 	Q_INVOKABLE void enqueueValue(Key key, const QVariant &newValue);
 
+	/**
+	 * @returns the KeyUpdateType associated with the specified key
+	 */
+	Q_INVOKABLE KeyUpdateType updateTypeForKey(Key key) { return mMetaKeyInfo[key].updateType; }
+
 private:
 	Q_DISABLE_COPY(Settings)
 
@@ -128,7 +139,7 @@ private:
 	struct MetaKeyInfo
 	{
 		QVariant defaultValue;
-		bool requiresRestart;
+		KeyUpdateType updateType;
 	};
 
 	QHash<Key, MetaKeyInfo> mMetaKeyInfo;
@@ -143,6 +154,7 @@ class SettingsListener
 {
 public:
 	virtual void settingsValueChanged(Settings::Key key, const QVariant &value) = 0;
+	virtual void settingsQueueFinishedApplying() = 0;
 };
 
 #endif

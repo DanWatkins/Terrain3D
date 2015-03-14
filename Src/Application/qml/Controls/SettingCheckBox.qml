@@ -32,8 +32,9 @@ SettingBaseControl {
         anchors.top: parent.top
         anchors.left: titleText.right
         anchors.margins: 6
+
         onClicked: {
-            root.save();
+            root.userChangedValue();
         }
     }
 }

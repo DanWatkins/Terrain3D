@@ -37,7 +37,7 @@ SettingBaseControl {
         model: root.model
 
         onCurrentTextChanged: {
-            root.save();
+            root.userChangedValue();
         }
     }
 }

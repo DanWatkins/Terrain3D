@@ -216,6 +216,12 @@ namespace t3d
 	}
 
 
+	void Terrain3D::settingsQueueFinishedApplying()
+	{
+		//TODO tell all systems to refresh if needed
+	}
+
+
 //========================================
 // Private
 //========================================

@@ -40,7 +40,7 @@ SettingBaseControl {
         stepSize: root.stepSize
 
         onValueChanged: {
-            root.save();
+            root.userChangedValue();
         }
     }
 }

@@ -37,18 +37,6 @@ GroupBox {
         internal.loaded = true;
     }
 
-    /**
-     * Saves all children Setting components.
-     */
-    function save() {
-        if (internal.loaded) {
-            console.log("Saving all children...");
-            for (var i=0; i<body.children.length; i++)
-                body.children[i].save();
-        }
-    }
-
-
     Column {
         id: body
         anchors.fill: parent

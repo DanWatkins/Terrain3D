@@ -90,7 +90,7 @@ bool Settings::containsQueuedValueRequiringRestart()
 {
 	for (auto keyValuePair : mSettingsQueue)
 	{
-		if (mMetaKeyInfo[keyValuePair.first].requiresRestart)
+		if (mMetaKeyInfo[keyValuePair.first].updateType == KeyUpdateType::Queued)
 			return true;
 	}
 
@@ -121,27 +121,27 @@ void Settings::initDefaultValues()
 	#define d mMetaKeyInfo
 
 	//graphics
-	d[GraphicsScreenResolutionWidth] = {800, false};
-	d[GraphicsScreenResolutionHeight] = {600, false};
-	d[GraphicsScreenIsFullscreen] = {false, false};
-	d[GraphicsCameraPositionX] = {0.0f, false};
-	d[GraphicsCameraPositionY] = {0.0f, false};
-	d[GraphicsCameraPositionZ] = {0.0f, false};
-	d[GraphicsCameraFOV] = {60.0f, false};
-	d[GraphicsCameraLOD] = {1.0f, false};
-	d[GraphicsCameraIVD] = {140.0f, false};
-	d[GraphicsCameraWireframe] = {false, false};
+	d[GraphicsScreenResolutionWidth] = {800, Instant};
+	d[GraphicsScreenResolutionHeight] = {600, Instant};
+	d[GraphicsScreenIsFullscreen] = {false, Instant};
+	d[GraphicsCameraPositionX] = {0.0f, Instant};
+	d[GraphicsCameraPositionY] = {0.0f, Instant};
+	d[GraphicsCameraPositionZ] = {0.0f, Instant};
+	d[GraphicsCameraFOV] = {60.0f, Instant};
+	d[GraphicsCameraLOD] = {1.0f, Instant};
+	d[GraphicsCameraIVD] = {140.0f, Instant};
+	d[GraphicsCameraWireframe] = {false, Instant};
 
 	//world
-	d[WorldGeneratorSize] = {256, true};
-	d[WorldGeneratorTextureMapResolution] = {1, true};
-	d[WorldGeneratorFaultCount] = {300, true};
-	d[WorldGeneratorSeed] = {0, true};
-	d[WorldGeneratorSmoothing] = {0.70, true};
-	d[WorldTerrainHeightScale] = {30.0f, false};
-	d[WorldTerrainChunkSize] = {64, false};
-	d[WorldTerrainSpanSize] = {16, false};
-	d[WorldTerrainLightIntensity] = {18, true};
+	d[WorldGeneratorSize] = {256, Queued};
+	d[WorldGeneratorTextureMapResolution] = {1, Queued};
+	d[WorldGeneratorFaultCount] = {300, Queued};
+	d[WorldGeneratorSeed] = {0, Queued};
+	d[WorldGeneratorSmoothing] = {0.70, Queued};
+	d[WorldTerrainHeightScale] = {30.0f, Instant};
+	d[WorldTerrainChunkSize] = {64, Instant};
+	d[WorldTerrainSpanSize] = {16, Instant};
+	d[WorldTerrainLightIntensity] = {18, Queued};
 
 	#undef d
 }
