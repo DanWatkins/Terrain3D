@@ -93,17 +93,10 @@ Item {
                 text: qsTr("Apply")
 
                 onClicked: {
-                    root.saveSettings();
-                    var needsRestart = appSettings.containsQueuedValueRequiringRestart();
-
-                    if (needsRestart) {
-                        appSettings.applyQueuedValuesNoNotify();
-                        terrain3D.requestRestart();
-                    }
-                    else {
-                        appSettings.applyQueuedValues();
-                    }
-
+                    appSettings.applyQueuedValuesNoNotify();
+                    settings_graphics.animateOutFlagText();
+                    settings_world.animateOutFlagText();
+                    terrain3D.requestRestart();
                     root.visible = false;
                     hasFinished();
                 }
@@ -117,6 +110,7 @@ Item {
 
                 onClicked: {
                     root.visible = false;
+                    appSettings.clearQueuedValues();
                     hasFinished();
                 }
             }

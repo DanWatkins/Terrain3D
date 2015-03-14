@@ -109,13 +109,7 @@ public:
 	/**
 	 * @brief Removes all queued settings from the settings queue.
 	 */
-	void clearQueuedValues() { mSettingsQueue.clear(); }
-
-	/**
-	 * @returns True if there is a key/value in the queue that requires a
-	 * restart for changes to take effect.
-	 */
-	Q_INVOKABLE bool containsQueuedValueRequiringRestart();
+	Q_INVOKABLE void clearQueuedValues() { mSettingsQueue.clear(); }
 
 	/**
 	 * Enques the \p key and \p value in a temporary queue which can later be

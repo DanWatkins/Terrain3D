@@ -31,10 +31,18 @@ GroupBox {
      * refreshing values if they changed from an outside call.
      */
     function load() {
+        console.log("Loading children");
         for (var i=0; i<body.children.length; i++)
             body.children[i].load();
 
         internal.loaded = true;
+    }
+
+
+    function animateOutFlagText() {
+        console.log("animateOutFlagText for children");
+        for (var i=0; i<body.children.length; i++)
+            body.children[i].animateOutFlagText();
     }
 
     Column {

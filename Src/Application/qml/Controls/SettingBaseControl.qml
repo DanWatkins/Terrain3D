@@ -26,31 +26,32 @@ Item {
         function flagText() {
             titleText.color = "red";
         }
-
-        function animateOutFlagText() {
-            console.log("TODO We need to animate to black");
-            titleText.color = "black";
-        }
     }
 
     function load() {
         assignFromSettingsValue(appSettings.value(settingsKey));
+        titleText.color = "black"
         internal.loaded = true;
     }
 
     function userChangedValue() {
         if (internal.loaded) {
             if (appSettings.updateTypeForKey(settingsKey) === Settings.Instant) {
-                console.log("vagina");
                 internal.flagText();
                 appSettings.setValue(settingsKey, provideSettingsValue());
-                internal.animateOutFlagText();
+                animateOutFlagText();
             }
             else {
-                console.log("dick");
                 internal.flagText();
                 appSettings.enqueueValue(settingsKey, provideSettingsValue());
             }
+        }
+    }
+
+    function animateOutFlagText() {
+        if (Qt.colorEqual(titleText.color, "red")) {
+            console.log("TODO We need to animate to black");
+            titleText.color = "black";
         }
     }
 

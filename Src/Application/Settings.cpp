@@ -86,20 +86,15 @@ void Settings::applyQueuedValuesNoNotify()
 }
 
 
-bool Settings::containsQueuedValueRequiringRestart()
-{
-	for (auto keyValuePair : mSettingsQueue)
-	{
-		if (mMetaKeyInfo[keyValuePair.first].updateType == KeyUpdateType::Queued)
-			return true;
-	}
-
-	return false;
-}
-
-
 void Settings::enqueueValue(Key key, const QVariant &newValue)
 {
+	if (mMetaKeyInfo[key].updateType != KeyUpdateType::Queued)
+	{
+		QString message = "Warning: Attempting to queue a non-queued setting key="+QString::number(static_cast<int>(key))
+			+ ", value="+newValue.toString();
+		qWarning(message.toStdString().c_str());
+	}
+
 	//verify the value is actually different than what is currently stored
 	if (value(key) != newValue)
 		mSettingsQueue.push_back(QPair<Key, QVariant>(key, newValue));
