@@ -46,6 +46,12 @@ Item {
      */
     function userChangedValue() {
         if (internal.loaded) {
+            //if the value is the same as what is actually stored, we are clean
+            if (appSettings.value(settingsKey) === provideSettingsValue()) {
+                animateOutFlagText();
+                return;
+            }
+
             if (appSettings.updateTypeForKey(settingsKey) === Settings.Instant) {
                 internal.flagText();
                 appSettings.setValue(settingsKey, provideSettingsValue());
