@@ -28,12 +28,22 @@ Item {
         }
     }
 
+
+    /**
+     * Loads the actual setting value from storage and assigns it to the
+     * specialized control.
+     */
     function load() {
         assignFromSettingsValue(appSettings.value(settingsKey));
         titleText.color = "black"
         internal.loaded = true;
     }
 
+
+    /**
+     * Should be called by specialized Setting controls whenever the control's
+     * value is changed by the user.
+     */
     function userChangedValue() {
         if (internal.loaded) {
             if (appSettings.updateTypeForKey(settingsKey) === Settings.Instant) {
@@ -48,14 +58,24 @@ Item {
         }
     }
 
+
+    /**
+     * (Re)starts a color animation to transition from a red title text to black.
+     */
     function animateOutFlagText() {
         if (Qt.colorEqual(titleText.color, "red")) {
-            console.log("TODO We need to animate to black");
-            titleText.color = "black";
+            titleText.flagAnimation.duration = 1500;
+
+            if (titleText.flagAnimation.running)
+                titleText.flagAnimation.stop();
+
+            titleText.flagAnimation.start();
         }
     }
 
+
     property var titleText: text
+
 
     Text {
         id: text
@@ -66,7 +86,15 @@ Item {
         text: root.title
         horizontalAlignment: Text.AlignRight
         font.pixelSize: 12
+
+        property var flagAnimation: flagAnimation
+
+        ColorAnimation on color {
+            id: flagAnimation
+            to: "black"
+        }
     }
+
 
     Component.onCompleted: {
         load();
