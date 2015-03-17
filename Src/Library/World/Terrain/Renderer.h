@@ -41,12 +41,9 @@ namespace t3d { namespace world { namespace terrain
 		void setMode(Mode mode) { mMode = mode; }
 		Mode getMode() { return mMode; }
 
-		void requestUniformReload() { mNeedsToReloadUniforms = true; }
-
 	protected:
 		void addShaders() override;
 		void queryUniformLocations() override;
-		void updateUniformValues() override;
 
 	private:
 		Q_DISABLE_COPY(Renderer)
@@ -60,7 +57,6 @@ namespace t3d { namespace world { namespace terrain
 		float mLodFactor;
 		float mIvdFactor;
 		Mode mMode = Mode::Normal;
-		bool mNeedsToReloadUniforms = true;
 
 		struct
 		{
@@ -88,10 +84,7 @@ namespace t3d { namespace world { namespace terrain
 		} mTextures;
 
 	private:
-		
-		
 		void loadTextures();
-
 		void uploadTerrainData();
 	};
 }}}

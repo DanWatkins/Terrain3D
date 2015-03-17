@@ -188,26 +188,20 @@ namespace t3d
 			}
 
 			CASE(WorldTerrainHeightScale) {
-				if (auto camera = mCamera.lock()) {
+				if (auto camera = mCamera.lock())
 					mEnvironment.terrainData().setHeightScale(value.toFloat()); 
-					camera->terrainRenderer().requestUniformReload();
-				}
 				break;
 			}
 
 			CASE(WorldTerrainChunkSize) {
-				if (auto camera = mCamera.lock()) {
+				if (auto camera = mCamera.lock())
 					mEnvironment.terrainData().setChunkSize(value.toInt()); 
-					camera->terrainRenderer().requestUniformReload();
-				}
 				break;
 			}
 
 			CASE(WorldTerrainSpanSize) {
-				if (auto camera = mCamera.lock()) {
+				if (auto camera = mCamera.lock())
 					mEnvironment.terrainData().setSpanSize(value.toInt()); 
-					camera->terrainRenderer().requestUniformReload();
-				}
 				break;
 			}
 		}

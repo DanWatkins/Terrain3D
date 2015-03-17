@@ -38,6 +38,5 @@ namespace t3d { namespace core
 			qDebug() << "Initialized shaders";
 
 		queryUniformLocations();
-		updateUniformValues();
 	}
 }}

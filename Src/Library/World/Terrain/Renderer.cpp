@@ -21,7 +21,18 @@ namespace t3d { namespace world { namespace terrain
 
 		//connect to terrainData signals
 		{
-			//TODO QObject::connect(terrainData, &Data::textureMapResolutionChanged, this, &Renderer::reloadUniforms);
+#define CONNECT_LISTENER(signalFunc, propertyId) QObject::connect(terrainData, &Data::signalFunc, [this]() \
+						{ \
+							this->bindAndSetUniformValue(this->mUniforms.propertyId, \
+							this->mTerrainData->propertyId()); \
+						});
+
+			CONNECT_LISTENER(textureMapResolutionChanged, textureMapResolution)
+			CONNECT_LISTENER(heightScaleChanged, heightScale)
+			CONNECT_LISTENER(spanSizeChanged, spanSize)
+			CONNECT_LISTENER(chunkSizeChanged, chunkSize)
+
+#undef CONNECT_LISTENER
 		}
 	}
 
@@ -98,9 +109,6 @@ namespace t3d { namespace world { namespace terrain
 				glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
 				ShaderProgram::raw().setUniformValue(mUniforms.lod, mLodFactor);
 				ShaderProgram::raw().setUniformValue(mUniforms.ivd, mIvdFactor);
-
-				if (mNeedsToReloadUniforms)
-					updateUniformValues();
 
 				glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide*chunksPerSide);
 			}
@@ -212,15 +220,7 @@ namespace t3d { namespace world { namespace terrain
 			ULOC(textureMapResolution);
 			ULOC(heightMapSize);
 			#undef ULOC
-		}
-		ShaderProgram::raw().release();
-	}
 
-
-	void Renderer::updateUniformValues()
-	{
-		ShaderProgram::raw().bind();
-		{
 			ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
 			ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
 			ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
@@ -229,8 +229,6 @@ namespace t3d { namespace world { namespace terrain
 			ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 		}
 		ShaderProgram::raw().release();
-
-		mNeedsToReloadUniforms = false;
 	}
 
 

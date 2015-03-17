@@ -21,10 +21,16 @@ namespace t3d { namespace core
 		void addShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
 		void loadShaders();
 
+		template<typename T>
+		void bindAndSetUniformValue(GLint uniformLocation, T &&value)
+		{
+			mProgram->bind();
+			mProgram->setUniformValue(uniformLocation, std::forward<T>(value));
+			mProgram->release();
+		}
 
 		virtual void addShaders() = 0;
 		virtual void queryUniformLocations() = 0;
-		virtual void updateUniformValues() = 0;
 
 		QOpenGLShaderProgram& raw() { return *mProgram.get(); }
 
