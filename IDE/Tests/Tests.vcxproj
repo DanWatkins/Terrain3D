@@ -21,6 +21,7 @@
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainLightingSlope.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainLightMap.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainNormalMap.cpp" />
+    <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Tests\Tests.h" />

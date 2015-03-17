@@ -5,10 +5,11 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_TERRAIN_RENDERER_H
-#define _t3d_TERRAIN_RENDERER_H
+#ifndef _t3d_World_Terrain_Renderer_H
+#define _t3d_World_Terrain_Renderer_H
 
 #include <Library.h>
+#include <Core/ShaderProgram.h>
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Water/Renderer.h>
 
@@ -21,8 +22,10 @@ namespace t3d { namespace world { namespace terrain
 	};
 
 
-	class Renderer : protected OpenGLFunctions
+	class Renderer : public core::ShaderProgram
 	{
+		Q_OBJECT
+
 	public:
 		Renderer() {}
 
@@ -40,12 +43,17 @@ namespace t3d { namespace world { namespace terrain
 
 		void requestUniformReload() { mNeedsToReloadUniforms = true; }
 
+	protected:
+		void addShaders() override;
+		void queryUniformLocations() override;
+		void updateUniformValues() override;
+
 	private:
 		Q_DISABLE_COPY(Renderer)
 
 		Data *mTerrainData;
 		water::Renderer mWaterRenderer;
-		unique<QOpenGLShaderProgram> mProgram;
+
 		GLuint mVao;
 		GLuint mVbo[2];
 
@@ -79,13 +87,11 @@ namespace t3d { namespace world { namespace terrain
 			GLuint terrain;
 		} mTextures;
 
-
 	private:
-		void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
-		void loadShaders();
+		
+		
 		void loadTextures();
 
-		void reloadUniforms();
 		void uploadTerrainData();
 	};
 }}}

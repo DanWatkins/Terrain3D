@@ -13,17 +13,22 @@ namespace t3d { namespace world { namespace terrain
 {
 	void Renderer::init(Data *terrainData)
 	{
-		initializeOpenGLFunctions();
 		mTerrainData = terrainData;
-		loadShaders();
 
+		ShaderProgram::init();
+		
 		mWaterRenderer.init(mTerrainData, mTerrainData->heightScale()*0.30f);
+
+		//connect to terrainData signals
+		{
+			//TODO QObject::connect(terrainData, &Data::textureMapResolutionChanged, this, &Renderer::reloadUniforms);
+		}
 	}
 
 
 	void Renderer::prepareForRendering()
 	{
-		mProgram->bind();
+		ShaderProgram::raw().bind();
 		{
 			glGenVertexArrays(1, &mVao);
 			glBindVertexArray(mVao);
@@ -35,7 +40,7 @@ namespace t3d { namespace world { namespace terrain
 			}
 			glBindVertexArray(0);
 		}
-		mProgram->release();
+		ShaderProgram::raw().release();
 	}
 
 
@@ -44,7 +49,7 @@ namespace t3d { namespace world { namespace terrain
 		mTerrainData->cleanup();
 		mWaterRenderer.cleanup();
 
-		mProgram->removeAllShaders();
+		ShaderProgram::raw().removeAllShaders();
 		glDeleteBuffers(2, mVbo);
 		glDeleteTextures(1, &mTextures.heightMap);
 		glDeleteTextures(1, &mTextures.indicies);
@@ -55,7 +60,7 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
 	{
-		mProgram->bind();
+		ShaderProgram::raw().bind();
 		{
 			glUniformMatrix4fv(mUniforms.mvMatrix, 1, GL_FALSE, glm::value_ptr(modelViewMatrix));
 			glUniformMatrix4fv(mUniforms.projMatrix, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
@@ -91,11 +96,11 @@ namespace t3d { namespace world { namespace terrain
 				const int chunksPerSide = terrainSize / chunkSize;
 
 				glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
-				mProgram->setUniformValue(mUniforms.lod, mLodFactor);
-				mProgram->setUniformValue(mUniforms.ivd, mIvdFactor);
+				ShaderProgram::raw().setUniformValue(mUniforms.lod, mLodFactor);
+				ShaderProgram::raw().setUniformValue(mUniforms.ivd, mIvdFactor);
 
 				if (mNeedsToReloadUniforms)
-					reloadUniforms();
+					updateUniformValues();
 
 				glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide*chunksPerSide);
 			}
@@ -103,7 +108,7 @@ namespace t3d { namespace world { namespace terrain
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
 		}
-		mProgram->release();
+		ShaderProgram::raw().release();
 
 		mWaterRenderer.render(cameraPos, modelViewMatrix, perspectiveMatrix);
 	}
@@ -117,32 +122,12 @@ namespace t3d { namespace world { namespace terrain
 
 
 ///// PRIVATE
-	void Renderer::loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType)
+	void Renderer::addShaders()
 	{
-		QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
-		if (!shader->compileSourceFile(gDefaultPathShaders + "/terrain/" + filename))
-			qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
-		
-		if (!mProgram->addShader(shader))
-			qDebug() << "Error adding shader " << filename << " of type " << static_cast<int>(shaderType);
-	}
-
-
-	void Renderer::loadShaders()
-	{
-		mProgram = std::make_unique<QOpenGLShaderProgram>();
-
-		loadShader("terrain.vs.glsl", QOpenGLShader::Vertex);
-		loadShader("terrain.tcs.glsl", QOpenGLShader::TessellationControl);
-		loadShader("terrain.tes.glsl", QOpenGLShader::TessellationEvaluation);
-		loadShader("terrain.fs.glsl", QOpenGLShader::Fragment);
-
-		if (mProgram->link() == false)
-			qFatal("Problem linking shaders");
-		else
-			qDebug() << "Initialized shaders";
-
-		reloadUniforms();
+		addShader("terrain.vs.glsl", QOpenGLShader::Vertex);
+		addShader("terrain.tcs.glsl", QOpenGLShader::TessellationControl);
+		addShader("terrain.tes.glsl", QOpenGLShader::TessellationEvaluation);
+		addShader("terrain.fs.glsl", QOpenGLShader::Fragment);
 	}
 
 
@@ -208,11 +193,11 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
-	void Renderer::reloadUniforms()
+	void Renderer::queryUniformLocations()
 	{
-		mProgram->bind();
+		ShaderProgram::raw().bind();
 		{
-			#define ULOC(id) mUniforms.id = mProgram->uniformLocation(#id)
+			#define ULOC(id) mUniforms.id = ShaderProgram::raw().uniformLocation(#id)
 			ULOC(mvMatrix);
 			ULOC(projMatrix);
 
@@ -227,15 +212,23 @@ namespace t3d { namespace world { namespace terrain
 			ULOC(textureMapResolution);
 			ULOC(heightMapSize);
 			#undef ULOC
-
-			mProgram->setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
-			mProgram->setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
-			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
-			mProgram->setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
-			mProgram->setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
-			mProgram->setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 		}
-		mProgram->release();
+		ShaderProgram::raw().release();
+	}
+
+
+	void Renderer::updateUniformValues()
+	{
+		ShaderProgram::raw().bind();
+		{
+			ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
+			ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
+			ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
+			ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
+			ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
+			ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
+		}
+		ShaderProgram::raw().release();
 
 		mNeedsToReloadUniforms = false;
 	}

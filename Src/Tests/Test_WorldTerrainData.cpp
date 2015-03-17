@@ -1,5 +1,4 @@
 #include "Tests.h"
-#include "Reciever.h"
 #include <World/Terrain/Data.h>
 
 using namespace t3d::world::terrain;
