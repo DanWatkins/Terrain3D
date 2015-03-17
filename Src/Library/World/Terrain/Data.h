@@ -41,7 +41,7 @@ namespace t3d { namespace world { namespace terrain
 		int spanSize() const { return mSpanSize; }
 		void setChunkSize(int chunkSize) { CHANGE_IF(chunkSize, mChunkSize) emit chunkSizeChanged(); } }
 		int chunkSize() const { return mChunkSize; }
-#undef PRE_IF
+#undef CHANGE_IF
 
 	signals:
 		void heightMapChanged();

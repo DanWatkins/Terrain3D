@@ -30,6 +30,7 @@ namespace t3d { namespace world { namespace terrain
 		Renderer() {}
 
 		void init(Data *terrainData);
+		void refreshIfNeeded();
 		void prepareForRendering();
 
 		void cleanup();
@@ -83,9 +84,16 @@ namespace t3d { namespace world { namespace terrain
 			GLuint terrain;
 		} mTextures;
 
+		struct
+		{
+			bool heightMap = false;
+			bool lightMap = false;
+		} mInvalidations;
+
 	private:
 		void loadTextures();
-		void uploadTerrainData();
+		void uploadHeightMap();
+		void uploadLightMap();
 	};
 }}}
 

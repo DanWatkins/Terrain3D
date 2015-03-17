@@ -34,6 +34,12 @@ namespace t3d { namespace world
 	}
 
 
+	void Camera::refreshIfNeeded()
+	{
+		mTerrainRenderer.refreshIfNeeded();
+	}
+
+
 	void Camera::prepareForRendering()
 	{
 		mTerrainRenderer.prepareForRendering();

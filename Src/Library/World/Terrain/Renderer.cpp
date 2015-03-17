@@ -21,6 +21,17 @@ namespace t3d { namespace world { namespace terrain
 
 		//connect to terrainData signals
 		{
+			QObject::connect(terrainData, &Data::heightMapChanged, [this]()
+			{
+				this->mInvalidations.heightMap = true;
+			});
+
+			QObject::connect(terrainData, &Data::lightMapChanged, [this]()
+			{
+				this->mInvalidations.lightMap =  true;
+			});
+
+
 #define CONNECT_LISTENER(signalFunc, propertyId) QObject::connect(terrainData, &Data::signalFunc, [this]() \
 						{ \
 							this->bindAndSetUniformValue(this->mUniforms.propertyId, \
@@ -37,6 +48,34 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
+	void Renderer::refreshIfNeeded()
+	{
+		auto work = [](std::function<void()> task, bool &conditional)
+		{
+			if (conditional)
+			{
+				task();
+				conditional = false;
+			}
+		};
+
+		work(std::bind(&Renderer::uploadHeightMap, this), mInvalidations.heightMap);
+		work(std::bind(&Renderer::uploadLightMap, this), mInvalidations.lightMap);
+
+		/*if (mInvalidations.heightMap)
+		{
+			uploadHeightMap();
+			mInvalidations.heightMap = false;
+		}
+
+		if (mInvalidations.lightMap)
+		{
+			uploadLightMap();
+			mInvalidations.lightMap = false;
+		}*/
+	}
+
+
 	void Renderer::prepareForRendering()
 	{
 		ShaderProgram::raw().bind();
@@ -44,7 +83,8 @@ namespace t3d { namespace world { namespace terrain
 			glGenVertexArrays(1, &mVao);
 			glBindVertexArray(mVao);
 			{
-				uploadTerrainData();
+				uploadHeightMap();
+				uploadLightMap();
 
 				glPatchParameteri(GL_PATCH_VERTICES, 4);
 				loadTextures();
@@ -232,7 +272,7 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
-	void Renderer::uploadTerrainData()
+	void Renderer::uploadHeightMap()
 	{
 		//height map
 		{
@@ -249,8 +289,11 @@ namespace t3d { namespace world { namespace terrain
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		}
+	}
 
-
+	
+	void Renderer::uploadLightMap()
+	{
 		//light map
 		{
 			if (glIsTexture(mTextures.lightMap))

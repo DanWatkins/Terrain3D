@@ -46,6 +46,8 @@ namespace t3d { namespace world
 		 */
 		void init();
 
+		void refreshIfNeeded();
+
 		/**
 		 * Does the heavy lifting loading. Loads large resources from file and uploads data to the GPU.
 		 * Must be called after init.
