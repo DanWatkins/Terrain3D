@@ -22,6 +22,13 @@ TEST_CASE(ConnectedToDataSignals)
 {
 	class MyRenderer : public Renderer
 	{
+	protected:
+		void updateUniformValues()
+		{
+			++hitCount;
+		}
 
+	public:
+		int hitCount = 0;
 	};
 }

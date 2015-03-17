@@ -44,10 +44,15 @@ namespace t3d { namespace world
 		mTerrainData.setSpanSize(configuration.terrainSpanSize);
 		mTerrainData.setChunkSize(configuration.terrainChunkSize);
 
-		mTerrainData.lightMap().reserve(configuration.generatorSize);
-		terrain::Lighting::Slope::computeBrightness(mTerrainData.lightMap(),
-													mTerrainData.heightMap(),
-													configuration.generatorLightIntensity);
+		//compute lighting
+		{
+			terrain::LightMap lm;
+			lm.reserve(configuration.generatorSize);
+			terrain::Lighting::Slope::computeBrightness(lm,
+														mTerrainData.heightMap(),
+														configuration.generatorLightIntensity);
+			mTerrainData.resetLightMap(lm);
+		}
 
 		mAssetManager.loadMeshesFromDirectory("../Meshes");
 		mEntityManager.init(&mAssetManager);
@@ -58,7 +63,7 @@ namespace t3d { namespace world
 
 	void Environment::generateEntities(const Configuration &configuration)
 	{
-		terrain::HeightMap &hm = mTerrainData.heightMap();
+		const terrain::HeightMap &hm = mTerrainData.heightMap();
 		const double density = 0.10f;
 		const int NumTreesAttempt = density*hm.size() * density*hm.size();
 

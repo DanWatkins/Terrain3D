@@ -236,11 +236,13 @@ namespace t3d { namespace world { namespace terrain
 	{
 		//height map
 		{
-			glGenTextures(1, &mTextures.heightMap);
+			if (glIsTexture(mTextures.heightMap))
+				glDeleteTextures(1, &mTextures.heightMap);
 
+			glGenTextures(1, &mTextures.heightMap);
 			glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 
-			HeightMap &hm = mTerrainData->heightMap();
+			const HeightMap &hm = mTerrainData->heightMap();
 			glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
 
@@ -251,10 +253,13 @@ namespace t3d { namespace world { namespace terrain
 
 		//light map
 		{
+			if (glIsTexture(mTextures.lightMap))
+				glDeleteTextures(1, &mTextures.lightMap);
+
 			glGenTextures(1, &mTextures.lightMap);
 			glBindTexture(GL_TEXTURE_2D, mTextures.lightMap);
 
-			LightMap &lm = mTerrainData->lightMap();
+			const LightMap &lm = mTerrainData->lightMap();
 			glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, lm.size(), lm.size());
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, lm.size(), lm.size(), GL_RED, GL_UNSIGNED_SHORT, lm.raw());
 

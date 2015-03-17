@@ -12,14 +12,17 @@ protected:
 	{
 		Data data;
 		data.setTextureMapResolution(1);
-		data.heightMap().reserve(size);
+		
+		HeightMap hm;
+		hm.reserve(size);
 
 		for (int y=0; y<size; y++)
 		{
 			for (int x=0; x<size; x++)
-				data.heightMap().set(x, y, baseHeight);
+				hm.set(x, y, baseHeight);
 		}
 
+		data.resetHeightMap(hm);
 		data.computeTextureIndicies(heightIndex);
 
 		QVector<GLubyte> ti = data.textureIndicies();
@@ -31,16 +34,19 @@ protected:
 	{
 		Data data;
 		data.setTextureMapResolution(2);
-		data.heightMap().reserve(size);
+
+		HeightMap hm;
+		hm.reserve(size);
 
 		for (int y=0; y<size; y++)
 		{
 			for (int x=0; x<size; x++)
 			{
-				data.heightMap().set(x, y, heights[x + y*size]);
+				hm.set(x, y, heights[x + y*size]);
 			}
 		}
 
+		data.resetHeightMap(hm);
 		data.computeTextureIndicies(hi);
 
 		//verify

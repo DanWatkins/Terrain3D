@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_TERRAINDATA_H
-#define _t3d_TERRAINDATA_H
+#ifndef _t3d_World_Terrain_Data_H
+#define _t3d_World_Terrain_Data_H
 
 #include <Library.h>
 #include <World/Terrain/HeightMap.h>
@@ -21,8 +21,10 @@ namespace t3d { namespace world { namespace terrain
 	public:
 		void cleanup() { /*nothing to cleanup*/ }
 
-		HeightMap& heightMap() { return mHeightMap; }
-		LightMap &lightMap() { return mLightMap; }
+		void resetHeightMap(HeightMap &heightMap) { mHeightMap = heightMap; emit heightMapChanged(); }	//TODO really need a move constructor there
+		const HeightMap& heightMap() const { return mHeightMap; }
+		void resetLightMap(LightMap &lightMap) { mLightMap = lightMap; emit lightMapChanged(); }
+		const LightMap &lightMap() const { return mLightMap; }
 
 		typedef QMap<float, GLubyte> HeightIndex;
 		void computeTextureIndicies(const HeightIndex &heightIndex);
@@ -42,6 +44,9 @@ namespace t3d { namespace world { namespace terrain
 #undef PRE_IF
 
 	signals:
+		void heightMapChanged();
+		void lightMapChanged();
+
 		void textureMapResolutionChanged();
 		void heightScaleChanged();
 		void spanSizeChanged();

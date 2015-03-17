@@ -99,7 +99,7 @@ namespace t3d { namespace world { namespace terrain { namespace Generator
 
 	void FaultFormation::generate(Data &terrainData, int size, int numberOfPasses, float smoothing, int seed)
     {
-        HeightMap &heightMap = terrainData.heightMap();
+        HeightMap heightMap;
 		heightMap.reserve(size);
         std::srand(seed);
 
@@ -115,5 +115,6 @@ namespace t3d { namespace world { namespace terrain { namespace Generator
 
 		smoothHeight(heightMap, smoothing);
         normalizeHeights(heightMap);
+		terrainData.resetHeightMap(heightMap);
     }
 }}}}
