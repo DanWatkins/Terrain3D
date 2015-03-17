@@ -62,9 +62,6 @@
     <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Library\World\Terrain\Data.h">
-      <Filter>Src\World\Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\Library\World\Terrain\HeightMap.h">
       <Filter>Src\World\Terrain</Filter>
     </ClInclude>
@@ -224,6 +221,12 @@
     <ClCompile Include="..\..\Src\Library\World\Terrain\Water\Renderer.cpp">
       <Filter>Src\World\Terrain\Water</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Data.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Data.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
@@ -243,6 +246,9 @@
     </CustomBuild>
     <CustomBuild Include="..\..\src\library\world\entity\RenderComponent.h">
       <Filter>Src\World\Entity</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\World\Terrain\Data.h">
+      <Filter>Src\World\Terrain</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

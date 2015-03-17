@@ -18,6 +18,7 @@
 #include <deque>
 
 #include <thread>
+#include <functional>
 
 #include <cstdlib>
 #include <ctime>

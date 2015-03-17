@@ -1,4 +1,5 @@
 #include "Tests.h"
+#include "Reciever.h"
 #include <World/Terrain/Data.h>
 
 using namespace t3d::world::terrain;
@@ -27,7 +28,6 @@ protected:
 			ASSERT_EQ(expectedIndex, ti[i]);
 	}
 
-
 	void testComputeTextureIndiciesAdv(int size, const Data::HeightIndex &hi, float *heights, GLubyte *expected)
 	{
 		Data data;
@@ -49,6 +49,23 @@ protected:
 		{
 			EXPECT_EQ(expected[i], data.textureIndicies()[i]) << "Index is " << i;
 		}
+	}
+
+	template<typename T>
+	void testPropertyChangeAndNotify(void(Data::*signalFunction)(), void(Data::*setFunction)(T), int expectedCount, std::initializer_list<T> testCalls)
+	{
+		Data data;
+		int times = 0;
+
+		QObject::connect(&data, signalFunction, [&]()
+		{
+			++times;
+		});
+
+		for (const T &what : testCalls)
+			(data.*setFunction)(what);
+
+		ASSERT_EQ(expectedCount, times);
 	}
 };
 
@@ -124,4 +141,25 @@ TEST_CASE(computeTextureIndicies4)
 	hi[1.00f] = 3;
 
 	testComputeTextureIndiciesAdv(3, hi, heights, expected);
+}
+
+
+TEST_CASE(Property_TextureMapResolution)
+{
+	testPropertyChangeAndNotify<int>(&Data::textureMapResolutionChanged, &Data::setTextureMapResolution, 2, {40, 40, 50});
+}
+
+TEST_CASE(Property_HeightScaleChanged)
+{
+	testPropertyChangeAndNotify<float>(&Data::heightScaleChanged, &Data::setHeightScale, 2, {40, 40, 50});
+}
+
+TEST_CASE(Property_SpanSize)
+{
+	testPropertyChangeAndNotify<int>(&Data::spanSizeChanged, &Data::setSpanSize, 2, {40, 40, 50});
+}
+
+TEST_CASE(Property_ChunkSize)
+{
+	testPropertyChangeAndNotify<int>(&Data::chunkSizeChanged, &Data::setChunkSize, 2, {40, 40, 50});
 }
