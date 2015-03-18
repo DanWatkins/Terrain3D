@@ -178,7 +178,7 @@ namespace t3d
 			}
 
 			CASE(WorldGeneratorTextureMapResolution) {
-				mEnvironment.terrainData().setTextureMapResolution(value.toInt());	//TODO is this handled?
+				mEnvironment.terrainData().pTextureMapResolution = value.toInt();	//TODO is this handled?
 				break;
 			}
 
@@ -204,19 +204,19 @@ namespace t3d
 
 			CASE(WorldTerrainHeightScale) {
 				if (auto camera = mCamera.lock())
-					mEnvironment.terrainData().setHeightScale(value.toFloat()); 
+					mEnvironment.terrainData().pHeightScale = value.toFloat();
 				break;
 			}
 
 			CASE(WorldTerrainChunkSize) {
 				if (auto camera = mCamera.lock())
-					mEnvironment.terrainData().setChunkSize(value.toInt()); 
+					mEnvironment.terrainData().pChunkSize = value.toInt();
 				break;
 			}
 
 			CASE(WorldTerrainSpanSize) {
 				if (auto camera = mCamera.lock())
-					mEnvironment.terrainData().setSpanSize(value.toInt()); 
+					mEnvironment.terrainData().pSpanSize = value.toInt(); 
 				break;
 			}
 		}

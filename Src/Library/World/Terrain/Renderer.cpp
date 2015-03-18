@@ -17,7 +17,7 @@ namespace t3d { namespace world { namespace terrain
 
 		ShaderProgram::init();
 		
-		mWaterRenderer.init(mTerrainData, mTerrainData->heightScale()*0.30f);
+		mWaterRenderer.init(mTerrainData, mTerrainData->pHeightScale*0.30f);
 
 		//connect to terrainData signals
 		{
@@ -31,21 +31,18 @@ namespace t3d { namespace world { namespace terrain
 				this->mInvalidations.lightMap =  true;
 			});
 
+#define CONNECT_PROPERTY_TO_UNIFORM(prop, uniform) \
+					mTerrainData->prop.connectToOnChanged([this]() \
+					{ \
+						this->bindAndSetUniformValue(this->mUniforms.uniform, \
+													 this->mTerrainData->prop); \
+					});
 
-#define CONNECT_LISTENER(signalFunc, propertyId) QObject::connect(terrainData, &Data::signalFunc, [this]() \
-						{ \
-							this->bindAndSetUniformValue(this->mUniforms.propertyId, \
-							this->mTerrainData->propertyId()); \
-						});
-
-			CONNECT_LISTENER(textureMapResolutionChanged, textureMapResolution)
-			CONNECT_LISTENER(heightScaleChanged, heightScale)
-			CONNECT_LISTENER(spanSizeChanged, spanSize)
-			CONNECT_LISTENER(chunkSizeChanged, chunkSize)
-
-#undef CONNECT_LISTENER
-
-			QObject::connect(terrainData, &Data::chunkSizeChanged, [this]() { qDebug() << "Hey"; });
+			CONNECT_PROPERTY_TO_UNIFORM(pTextureMapResolution, textureMapResolution)
+			CONNECT_PROPERTY_TO_UNIFORM(pHeightScale, heightScale)
+			CONNECT_PROPERTY_TO_UNIFORM(pSpanSize, spanSize)
+			CONNECT_PROPERTY_TO_UNIFORM(pChunkSize, chunkSize)
+#undef CONNECT_PROPERTY_TO_UNIFORM
 		}
 	}
 
@@ -63,18 +60,6 @@ namespace t3d { namespace world { namespace terrain
 
 		work(std::bind(&Renderer::uploadHeightMap, this), mInvalidations.heightMap);
 		work(std::bind(&Renderer::uploadLightMap, this), mInvalidations.lightMap);
-
-		/*if (mInvalidations.heightMap)
-		{
-			uploadHeightMap();
-			mInvalidations.heightMap = false;
-		}
-
-		if (mInvalidations.lightMap)
-		{
-			uploadLightMap();
-			mInvalidations.lightMap = false;
-		}*/
 	}
 
 
@@ -145,7 +130,7 @@ namespace t3d { namespace world { namespace terrain
 				glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
 
 				const int terrainSize = mTerrainData->heightMap().size();
-				const int chunkSize = mTerrainData->chunkSize();
+				const int chunkSize = mTerrainData->pChunkSize;
 				const int chunksPerSide = terrainSize / chunkSize;
 
 				glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
@@ -264,10 +249,10 @@ namespace t3d { namespace world { namespace terrain
 			#undef ULOC
 
 			ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
-			ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
-			ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
-			ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
-			ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
+			ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
+			ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
+			ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->pChunkSize);
+			ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->pTextureMapResolution);
 			ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 		}
 		ShaderProgram::raw().release();

@@ -78,13 +78,13 @@ namespace t3d { namespace world
 			int y = randInt(0, hm.size()-2);
 
 			//is there grass at this texture index?
-			int res = mTerrainData.textureMapResolution();
+			int res = mTerrainData.pTextureMapResolution;
 			if (mTerrainData.textureIndicies()[x*res + y*hm.size()*res*res] == 2)
 			{
 				strong<entity::BaseEntity> e1 = mEntityManager.createEntity();
 				
 				float height = hm.get(x, y);
-				e1->setPos(Vec3f(x, height*mTerrainData.heightScale(), y));	//hardcoded, GROSS TODO
+				e1->setPos(Vec3f(x, height*mTerrainData.pHeightScale, y));	//hardcoded, GROSS TODO
 
 				e1->createRenderComponent();
 				QString treeName = treeList[randInt(0, treeList.size()-1)];

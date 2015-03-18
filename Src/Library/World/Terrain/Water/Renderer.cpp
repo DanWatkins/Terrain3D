@@ -95,7 +95,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			#undef ULOC
 
 			mProgram->setUniformValue(mUniforms.size, mTerrainData->heightMap().size());
-			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
+			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
 			mProgram->setUniformValue(mUniforms.waterLevel, mWaterLevel);
 		}
 		mProgram->release();

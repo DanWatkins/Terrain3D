@@ -12,6 +12,8 @@
 #include <World/Terrain/HeightMap.h>
 #include <World/Terrain/LightMap.h>
 
+#include <Core/Property.h>	//TODO eventually move all occurrences of this to Library.h
+
 namespace t3d { namespace world { namespace terrain
 {
 	class Data : public QObject
@@ -32,35 +34,19 @@ namespace t3d { namespace world { namespace terrain
 		typedef QVector<GLubyte> TextureIndicies;
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
 
-#define CHANGE_IF(param, member) if (param != member) { member = param;
-		void setTextureMapResolution(int resolution) { CHANGE_IF(resolution, mTextureMapResolution) emit textureMapResolutionChanged(); } }
-		int textureMapResolution() const { return mTextureMapResolution; }
-		void setHeightScale(float heightScale) { CHANGE_IF(heightScale, mHeightScale) emit heightScaleChanged(); } }
-		float heightScale() const { return mHeightScale; }
-		void setSpanSize(int spanSize) { CHANGE_IF(spanSize, mSpanSize) emit spanSizeChanged(); } }
-		int spanSize() const { return mSpanSize; }
-		void setChunkSize(int chunkSize) { CHANGE_IF(chunkSize, mChunkSize) emit chunkSizeChanged(); } }
-		int chunkSize() const { return mChunkSize; }
-#undef CHANGE_IF
+		Property<int> pTextureMapResolution;
+		Property<float> pHeightScale;
+		Property<int> pSpanSize;
+		Property<int> pChunkSize;
 
 	signals:
 		void heightMapChanged();
 		void lightMapChanged();
 
-		void textureMapResolutionChanged();
-		void heightScaleChanged();
-		void spanSizeChanged();
-		void chunkSizeChanged();
-
 	private:
 		HeightMap mHeightMap;
 		LightMap mLightMap;
-		TextureIndicies mTextureIndicies;
-
-		int mTextureMapResolution;
-		float mHeightScale;
-		int mSpanSize;
-		int mChunkSize;
+		TextureIndicies mTextureIndicies;		
 	};
 }}}
 
