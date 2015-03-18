@@ -93,10 +93,9 @@ Item {
                 text: qsTr("Apply")
 
                 onClicked: {
-                    appSettings.applyQueuedValuesNoNotify();
+                    appSettings.applyQueuedValues();
                     settings_graphics.animateOutFlagText();
                     settings_world.animateOutFlagText();
-                    terrain3D.requestRestart();
                     root.visible = false;
                     hasFinished();
                 }

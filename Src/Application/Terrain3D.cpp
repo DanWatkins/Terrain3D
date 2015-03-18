@@ -44,7 +44,7 @@ namespace t3d
 		if (auto camera = mCamera.lock())
 		{
 			loadUserSettings();
-			mEnvironment.init(buildWorldConfiguration());
+			mEnvironment.init();
 			camera->setEnvironment(&mEnvironment);
 			camera->init();
 			camera->prepareForRendering();
@@ -173,17 +173,32 @@ namespace t3d
 
 			//world
 			CASE(WorldGeneratorSize) {
-				//TODO
+				mEnvironment.pSize = value.toInt();
 				break;
 			}
 
 			CASE(WorldGeneratorTextureMapResolution) {
-				//TODO
+				mEnvironment.terrainData().setTextureMapResolution(value.toInt());	//TODO is this handled?
 				break;
 			}
 
 			CASE(WorldGeneratorSeed) {
-				//TODO
+				mEnvironment.pSeed = value.toInt();
+				break;
+			}
+
+			CASE(WorldGeneratorFaultCount) {
+				mEnvironment.pFaultCount = value.toInt();
+				break;
+			}
+
+			CASE(WorldGeneratorSmoothing) {
+				mEnvironment.pSmoothing = value.toFloat();
+				break;
+			}
+
+			CASE(WorldTerrainLightIntensity) {
+				mEnvironment.pLightIntensity = value.toFloat();
 				break;
 			}
 
@@ -354,26 +369,6 @@ namespace t3d
 			Settings::Key key = static_cast<Settings::Key>(me.value(i));
 			settingsValueChanged(key, mMainSettings->value(key));
 		}
-	}
-
-
-	world::Environment::Configuration Terrain3D::buildWorldConfiguration()
-	{
-		typedef Settings::Key key;
-		world::Environment::Configuration config;
-
-		config.generatorSize = mMainSettings->value(key::WorldGeneratorSize).toInt();
-		config.generatorTextureMapResolution = mMainSettings->value(key::WorldGeneratorTextureMapResolution).toInt();
-		config.generatorSmoothing = mMainSettings->value(key::WorldGeneratorSmoothing).toFloat();
-		config.generatorFaultCount = mMainSettings->value(key::WorldGeneratorFaultCount).toInt();
-		config.generatorSeed = mMainSettings->value(key::WorldGeneratorSeed).toInt();
-		config.generatorLightIntensity = mMainSettings->value(key::WorldTerrainLightIntensity).toFloat();
-
-		config.terrainChunkSize = mMainSettings->value(key::WorldTerrainChunkSize).toInt();
-		config.terrainHeightScale = mMainSettings->value(key::WorldTerrainHeightScale).toFloat();
-		config.terrainSpanSize = mMainSettings->value(key::WorldTerrainSpanSize).toInt();
-
-		return config;
 	}
 
 

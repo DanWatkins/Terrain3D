@@ -44,6 +44,8 @@ namespace t3d { namespace world { namespace terrain
 			CONNECT_LISTENER(chunkSizeChanged, chunkSize)
 
 #undef CONNECT_LISTENER
+
+			QObject::connect(terrainData, &Data::chunkSizeChanged, [this]() { qDebug() << "Hey"; });
 		}
 	}
 

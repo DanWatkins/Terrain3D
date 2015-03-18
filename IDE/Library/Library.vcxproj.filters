@@ -120,6 +120,9 @@
     <ClInclude Include="..\..\Src\Library\World\Terrain\Water\Renderer.h">
       <Filter>Src\World\Terrain\Water</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Library\Core\Property.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_FPSCounter.cpp">
@@ -239,6 +242,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ShaderProgram.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertySignal.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertySignal.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
@@ -266,6 +275,9 @@
       <Filter>Src\World\Terrain</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\Src\Library\Core\ShaderProgram.h">
+      <Filter>Src\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\Core\PropertySignal.h">
       <Filter>Src\Core</Filter>
     </CustomBuild>
   </ItemGroup>

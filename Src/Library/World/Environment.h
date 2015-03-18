@@ -12,42 +12,36 @@
 #include <World/Entity/Manager.h>
 #include <Core/Asset/Manager.h>
 
+#include <Core/Property.h>
+
 namespace t3d { namespace world
 {
 	class Environment
 	{
 	public:
-		struct Configuration
-		{
-			int generatorSize;
-			int generatorTextureMapResolution;
-			int generatorFaultCount;
-			int generatorSeed;
-			float generatorSmoothing;
-			float generatorLightIntensity;
-
-			float terrainHeightScale;
-			int terrainChunkSize;
-			int terrainSpanSize;
-		};
-
-	public:
 		Environment();
-		void init(const Configuration &configuration);
+		void init();
+		void refreshIfNeeded();
 
 		terrain::Data& terrainData() { return mTerrainData; }
 		entity::Manager& entityManager() { return mEntityManager; }
 		asset::Manager& assetManager() { return mAssetManager; }
 
+		Property<int> pSize = 16;
+		Property<int> pFaultCount = 100;
+		Property<int> pSeed = 0;
+		Property<float> pSmoothing = 0.5f;
+		Property<float> pLightIntensity = 16.0f;
 
 	private:
-		void generateEntities(const Configuration &configuration);
+		void generateEntities();
 
 		terrain::Data mTerrainData;
 		entity::Manager mEntityManager;
 		asset::Manager mAssetManager;
+
+		bool mNeedsToRegenerate = false;
 	};
 }}
 
 #endif
-

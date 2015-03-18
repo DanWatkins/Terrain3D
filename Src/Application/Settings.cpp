@@ -75,7 +75,7 @@ void Settings::applyQueuedValues()
 }
 
 
-void Settings::applyQueuedValuesNoNotify()
+void Settings::applyQueuedValuesNoNotify()	//TODO this method is useless now
 {
 	QList<SettingsListener*> old = mListeners;
 	mListeners.clear();

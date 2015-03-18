@@ -18,50 +18,46 @@ namespace t3d { namespace world
 {
 	Environment::Environment()
 	{
+		auto setNeedsToRegenerate = [this]() { this->mNeedsToRegenerate = true; };
+		pSize.connectToOnChanged(setNeedsToRegenerate);
+		pFaultCount.connectToOnChanged(setNeedsToRegenerate);
+		pSeed.connectToOnChanged(setNeedsToRegenerate);
+		pSmoothing.connectToOnChanged(setNeedsToRegenerate);
+		pLightIntensity.connectToOnChanged(setNeedsToRegenerate);
 	}
 
 
-	void Environment::init(const Configuration &configuration)
+	void Environment::init()
 	{
 		terrain::Generator::FaultFormation generator;
-		mTerrainData.setTextureMapResolution(configuration.generatorTextureMapResolution);
 
-		int actualSeed = (configuration.generatorSeed == 0) ? (int)time(NULL) : configuration.generatorSeed;
+		int actualSeed = (pSeed == 0) ? (int)time(NULL) : pSeed;
 
 		qDebug() << "Generating terrain data...";
-		generator.generate(mTerrainData,
-						   configuration.generatorSize,
-						   configuration.generatorFaultCount,
-						   configuration.generatorSmoothing,
-						   actualSeed);
+		generator.generate(mTerrainData, pSize, pFaultCount, pSmoothing, actualSeed);
 		terrain::Data::HeightIndex hi;
 		hi[0.15f] = 0;
 		hi[0.35f] = 1;
 		hi[0.75f] = 2;
 		hi[1.00f] = 3;
 		mTerrainData.computeTextureIndicies(hi);
-		mTerrainData.setHeightScale(configuration.terrainHeightScale);
-		mTerrainData.setSpanSize(configuration.terrainSpanSize);
-		mTerrainData.setChunkSize(configuration.terrainChunkSize);
 
 		//compute lighting
 		{
 			terrain::LightMap lm;
-			lm.reserve(configuration.generatorSize);
-			terrain::Lighting::Slope::computeBrightness(lm,
-														mTerrainData.heightMap(),
-														configuration.generatorLightIntensity);
+			lm.reserve(pSize);
+			terrain::Lighting::Slope::computeBrightness(lm, mTerrainData.heightMap(), pLightIntensity);
 			mTerrainData.resetLightMap(lm);
 		}
 
 		mAssetManager.loadMeshesFromDirectory("../Meshes");
 		mEntityManager.init(&mAssetManager);
 
-		generateEntities(configuration);
+		generateEntities();
 	}
 
 
-	void Environment::generateEntities(const Configuration &configuration)
+	void Environment::generateEntities()
 	{
 		const terrain::HeightMap &hm = mTerrainData.heightMap();
 		const double density = 0.10f;

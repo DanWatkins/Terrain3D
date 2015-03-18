@@ -124,8 +124,6 @@ namespace t3d
 		void updateCursorPos();
 		void loadUserSettings();
 
-		world::Environment::Configuration buildWorldConfiguration();
-
 	signals:
 		void toggleSettingsMenu();
 		void refreshSettingsMenu();
