@@ -34,7 +34,7 @@ namespace t3d { namespace world { namespace terrain
 		void prepareForRendering();
 
 		void cleanup();
-		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
+		void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 		void reloadShaders();
 
 		void setLodFactor(float lodFactor) { mLodFactor = lodFactor; }
@@ -86,14 +86,12 @@ namespace t3d { namespace world { namespace terrain
 
 		struct
 		{
-			bool heightMap = false;
-			bool lightMap = false;
+			bool terrainData = false;
 		} mInvalidations;
 
 	private:
 		void loadTextures();
-		void uploadHeightMap();
-		void uploadLightMap();
+		void uploadTerrainData();
 	};
 }}}
 

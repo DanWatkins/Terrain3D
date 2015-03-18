@@ -5,8 +5,6 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include <iostream>
-
 #include "Environment.h"
 #include <World/Terrain/Generator/FaultFormation.h>
 #include <World/Terrain/Lighting/Slope.h>
@@ -41,6 +39,7 @@ namespace t3d { namespace world
 		if (mNeedsToRefresh)
 		{
 			generateTerrain(seedToUse());
+			generateEntities();
 		}
 	}
 
@@ -80,6 +79,8 @@ namespace t3d { namespace world
 
 	void Environment::generateEntities()
 	{
+		mEntityManager.clear();
+
 		const terrain::HeightMap &hm = mTerrainData.heightMap();
 		const double density = 0.10f;
 		const int NumTreesAttempt = density*hm.size() * density*hm.size();

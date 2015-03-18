@@ -23,12 +23,12 @@ namespace t3d { namespace world { namespace terrain
 		{
 			QObject::connect(terrainData, &Data::heightMapChanged, [this]()
 			{
-				this->mInvalidations.heightMap = true;
+				this->mInvalidations.terrainData = true;
 			});
 
 			QObject::connect(terrainData, &Data::lightMapChanged, [this]()
 			{
-				this->mInvalidations.lightMap =  true;
+				this->mInvalidations.terrainData =  true;
 			});
 
 #define CONNECT_PROPERTY_TO_UNIFORM(prop, uniform) \
@@ -49,17 +49,12 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::refreshIfNeeded()
 	{
-		auto work = [](std::function<void()> task, bool &conditional)
+		if (mInvalidations.terrainData)
 		{
-			if (conditional)
-			{
-				task();
-				conditional = false;
-			}
-		};
-
-		work(std::bind(&Renderer::uploadHeightMap, this), mInvalidations.heightMap);
-		work(std::bind(&Renderer::uploadLightMap, this), mInvalidations.lightMap);
+			uploadTerrainData();
+			mInvalidations.terrainData = false;
+			queryUniformLocations();
+		}
 	}
 
 
@@ -70,9 +65,7 @@ namespace t3d { namespace world { namespace terrain
 			glGenVertexArrays(1, &mVao);
 			glBindVertexArray(mVao);
 			{
-				uploadHeightMap();
-				uploadLightMap();
-
+				uploadTerrainData();
 				glPatchParameteri(GL_PATCH_VERTICES, 4);
 				loadTextures();
 			}
@@ -96,7 +89,7 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
-	void Renderer::render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
+	void Renderer::render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
 	{
 		ShaderProgram::raw().bind();
 		{
@@ -168,18 +161,6 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::loadTextures()
 	{
-		glGenTextures(1, &mTextures.indicies);
-		glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
-		{
-			GLuint buffer;
-			glGenBuffers(1, &buffer);
-			glBindBuffer(GL_TEXTURE_BUFFER, buffer);
-			{
-				glBufferData(GL_TEXTURE_BUFFER, sizeof(GLubyte)*mTerrainData->textureIndicies().size(), &mTerrainData->textureIndicies()[0], GL_STATIC_DRAW);
-				glTexBuffer(GL_TEXTURE_BUFFER, GL_R8UI, buffer);
-			}
-		}
-
 		glGenTextures(1, &mTextures.terrain);
 		{
 			Image imageWater;
@@ -259,7 +240,7 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
-	void Renderer::uploadHeightMap()
+	void Renderer::uploadTerrainData()
 	{
 		//height map
 		{
@@ -276,11 +257,8 @@ namespace t3d { namespace world { namespace terrain
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		}
-	}
 
-	
-	void Renderer::uploadLightMap()
-	{
+
 		//light map
 		{
 			if (glIsTexture(mTextures.lightMap))
@@ -295,6 +273,25 @@ namespace t3d { namespace world { namespace terrain
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+
+
+		//texture indicies
+		{
+			if (glIsTexture(mTextures.indicies))
+				glDeleteTextures(1, &mTextures.indicies);
+
+			glGenTextures(1, &mTextures.indicies);
+			glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
+			{
+				GLuint buffer;
+				glGenBuffers(1, &buffer);
+				glBindBuffer(GL_TEXTURE_BUFFER, buffer);
+				{
+					glBufferData(GL_TEXTURE_BUFFER, sizeof(GLubyte)*mTerrainData->textureIndicies().size(), &mTerrainData->textureIndicies()[0], GL_STATIC_DRAW);
+					glTexBuffer(GL_TEXTURE_BUFFER, GL_R8UI, buffer);
+				}
+			}
 		}
 	}
 }}}

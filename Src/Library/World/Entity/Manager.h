@@ -24,6 +24,7 @@ namespace t3d { namespace world { namespace entity
 
 		void init(const asset::Manager *assetManager);
 
+		void clear() { mEntityContainer.clear(); }
 		strong<BaseEntity> createEntity();
 		strong<BaseEntity> findEntity(int id);
 
