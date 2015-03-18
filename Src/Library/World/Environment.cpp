@@ -18,7 +18,7 @@ namespace t3d { namespace world
 {
 	Environment::Environment()
 	{
-		auto setNeedsToRegenerate = [this]() { this->mNeedsToRegenerate = true; };
+		auto setNeedsToRegenerate = [this]() { this->mNeedsToRefresh = true; };
 		pSize.connectToOnChanged(setNeedsToRegenerate);
 		pFaultCount.connectToOnChanged(setNeedsToRegenerate);
 		pSeed.connectToOnChanged(setNeedsToRegenerate);
@@ -29,12 +29,36 @@ namespace t3d { namespace world
 
 	void Environment::init()
 	{
+		generateTerrain(seedToUse());
+		mAssetManager.loadMeshesFromDirectory("../Meshes");
+		mEntityManager.init(&mAssetManager);
+		generateEntities();
+	}
+
+
+	void Environment::refreshIfNeeded()
+	{
+		if (mNeedsToRefresh)
+		{
+			generateTerrain(seedToUse());
+		}
+	}
+
+
+	int Environment::seedToUse()
+	{
+		if (mLastUsedSeed > 0)
+			return mLastUsedSeed;
+		else
+			return (pSeed == 0) ? std::max((int)time(NULL), 1) : pSeed;
+	}
+
+
+	void Environment::generateTerrain(int seed)
+	{
 		terrain::Generator::FaultFormation generator;
-
-		int actualSeed = (pSeed == 0) ? (int)time(NULL) : pSeed;
-
 		qDebug() << "Generating terrain data...";
-		generator.generate(mTerrainData, pSize, pFaultCount, pSmoothing, actualSeed);
+		generator.generate(mTerrainData, pSize, pFaultCount, pSmoothing, seed);
 		terrain::Data::HeightIndex hi;
 		hi[0.15f] = 0;
 		hi[0.35f] = 1;
@@ -50,10 +74,7 @@ namespace t3d { namespace world
 			mTerrainData.resetLightMap(lm);
 		}
 
-		mAssetManager.loadMeshesFromDirectory("../Meshes");
-		mEntityManager.init(&mAssetManager);
-
-		generateEntities();
+		mLastUsedSeed = seed;
 	}
 
 

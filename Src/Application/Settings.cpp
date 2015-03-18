@@ -72,6 +72,9 @@ void Settings::applyQueuedValues()
 		setValue(i.first, i.second);
 
 	mSettingsQueue.clear();
+
+	for (auto listener : mListeners)
+		listener->settingsQueueFinishedApplying();
 }
 
 

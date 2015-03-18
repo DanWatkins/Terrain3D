@@ -11,6 +11,9 @@
 #include <QtCore/QObject>
 #include <functional>
 
+/**
+ * A proxy type fro Property because Qt doesn't support template QObject derived classes.
+ */
 class PropertySignal : public QObject
 {
 	Q_OBJECT

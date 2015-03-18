@@ -229,6 +229,8 @@ namespace t3d
 	{
 		if (auto camera = mCamera.lock())
 			camera->refreshIfNeeded();
+
+		mEnvironment.refreshIfNeeded();
 	}
 
 

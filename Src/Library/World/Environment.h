@@ -34,13 +34,16 @@ namespace t3d { namespace world
 		Property<float> pLightIntensity = 16.0f;
 
 	private:
+		int seedToUse();
+		void generateTerrain(int seed);
 		void generateEntities();
 
 		terrain::Data mTerrainData;
 		entity::Manager mEntityManager;
 		asset::Manager mAssetManager;
 
-		bool mNeedsToRegenerate = false;
+		bool mNeedsToRefresh = false;
+		int mLastUsedSeed = 0;
 	};
 }}
 
