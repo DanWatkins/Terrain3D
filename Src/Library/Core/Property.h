@@ -16,7 +16,7 @@ template<typename T>
 class Property
 {
 public:
-	using SetFunction = std::function<void(T)>;
+	using SetFunction = std::function<void(const T&)>;
 	using GetFunction = std::function<T(void)>;
 
 public:
@@ -25,7 +25,19 @@ public:
 	}
 
 
-	Property<T>(SetFunction setFunction, GetFunction getFunction) :
+	Property<T>(const SetFunction &setFunction) :
+		mSetFunction(setFunction)
+	{
+	}
+
+
+	/*Property<T>(const GetFunction &getFunction) :
+		mGetFunction(getFunction)
+	{
+	}*/
+
+
+	Property<T>(const SetFunction &setFunction, const GetFunction &getFunction) :
 		mSetFunction(setFunction),
 		mGetFunction(getFunction)
 	{
@@ -49,16 +61,17 @@ public:
 	}
 
 
-	operator T() const
-	{
-		return _value;
-	}
+	T &operator()() { return _value; }
 
+	const T &operator()() const { return _value; }
+	operator const T&() const { return _value; }
 
-	operator QVariant() const
-	{
-		return QVariant(_value);
-	}
+	Property<T>& operator +=(const T& rhs) { mSetFunction(_value + rhs); return *this; }
+	Property<T>& operator -=(const T& rhs) { mSetFunction(_value - rhs); return *this; }
+	
+	T operator -() const { return T(-_value); }
+
+	operator QVariant() const { return QVariant(_value); }
 
 
 	void connectToOnChanged(std::function<void(void)> observerFunction)
@@ -70,10 +83,23 @@ public:
 	T _value;
 
 private:
-	SetFunction mSetFunction = [this](T value) { this->_value = value; };
+	SetFunction mSetFunction = [this](const T &value) { this->_value = value; };
 	GetFunction mGetFunction = [this](void)->T { return this->_value; };
 
 	PropertySignal mPropertySignal;
 };
+
+
+template <typename T>
+bool operator ==(const T &lhs, const Property<T> &rhs) { return lhs == rhs._value; }
+
+template <typename T>
+bool operator !=(const T &lhs, const Property<T> &rhs) { return lhs != rhs._value; }
+
+template <typename T>
+T operator +(const T &lhs, const Property<T> &rhs) { return lhs + rhs._value; }
+
+template <typename T>
+T operator -(const T &lhs, const Property<T> &rhs) { return lhs - rhs._value; }
 
 #endif

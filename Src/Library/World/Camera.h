@@ -70,21 +70,21 @@ namespace t3d { namespace world
 
 		void setEnvironment(Environment *environment) { mEnvironment = environment; }
 
-		void setPosition(Vec3f position) { mPosition = position; emit posChanged(); }
-		void incPosition(Vec3f positionAmount) { mPosition += positionAmount; emit posChanged();}
-		Vec3f position() const { return mPosition; }
+		//void setPosition(Vec3f position) { mPosition = position; emit posChanged(); }
+		//void incPosition(Vec3f positionAmount) { mPosition += positionAmount; emit posChanged();}
+		//Vec3f position() const { return mPosition; }
+		
+		//Property<Vec3f> pPos = Property<Vec3f>::SetPack([](const Vec3f &pos) {  });
+		Property<Vec3f> pPos;
 
-		void setFieldOfView(float fieldOfView) { mFieldOfView = fieldOfView; }
-		float fieldOfView() const { return mFieldOfView; }
-		void setNearPlane(float nearPlane) { mNearPlane = nearPlane; }
-		float nearPlane() const { return mNearPlane; }
-		void setFarPlane(float farPlane) { mFarPlane = farPlane; }
-		float farPlane() const { return mFarPlane; }
+		Property<float> pFieldOfView = 50.0f;
+		Property<float> pNearPlane = 1.0f;
+		Property<float> pFarPlane = 1200.0f;
+		Property<float> pAspectRatio = 1.0;
+		Property<float> pMaxVerticalAngle = 90.0f;
 
 		void incOrientation(float rightAngle, float upAngle);
 		Mat4 orientaion() const;
-		void setAspectRatio(float aspectRatio) { mAspectRatio = aspectRatio; }
-		float aspectRatio() { return mAspectRatio; }
 
 		void lookAt(Vec3f position);
 		Vec3f forward() const;
@@ -101,12 +101,7 @@ namespace t3d { namespace world
 		terrain::Renderer mTerrainRenderer;
 		entity::Renderer mEntityRenderer;
 
-		Vec3f mPosition;
 		float mHorizontalAngle, mVerticalAngle;
-		float mFieldOfView;
-		float mNearPlane, mFarPlane;
-		float mAspectRatio;
-		float mMaxVerticalAngle;
 
 	private:
 		Mat4 totalMatrix() const;

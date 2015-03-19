@@ -92,7 +92,7 @@ namespace t3d
 		{
 			if (auto camera = mCamera.lock())
 			{
-				return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->position().x, camera->position().y, camera->position().z);
+				return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->pPos().x, camera->pPos().y, camera->pPos().z);
 			}
 
 			return "Unknown";

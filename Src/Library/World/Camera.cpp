@@ -11,14 +11,9 @@ namespace t3d { namespace world
 {
 	Camera::Camera() :
 		mTerrainRenderer(),
-		mPosition(-20, 0, -20),
 		mHorizontalAngle(0.0f),
 		mVerticalAngle(0.0f),
-		mFieldOfView(50.0f),
-		mNearPlane(1.0f),
-		mFarPlane(1500.0f),
-		mAspectRatio(1), 
-		mMaxVerticalAngle(95.0f)
+		pPos([this](const Vec3f &pos) { pPos._value = pos; emit posChanged(); })
 	{
 		lookAt(Vec3f(60, 20, 60));
 	}
@@ -61,7 +56,7 @@ namespace t3d { namespace world
 		glClearColor(1.0f, 0.9f, 0.8f , 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-		mTerrainRenderer.render(mPosition, viewMatrix(), perspectiveMatrix());
+		mTerrainRenderer.render(pPos, viewMatrix(), perspectiveMatrix());
 		
 		mEntityRenderer.renderAll(totalMatrix());
 		mEnvironment->assetManager().renderAllQueued();
@@ -72,7 +67,7 @@ namespace t3d { namespace world
 
 	void Camera::resize(unsigned windowWidth, unsigned windowHeight)
 	{
-		mAspectRatio = (float)windowWidth / (float)windowHeight;
+		pAspectRatio = (float)windowWidth / (float)windowHeight;
 		glViewport(0, 0, (GLsizei)windowWidth, (GLsizei)windowHeight);
 	}
 
@@ -102,13 +97,13 @@ namespace t3d { namespace world
 
 	void Camera::lookAt(Vec3f position)
 	{
-		if (position == mPosition)
+		if (position == pPos)
 		{
 			std::cout << "MEGA ERROR: You are trying to look at your origin" << std::endl;
 			return;
 		}
 
-		Vec3f direction = glm::normalize(position - mPosition);
+		Vec3f direction = glm::normalize(position - pPos);
 		mVerticalAngle = radToDeg(asinf(-direction.y));
 		mHorizontalAngle = -radToDeg(atan2f(-direction.x, -direction.z));
 		normalizeAngles();
@@ -143,13 +138,13 @@ namespace t3d { namespace world
 
 	Mat4 Camera::perspectiveMatrix() const
 	{
-		return glm::perspective(mFieldOfView, mAspectRatio, mNearPlane, mFarPlane);
+		return glm::perspective<float>(pFieldOfView, pAspectRatio, pNearPlane, pFarPlane);
 	}
 
 
 	Mat4 Camera::viewMatrix() const
 	{
-		return orientaion() * glm::translate(Mat4(), -mPosition);
+		return orientaion() * glm::translate(Mat4(), -pPos);
 	}
 
 
@@ -159,9 +154,9 @@ namespace t3d { namespace world
 		if (mHorizontalAngle < 0.0f)
 			mHorizontalAngle += 360.0f;
 
-		if (mVerticalAngle > mMaxVerticalAngle)
-			mVerticalAngle = mMaxVerticalAngle;
-		else if (mVerticalAngle < -mMaxVerticalAngle)
-			mVerticalAngle = -mMaxVerticalAngle;
+		if (mVerticalAngle > pMaxVerticalAngle)
+			mVerticalAngle = pMaxVerticalAngle;
+		else if (mVerticalAngle < -pMaxVerticalAngle)
+			mVerticalAngle = -pMaxVerticalAngle;
 	}
 }}

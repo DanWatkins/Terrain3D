@@ -133,25 +133,22 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraPositionX) {
-				Vec3f c = mCamera.lock()->position();
-				mCamera.lock()->setPosition(Vec3f(value.toFloat(), c.y, c.z));
+				mCamera.lock()->pPos().x = value.toFloat();
 				break;
 			}
 
 			CASE(GraphicsCameraPositionY) {
-				Vec3f c = mCamera.lock()->position();
-				mCamera.lock()->setPosition(Vec3f(c.x, value.toFloat(), c.z));
+				mCamera.lock()->pPos().y = value.toFloat();
 				break;
 			}
 
 			CASE(GraphicsCameraPositionZ) {
-				Vec3f c = mCamera.lock()->position();
-				mCamera.lock()->setPosition(Vec3f(c.x, c.y, value.toFloat()));
+				mCamera.lock()->pPos().z = value.toFloat();
 				break;
 			}
 
 			CASE(GraphicsCameraFOV) {
-				mCamera.lock()->setFieldOfView(value.toFloat());
+				mCamera.lock()->pFieldOfView = value.toFloat();
 				break;
 			}
 
@@ -320,13 +317,13 @@ namespace t3d
 			float speed = 0.5f;
 
 			if (mMovementKeys.w)
-				mCamera.lock()->incPosition(speed * mCamera.lock()->forward());
+				mCamera.lock()->pPos += (speed * mCamera.lock()->forward());
 			if (mMovementKeys.s)
-				mCamera.lock()->incPosition(speed * -mCamera.lock()->forward());
+				mCamera.lock()->pPos += (speed * -mCamera.lock()->forward());
 			if (mMovementKeys.a)
-				mCamera.lock()->incPosition(speed * -mCamera.lock()->right());
+				mCamera.lock()->pPos += (speed * -mCamera.lock()->right());
 			if (mMovementKeys.d)
-				mCamera.lock()->incPosition(speed * mCamera.lock()->right());
+				mCamera.lock()->pPos += (speed * mCamera.lock()->right());
 		}
 
 		if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
