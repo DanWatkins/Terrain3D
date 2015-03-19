@@ -12,8 +12,7 @@ namespace t3d { namespace world
 	Camera::Camera() :
 		mTerrainRenderer(),
 		mHorizontalAngle(0.0f),
-		mVerticalAngle(0.0f),
-		pPos([this](const Vec3f &pos) { pPos._value = pos; emit posChanged(); })
+		mVerticalAngle(0.0f)
 	{
 		lookAt(Vec3f(60, 20, 60));
 	}
@@ -22,6 +21,8 @@ namespace t3d { namespace world
 	void Camera::init()
 	{
 		initializeOpenGLFunctions();
+
+		
 
 		mTerrainRenderer.init(&mEnvironment->terrainData());
 

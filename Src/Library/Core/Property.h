@@ -17,7 +17,7 @@ class Property
 {
 public:
 	using SetFunction = std::function<void(const T&)>;
-	using GetFunction = std::function<T(void)>;
+	using GetFunction = std::function<T&(void)>;
 
 public:
 	Property<T>()
@@ -25,16 +25,19 @@ public:
 	}
 
 
-	Property<T>(const SetFunction &setFunction) :
+	Property<T>(const Property<T> &rhs) = delete;
+
+
+	explicit Property<T>(const SetFunction &setFunction) :
 		mSetFunction(setFunction)
 	{
 	}
 
 
-	/*Property<T>(const GetFunction &getFunction) :
+	explicit Property<T>(const GetFunction &getFunction) :
 		mGetFunction(getFunction)
 	{
-	}*/
+	}
 
 
 	Property<T>(const SetFunction &setFunction, const GetFunction &getFunction) :
@@ -61,10 +64,9 @@ public:
 	}
 
 
-	T &operator()() { return _value; }
-
-	const T &operator()() const { return _value; }
-	operator const T&() const { return _value; }
+	T &operator()() { return mGetFunction(); }
+	const T &operator()() const { return mGetFunction(); }	//TODO careful with returning references
+	operator const T&() const { return mGetFunction(); }
 
 	Property<T>& operator +=(const T& rhs) { mSetFunction(_value + rhs); return *this; }
 	Property<T>& operator -=(const T& rhs) { mSetFunction(_value - rhs); return *this; }
@@ -84,7 +86,7 @@ public:
 
 private:
 	SetFunction mSetFunction = [this](const T &value) { this->_value = value; };
-	GetFunction mGetFunction = [this](void)->T { return this->_value; };
+	GetFunction mGetFunction = [this](void)->T& { return this->_value; };
 
 	PropertySignal mPropertySignal;
 };
@@ -102,4 +104,10 @@ T operator +(const T &lhs, const Property<T> &rhs) { return lhs + rhs._value; }
 template <typename T>
 T operator -(const T &lhs, const Property<T> &rhs) { return lhs - rhs._value; }
 
+
+#define PROPERTY_SETFUNC(type, name, setFunction) Property<type> name = Property<type>::SetFunction([this](const type &value) setFunction);
+#define PROPERTY_GETFUNC(type, name, getFunction) Property<type> name = Property<type>::GetFunction([this]()->type& getFunction);
+#define PROPERTY_SETGETFUNC(type, name, setFunction, getFunction) Property<type> name { Property<type>::SetFunction([this](const type &value) setFunction), Property<type>::GetFunction([this]()->type& getFunction) };
+
 #endif
+

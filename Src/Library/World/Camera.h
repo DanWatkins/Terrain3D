@@ -70,18 +70,23 @@ namespace t3d { namespace world
 
 		void setEnvironment(Environment *environment) { mEnvironment = environment; }
 
-		//void setPosition(Vec3f position) { mPosition = position; emit posChanged(); }
-		//void incPosition(Vec3f positionAmount) { mPosition += positionAmount; emit posChanged();}
-		//Vec3f position() const { return mPosition; }
 		
-		//Property<Vec3f> pPos = Property<Vec3f>::SetPack([](const Vec3f &pos) {  });
-		Property<Vec3f> pPos;
+		
 
 		Property<float> pFieldOfView = 50.0f;
 		Property<float> pNearPlane = 1.0f;
 		Property<float> pFarPlane = 1200.0f;
 		Property<float> pAspectRatio = 1.0;
 		Property<float> pMaxVerticalAngle = 90.0f;
+
+		PROPERTY_SETFUNC(Vec3f, pPos,
+		{
+			pPos._value = value;
+			emit posChanged();
+		})
+
+
+		//Property<Vec3f> pPos = Property<Vec3f>::SetFunction([this](const Vec3f &pos) { pPos._value = pos; emit posChanged(); });
 
 		void incOrientation(float rightAngle, float upAngle);
 		Mat4 orientaion() const;
