@@ -9,6 +9,7 @@
 #define _Property_h
 
 #include <functional>
+#include <QtCore/QVariant>
 #include "PropertySignal.h"
 
 template<typename T>
@@ -51,6 +52,12 @@ public:
 	operator T() const
 	{
 		return _value;
+	}
+
+
+	operator QVariant() const
+	{
+		return QVariant(_value);
 	}
 
 

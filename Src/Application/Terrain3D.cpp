@@ -156,12 +156,12 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraLOD) {
-				mCamera.lock()->terrainRenderer().setLodFactor(value.toFloat());
+				mCamera.lock()->terrainRenderer().pLodFactor = value.toFloat();
 				break;
 			}
 
 			CASE(GraphicsCameraIVD) {
-				mCamera.lock()->terrainRenderer().setIvdFactor(value.toFloat());
+				mCamera.lock()->terrainRenderer().pIvdFactor = value.toFloat();
 			}
 
 			CASE(GraphicsCameraWireframe) {

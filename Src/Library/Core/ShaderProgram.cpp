@@ -38,5 +38,47 @@ namespace t3d { namespace core
 			qDebug() << "Initialized shaders";
 
 		queryUniformLocations();
+		flushQueuedUniformValueChanges();
+	}
+
+
+	void ShaderProgram::enqueueUniformValueChange(const GLint *uniformLocation, QVariant &&value)
+	{
+		if (mProgram && mProgram->isLinked())
+			setUniformFromQVariant(*uniformLocation, value);
+		else
+			mQueuedUniformValueChanges.append(QPair<const GLint*, QVariant>(uniformLocation, value));
+	}
+
+
+	void ShaderProgram::setUniformFromQVariant(GLint location, QVariant &value)
+	{
+		switch (static_cast<QMetaType::Type>(value.type()))
+		{
+		case QMetaType::Int:
+			mProgram->setUniformValue(location, static_cast<GLint>(value.toInt())); break;
+		case QMetaType::Double:
+			mProgram->setUniformValue(location, static_cast<GLfloat>(value.toDouble())); break;
+		case QMetaType::Float:
+			mProgram->setUniformValue(location, static_cast<GLfloat>(value.toFloat())); break;
+		default:
+			qFatal("Trying to set a queued shader uniform value for an unknown type");
+			//TODO this is all we support. Eventuall QOpenGLShaderProgram should support
+			//setUniformValue directly from a QVariant.
+		}
+	}
+
+
+	void ShaderProgram::flushQueuedUniformValueChanges()
+	{
+		mProgram->bind();
+
+		for (auto pair : mQueuedUniformValueChanges)
+		{
+			setUniformFromQVariant(*pair.first, pair.second);
+		}
+
+		mQueuedUniformValueChanges.clear();
+		mProgram->release();
 	}
 }}

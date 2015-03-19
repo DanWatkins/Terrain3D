@@ -11,6 +11,20 @@
 
 namespace t3d { namespace world { namespace terrain
 {
+	Renderer::Renderer()
+	{
+		pLodFactor.connectToOnChanged([this]()
+		{
+			ShaderProgram::enqueueUniformValueChange(&mUniforms.lod, pLodFactor);
+		});
+
+		pIvdFactor.connectToOnChanged([this]()
+		{
+			ShaderProgram::enqueueUniformValueChange(&mUniforms.ivd, pIvdFactor);
+		});
+	}
+
+
 	void Renderer::init(Data *terrainData)
 	{
 		mTerrainData = terrainData;
@@ -34,7 +48,7 @@ namespace t3d { namespace world { namespace terrain
 #define CONNECT_PROPERTY_TO_UNIFORM(prop, uniform) \
 					mTerrainData->prop.connectToOnChanged([this]() \
 					{ \
-						this->bindAndSetUniformValue(this->mUniforms.uniform, \
+						this->enqueueUniformValueChange(&this->mUniforms.uniform, \
 													 this->mTerrainData->prop); \
 					});
 
@@ -127,8 +141,6 @@ namespace t3d { namespace world { namespace terrain
 				const int chunksPerSide = terrainSize / chunkSize;
 
 				glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
-				ShaderProgram::raw().setUniformValue(mUniforms.lod, mLodFactor);
-				ShaderProgram::raw().setUniformValue(mUniforms.ivd, mIvdFactor);
 
 				glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide*chunksPerSide);
 			}

@@ -27,7 +27,7 @@ namespace t3d { namespace world { namespace terrain
 		Q_OBJECT
 
 	public:
-		Renderer() {}
+		Renderer();
 
 		void init(Data *terrainData);
 		void refreshIfNeeded();
@@ -37,8 +37,9 @@ namespace t3d { namespace world { namespace terrain
 		void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 		void reloadShaders();
 
-		void setLodFactor(float lodFactor) { mLodFactor = lodFactor; }
-		void setIvdFactor(float ivdFactor) { mIvdFactor = ivdFactor; }
+		Property<float> pLodFactor;
+		Property<float> pIvdFactor;
+
 		void setMode(Mode mode) { mMode = mode; }
 		Mode getMode() { return mMode; }
 
@@ -55,8 +56,6 @@ namespace t3d { namespace world { namespace terrain
 		GLuint mVao;
 		GLuint mVbo[2];
 
-		float mLodFactor;
-		float mIvdFactor;
 		Mode mMode = Mode::Normal;
 
 		struct
