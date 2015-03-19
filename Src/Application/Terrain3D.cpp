@@ -227,10 +227,10 @@ namespace t3d
 
 	void Terrain3D::settingsQueueFinishedApplying()
 	{
-		mEnvironment.refreshIfNeeded();
+		mEnvironment.refresh();
 
 		if (auto camera = mCamera.lock())
-			camera->refreshIfNeeded();
+			camera->refresh();
 	}
 
 

@@ -61,7 +61,7 @@ namespace t3d { namespace world { namespace terrain
 	}
 
 
-	void Renderer::refreshIfNeeded()
+	void Renderer::refresh()
 	{
 		if (mInvalidations.terrainData)
 		{
@@ -112,7 +112,7 @@ namespace t3d { namespace world { namespace terrain
 
 			glBindVertexArray(mVao);
 			{
-				switch (mMode)
+				switch (pMode)
 				{
 					case Mode::Normal:
 					{

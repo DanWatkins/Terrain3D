@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\Src\Library\Core\Core.h" />
     <ClInclude Include="..\..\Src\Library\Core\Helper.h" />
     <ClInclude Include="..\..\Src\Library\Core\Image.h" />
+    <ClInclude Include="..\..\Src\Library\Core\IRefreshable.h" />
     <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h" />
     <CustomBuild Include="..\..\Src\Library\World\Terrain\Renderer.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

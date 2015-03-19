@@ -34,9 +34,9 @@ namespace t3d { namespace world
 	}
 
 
-	void Camera::refreshIfNeeded()
+	void Camera::refresh()
 	{
-		mTerrainRenderer.refreshIfNeeded();
+		mTerrainRenderer.refresh();
 	}
 
 

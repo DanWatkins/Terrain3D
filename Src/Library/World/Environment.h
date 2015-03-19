@@ -12,16 +12,16 @@
 #include <World/Entity/Manager.h>
 #include <Core/Asset/Manager.h>
 
-#include <Core/Property.h>
-
 namespace t3d { namespace world
 {
-	class Environment
+	class Environment : public IRefreshable
 	{
 	public:
 		Environment();
+		~Environment() {}
+
 		void init();
-		void refreshIfNeeded();
+		void refresh() override;
 
 		terrain::Data& terrainData() { return mTerrainData; }
 		entity::Manager& entityManager() { return mEntityManager; }

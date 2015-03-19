@@ -34,7 +34,7 @@ namespace t3d { namespace world
 	}
 
 
-	void Environment::refreshIfNeeded()
+	void Environment::refresh()
 	{
 		if (mNeedsToRefresh)
 		{

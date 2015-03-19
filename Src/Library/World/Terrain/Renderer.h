@@ -22,26 +22,25 @@ namespace t3d { namespace world { namespace terrain
 	};
 
 
-	class Renderer : public core::ShaderProgram
+	class Renderer : public core::ShaderProgram, public IRefreshable
 	{
 		Q_OBJECT
 
 	public:
 		Renderer();
+		~Renderer() {}
 
 		void init(Data *terrainData);
-		void refreshIfNeeded();
+		void refresh() override;
 		void prepareForRendering();
 
 		void cleanup();
 		void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 		void reloadShaders();
 
-		Property<float> pLodFactor;
-		Property<float> pIvdFactor;
-
-		void setMode(Mode mode) { mMode = mode; }
-		Mode getMode() { return mMode; }
+		Property<float> pLodFactor = 1.0f;
+		Property<float> pIvdFactor = 100.0f;
+		Property<Mode> pMode = Mode::Normal;
 
 	protected:
 		void addShaders() override;
@@ -55,8 +54,6 @@ namespace t3d { namespace world { namespace terrain
 
 		GLuint mVao;
 		GLuint mVbo[2];
-
-		Mode mMode = Mode::Normal;
 
 		struct
 		{

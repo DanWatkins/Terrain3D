@@ -22,7 +22,7 @@ namespace t3d { namespace world
 	 * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
 	 * rotate up/down and left/right.
 	 */
-	class Camera : public QObject, protected OpenGLFunctions 
+	class Camera : public QObject, protected OpenGLFunctions , public IRefreshable
 	{
 		Q_OBJECT
 
@@ -39,6 +39,7 @@ namespace t3d { namespace world
 
 	public:
 		Camera();
+		~Camera() {}
 
 		/**
 		 * @brief Gets the instance ready for rendering.
@@ -46,7 +47,7 @@ namespace t3d { namespace world
 		 */
 		void init();
 
-		void refreshIfNeeded();
+		void refresh() override;
 
 		/**
 		 * Does the heavy lifting loading. Loads large resources from file and uploads data to the GPU.
@@ -90,8 +91,8 @@ namespace t3d { namespace world
 		Vec3f right() const;
 		Vec3f up() const;
 
-		void setMode(terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
-		terrain::Mode mode() { return mTerrainRenderer.getMode(); }
+		void setMode(terrain::Mode mode) { mTerrainRenderer.pMode = mode; }
+		terrain::Mode mode() { return mTerrainRenderer.pMode; }
 
 		terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
 
