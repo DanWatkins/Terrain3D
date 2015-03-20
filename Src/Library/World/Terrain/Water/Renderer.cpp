@@ -48,7 +48,11 @@ namespace t3d { namespace world { namespace terrain { namespace water
 	void Renderer::refresh()
 	{
 		if (mInvalidations.terrainData)
-			queryUniformLocations();
+		{
+			ShaderProgram::bind();
+				refreshUniformValues();
+			ShaderProgram::release();
+		}
 	}
 
 
@@ -87,24 +91,24 @@ namespace t3d { namespace world { namespace terrain { namespace water
 
 	void Renderer::queryUniformLocations()
 	{
-		ShaderProgram::bind();
-		{
-			#define ULOC(id) mUniforms.id = ShaderProgram::raw().uniformLocation(#id)
-			ULOC(mvMatrix);
-			ULOC(projMatrix);
-			ULOC(size);
-			ULOC(spanSize);
-			ULOC(heightScale);
-			ULOC(waterLevel);
-			ULOC(timeDelta);
-			#undef ULOC
+		#define ULOC(id) mUniforms.id = ShaderProgram::raw().uniformLocation(#id)
+		ULOC(mvMatrix);
+		ULOC(projMatrix);
+		ULOC(size);
+		ULOC(spanSize);
+		ULOC(heightScale);
+		ULOC(waterLevel);
+		ULOC(timeDelta);
+		#undef ULOC
+	}
 
-			ShaderProgram::raw().setUniformValue(mUniforms.size, mTerrainData->heightMap().size());
-			ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
-			ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
-			ShaderProgram::raw().setUniformValue(mUniforms.waterLevel, pWaterLevel);
-		}
-		ShaderProgram::release();
+
+	void Renderer::refreshUniformValues()
+	{
+		ShaderProgram::raw().setUniformValue(mUniforms.size, mTerrainData->heightMap().size());
+		ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
+		ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
+		ShaderProgram::raw().setUniformValue(mUniforms.waterLevel, pWaterLevel);
 	}
 
 

@@ -35,7 +35,6 @@ namespace t3d { namespace world { namespace terrain
 
 		void refresh() override;
 		
-
 		void cleanup();
 		void prepareForRendering();
 		void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
@@ -47,6 +46,7 @@ namespace t3d { namespace world { namespace terrain
 	protected:
 		void addShaders() override;
 		void queryUniformLocations() override;
+		void refreshUniformValues() override;
 
 	private:
 		Q_DISABLE_COPY(Renderer)

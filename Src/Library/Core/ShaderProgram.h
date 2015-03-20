@@ -23,7 +23,7 @@ namespace t3d { namespace core
 		void addShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
 		void loadShaders();
 
-		void bind() { flushQueuedUniformValueChanges(); mProgram->bind(); }
+		void bind() { mProgram->bind(); flushQueuedUniformValueChanges(); }
 		void release() { mProgram->release(); }
 
 		/**
@@ -42,9 +42,16 @@ namespace t3d { namespace core
 		virtual void addShaders() = 0;
 
 		/**
-		 * A time to query uniform locations and assign any value to them.
+		 * A time to query uniform locations.
 		 */
 		virtual void queryUniformLocations() = 0;
+
+		/**
+		 * A time to set values for uniform locations. The locations are guarunteed to be valid,
+		 * but you need to manually bind the shader program.
+		 */
+
+		virtual void refreshUniformValues() = 0;
 
 		/**
 		 * @returns a reference to the internal QOpenGLShaderProgram.

@@ -37,8 +37,11 @@ namespace t3d { namespace core
 		else
 			qDebug() << "Initialized shaders";
 
-		queryUniformLocations();
-		flushQueuedUniformValueChanges();
+		mProgram->bind();
+			queryUniformLocations();
+			refreshUniformValues();
+			flushQueuedUniformValueChanges();
+		mProgram->release();
 	}
 
 
@@ -81,14 +84,11 @@ namespace t3d { namespace core
 
 	void ShaderProgram::flushQueuedUniformValueChanges()
 	{
-		mProgram->bind();
-
 		for (auto pair : mQueuedUniformValueChanges)
 		{
 			setUniformFromQVariant(*pair.first, pair.second);
 		}
 
 		mQueuedUniformValueChanges.clear();
-		mProgram->release();
 	}
 }}

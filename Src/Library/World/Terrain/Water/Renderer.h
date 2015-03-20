@@ -32,6 +32,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 	protected:
 		void addShaders() override;
 		void queryUniformLocations() override;
+		void refreshUniformValues() override;
 
 	private:
 		Q_DISABLE_COPY(Renderer)

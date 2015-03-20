@@ -66,7 +66,9 @@ namespace t3d { namespace world { namespace terrain
 		{
 			uploadTerrainData();
 			mInvalidations.terrainData = false;
-			queryUniformLocations();			
+			ShaderProgram::bind();
+				refreshUniformValues();	
+			ShaderProgram::release();
 		}
 
 		mWaterRenderer.refresh();
@@ -224,32 +226,37 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::queryUniformLocations()
 	{
-		ShaderProgram::raw().bind(); //TODO you can't call regular bind without an order issue
-		{
-			#define ULOC(id) mUniforms.id = ShaderProgram::raw().uniformLocation(#id)
-			ULOC(mvMatrix);
-			ULOC(projMatrix);
+		#define ULOC(id) mUniforms.id = ShaderProgram::raw().uniformLocation(#id)
+		ULOC(mvMatrix);
+		ULOC(projMatrix);
 
-			ULOC(terrainSize);
-			ULOC(chunkSize);
-			ULOC(lod);
-			ULOC(ivd);
-			ULOC(cameraPos);
-			ULOC(heightScale);
-			ULOC(spanSize);
+		ULOC(terrainSize);
+		ULOC(chunkSize);
+		ULOC(lod);
+		ULOC(ivd);
+		ULOC(cameraPos);
+		ULOC(heightScale);
+		ULOC(spanSize);
 
-			ULOC(textureMapResolution);
-			ULOC(heightMapSize);
-			#undef ULOC
+		ULOC(textureMapResolution);
+		ULOC(heightMapSize);
+		#undef ULOC
+	}
 
-			ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
-			ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
-			ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
-			ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->pChunkSize);
-			ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->pTextureMapResolution);
-			ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
-		}
-		ShaderProgram::release();
+
+	void Renderer::refreshUniformValues()
+	{
+		//terrain::Data
+		ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
+		ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
+		ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
+		ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->pChunkSize);
+		ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->pTextureMapResolution);
+		ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
+
+		//this
+		ShaderProgram::raw().setUniformValue(mUniforms.lod, pLodFactor);
+		ShaderProgram::raw().setUniformValue(mUniforms.ivd, pIvdFactor);
 	}
 
 
