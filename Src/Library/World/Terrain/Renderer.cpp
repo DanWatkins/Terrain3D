@@ -28,10 +28,9 @@ namespace t3d { namespace world { namespace terrain
 	void Renderer::init(Data *terrainData)
 	{
 		mTerrainData = terrainData;
-
 		ShaderProgram::init();
 		
-		mWaterRenderer.init(mTerrainData, mTerrainData->pHeightScale*0.30f);
+		mWaterRenderer.init(mTerrainData);
 
 		//connect to terrainData signals
 		{
@@ -67,8 +66,10 @@ namespace t3d { namespace world { namespace terrain
 		{
 			uploadTerrainData();
 			mInvalidations.terrainData = false;
-			queryUniformLocations();
+			queryUniformLocations();			
 		}
+
+		mWaterRenderer.refresh();
 	}
 
 
@@ -156,7 +157,7 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::reloadShaders()
 	{
-		loadShaders();
+		ShaderProgram::reloadShaders();
 		mWaterRenderer.reloadShaders();
 	}
 
@@ -164,10 +165,10 @@ namespace t3d { namespace world { namespace terrain
 ///// PRIVATE
 	void Renderer::addShaders()
 	{
-		addShader("terrain.vs.glsl", QOpenGLShader::Vertex);
-		addShader("terrain.tcs.glsl", QOpenGLShader::TessellationControl);
-		addShader("terrain.tes.glsl", QOpenGLShader::TessellationEvaluation);
-		addShader("terrain.fs.glsl", QOpenGLShader::Fragment);
+		addShader("/terrain/terrain.vs.glsl", QOpenGLShader::Vertex);
+		addShader("/terrain/terrain.tcs.glsl", QOpenGLShader::TessellationControl);
+		addShader("/terrain/terrain.tes.glsl", QOpenGLShader::TessellationEvaluation);
+		addShader("/terrain/terrain.fs.glsl", QOpenGLShader::Fragment);
 	}
 
 
@@ -223,7 +224,7 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::queryUniformLocations()
 	{
-		ShaderProgram::raw().bind();
+		ShaderProgram::raw().bind(); //TODO you can't call regular bind without an order issue
 		{
 			#define ULOC(id) mUniforms.id = ShaderProgram::raw().uniformLocation(#id)
 			ULOC(mvMatrix);
@@ -248,7 +249,7 @@ namespace t3d { namespace world { namespace terrain
 			ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->pTextureMapResolution);
 			ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 		}
-		ShaderProgram::raw().release();
+		ShaderProgram::release();
 	}
 
 

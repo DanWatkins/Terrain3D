@@ -148,23 +148,29 @@ namespace t3d
 			}
 
 			CASE(GraphicsCameraFOV) {
-				mCamera.lock()->pFieldOfView = value.toFloat();
+				if (auto camera = mCamera.lock())
+					camera->pFieldOfView = value.toFloat();
 				break;
 			}
 
 			CASE(GraphicsCameraLOD) {
-				mCamera.lock()->terrainRenderer().pLodFactor = value.toFloat();
+				if (auto camera = mCamera.lock())
+					camera->terrainRenderer().pLodFactor = value.toFloat();
 				break;
 			}
 
 			CASE(GraphicsCameraIVD) {
-				mCamera.lock()->terrainRenderer().pIvdFactor = value.toFloat();
+				if (auto camera = mCamera.lock())
+					camera->terrainRenderer().pIvdFactor = value.toFloat();
+				break;
 			}
 
 			CASE(GraphicsCameraWireframe) {
-				mCamera.lock()->setMode(value.toBool()
+				if (auto camera = mCamera.lock())
+					camera->setMode(value.toBool()
 											   ? world::terrain::Mode::WireFrame :
 												 world::terrain::Mode::Normal);
+				break;
 			}
 
 

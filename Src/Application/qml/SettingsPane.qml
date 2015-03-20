@@ -23,14 +23,6 @@ Item {
 
     signal hasFinished()
 
-    //dim the whole screen
-    Rectangle {
-        anchors.fill: parent
-
-        color: "black"
-        opacity: 0.45
-    }
-
     function loadSettings() {
         settings_graphics.load();
         settings_world.load();
@@ -51,7 +43,7 @@ Item {
         color: "#ffffff"
         anchors.verticalCenterOffset: 0
         anchors.horizontalCenterOffset: -20
-        opacity: 0.80
+        opacity: 0.90
 
         ColumnLayout {
             id: sidePane
@@ -74,11 +66,11 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
-        }	
+        }
 
 
         RowLayout {
-			id: confirmBar
+            id: confirmBar
             anchors.right: parent.right
             anchors.rightMargin: 5
             anchors.left: parent.left

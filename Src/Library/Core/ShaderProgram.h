@@ -15,13 +15,15 @@ namespace t3d { namespace core
 	class ShaderProgram : public QObject, protected OpenGLFunctions
 	{
 		Q_OBJECT
+	public:
+		virtual void reloadShaders();
 
 	protected:
 		void init();
 		void addShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
 		void loadShaders();
 
-		void bind() { flushQueuedUniformValueChanges(); }
+		void bind() { flushQueuedUniformValueChanges(); mProgram->bind(); }
 		void release() { mProgram->release(); }
 
 		/**

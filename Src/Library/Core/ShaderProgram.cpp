@@ -19,7 +19,7 @@ namespace t3d { namespace core
 	void ShaderProgram::addShader(const QString &filename, QOpenGLShader::ShaderType shaderType)
 	{
 		QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
-		if (!shader->compileSourceFile(gDefaultPathShaders + "/terrain/" + filename))
+		if (!shader->compileSourceFile(gDefaultPathShaders + filename))
 			qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
 		
 		if (!mProgram->addShader(shader))
@@ -39,6 +39,12 @@ namespace t3d { namespace core
 
 		queryUniformLocations();
 		flushQueuedUniformValueChanges();
+	}
+
+
+	void ShaderProgram::reloadShaders()
+	{
+		loadShaders();
 	}
 
 

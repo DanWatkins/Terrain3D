@@ -10,95 +10,101 @@
 
 namespace t3d { namespace world { namespace terrain { namespace water
 {
-	void Renderer::init(Data *terrainData, float waterLevel)
+	void Renderer::init(Data *terrainData)
 	{
-		initializeOpenGLFunctions();
 		mTerrainData = terrainData;
-		mWaterLevel = waterLevel;
-		loadShaders();
+		ShaderProgram::init();
 
-		mProgram->bind();
+		ShaderProgram::bind();
 		{
 			glPatchParameteri(GL_PATCH_VERTICES, 4);
 			loadTextures();
 		}
-		mProgram->release();
+		ShaderProgram::release();
+
+		//connect to terrainData signals
+		{
+			QObject::connect(terrainData, &Data::heightMapChanged, [this]()
+			{
+				this->mInvalidations.terrainData = true;
+			});
+
+			#define CONNECT_PROPERTY_TO_UNIFORM(prop, uniform) \
+						mTerrainData->prop.connectToOnChanged([this]() \
+						{ \
+							this->enqueueUniformValueChange(&this->mUniforms.uniform, \
+														 this->mTerrainData->prop); \
+						});
+
+				CONNECT_PROPERTY_TO_UNIFORM(pHeightScale, heightScale)
+				CONNECT_PROPERTY_TO_UNIFORM(pSpanSize, spanSize)
+			#undef CONNECT_PROPERTY_TO_UNIFORM
+		}
 
 		mElapsedTimer.start();
 	}
 
 
+	void Renderer::refresh()
+	{
+		if (mInvalidations.terrainData)
+			queryUniformLocations();
+	}
+
+
 	void Renderer::cleanup()
 	{
-		mProgram->removeAllShaders();
+		ShaderProgram::raw().removeAllShaders();
 		glDeleteTextures(1, &mTextures.water);
 	}
 
 
 	void Renderer::render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
 	{
-		mProgram->bind();
+		ShaderProgram::bind();
 		{
 			glUniformMatrix4fv(mUniforms.mvMatrix, 1, GL_FALSE, glm::value_ptr(modelViewMatrix));
 			glUniformMatrix4fv(mUniforms.projMatrix, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
 
-			mProgram->setUniformValue(mUniforms.timeDelta, int(mElapsedTimer.elapsed()));
+			ShaderProgram::raw().setUniformValue(mUniforms.timeDelta, int(mElapsedTimer.elapsed()));
 
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, mTextures.water);
 
 			glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
 		}
-		mProgram->release();
-	}
-
-
-	void Renderer::reloadShaders()
-	{
-		loadShaders();
+		ShaderProgram::release();
 	}
 
 
 ///// PRIVATE
-	void Renderer::loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType)
-	{	//TODO move this function into a common base class since it's used in a lot of other places
-		QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
-		if (!shader->compileSourceFile(gDefaultPathShaders + "/water/" + filename))
-			qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
-		
-		if (!mProgram->addShader(shader))
-			qDebug() << "Error adding shader " << filename << " of type " << static_cast<int>(shaderType);
+	void Renderer::addShaders()
+	{
+		addShader("/water/water.vs.glsl", QOpenGLShader::Vertex);
+		addShader("/water/water.fs.glsl", QOpenGLShader::Fragment);
 	}
 
 
-	void Renderer::loadShaders()
+	void Renderer::queryUniformLocations()
 	{
-		mProgram = std::make_unique<QOpenGLShaderProgram>();
-
-		loadShader("water.vs.glsl", QOpenGLShader::Vertex);
-		loadShader("water.fs.glsl", QOpenGLShader::Fragment);
-
-		if (mProgram->link() == false)
-			qFatal("Problem linking shaders");
-		else
-			qDebug() << "Initialized shaders";
-
-		mProgram->bind();
+		ShaderProgram::bind();
 		{
-			#define ULOC(id) mUniforms.id = mProgram->uniformLocation(#id)
+			#define ULOC(id) mUniforms.id = ShaderProgram::raw().uniformLocation(#id)
 			ULOC(mvMatrix);
 			ULOC(projMatrix);
 			ULOC(size);
 			ULOC(spanSize);
+			ULOC(heightScale);
 			ULOC(waterLevel);
 			ULOC(timeDelta);
 			#undef ULOC
 
-			mProgram->setUniformValue(mUniforms.size, mTerrainData->heightMap().size());
-			mProgram->setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
-			mProgram->setUniformValue(mUniforms.waterLevel, mWaterLevel);
+			ShaderProgram::raw().setUniformValue(mUniforms.size, mTerrainData->heightMap().size());
+			ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
+			ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
+			ShaderProgram::raw().setUniformValue(mUniforms.waterLevel, pWaterLevel);
 		}
-		mProgram->release();
+		ShaderProgram::release();
 	}
 
 

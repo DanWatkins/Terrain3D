@@ -9,6 +9,7 @@ uniform mat4 mvMatrix;
 uniform mat4 projMatrix;
 uniform int size;
 uniform int spanSize;
+uniform float heightScale;
 uniform float waterLevel;
 uniform int timeDelta = 0;
 
@@ -28,5 +29,5 @@ void main()
 	tc.x = pos.x * size / spanSize + timeOffset;
 	tc.y = pos.z * size / spanSize + timeOffset;
 
-	gl_Position = projMatrix * mvMatrix * vec4(pos.x*size, waterLevel, pos.z*size, 1);	
+	gl_Position = projMatrix * mvMatrix * vec4(pos.x*size, heightScale*waterLevel, pos.z*size, 1);	
 }

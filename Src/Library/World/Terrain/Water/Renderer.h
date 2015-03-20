@@ -9,24 +9,32 @@
 #define _t3d_world_terrain_water_Renderer_H
 
 #include <Library.h>
+#include <Core/ShaderProgram.h>
 #include <World/Terrain/Data.h>
 
 namespace t3d { namespace world { namespace terrain { namespace water
 {
-	class Renderer : protected OpenGLFunctions
+	class Renderer : public core::ShaderProgram, public IRefreshable
 	{
 	public:
 		Renderer() {}
+		~Renderer() {}
 
-		void init(Data *terrainData, float waterLevel);
+		void init(Data *terrainData);
+
+		void refresh() override;
+
 		void cleanup();
 		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
-		void reloadShaders();
+
+		Property<float> pWaterLevel = 0.3f;
+
+	protected:
+		void addShaders() override;
+		void queryUniformLocations() override;
 
 	private:
 		Q_DISABLE_COPY(Renderer)
-
-		unique<QOpenGLShaderProgram> mProgram;
 
 		struct
 		{
@@ -34,6 +42,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			GLint projMatrix;
 			GLint size;
 			GLint spanSize;
+			GLint heightScale;
 			GLint waterLevel;
 			GLint timeDelta;
 		} mUniforms;
@@ -43,8 +52,12 @@ namespace t3d { namespace world { namespace terrain { namespace water
 			GLuint water;
 		} mTextures;
 
+		struct
+		{
+			bool terrainData = false;
+		} mInvalidations;
+
 		Data *mTerrainData;
-		float mWaterLevel;
 		QElapsedTimer mElapsedTimer;
 
 	private:

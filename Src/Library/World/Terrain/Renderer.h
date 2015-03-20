@@ -31,12 +31,14 @@ namespace t3d { namespace world { namespace terrain
 		~Renderer() {}
 
 		void init(Data *terrainData);
+		void reloadShaders() override;
+
 		void refresh() override;
-		void prepareForRendering();
+		
 
 		void cleanup();
+		void prepareForRendering();
 		void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
-		void reloadShaders();
 
 		Property<float> pLodFactor = 1.0f;
 		Property<float> pIvdFactor = 100.0f;
