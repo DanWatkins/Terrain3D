@@ -341,7 +341,7 @@ namespace t3d
 				{
 					const float mouseSensitivity = 0.1f;
 					QVector2D delta = consumeCursorDelta();
-					mCamera.lock()->incOrientation(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+					mCamera.lock()->pOrientationAngle += Vec2f(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
 
 					resetCursorPosition();
 				}

@@ -45,7 +45,11 @@ namespace t3d { namespace core
 	void ShaderProgram::enqueueUniformValueChange(const GLint *uniformLocation, QVariant &&value)
 	{
 		if (mProgram && mProgram->isLinked())
+		{
+			mProgram->bind();
 			setUniformFromQVariant(*uniformLocation, value);
+			mProgram->release();	//TODO this can cause issues if used while the program was bound externally
+		}
 		else
 			mQueuedUniformValueChanges.append(QPair<const GLint*, QVariant>(uniformLocation, value));
 	}

@@ -9,10 +9,7 @@
 
 namespace t3d { namespace world
 {
-	Camera::Camera() :
-		mTerrainRenderer(),
-		mHorizontalAngle(0.0f),
-		mVerticalAngle(0.0f)
+	Camera::Camera()
 	{
 		lookAt(Vec3f(60, 20, 60));
 	}
@@ -82,17 +79,9 @@ namespace t3d { namespace world
 	Mat4 Camera::orientaion() const
 	{
 		Mat4 orientation;
-		orientation = glm::rotate(orientation, mVerticalAngle, Vec3f(1, 0, 0));
-		orientation = glm::rotate(orientation, mHorizontalAngle, Vec3f(0, 1, 0));
+		orientation = glm::rotate(orientation, pOrientationAngle().y, Vec3f(1, 0, 0));
+		orientation = glm::rotate(orientation, pOrientationAngle().x, Vec3f(0, 1, 0));
 		return orientation;
-	}
-
-
-	void Camera::incOrientation(float rightAngle, float upAngle)
-	{
-		mHorizontalAngle += rightAngle;
-		mVerticalAngle += upAngle;
-		normalizeAngles();
 	}
 
 
@@ -105,8 +94,8 @@ namespace t3d { namespace world
 		}
 
 		Vec3f direction = glm::normalize(position - pPos);
-		mVerticalAngle = radToDeg(asinf(-direction.y));
-		mHorizontalAngle = -radToDeg(atan2f(-direction.x, -direction.z));
+		pOrientationAngle().y = radToDeg(asinf(-direction.y));
+		pOrientationAngle().x = -radToDeg(atan2f(-direction.x, -direction.z));
 		normalizeAngles();
 	}
 
@@ -151,13 +140,13 @@ namespace t3d { namespace world
 
 	void Camera::normalizeAngles()
 	{
-		mHorizontalAngle = fmodf(mHorizontalAngle, 360.0f);
-		if (mHorizontalAngle < 0.0f)
-			mHorizontalAngle += 360.0f;
+		pOrientationAngle().x = fmodf(pOrientationAngle().x, 360.0f);
+		if (pOrientationAngle().x < 0.0f)
+			pOrientationAngle().x += 360.0f;
 
-		if (mVerticalAngle > pMaxVerticalAngle)
-			mVerticalAngle = pMaxVerticalAngle;
-		else if (mVerticalAngle < -pMaxVerticalAngle)
-			mVerticalAngle = -pMaxVerticalAngle;
+		if (pOrientationAngle().y > pMaxVerticalAngle)
+			pOrientationAngle().y = pMaxVerticalAngle;
+		else if (pOrientationAngle().y < -pMaxVerticalAngle)
+			pOrientationAngle().y = -pMaxVerticalAngle;
 	}
 }}

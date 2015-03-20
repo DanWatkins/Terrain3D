@@ -112,9 +112,15 @@ namespace t3d { namespace world { namespace terrain { namespace Generator
 
             applyRandomFault(heightMap, amount);
         }
+		qDebug() << "      Built height map";
 
 		smoothHeight(heightMap, smoothing);
+		qDebug() << "      Smothed height map";
+
         normalizeHeights(heightMap);
+		qDebug() << "      Normalized height map";
+
 		terrainData.resetHeightMap(heightMap);
+		qDebug() << "      Reseated the height map";
     }
 }}}}

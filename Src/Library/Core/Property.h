@@ -25,9 +25,6 @@ public:
 	}
 
 
-	Property<T>(const Property<T> &rhs) = delete;
-
-
 	explicit Property<T>(const SetFunction &setFunction) :
 		mSetFunction(setFunction)
 	{

@@ -46,7 +46,7 @@ namespace t3d { namespace world
 
 	int Environment::seedToUse()
 	{
-		if (mLastUsedSeed > 0)
+		if (pSeed == mLastUsedSeed && mLastUsedSeed > 0)
 			return mLastUsedSeed;
 		else
 			return (pSeed == 0) ? std::max((int)time(NULL), 1) : pSeed;
@@ -58,12 +58,15 @@ namespace t3d { namespace world
 		terrain::Generator::FaultFormation generator;
 		qDebug() << "Generating terrain data...";
 		generator.generate(mTerrainData, pSize, pFaultCount, pSmoothing, seed);
+		qDebug() << "   Generated height map";
+
 		terrain::Data::HeightIndex hi;
 		hi[0.15f] = 0;
 		hi[0.35f] = 1;
 		hi[0.75f] = 2;
 		hi[1.00f] = 3;
 		mTerrainData.computeTextureIndicies(hi);
+		qDebug() << "   Generated texture indicies";
 
 		//compute lighting
 		{
@@ -72,6 +75,8 @@ namespace t3d { namespace world
 			terrain::Lighting::Slope::computeBrightness(lm, mTerrainData.heightMap(), pLightIntensity);
 			mTerrainData.resetLightMap(lm);
 		}
+
+		qDebug() << "   Generated light map";
 
 		mLastUsedSeed = seed;
 	}

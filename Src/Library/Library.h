@@ -98,4 +98,4 @@ using unique = std::unique_ptr<T>;
 
 #include <Core/IRefreshable.h>
 
-#endif // MAIN_H
+#endif

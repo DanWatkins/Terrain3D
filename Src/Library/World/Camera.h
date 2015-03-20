@@ -5,15 +5,14 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_CAMERA_H
-#define _t3d_CAMERA_H
+#ifndef _t3d_World_Camera_H
+#define _t3d_World_Camera_H
 
 #include <Library.h>
 #include <World/Environment.h>
 
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Renderer.h>
-
 #include <World/Entity/Renderer.h>
 
 namespace t3d { namespace world
@@ -64,14 +63,8 @@ namespace t3d { namespace world
 		 * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
 		 */
 		void resize(unsigned windowWidth, unsigned windowHeight);
-
 		void reloadShaders();
-
-
 		void setEnvironment(Environment *environment) { mEnvironment = environment; }
-
-		
-		
 
 		Property<float> pFieldOfView = 50.0f;
 		Property<float> pNearPlane = 1.0f;
@@ -85,10 +78,12 @@ namespace t3d { namespace world
 			emit posChanged();
 		})
 
-
-		//Property<Vec3f> pPos = Property<Vec3f>::SetFunction([this](const Vec3f &pos) { pPos._value = pos; emit posChanged(); });
-
-		void incOrientation(float rightAngle, float upAngle);
+		PROPERTY_SETFUNC(Vec2f, pOrientationAngle,
+		{
+			pOrientationAngle._value = value;
+			normalizeAngles();
+		})
+		
 		Mat4 orientaion() const;
 
 		void lookAt(Vec3f position);
@@ -105,8 +100,6 @@ namespace t3d { namespace world
 		Environment *mEnvironment;
 		terrain::Renderer mTerrainRenderer;
 		entity::Renderer mEntityRenderer;
-
-		float mHorizontalAngle, mVerticalAngle;
 
 	private:
 		Mat4 totalMatrix() const;
