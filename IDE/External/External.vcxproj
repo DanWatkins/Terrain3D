@@ -20,7 +20,6 @@
     <ClCompile Include="..\..\Ext\gtest\src\gtest-typed-test.cc" />
     <ClCompile Include="..\..\Ext\gtest\src\gtest.cc" />
     <ClCompile Include="..\..\Ext\gtest\src\gtest_main.cc" />
-    <ClCompile Include="..\..\Ext\lodepng.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Ext\gtest\src\gtest-internal-inl.h" />

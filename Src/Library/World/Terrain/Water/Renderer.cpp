@@ -5,7 +5,6 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include <Core/Image.h>
 #include "Renderer.h"
 
 namespace t3d { namespace world { namespace terrain { namespace water
@@ -115,21 +114,17 @@ namespace t3d { namespace world { namespace terrain { namespace water
 	void Renderer::loadTextures()
 	{
 		glGenTextures(1, &mTextures.water);
-		{
-			Image imageWater;
-			imageWater.loadFromFile_PNG(gDefaultPathTextures + "water.png");
-
+		{			
+			QImage image(gDefaultPathTextures + "water.png");
 		
-
-			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
-
+			int imageSize = image.width();	//for now, assume all images are the same width and height
 			glBindTexture(GL_TEXTURE_2D, mTextures.water);
 
 			int mipLevels = 8;
 			glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGBA8, imageSize, imageSize);
 
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
+							GL_BGRA, GL_UNSIGNED_BYTE, image.bits());
 
 			glGenerateMipmap(GL_TEXTURE_2D);
 			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

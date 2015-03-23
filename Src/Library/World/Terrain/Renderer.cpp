@@ -5,7 +5,6 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include <Core/Image.h>
 #include <World/Terrain/Renderer.h>
 #include "Utility.h"
 
@@ -138,6 +137,7 @@ namespace t3d { namespace world { namespace terrain
 				glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
 				glActiveTexture(GL_TEXTURE3);
 				glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
+				//mTextures.terrain->bind();
 
 				const int terrainSize = mTerrainData->heightMap().size();
 				const int chunkSize = mTerrainData->pChunkSize;
@@ -176,23 +176,25 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::loadTextures()
 	{
-		glGenTextures(1, &mTextures.terrain);
 		{
-			Image imageWater;
-			imageWater.loadFromFile_PNG(gDefaultPathTextures + "dirt.png");
+			QVector<QString> files;
+			files << "dirt.png" << "sand.png" << "grass.png" << "mountain.png";
+			QVector<QImage> images(files.count(), QImage(QSize(700,700), QImage::Format_RGBA8888));
 
-			Image imageSand;
-			imageSand.loadFromFile_PNG(gDefaultPathTextures + "sand.png");
+			for (int i=0; i<images.count(); i++)
+			{
+				QImage &image = images[i];
+				if (!image.load(gDefaultPathTextures + files[i]))
+					qDebug() << "Error loading texture " << gDefaultPathTextures + files[i];
+			}
 
-			Image imageGrass;
-			imageGrass.loadFromFile_PNG(gDefaultPathTextures + "grass.png");
+			int imageSize = images.first().width();	//for now, assume all images are the same width and height
 
-			Image imageMountain;
-			imageMountain.loadFromFile_PNG(gDefaultPathTextures + "mountain.png");
-
-			int imageSize = imageWater.getWidth();	//for now, assume all images are the same width and height
-
+			glGenTextures(1, &mTextures.terrain);
+			qDebug() << "I am " << mTextures.terrain;
 			glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
+
+			GLenum format = GL_BGRA;
 
 			int mipLevels = 8;
 			glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
@@ -200,22 +202,22 @@ namespace t3d { namespace world { namespace terrain
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
 							0, 0, 0,
 							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageWater.getImageData()[0]);
+							format, GL_UNSIGNED_BYTE, images[0].bits());
 
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
 							0, 0, 1,
 							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageSand.getImageData()[0]);
+							format, GL_UNSIGNED_BYTE, images[1].bits());
 
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
 							0, 0, 2,
 							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageGrass.getImageData()[0]);
+							format, GL_UNSIGNED_BYTE, images[2].bits());
 
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
 							0, 0, 3,
 							imageSize, imageSize, 1,
-							GL_RGBA, GL_UNSIGNED_BYTE, &imageMountain.getImageData()[0]);
+							format, GL_UNSIGNED_BYTE, images[3].bits());
 
 			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

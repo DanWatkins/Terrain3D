@@ -28,18 +28,10 @@
     <ClCompile Include="..\..\Ext\gtest\src\gtest-typed-test.cc">
       <Filter>gtest</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Ext\lodepng.cpp">
-      <Filter>lodepng</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="gtest">
       <UniqueIdentifier>{f1c40287-f30b-403f-b263-8725549dd333}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lodepng">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;cxx;c;def</Extensions>
-      <ParseFiles>true</ParseFiles>
     </Filter>
   </ItemGroup>
   <ItemGroup>

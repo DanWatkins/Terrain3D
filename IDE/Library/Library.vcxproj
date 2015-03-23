@@ -16,13 +16,11 @@
     <ClInclude Include="..\..\Src\Library\Core\Asset\Mesh.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\FaceData.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\MaterialData.h" />
-    <ClInclude Include="..\..\Src\Library\Core\Asset\private\MD2.h" />
     <ClInclude Include="..\..\src\library\core\asset\private\MeshPrivate.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\OBJ.h" />
     <ClInclude Include="..\..\Src\Library\Core\Asset\private\SubMesh.h" />
     <ClInclude Include="..\..\Src\Library\Core\Core.h" />
     <ClInclude Include="..\..\Src\Library\Core\Helper.h" />
-    <ClInclude Include="..\..\Src\Library\Core\Image.h" />
     <ClInclude Include="..\..\Src\Library\Core\IRefreshable.h" />
     <ClInclude Include="..\..\Src\Library\Core\OpenGLFunctions.h" />
     <CustomBuild Include="..\..\Src\Library\World\Terrain\Renderer.h">
@@ -160,7 +158,6 @@
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\SubMesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Helper.cpp" />
-    <ClCompile Include="..\..\Src\Library\Core\Image.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\ShaderProgram.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Camera.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Entity\BaseEntity.cpp" />

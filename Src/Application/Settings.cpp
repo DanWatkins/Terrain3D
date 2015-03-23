@@ -78,17 +78,6 @@ void Settings::applyQueuedValues()
 }
 
 
-void Settings::applyQueuedValuesNoNotify()	//TODO this method is useless now
-{
-	QList<SettingsListener*> old = mListeners;
-	mListeners.clear();
-
-	applyQueuedValues();
-
-	mListeners = old;
-}
-
-
 void Settings::enqueueValue(Key key, const QVariant &newValue)
 {
 	if (mMetaKeyInfo[key].updateType != KeyUpdateType::Queued)

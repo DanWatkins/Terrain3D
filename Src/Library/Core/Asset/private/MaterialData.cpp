@@ -6,7 +6,6 @@
 //==================================================================================================================|
 
 #include "MaterialData.h"
-#include <Core/Image.h>
 
 namespace t3d { namespace asset
 {

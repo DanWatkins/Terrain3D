@@ -181,7 +181,7 @@ namespace t3d
 			}
 
 			CASE(WorldGeneratorTextureMapResolution) {
-				mEnvironment.terrainData().pTextureMapResolution = value.toInt();	//TODO is this handled?
+				mEnvironment.terrainData().pTextureMapResolution = value.toInt();
 				break;
 			}
 

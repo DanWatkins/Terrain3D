@@ -103,8 +103,6 @@ public:
 	 */
 	Q_INVOKABLE void applyQueuedValues();
 
-	//TODO this method is just a hack until I can figure out a better design
-	Q_INVOKABLE void applyQueuedValuesNoNotify();
 
 	/**
 	 * @brief Removes all queued settings from the settings queue.
