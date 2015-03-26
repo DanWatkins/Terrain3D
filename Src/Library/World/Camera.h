@@ -23,7 +23,7 @@ namespace t3d { namespace world
 	 * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
 	 * rotate up/down and left/right.
 	 */
-	class Camera : public QObject, protected OpenGLFunctions , public Refreshable, public Loadable
+	class Camera : public QObject, protected OpenGLFunctions , public Refreshable, public core::Loadable
 	{
 		Q_OBJECT
 

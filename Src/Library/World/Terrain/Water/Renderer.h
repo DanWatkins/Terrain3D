@@ -14,7 +14,7 @@
 
 namespace t3d { namespace world { namespace terrain { namespace water
 {
-	class Renderer : public core::ShaderProgram, public IRefreshable
+	class Renderer : public core::ShaderProgram, public Refreshable
 	{
 	public:
 		Renderer() {}

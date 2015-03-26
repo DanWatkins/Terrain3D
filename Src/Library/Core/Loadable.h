@@ -8,12 +8,19 @@
 #ifndef _Loadable_H
 #define _Loadable_H
 
-class Loadable
+#include <Library.h>
+#include <Core/Property.h>	//TODO
+
+namespace t3d { namespace core
 {
-public:
-	virtual ~Loadable() {}
-	virtual void init() = 0;
-	bool isLoading() { return true; }
-};
+	class Loadable
+	{
+	public:
+		virtual ~Loadable() {}
+		virtual void init() { pIsLoading = true; }
+		virtual void reinit() { pIsLoading = true; }
+		Property<bool> pIsLoading = false;
+	};
+}}
 
 #endif

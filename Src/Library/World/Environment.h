@@ -21,7 +21,7 @@ namespace t3d { namespace world
 	/**
 	 * \brief Top-level aggregate manager of simulation data.
 	 */
-	class Environment : public Refreshable, public Loadable
+	class Environment : public Refreshable, public core::Loadable
 	{
 	public:
 		Environment();

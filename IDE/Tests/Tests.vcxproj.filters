@@ -11,6 +11,9 @@
       <Extensions>h</Extensions>
       <ParseFiles>true</ParseFiles>
     </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{bc52644a-4998-4483-85cb-d4eaa51bdc9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Tests\Test_CoreFPSCounter.cpp">
@@ -45,6 +48,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainRenderer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Tests\Core\Test_Loadable.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -240,10 +240,10 @@ namespace t3d
 	bool Terrain3D::isLoading()
 	{
 		if (auto camera = mCamera.lock())
-			if (camera->isLoading())
+			if (camera->pIsLoading())
 				return true;
 
-		if (mEnvironment.isLoading())
+		if (mEnvironment.pIsLoading())
 			return true;
 
 		return false;

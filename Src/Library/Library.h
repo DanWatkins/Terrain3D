@@ -94,6 +94,7 @@ using unique = std::unique_ptr<T>;
 //Project Includes
 #include <Constants.h>
 #include <Core/Helper.h>
+#include <Core/Property.h>
 
 #include <Core/Refreshable.h>
 

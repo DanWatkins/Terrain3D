@@ -22,7 +22,7 @@ namespace t3d { namespace world { namespace terrain
 	};
 
 
-	class Renderer : public core::ShaderProgram, public IRefreshable
+	class Renderer : public core::ShaderProgram, public Refreshable
 	{
 		Q_OBJECT
 
