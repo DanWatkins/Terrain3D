@@ -21,14 +21,14 @@ namespace t3d { namespace world
 	/**
 	 * \brief Top-level aggregate manager of simulation data.
 	 */
-	class Environment : public Refreshable, public core::Loadable
+	class Environment : public core::Loadable
 	{
 	public:
 		Environment();
 		~Environment() {}
 
-		void init() override;
-		void refresh() override;
+		void init();
+		void refresh();
 
 		/**
 		 * @returns A reference to the internal terrain::Data instance.

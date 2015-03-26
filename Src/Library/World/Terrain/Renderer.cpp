@@ -26,6 +26,7 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::init(Data *terrainData)
 	{
+		core::Loadable::Begin b(this);
 		mTerrainData = terrainData;
 		ShaderProgram::init();
 		

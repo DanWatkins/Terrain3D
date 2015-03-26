@@ -27,6 +27,8 @@ namespace t3d { namespace world
 
 	void Environment::init()
 	{
+		core::Loadable::Begin b(this);
+
 		generateTerrain(seedToUse());
 		mAssetManager.loadMeshesFromDirectory("../Meshes");
 		mEntityManager.init(&mAssetManager);
@@ -36,6 +38,8 @@ namespace t3d { namespace world
 
 	void Environment::refresh()
 	{
+		core::Loadable::Begin b(this);
+
 		if (mNeedsToRefresh)
 		{
 			generateTerrain(seedToUse());

@@ -13,17 +13,15 @@ protected:
 	class TestLoadable : public Loadable
 	{
 	public:
-		void init() override
+		void init()
 		{
-			Loadable::init();
-			pIsLoading = false;
+			Loadable::Begin b(this);
 		}
 
 
-		void reinit() override
+		void refresh()
 		{
-			Loadable::reinit();
-			pIsLoading = false;
+			Loadable::Begin b(this);
 		}
 	};
 
@@ -72,6 +70,6 @@ TEST_CASE(simpleInit)
 
 TEST_CASE(simpleReinit)
 {
-	auto f = std::mem_fn(&TestLoadable::reinit);
+	auto f = std::mem_fn(&TestLoadable::refresh);
 	assertSimpleRun(f);
 }

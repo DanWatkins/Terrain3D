@@ -70,6 +70,12 @@ namespace t3d
 
 		QWindow::show();
 
+		mEnvironment.pIsLoading.connectToOnChanged([this]
+		{
+			qDebug() << "Changed";
+			emit this->isLoadingChanged();
+		});
+
 		emit cameraPosChanged();
 	}
 

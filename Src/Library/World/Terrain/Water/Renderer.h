@@ -12,17 +12,18 @@
 #include <Core/ShaderProgram.h>
 #include <World/Terrain/Data.h>
 
+#include <Core/Loadable.h> //TODO
+
 namespace t3d { namespace world { namespace terrain { namespace water
 {
-	class Renderer : public core::ShaderProgram, public Refreshable
+	class Renderer : public core::ShaderProgram, public core::Loadable
 	{
 	public:
 		Renderer() {}
 		~Renderer() {}
 
 		void init(Data *terrainData);
-
-		void refresh() override;
+		void refresh();
 
 		void cleanup();
 		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);

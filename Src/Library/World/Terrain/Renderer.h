@@ -22,7 +22,7 @@ namespace t3d { namespace world { namespace terrain
 	};
 
 
-	class Renderer : public core::ShaderProgram, public Refreshable
+	class Renderer : public core::ShaderProgram, public core::Loadable
 	{
 		Q_OBJECT
 
@@ -31,9 +31,9 @@ namespace t3d { namespace world { namespace terrain
 		~Renderer() {}
 
 		void init(Data *terrainData);
-		void reloadShaders() override;
+		void refresh();
 
-		void refresh() override;
+		void reloadShaders() override;
 		
 		void cleanup();
 		void prepareForRendering();

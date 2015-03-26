@@ -17,18 +17,16 @@ namespace t3d { namespace world
 
 	void Camera::init()
 	{
+		core::Loadable::Begin b(this);
 		initializeOpenGLFunctions();
-
-		
-
 		mTerrainRenderer.init(&mEnvironment->terrainData());
-
 		mEntityRenderer.setManager(&mEnvironment->entityManager());
 	}
 
 
 	void Camera::refresh()
 	{
+		core::Loadable::Begin b(this);
 		mTerrainRenderer.refresh();
 	}
 
@@ -72,6 +70,7 @@ namespace t3d { namespace world
 
 	void Camera::reloadShaders()
 	{
+		core::Loadable::Begin b(this);
 		mTerrainRenderer.reloadShaders();
 	}
 
