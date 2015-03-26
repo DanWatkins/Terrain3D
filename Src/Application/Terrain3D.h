@@ -28,6 +28,7 @@ namespace t3d
 		Q_OBJECT
 		Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
 		Q_PROPERTY(QString cameraPos READ cameraPos NOTIFY cameraPosChanged);
+		Q_PROPERTY(bool isLoading READ isLoading NOTIFY isLoadingChanged);
 
 	public:
 		Terrain3D(Settings *mainSettings);
@@ -98,6 +99,11 @@ namespace t3d
 			return "Unknown";
 		}
 
+		/**
+		 * @returns true if the simulation is loading something that requires a pause.
+		 */
+		bool isLoading();
+
 	private:
 		world::Environment mEnvironment;
 		weak<world::Camera> mCamera;
@@ -129,12 +135,14 @@ namespace t3d
 		void refreshSettingsMenu();
 		void fpsChanged();
 		void cameraPosChanged();
+		void isLoadingChanged();
 
 	public slots:
 		void willUpdate();
 		void beforeRendering();
 		void onFpsChanged() { emit fpsChanged(); }
 		void onCameraPosChanged() { emit cameraPosChanged(); }
+		void onIsLoadingChanged() { emit isLoadingChanged(); }
 	};
 }
 

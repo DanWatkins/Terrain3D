@@ -15,13 +15,15 @@
 #include <World/Terrain/Renderer.h>
 #include <World/Entity/Renderer.h>
 
+#include <Core/Loadable.h> //TODO temp
+
 namespace t3d { namespace world
 {
 	/**
 	 * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
 	 * rotate up/down and left/right.
 	 */
-	class Camera : public QObject, protected OpenGLFunctions , public IRefreshable
+	class Camera : public QObject, protected OpenGLFunctions , public Refreshable, public Loadable
 	{
 		Q_OBJECT
 
@@ -44,7 +46,7 @@ namespace t3d { namespace world
 		 * @brief Gets the instance ready for rendering.
 		 * @param configuration Contains various configuration information
 		 */
-		void init();
+		void init() override;
 
 		void refresh() override;
 

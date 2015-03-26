@@ -41,6 +41,11 @@ Item {
         }
     }
 
+	BusyIndicator {
+		anchors.centerIn: parent	
+		running: terrain3D.isLoading
+	}
+
 
     function toggleSettingsPane() {
         settingsPane.item.visible = !settingsPane.item.visible;

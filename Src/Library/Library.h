@@ -1,7 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-
 #define _CRT_SECURE_NO_WARNINGS 1
 
 #include <iostream>
@@ -96,6 +95,6 @@ using unique = std::unique_ptr<T>;
 #include <Constants.h>
 #include <Core/Helper.h>
 
-#include <Core/IRefreshable.h>
+#include <Core/Refreshable.h>
 
 #endif

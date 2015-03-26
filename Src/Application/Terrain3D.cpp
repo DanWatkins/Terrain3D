@@ -237,6 +237,19 @@ namespace t3d
 	}
 
 
+	bool Terrain3D::isLoading()
+	{
+		if (auto camera = mCamera.lock())
+			if (camera->isLoading())
+				return true;
+
+		if (mEnvironment.isLoading())
+			return true;
+
+		return false;
+	}
+
+
 //========================================
 // Private
 //========================================

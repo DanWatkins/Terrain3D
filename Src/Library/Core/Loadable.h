@@ -1,18 +1,19 @@
 //==================================================================================================================|
-// Created 2015.03.19 by Daniel L. Watkins
+// Created 2015.03.25 by Daniel L. Watkins
 //
 // Copyright (C) 2014-2015 Daniel L. Watkins
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _IRefreshable_H
-#define _IRefreshable_H
+#ifndef _Loadable_H
+#define _Loadable_H
 
-class IRefreshable
+class Loadable
 {
 public:
-	virtual ~IRefreshable() {}
-	virtual void refresh() = 0;
+	virtual ~Loadable() {}
+	virtual void init() = 0;
+	bool isLoading() { return true; }
 };
 
 #endif

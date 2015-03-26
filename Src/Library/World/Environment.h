@@ -14,25 +14,63 @@
 #include <World/Entity/Manager.h>
 #include <Core/Asset/Manager.h>
 
+#include <Core/Loadable.h> //TODO temp
+
 namespace t3d { namespace world
 {
-	class Environment : public IRefreshable
+	/**
+	 * \brief Top-level aggregate manager of simulation data.
+	 */
+	class Environment : public Refreshable, public Loadable
 	{
 	public:
 		Environment();
 		~Environment() {}
 
-		void init();
+		void init() override;
 		void refresh() override;
 
+		/**
+		 * @returns A reference to the internal terrain::Data instance.
+		 */
 		terrain::Data& terrainData() { return mTerrainData; }
+
+		/**
+		 * @returns A reference to the internal entity::Manager instance.
+		 */
 		entity::Manager& entityManager() { return mEntityManager; }
+
+		/**
+		 * @returns A reference to the internal asset::Manager instance.
+		 */
 		asset::Manager& assetManager() { return mAssetManager; }
 
+		/**
+		 * \brief Length of a side of the terrain grid. World coordinates will be on the
+		 * range [(0,0,0), (pSize, terrain::Data::pHeightScale, pSize)]
+		 */
 		Property<int> pSize = 16;
+
+		/**
+		 * \brief Number of faults to use with the fault-formation terrain generation algorithm
+		 */
 		Property<int> pFaultCount = 100;
+
+		/**
+		 * \brief Seed value used to initialize the random number generator for randomly generatin
+		 * the terrain.
+		 */
 		Property<int> pSeed = 0;
+
+		/**
+		 * \brief The intensity used for linear smoothing passes in post-process fault-formation
+		 * terrain generation.
+		 */
 		Property<float> pSmoothing = 0.5f;
+
+		/**
+		 * \brief TODO this is a werid setting. It's kind of backwards.
+		 */
 		Property<float> pLightIntensity = 16.0f;
 
 	private:
