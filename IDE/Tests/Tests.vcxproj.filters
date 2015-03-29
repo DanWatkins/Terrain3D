@@ -14,6 +14,14 @@
     <Filter Include="Source Files\Core">
       <UniqueIdentifier>{bc52644a-4998-4483-85cb-d4eaa51bdc9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="qml">
+      <UniqueIdentifier>{c434c6a3-066d-44d6-a31e-c8c87b60ba04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Tests\Test_CoreFPSCounter.cpp">
@@ -52,10 +60,26 @@
     <ClCompile Include="..\..\Src\Tests\Core\Test_Loadable.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Tests\Core\Test_ResourceLoader.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_main.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Tests\Tests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Src\Tests\qml\main.qml">
+      <Filter>qml</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\Src\Tests\qml\main.qrc">
+      <Filter>qml</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

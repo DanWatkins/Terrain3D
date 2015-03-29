@@ -245,6 +245,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_PropertySignal.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Library\Core\ResourceLoader.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Src\Library\Core\FPSCounter.h">
@@ -275,6 +278,9 @@
       <Filter>Src\Core</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\Src\Library\Core\PropertySignal.h">
+      <Filter>Src\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Src\Library\Core\ResourceLoader.h">
       <Filter>Src\Core</Filter>
     </CustomBuild>
   </ItemGroup>

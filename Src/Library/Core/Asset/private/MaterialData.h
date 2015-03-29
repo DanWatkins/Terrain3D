@@ -5,14 +5,14 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_CORE_MATERIAL_DATA_H
-#define _t3d_CORE_MATERIAL_DATA_H
+#ifndef _t3d_core_MaterialData_h
+#define _t3d_core_MaterialData_h
 
 #include "MeshPrivate.h"
 
 namespace t3d { namespace asset
 {
-	class mesh_p::MaterialData : public OpenGLFunctions
+	class mesh_p::MaterialData : public core::OpenGLFunctions
 	{
 	public: //TODO massive
 		QString mName;

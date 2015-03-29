@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_World_Terrain_Renderer_H
-#define _t3d_World_Terrain_Renderer_H
+#ifndef _t3d_world_Terrain_Renderer_H
+#define _t3d_world_Terrain_Renderer_H
 
 #include <Library.h>
 #include <Core/ShaderProgram.h>

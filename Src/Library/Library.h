@@ -17,6 +17,7 @@
 #include <deque>
 
 #include <thread>
+#include <future>
 #include <functional>
 
 #include <cstdlib>
@@ -41,6 +42,7 @@
 	#include <QtGui/QOpenGLFunctions_4_2_Core>
 	#include <QtGui/QOpenGLTexture>
 	#include <Core/OpenGLFunctions.h>
+	#include <QtConcurrent\qtconcurrentrun.h>
 #pragma warning(pop)
 
 #define WIN32_LEAN_AND_MEAN 1

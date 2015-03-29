@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Tests\Core\Test_Loadable.cpp" />
+    <ClCompile Include="..\..\Src\Tests\Core\Test_ResourceLoader.cpp" />
     <ClCompile Include="..\..\Src\Tests\Tests.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_CoreAssetManager.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_CoreFPSCounter.cpp" />
@@ -23,6 +24,12 @@
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainLightMap.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainNormalMap.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_WorldTerrainRenderer.cpp" />
+    <ClCompile Include="GeneratedFiles\qrc_main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Tests\Tests.h" />
@@ -34,6 +41,19 @@
     <ProjectReference Include="..\Library\Library.vcxproj">
       <Project>{d1a6c9c4-0386-424f-94e5-4dd40a6ac34a}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Src\Tests\qml\main.qml" />
+    <CustomBuild Include="..\..\Src\Tests\qml\main.qrc">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);..\..\Src\Tests\qml\main.qml;..\..\Src\Tests\qml\SettingsPane.qml;..\..\Src\Tests\qml\Settings\Graphics.qml;..\..\Src\Tests\qml\Settings\World.qml;..\..\Src\Tests\qml\Controls\SettingGroupBox.qml;..\..\Src\Tests\qml\Controls\SettingBaseControl.qml;..\..\Src\Tests\qml\Controls\SettingCheckBox.qml;..\..\Src\Tests\qml\Controls\SettingComboBox.qml;..\..\Src\Tests\qml\Controls\SettingSpinBox.qml;..\..\Src\Tests\qml\Controls\SettingSlider.qml;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);..\..\Src\Tests\qml\main.qml;..\..\Src\Tests\qml\SettingsPane.qml;..\..\Src\Tests\qml\Settings\Graphics.qml;..\..\Src\Tests\qml\Settings\World.qml;..\..\Src\Tests\qml\Controls\SettingGroupBox.qml;..\..\Src\Tests\qml\Controls\SettingBaseControl.qml;..\..\Src\Tests\qml\Controls\SettingCheckBox.qml;..\..\Src\Tests\qml\Controls\SettingComboBox.qml;..\..\Src\Tests\qml\Controls\SettingSpinBox.qml;..\..\Src\Tests\qml\Controls\SettingSlider.qml;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+    </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{271266B0-26EE-4DEC-932B-16085893185C}</ProjectGuid>
