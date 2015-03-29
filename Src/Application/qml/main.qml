@@ -117,7 +117,7 @@ Item {
                 id: button_settings
                 text: "Settings (F10)"
                 height: 30
-                onClicked: toggleSettingsPane();
+                onClicked: if (!terrain3D.isLoading) toggleSettingsPane();
             }
 
             Button {

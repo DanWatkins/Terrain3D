@@ -38,7 +38,6 @@ namespace t3d
 		core::Loadable::Begin b(this);
 		pIsLoading.connectToOnChanged([this]
 		{
-			mOpenGLTaskQueue.runTasks();
 			emit isLoadingChanged();
 		});
 
@@ -271,30 +270,36 @@ namespace t3d
 
 			case Qt::Key_X:
 			{
-				if (!mCamera.expired() && !mCameraItem->isFrozen())
-					toggleWireframe();
-
+				if (!pIsLoading)	//TODO need a way to lock the loading state so that another thread can't start loading after this line executes
+					if (!mCamera.expired() && !mCameraItem->isFrozen())
+						toggleWireframe();
 				break;
 			}
 
 			//toggle cursor capture
 			case Qt::Key_F1:
-				toggleCaptureCursor(); break;
+				toggleCaptureCursor();
+				break;
 
 			//restart
 			case Qt::Key_F5:
-				requestRestart(); break;
+				requestRestart();
+				break;
 
 			//reload shaders
 			case Qt::Key_F6:
-				reloadShaders(); break;
+				reloadShaders();
+				break;
 
 			//toggle settings menu
 			case Qt::Key_F10:
-				emit toggleSettingsMenu(); break;
+				if (!pIsLoading) emit toggleSettingsMenu();
+				break;
 
 			//toggle fullscreen
-			case Qt::Key_F11: toggleFullscreen(); break;
+			case Qt::Key_F11:
+				toggleFullscreen();
+				break;
 
 			case Qt::Key_W:
 				mMovementKeys.w = true; break;
@@ -412,7 +417,7 @@ namespace t3d
 		{
 			mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
 		}
-		else
+		else if (!pIsLoading)
 		{
 			updateCursorPos();
 		}
@@ -422,6 +427,11 @@ namespace t3d
 	void Terrain3D::beforeRendering()
 	{
 		mFPSCounter.update();
+		mOpenGLTaskQueue.runTasks();
+
+		if (pIsLoading)
+			return;
+
 		glClearColor(1.0f, 0.0f, 0.8f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
