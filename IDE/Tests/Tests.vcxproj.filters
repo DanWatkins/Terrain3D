@@ -60,11 +60,11 @@
     <ClCompile Include="..\..\Src\Tests\Core\Test_Loadable.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Tests\Core\Test_ResourceLoader.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_main.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Tests\Core\Test_OpenGLTaskQueue.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Tests\Core\Test_Loadable.cpp" />
-    <ClCompile Include="..\..\Src\Tests\Core\Test_ResourceLoader.cpp" />
+    <ClCompile Include="..\..\Src\Tests\Core\Test_OpenGLTaskQueue.cpp" />
     <ClCompile Include="..\..\Src\Tests\Tests.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_CoreAssetManager.cpp" />
     <ClCompile Include="..\..\Src\Tests\Test_CoreFPSCounter.cpp" />

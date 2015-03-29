@@ -5,27 +5,33 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_core_ResourceLoader_H
-#define _t3d_core_ResourceLoader_H
-
-#include <Library.h>
-#include "OpenGLFunctions.h"
+#include "OpenGLTaskQueue.h"
 
 namespace t3d { namespace core
 {
-	class ResourceLoader : protected OpenGLFunctions
+	void OpenGLTaskQueue::init()
 	{
-	public:
-		using TaskFunction = std::function<void(OpenGLFunctions*)>;
+		QMutexLocker m(&mMutex);
+		initializeOpenGLFunctions();
+	}
 
-		void init();
-		void addTask(TaskFunction f);
-		void runTasks();
 
-	private:
-		QList<TaskFunction> mTasks;
-	};
+	void OpenGLTaskQueue::addTask(std::function<void(OpenGLFunctions*)> f)
+	{
+		QMutexLocker m(&mMutex);
+		mTasks.append(f);
+	}
+
+
+	void OpenGLTaskQueue::runTasks()
+	{
+		QMutexLocker m(&mMutex);
+
+		for (TaskFunction &tf : mTasks)
+		{
+			tf((OpenGLFunctions*)this);
+		}
+
+		mTasks.clear();
+	}
 }}
-
-#endif
-

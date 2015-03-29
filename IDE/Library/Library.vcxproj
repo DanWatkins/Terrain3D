@@ -55,7 +55,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DLIBRARY_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\..\Src\Library"</Command>
     </CustomBuild>
     <ClInclude Include="..\..\Src\Library\Core\Property.h" />
-    <CustomBuild Include="..\..\Src\Library\Core\ResourceLoader.h">
+    <CustomBuild Include="..\..\Src\Library\Core\OpenGLTaskQueue.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -173,7 +173,7 @@
     <ClCompile Include="..\..\Src\Library\Core\Asset\private\SubMesh.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\FPSCounter.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\Helper.cpp" />
-    <ClCompile Include="..\..\Src\Library\Core\ResourceLoader.cpp" />
+    <ClCompile Include="..\..\Src\Library\Core\OpenGLTaskQueue.cpp" />
     <ClCompile Include="..\..\Src\Library\Core\ShaderProgram.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Camera.cpp" />
     <ClCompile Include="..\..\Src\Library\World\Entity\BaseEntity.cpp" />

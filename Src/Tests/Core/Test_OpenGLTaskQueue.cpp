@@ -6,7 +6,8 @@
 //==================================================================================================================|
 
 #include "Tests.h"
-#include <Core/ResourceLoader.h>
+#include <Core/OpenGLTaskQueue.h>
+#include <Core/MutexTryLocker.h>
 
 using namespace t3d::core;
 
@@ -21,8 +22,8 @@ protected:
 
 TEST_CASE(AddTaskAsync)
 {
-	ResourceLoader loader;
-	loader.init();
+	OpenGLTaskQueue taskQueue;
+	taskQueue.init();
 
 	//TODO make a relative ordering test helper
 	bool t1Happened = false;
@@ -33,10 +34,13 @@ TEST_CASE(AddTaskAsync)
 	std::thread f([&]
 	{
 		//task 1
-		loader.addTask([&](OpenGLFunctions *gl)
+		taskQueue.addTask([&](OpenGLFunctions *gl)
 		{
-			ASSERT_TRUE(mutex.tryLock());	//TODO this is a weak attemt at verifying thread safety
+			ASSERT_TRUE(QGuiApplication::instance()->thread() == QThread::currentThread()) << "Task not on main thread";
 			ASSERT_NOT_NULL(gl);
+
+			MutexTryLocker l(&mutex);
+			ASSERT_TRUE(l.isLocked());	//TODO this is a weak attemt at verifying thread safety
 
 			//as long as calling these functions doesn't crash...we are good
 			gl->glGetString(GL_VERSION);
@@ -45,26 +49,49 @@ TEST_CASE(AddTaskAsync)
 
 			ASSERT_FALSE(t2Happened);
 			t1Happened = true;
-			mutex.unlock();
 		});
 
 		//task 2
-		loader.addTask([&](OpenGLFunctions *gl)
+		taskQueue.addTask([&](OpenGLFunctions *gl)
 		{
-			ASSERT_TRUE(mutex.tryLock());	//TODO this is a weak attemt at verifying thread safety
+			ASSERT_TRUE(QGuiApplication::instance()->thread() == QThread::currentThread()) << "Task not on main thread";
 			ASSERT_NOT_NULL(gl);
+
+			MutexTryLocker l(&mutex);
+			ASSERT_TRUE(l.isLocked());	//TODO this is a weak attemt at verifying thread safety
 
 			gl->glBindTexture(GL_TEXTURE_2D, 0);
 			
 			ASSERT_TRUE(t1Happened);
 			t2Happened = true;
-			mutex.unlock();
 		});
 	});
 
 	f.join();
-	loader.runTasks();
+	taskQueue.runTasks();
 
 	ASSERT_TRUE(t1Happened);
 	ASSERT_TRUE(t2Happened);
+}
+
+
+TEST_CASE(ClearOutTasksAfterRunning)
+{
+	OpenGLTaskQueue taskQueue;
+	taskQueue.init();
+	int execCount = 0;
+
+	auto task = [&execCount](OpenGLFunctions *gl) { ++execCount; };
+
+	taskQueue.addTask(task);
+	taskQueue.addTask(task);
+
+	taskQueue.runTasks();
+	ASSERT_EQ(2, execCount);
+
+	execCount = 0;
+
+	//there should not be any tasks queued to run
+	taskQueue.runTasks();
+	ASSERT_EQ(0, execCount);
 }

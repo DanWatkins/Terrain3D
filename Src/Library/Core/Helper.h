@@ -5,8 +5,8 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#ifndef _t3d_HELPER_H
-#define _t3d_HELPER_H
+#ifndef _t3d_Helper_H
+#define _t3d_Helper_H
 
 #include "../Library.h"
 

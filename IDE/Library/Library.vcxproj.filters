@@ -245,7 +245,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_PropertySignal.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Library\Core\ResourceLoader.cpp">
+    <ClCompile Include="..\..\Src\Library\Core\OpenGLTaskQueue.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -280,7 +280,7 @@
     <CustomBuild Include="..\..\Src\Library\Core\PropertySignal.h">
       <Filter>Src\Core</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\Src\Library\Core\ResourceLoader.h">
+    <CustomBuild Include="..\..\Src\Library\Core\OpenGLTaskQueue.h">
       <Filter>Src\Core</Filter>
     </CustomBuild>
   </ItemGroup>
