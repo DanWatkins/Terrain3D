@@ -41,9 +41,13 @@
 	#include <QtGui/QOpenGLFunctions>
 	#include <QtGui/QOpenGLFunctions_4_2_Core>
 	#include <QtGui/QOpenGLTexture>
-	#include <Core/OpenGLFunctions.h>
 	#include <QtConcurrent\qtconcurrentrun.h>
 #pragma warning(pop)
+
+namespace t3d { namespace core
+{
+	using BaseOpenGLFunctions =  QOpenGLFunctions_4_2_Core;
+}}
 
 #define WIN32_LEAN_AND_MEAN 1
 

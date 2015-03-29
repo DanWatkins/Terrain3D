@@ -35,15 +35,23 @@ namespace t3d
 
 	void Terrain3D::init()
 	{
+		core::Loadable::Begin b(this);
+		pIsLoading.connectToOnChanged([this]
+		{
+			mOpenGLTaskQueue.runTasks();
+			emit isLoadingChanged();
+		});
+
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
 		mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
 		mCamera = mCameraItem->createCamera();
-
+		
 		if (auto camera = mCamera.lock())
 		{
 			loadUserSettings();
+			mOpenGLTaskQueue.init();
 			mEnvironment.init();
 			camera->setEnvironment(&mEnvironment);
 			camera->init();
@@ -236,23 +244,7 @@ namespace t3d
 
 	void Terrain3D::settingsQueueFinishedApplying()
 	{
-		mEnvironment.refresh();
-
-		if (auto camera = mCamera.lock())
-			camera->refresh();
-	}
-
-
-	bool Terrain3D::isLoading()
-	{
-		if (auto camera = mCamera.lock())
-			if (camera->pIsLoading())
-				return true;
-
-		if (mEnvironment.pIsLoading())
-			return true;
-
-		return false;
+		refresh();
 	}
 
 
@@ -314,7 +306,6 @@ namespace t3d
 				mMovementKeys.d = true; break;
 		}
 	}
-
 
 
 	void Terrain3D::keyReleaseEvent(QKeyEvent *ev)
@@ -393,6 +384,22 @@ namespace t3d
 			Settings::Key key = static_cast<Settings::Key>(me.value(i));
 			settingsValueChanged(key, mMainSettings->value(key));
 		}
+	}
+
+
+	void Terrain3D::refresh()
+	{
+		QtConcurrent::run([this]
+		{
+			core::Loadable::Begin b(this);
+			mEnvironment.refresh();
+			
+			mOpenGLTaskQueue.addTask([this](core::BaseOpenGLFunctions*)
+			{
+				if (auto camera = mCamera.lock())
+					camera->refresh();
+			});
+		});
 	}
 
 

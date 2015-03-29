@@ -12,7 +12,7 @@
 
 namespace t3d { namespace asset
 {
-	class mesh_p::MaterialData : public core::OpenGLFunctions
+	class mesh_p::MaterialData : protected core::BaseOpenGLFunctions
 	{
 	public: //TODO massive
 		QString mName;

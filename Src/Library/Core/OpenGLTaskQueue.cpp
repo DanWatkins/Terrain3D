@@ -16,7 +16,7 @@ namespace t3d { namespace core
 	}
 
 
-	void OpenGLTaskQueue::addTask(std::function<void(OpenGLFunctions*)> f)
+	void OpenGLTaskQueue::addTask(TaskFunction f)
 	{
 		QMutexLocker m(&mMutex);
 		mTasks.append(f);
@@ -29,7 +29,7 @@ namespace t3d { namespace core
 
 		for (TaskFunction &tf : mTasks)
 		{
-			tf((OpenGLFunctions*)this);
+			tf((BaseOpenGLFunctions*)this);
 		}
 
 		mTasks.clear();

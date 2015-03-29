@@ -12,7 +12,7 @@
 
 namespace t3d { namespace core
 {
-	class ShaderProgram : public QObject, protected OpenGLFunctions
+	class ShaderProgram : public QObject, protected BaseOpenGLFunctions
 	{
 		Q_OBJECT
 	public:

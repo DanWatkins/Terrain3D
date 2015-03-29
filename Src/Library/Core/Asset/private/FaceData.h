@@ -12,7 +12,7 @@
 
 namespace t3d { namespace asset
 {
-	class mesh_p::FaceData : public core::OpenGLFunctions
+	class mesh_p::FaceData : public core::BaseOpenGLFunctions
 	{
 	public:  //TODO massive
 		QVector<Vertex> mVertecies;

@@ -45,6 +45,12 @@ namespace t3d { namespace world
 
 	void Camera::render()
 	{
+		if (pIsLoading)
+		{
+			qWarning("Trying to render Camera while loading...rendering canceled.");
+			return;
+		}
+
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
 		glDepthFunc(GL_LEQUAL);

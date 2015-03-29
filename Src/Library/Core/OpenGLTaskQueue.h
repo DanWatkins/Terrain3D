@@ -17,10 +17,10 @@ namespace t3d { namespace core
 	 * \brief Utility for queueing up tasks to be executed on the main thread with access to OpenGLFunctions.
 	 * This is entirely thread-safe, so tasks can be queued from multiple threads.
 	 */
-	class OpenGLTaskQueue : protected OpenGLFunctions
+	class OpenGLTaskQueue : protected BaseOpenGLFunctions
 	{
 	public:
-		using TaskFunction = std::function<void(OpenGLFunctions*)>;
+		using TaskFunction = std::function<void(BaseOpenGLFunctions*)>;
 
 		/**
 		 * Gets the internal OpenGLFunctions ready to go.

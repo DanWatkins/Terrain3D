@@ -13,7 +13,7 @@
 
 namespace t3d { namespace asset
 {
-	class Mesh::MeshPrivate : protected core::OpenGLFunctions
+	class Mesh::MeshPrivate : protected core::BaseOpenGLFunctions
 	{
 	public:
 		friend class OBJ;

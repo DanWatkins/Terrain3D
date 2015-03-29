@@ -14,6 +14,7 @@
 
 #include <Application.h>
 #include <Core/FPSCounter.h>
+#include <Core/OpenGLTaskQueue.h>
 #include <World/Environment.h>
 #include <World/Camera.h>
 #include "QuickItems/CameraItem.h"
@@ -23,12 +24,12 @@ namespace t3d
 	/**
 	 * Represents the main application
 	 */
-	class Terrain3D : public OpenGLQuickView, public SettingsListener
+	class Terrain3D : public OpenGLQuickView, public SettingsListener, public core::Loadable
 	{
 		Q_OBJECT
 		Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
 		Q_PROPERTY(QString cameraPos READ cameraPos NOTIFY cameraPosChanged);
-		Q_PROPERTY(bool isLoading READ isLoading NOTIFY isLoadingChanged);
+		Q_PROPERTY(bool isLoading MEMBER pIsLoading NOTIFY isLoadingChanged);
 
 	public:
 		Terrain3D(Settings *mainSettings);
@@ -99,11 +100,6 @@ namespace t3d
 			return "Unknown";
 		}
 
-		/**
-		 * @returns true if the simulation is loading something that requires a pause.
-		 */
-		bool isLoading();
-
 	private:
 		world::Environment mEnvironment;
 		weak<world::Camera> mCamera;
@@ -115,13 +111,16 @@ namespace t3d
 		BackgroundUpdater backgroundUpdater;
 		FPSCounter mFPSCounter;
 
+		QFuture<void> mRefreshFuture;
+		core::OpenGLTaskQueue mOpenGLTaskQueue;
+
 	private:
 		struct MovementKeys
 		{
 			bool w, a, s, d;
 			MovementKeys() { clear(); }
 			void clear() { w=a=s=d=false; }
-		}mMovementKeys;
+		} mMovementKeys;
 
 		void focusOutEvent(QFocusEvent *ev) override;
 		void keyPressEvent(QKeyEvent *ev) override;
@@ -129,6 +128,7 @@ namespace t3d
 
 		void updateCursorPos();
 		void loadUserSettings();
+		void refresh();
 
 	signals:
 		void toggleSettingsMenu();
@@ -147,4 +147,3 @@ namespace t3d
 }
 
 #endif
-
