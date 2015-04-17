@@ -25,24 +25,22 @@
 #include <cstdio>
 #include <cstdlib>
 
-#pragma warning(push, 0)
-	#include <QtCore/QVector>
-	#include <QtGui/QtGui>
-	#include <QtQuick\qsgsimpletexturenode.h>
-	#include <QtQuick/QQuickWindow>
-	#include <QtCore/QMutex>
-	#include <QtGui/QOpenGLFramebufferObject>
-	#include <QtGui/QOffscreenSurface>
-	#include <QtGui/QOpenGLContext>
-	#include <QtCore/QThread>
-	#include <QtCore/QMutex>
-	#include <QtGui/QGuiApplication>
-	#include <QtQuick/QQuickItem>
-	#include <QtGui/QOpenGLFunctions>
-	#include <QtGui/QOpenGLFunctions_4_2_Core>
-	#include <QtGui/QOpenGLTexture>
-	#include <QtConcurrent\qtconcurrentrun.h>
-#pragma warning(pop)
+#include <QtCore/QVector>
+#include <QtGui/QtGui>
+#include <QtQuick\qsgsimpletexturenode.h>
+#include <QtQuick/QQuickWindow>
+#include <QtCore/QMutex>
+#include <QtGui/QOpenGLFramebufferObject>
+#include <QtGui/QOffscreenSurface>
+#include <QtGui/QOpenGLContext>
+#include <QtCore/QThread>
+#include <QtCore/QMutex>
+#include <QtGui/QGuiApplication>
+#include <QtQuick/QQuickItem>
+#include <QtGui/QOpenGLFunctions>
+#include <QtGui/QOpenGLFunctions_4_2_Core>
+#include <QtGui/QOpenGLTexture>
+#include <QtConcurrent\qtconcurrentrun.h>
 
 namespace t3d { namespace core
 {
@@ -52,15 +50,11 @@ namespace t3d { namespace core
 #define WIN32_LEAN_AND_MEAN 1
 
 //GLM Includes
-#pragma warning(push)
-#pragma warning(disable:4201)
-#pragma warning(disable:4996)
-//#pragma GCC diagnostic push
-//#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 	#include <glm/glm.hpp>
 	#include <glm/ext.hpp>
-//#pragma GCC diagnostic pop
-#pragma warning(pop)
+#pragma GCC diagnostic pop
 
 //typedef common types
 typedef long long			int64;

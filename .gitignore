@@ -37,3 +37,4 @@ Makefile
 Guitar.config
 Bin/Terrain3D.ini
 Deployment/Bin/
+_intermediate/

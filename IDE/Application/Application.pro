@@ -3,7 +3,12 @@ TARGET = Terrain3D
 QT += qml quick
 CONFIG += c++11
 
-INCLUDEPATH += ../../Src/
+QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
+QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
+
+INCLUDEPATH += ../../Src/Application \
+				../../Src/Library \
+				../../Ext/
 
 DESTDIR = ../../Bin/
 MOC_DIR = ../../_intermediate/Moc/

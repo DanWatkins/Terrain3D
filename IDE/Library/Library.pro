@@ -1,11 +1,18 @@
 TEMPLATE = lib
 TARGET = Terrain3D
 QT += qml quick
-CONFIG += staticlib
+CONFIG += staticlib c++11
+
+QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
+QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
 DESTDIR = ../../Bin/
 MOC_DIR = ../../_intermediate/Moc/
 OBJECTS_DIR = ../../_intermediate/Obj/
+
+INCLUDEPATH += ../../Src/Application \
+				../../Src/Library \
+				../../Ext/
 
 HEADERS += \
     ../../Src/Library/Core/Asset/private/FaceData.h \
@@ -75,3 +82,6 @@ SOURCES += \
     ../../Src/Library/World/Terrain/Utility.cpp \
     ../../Src/Library/World/Camera.cpp \
     ../../Src/Library/World/Environment.cpp
+
+
+QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
