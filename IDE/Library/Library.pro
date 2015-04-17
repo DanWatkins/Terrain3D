@@ -1,18 +1,21 @@
 TEMPLATE = lib
 TARGET = Terrain3D
 QT += qml quick
-CONFIG += staticlib c++11
+CONFIG += staticlib c++11 object_parallel_to_source
 
 QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
-DESTDIR = ../../Bin/
-MOC_DIR = ../../_intermediate/Moc/
-OBJECTS_DIR = ../../_intermediate/Obj/
+DESTDIR = ../../Deployment/Bin/
 
 INCLUDEPATH += ../../Src/Application \
 				../../Src/Library \
 				../../Ext/
+
+unix {
+	target.path = /usr/lib
+	INSTALLS += target
+}
 
 HEADERS += \
     ../../Src/Library/Core/Asset/private/FaceData.h \
@@ -28,7 +31,6 @@ HEADERS += \
     ../../Src/Library/Core/Loadable.h \
     ../../Src/Library/Core/MutexTryLocker.h \
     ../../Src/Library/Core/OpenGLFunctions.h \
-    ../../Src/Library/Core/OpenGLQuickItem.h \
     ../../Src/Library/Core/OpenGLTaskQueue.h \
     ../../Src/Library/Core/Property.h \
     ../../Src/Library/Core/PropertySignal.h \

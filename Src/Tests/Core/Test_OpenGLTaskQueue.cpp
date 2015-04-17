@@ -5,7 +5,7 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "Tests.h"
+#include "../Tests.h"
 #include <Core/OpenGLTaskQueue.h>
 #include <Core/MutexTryLocker.h>
 

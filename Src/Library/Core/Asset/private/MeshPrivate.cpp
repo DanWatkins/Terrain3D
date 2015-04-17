@@ -16,6 +16,8 @@
 
 namespace t3d { namespace asset
 {
+	const GLuint mesh_p::PrimitiveRestartIndex = 900000000;
+
 	mesh_p::MeshPrivate(Mesh *mesh) : mMesh(mesh), mFaceData(new FaceData) {}
 
 

@@ -9,7 +9,7 @@
 #define _t3d_RENDERER_H
 
 #include <Library.h>
-
+#include "RenderComponent.h"
 #include <World/Entity/Manager.h>
 
 namespace t3d { namespace world { namespace entity
@@ -18,7 +18,23 @@ namespace t3d { namespace world { namespace entity
 	{
 	public:
 		void setManager(Manager *manager) { mManager = manager; }
-		void renderAll(const Mat4 &cameraMatrix);
+		//void renderAll(const Mat4 &cameraMatrix);
+
+		void renderAll(const Mat4 &cameraMatrix)
+		{
+			if (!mManager)
+			{
+				qDebug() << "entity::Renderer cannot renderAll because there is no valid entity::Manager connected";
+				return;
+			}
+
+			auto entityContainer = mManager->entityContainer();
+			for (strong<BaseEntity> entity : entityContainer)
+			{
+				if (RenderComponent *cmp = entity->renderComponent())
+					cmp->render(cameraMatrix);
+			}
+		}
 
 	private:
 		Manager *mManager;

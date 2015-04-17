@@ -73,17 +73,20 @@ namespace t3d { namespace world
 		Property<float> pAspectRatio = 1.0;
 		Property<float> pMaxVerticalAngle = 90.0f;
 
-		PROPERTY_SETFUNC(Vec3f, pPos,
+
+		Property<Vec3f> pPos;
+		Property<Vec2f> pOrientationAngle;
+		/*PROPERTY_SETFUNC(Vec3f, pPos,
 		{
 			pPos._value = value;
 			emit posChanged();
-		})
+		})*/
 
-		PROPERTY_SETFUNC(Vec2f, pOrientationAngle,
+		/*PROPERTY_SETFUNC(Vec2f, pOrientationAngle,
 		{
 			pOrientationAngle._value = value;
 			normalizeAngles();
-		})
+		})*/
 		
 		Mat4 orientaion() const;
 

@@ -17,7 +17,7 @@ namespace t3d { namespace core
 	{
 	public:
 		virtual ~Loadable() {}
-		Property<bool> pIsLoading = false;
+		Property<bool> pIsLoading;
 
 		/**
 		 * \brief RAII type for properly setting the pIsLoading property.

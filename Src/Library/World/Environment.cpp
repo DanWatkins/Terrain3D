@@ -53,7 +53,7 @@ namespace t3d { namespace world
 		if (pSeed == mLastUsedSeed && mLastUsedSeed > 0)
 			return mLastUsedSeed;
 		else
-			return (pSeed == 0) ? std::max((int)time(NULL), 1) : pSeed;
+			return (pSeed() == 0) ? std::max((int)time(NULL), 1) : pSeed();
 	}
 
 

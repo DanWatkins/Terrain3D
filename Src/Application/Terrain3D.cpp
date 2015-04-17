@@ -347,7 +347,7 @@ namespace t3d
 				mCamera.lock()->pPos += (speed * mCamera.lock()->right());
 		}
 
-		if (mCameraItem->isFrozen() || !capturesCursor() && mouseButtonLeftPressed() == false)
+		if (mCameraItem->isFrozen() || (!capturesCursor() && mouseButtonLeftPressed() == false))
 			return;
 
 		if (QWindow::isActive())

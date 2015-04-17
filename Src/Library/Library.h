@@ -91,6 +91,11 @@ using weak = std::weak_ptr<T>;
 template <typename T>
 using unique = std::unique_ptr<T>;
 
+template<typename T, typename... Args>
+std::unique_ptr<T> makeUnique(Args&&... args) {
+	return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
+
 //Project Includes
 #include <Constants.h>
 #include <Core/Helper.h>

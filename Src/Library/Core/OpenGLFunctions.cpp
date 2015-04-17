@@ -6,19 +6,3 @@
 //==================================================================================================================|
 
 #include "OpenGLFunctions.h"
-
-namespace t3d { namespace core
-{
-	OpenGLFunctions::OpenGLFunctions(OpenGLTaskQueue *taskQueue) :
-		mTaskQueue(taskQueue)
-	{
-		if (!taskQueue)
-			qFatal("Null OpenGLTaskQueue");
-	}
-
-
-	OpenGLFunctions::OpenGLFunctions(OpenGLFunctions *other) :
-		OpenGLFunctions(other->taskQueue())
-	{
-	}
-}}

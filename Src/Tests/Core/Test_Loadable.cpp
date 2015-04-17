@@ -1,4 +1,4 @@
-#include "Tests.h"
+#include "../Tests.h"
 
 #include <Library.h>
 #include <Core/Loadable.h>	//TODO

@@ -29,7 +29,7 @@ namespace t3d { namespace core
 
 	void ShaderProgram::loadShaders()
 	{
-		mProgram = std::make_unique<QOpenGLShaderProgram>();
+		mProgram = makeUnique<QOpenGLShaderProgram>();
 		addShaders();
 
 		if (mProgram->link() == false)

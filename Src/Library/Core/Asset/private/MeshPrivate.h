@@ -38,7 +38,7 @@ namespace t3d { namespace asset
 			GLfloat values[3];
 		};
 
-		static const GLuint PrimitiveRestartIndex = 900000000;
+		static const GLuint PrimitiveRestartIndex;
 
 		class MaterialData;
 		class FaceData;

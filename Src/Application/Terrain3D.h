@@ -74,13 +74,13 @@ namespace t3d
 		/**
 		 * @see SettingsListener::settingsValueChanged()
 		 */
-		void SettingsListener::settingsValueChanged(Settings::Key key, const QVariant &value) override;
+		void settingsValueChanged(Settings::Key key, const QVariant &value) override;
 
 
 		/**
 		 * @see SettingsListener::settingsQueueFinishedApplying()
 		 */
-		void SettingsListener::settingsQueueFinishedApplying() override;
+		void settingsQueueFinishedApplying() override;
 
 		/**
 		 * @returns the current overall frame rate.

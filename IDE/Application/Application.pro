@@ -10,11 +10,9 @@ INCLUDEPATH += ../../Src/Application \
 				../../Src/Library \
 				../../Ext/
 
-DESTDIR = ../../Bin/
-MOC_DIR = ../../_intermediate/Moc/
-OBJECTS_DIR = ../../_intermediate/Obj/
+DESTDIR = ../../Deployment/Bin/
 
-unix|win32: LIBS += -L$$OUT_PWD/../../Bin/ -lLibrary
+unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
 
 HEADERS += \
     ../../Src/Application/QuickItems/CameraItem.h \

@@ -20,7 +20,14 @@ public:
 	using GetFunction = std::function<T&(void)>;
 
 public:
-	Property<T>()
+	Property<T>() :
+		mSetFunction([this](const T &value) { this->_value = value; }),
+		mGetFunction([this](void)->T& { return this->_value; })
+	{
+	}
+
+
+	Property<T>(Property<T> &&)
 	{
 	}
 
@@ -82,8 +89,8 @@ public:
 	T _value;
 
 private:
-	SetFunction mSetFunction = [this](const T &value) { this->_value = value; };
-	GetFunction mGetFunction = [this](void)->T& { return this->_value; };
+	SetFunction mSetFunction;
+	GetFunction mGetFunction;
 
 	PropertySignal mPropertySignal;
 };
@@ -102,9 +109,9 @@ template <typename T>
 T operator -(const T &lhs, const Property<T> &rhs) { return lhs - rhs._value; }
 
 
-#define PROPERTY_SETFUNC(type, name, setFunction) Property<type> name = Property<type>::SetFunction([this](const type &value) setFunction);
-#define PROPERTY_GETFUNC(type, name, getFunction) Property<type> name = Property<type>::GetFunction([this]()->type& getFunction);
-#define PROPERTY_SETGETFUNC(type, name, setFunction, getFunction) Property<type> name { Property<type>::SetFunction([this](const type &value) setFunction), Property<type>::GetFunction([this]()->type& getFunction) };
+//#define PROPERTY_SETFUNC(type, name, setFunction) Property<type> name = Property<type>::SetFunction([this](const type &value) setFunction);
+//#define PROPERTY_GETFUNC(type, name, getFunction) Property<type> name = Property<type>::GetFunction([this]()->type& getFunction);
+//#define PROPERTY_SETGETFUNC(type, name, setFunction, getFunction) Property<type> name { Property<type>::SetFunction([this](const type &value) setFunction), Property<type>::GetFunction([this]()->type& getFunction) };
 
 #endif
 

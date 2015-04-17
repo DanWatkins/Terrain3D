@@ -14,12 +14,12 @@ namespace t3d { namespace world { namespace terrain
 	{
 		pLodFactor.connectToOnChanged([this]()
 		{
-			ShaderProgram::enqueueUniformValueChange(&mUniforms.lod, pLodFactor);
+			this->enqueueUniformValueChange(&mUniforms.lod, pLodFactor);
 		});
 
 		pIvdFactor.connectToOnChanged([this]()
 		{
-			ShaderProgram::enqueueUniformValueChange(&mUniforms.ivd, pIvdFactor);
+			this->enqueueUniformValueChange(&mUniforms.ivd, pIvdFactor);
 		});
 	}
 
