@@ -27,7 +27,6 @@
 
 #include <QtCore/QVector>
 #include <QtGui/QtGui>
-#include <QtQuick\qsgsimpletexturenode.h>
 #include <QtQuick/QQuickWindow>
 #include <QtCore/QMutex>
 #include <QtGui/QOpenGLFramebufferObject>
@@ -40,7 +39,6 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QtGui/QOpenGLFunctions_4_2_Core>
 #include <QtGui/QOpenGLTexture>
-#include <QtConcurrent\qtconcurrentrun.h>
 
 namespace t3d { namespace core
 {
@@ -52,9 +50,11 @@ namespace t3d { namespace core
 //GLM Includes
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#pragma clang system_header
 	#include <glm/glm.hpp>
 	#include <glm/ext.hpp>
 #pragma GCC diagnostic pop
+#pragma Clang diagnostic pop
 
 //typedef common types
 typedef long long			int64;

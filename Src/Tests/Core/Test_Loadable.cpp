@@ -34,7 +34,7 @@ protected:
 		bool notifiedForFinish = false;
 		bool error = false;
 
-		testLoadable.pIsLoading.connectToOnChanged([&]()
+        testLoadable.pIsLoading.addOnChangedListener([&]()
 		{
 			if (testLoadable.pIsLoading)
 			{

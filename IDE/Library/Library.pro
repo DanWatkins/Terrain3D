@@ -1,7 +1,7 @@
 TARGET = Terrain3D
 TEMPLATE = lib
 CONFIG += staticlib
-CONFIG += c++14
+CONFIG += c++14 c++11
 CONFIG += object_parallel_to_source
 QT += qml quick gui
 

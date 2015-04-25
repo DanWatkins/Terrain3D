@@ -8,7 +8,8 @@
 #include "Terrain3D.h"
 #include <Core/Core.h>
 #include <QuickItems/CameraItem.h>
-#include <QtQml\QQmlContext>
+#include <QtQml/QQmlContext>
+#include <QtConcurrent/QtConcurrent>
 
 namespace t3d
 {
@@ -36,7 +37,7 @@ namespace t3d
 	void Terrain3D::init()
 	{
 		core::Loadable::Begin b(this);
-		pIsLoading.connectToOnChanged([this]
+        pIsLoading.addOnChangedListener([this]
 		{
 			emit isLoadingChanged();
 		});
@@ -77,7 +78,7 @@ namespace t3d
 
 		QWindow::show();
 
-		mEnvironment.pIsLoading.connectToOnChanged([this]
+        mEnvironment.pIsLoading.addOnChangedListener([this]
 		{
 			qDebug() << "Changed";
 			emit this->isLoadingChanged();

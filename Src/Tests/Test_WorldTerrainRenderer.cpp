@@ -6,7 +6,7 @@
 //==================================================================================================================|
 
 #include "Tests.h"
-#include <World\Terrain\Renderer.h>
+#include <World/Terrain/Renderer.h>
 
 using namespace t3d::world::terrain;
 #define CLASS Test_WorldTerrainRenderer

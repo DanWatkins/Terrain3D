@@ -1,14 +1,15 @@
 TEMPLATE = app
 TARGET = Terrain3D
 QT += gui qml quick
-CONFIG += c++14
+CONFIG += c++14 c++11
 
 QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
 INCLUDEPATH += ../../Src/Library \
-				../../Src/Application \
-			../../Ext/
+                ../../Src/Application \
+                ../../Ext/ \
+                $$(VALPINE_BASE_HOME)/Src/
 
 DESTDIR += ../../Deployment/Bin/
 

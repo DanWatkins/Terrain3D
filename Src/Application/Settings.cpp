@@ -8,7 +8,7 @@
 #include "Settings.h"
 
 #include <QtCore/QDir>
-#include <QtCore\QMetaEnum>
+#include <QtCore/QMetaEnum>
 
 void Settings::init()
 {
