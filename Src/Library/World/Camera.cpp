@@ -9,11 +9,26 @@
 
 namespace t3d { namespace world
 {
-	Camera::Camera()
-	{
-		lookAt(Vec3f(60, 20, 60));
-	}
+    Camera::Camera() :
+        pPos(Property<Vec3f>::SetFunction([this](const Vec3f &value)
+        {
+			pPos.raw() = value;
+            emit posChanged();
+        })),
 
+
+		//TODO move these into the declaration
+        pOrientationAngle(Property<Vec2f>::SetFunction([this](const Vec2f &value)
+        {
+			pOrientationAngle.raw() = value;
+            normalizeAngles();
+        }))
+
+    {
+
+
+        lookAt(Vec3f(60, 20, 60));
+    }
 
 	void Camera::init()
 	{
@@ -92,7 +107,7 @@ namespace t3d { namespace world
 
 	void Camera::lookAt(Vec3f position)
 	{
-		if (position == pPos)
+		if (pPos == position)
 		{
 			std::cout << "MEGA ERROR: You are trying to look at your origin" << std::endl;
 			return;

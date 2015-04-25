@@ -34,7 +34,7 @@ namespace t3d { namespace core
 		 * \param uniformLocation A pointer to where the location value is stored. It must hold a valid location by
 		 * the time the shader is linked.
 		 */
-		void enqueueUniformValueChange(const GLint *uniformLocation, QVariant &&value);
+		void enqueueUniformValueChange(const GLint *uniformLocation, QVariant value);
 
 		/**
 		 * A time for shaders to be added before linkage.

@@ -51,7 +51,7 @@ namespace t3d { namespace core
 	}
 
 
-	void ShaderProgram::enqueueUniformValueChange(const GLint *uniformLocation, QVariant &&value)
+	void ShaderProgram::enqueueUniformValueChange(const GLint *uniformLocation, QVariant value)
 	{
 		if (mProgram && mProgram->isLinked())
 		{

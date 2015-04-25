@@ -39,7 +39,7 @@ namespace t3d { namespace world
 		void posChanged();
 
 	public:
-		Camera();
+        Camera();
 		~Camera() {}
 
 		/**
@@ -75,18 +75,7 @@ namespace t3d { namespace world
 
 
 		Property<Vec3f> pPos;
-		Property<Vec2f> pOrientationAngle;
-		/*PROPERTY_SETFUNC(Vec3f, pPos,
-		{
-			pPos._value = value;
-			emit posChanged();
-		})*/
-
-		/*PROPERTY_SETFUNC(Vec2f, pOrientationAngle,
-		{
-			pOrientationAngle._value = value;
-			normalizeAngles();
-		})*/
+        Property<Vec2f> pOrientationAngle;
 		
 		Mat4 orientaion() const;
 

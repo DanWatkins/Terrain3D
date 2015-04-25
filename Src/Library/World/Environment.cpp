@@ -17,11 +17,11 @@ namespace t3d { namespace world
 	Environment::Environment()
 	{
 		auto setNeedsToRegenerate = [this]() { this->mNeedsToRefresh = true; };
-		pSize.connectToOnChanged(setNeedsToRegenerate);
-		pFaultCount.connectToOnChanged(setNeedsToRegenerate);
-		pSeed.connectToOnChanged(setNeedsToRegenerate);
-		pSmoothing.connectToOnChanged(setNeedsToRegenerate);
-		pLightIntensity.connectToOnChanged(setNeedsToRegenerate);
+		pSize.addOnChangedListener(setNeedsToRegenerate);
+		pFaultCount.addOnChangedListener(setNeedsToRegenerate);
+		pSeed.addOnChangedListener(setNeedsToRegenerate);
+		pSmoothing.addOnChangedListener(setNeedsToRegenerate);
+		pLightIntensity.addOnChangedListener(setNeedsToRegenerate);
 	}
 
 
@@ -53,7 +53,7 @@ namespace t3d { namespace world
 		if (pSeed == mLastUsedSeed && mLastUsedSeed > 0)
 			return mLastUsedSeed;
 		else
-			return (pSeed() == 0) ? std::max((int)time(NULL), 1) : pSeed();
+			return (0 == pSeed) ? std::max((int)time(NULL), 1) : pSeed;
 	}
 
 

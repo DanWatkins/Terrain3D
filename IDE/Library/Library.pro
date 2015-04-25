@@ -1,16 +1,18 @@
-TEMPLATE = lib
 TARGET = Terrain3D
-QT += qml quick
-CONFIG += staticlib c++11 object_parallel_to_source
+TEMPLATE = lib
+CONFIG += staticlib
+CONFIG += c++14
+CONFIG += object_parallel_to_source
+QT += qml quick gui
 
 QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
-DESTDIR = ../../Deployment/Bin/
+INCLUDEPATH += ../../Src/Library \
+				../../Ext/ \
+				$$(VALPINE_BASE_HOME)/Src/
 
-INCLUDEPATH += ../../Src/Application \
-				../../Src/Library \
-				../../Ext/
+DESTDIR += ../../Deployment/Bin/
 
 unix {
 	target.path = /usr/lib
@@ -32,8 +34,6 @@ HEADERS += \
     ../../Src/Library/Core/MutexTryLocker.h \
     ../../Src/Library/Core/OpenGLFunctions.h \
     ../../Src/Library/Core/OpenGLTaskQueue.h \
-    ../../Src/Library/Core/Property.h \
-    ../../Src/Library/Core/PropertySignal.h \
     ../../Src/Library/Core/ShaderProgram.h \
     ../../Src/Library/World/Entity/BaseEntity.h \
     ../../Src/Library/World/Entity/Component.h \
@@ -85,5 +85,3 @@ SOURCES += \
     ../../Src/Library/World/Camera.cpp \
     ../../Src/Library/World/Environment.cpp
 
-
-QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas

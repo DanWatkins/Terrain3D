@@ -12,8 +12,6 @@
 #include <World/Terrain/HeightMap.h>
 #include <World/Terrain/LightMap.h>
 
-#include <Core/Property.h>	//TODO eventually move all occurrences of this to Library.h
-
 namespace t3d { namespace world { namespace terrain
 {
 	class Data : public QObject

@@ -44,8 +44,8 @@ namespace t3d
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
-		mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
-		mCamera = mCameraItem->createCamera();
+        mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
+        mCamera = mCameraItem->createCamera();
 		
 		if (auto camera = mCamera.lock())
 		{
@@ -162,7 +162,7 @@ namespace t3d
 
 			CASE(GraphicsCameraFOV) {
 				if (auto camera = mCamera.lock())
-					camera->pFieldOfView = value.toFloat();
+                    camera->pFieldOfView = value.toFloat();
 				break;
 			}
 

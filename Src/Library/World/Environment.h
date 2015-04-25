@@ -8,8 +8,6 @@
 #ifndef _t3d_World_Environment_H
 #define _t3d_World_Environment_H
 
-#include <Core/Property.h>
-
 #include <World/Terrain/Data.h>
 #include <World/Entity/Manager.h>
 #include <Core/Asset/Manager.h>

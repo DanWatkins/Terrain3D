@@ -1,16 +1,16 @@
 TEMPLATE = app
 TARGET = Terrain3D
-QT += qml quick
-CONFIG += c++11
+QT += gui qml quick
+CONFIG += c++14
 
 QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
-INCLUDEPATH += ../../Src/Application \
-				../../Src/Library \
-				../../Ext/
+INCLUDEPATH += ../../Src/Library \
+				../../Src/Application \
+			../../Ext/
 
-DESTDIR = ../../Deployment/Bin/
+DESTDIR += ../../Deployment/Bin/
 
 unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
 
@@ -31,4 +31,3 @@ SOURCES += \
 
 RESOURCES += \
     ../../Src/Application/qml/main.qrc
-

@@ -12,12 +12,12 @@ namespace t3d { namespace world { namespace terrain
 {
 	Renderer::Renderer()
 	{
-		pLodFactor.connectToOnChanged([this]()
+		pLodFactor.addOnChangedListener([this]()
 		{
 			this->enqueueUniformValueChange(&mUniforms.lod, pLodFactor);
 		});
 
-		pIvdFactor.connectToOnChanged([this]()
+		pIvdFactor.addOnChangedListener([this]()
 		{
 			this->enqueueUniformValueChange(&mUniforms.ivd, pIvdFactor);
 		});
@@ -45,7 +45,7 @@ namespace t3d { namespace world { namespace terrain
 			});
 
 #define CONNECT_PROPERTY_TO_UNIFORM(prop, uniform) \
-					mTerrainData->prop.connectToOnChanged([this]() \
+					mTerrainData->prop.addOnChangedListener([this]() \
 					{ \
 						this->enqueueUniformValueChange(&this->mUniforms.uniform, \
 													 this->mTerrainData->prop); \
@@ -115,7 +115,7 @@ namespace t3d { namespace world { namespace terrain
 
 			glBindVertexArray(mVao);
 			{
-				switch (pMode)
+				switch (pMode())
 				{
 					case Mode::Normal:
 					{

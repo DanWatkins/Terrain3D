@@ -9,7 +9,6 @@
 #define _Loadable_H
 
 #include <Library.h>
-#include <Core/Property.h>	//TODO
 
 namespace t3d { namespace core
 {
