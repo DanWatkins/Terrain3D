@@ -52,7 +52,7 @@ namespace t3d
 
 	QVector2D OpenGLQuickView::consumeCursorDelta()
 	{
-	/*	QVector2D delta;
+		QVector2D delta;
 
 	#ifdef WIN32
 		POINT pos;
@@ -63,8 +63,8 @@ namespace t3d
 
         return delta;
 	#else
-        //#error No mouse delta function for this platform.
-	#endif*/
+		#error No mouse delta function for this platform.
+	#endif
 
 		return QVector2D();
 	}
@@ -72,14 +72,14 @@ namespace t3d
 
 	void OpenGLQuickView::resetCursorPosition()
 	{
-		/*if (mCapturesCursor == false)
+		if (mCapturesCursor == false)
 			return;
 
 	#ifdef WIN32
 		SetCursorPos(int(mouseDeltaOffsetX), int(mouseDeltaOffsetY));
         mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
 	#else
-        //#error No mouse delta function for this platform
-	#endif*/
+		#error No mouse delta function for this platform
+	#endif
 	}
 }
