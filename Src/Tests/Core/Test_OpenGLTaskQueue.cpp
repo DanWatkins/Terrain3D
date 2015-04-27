@@ -81,7 +81,7 @@ TEST_CASE(ClearOutTasksAfterRunning)
 	taskQueue.init();
 	int execCount = 0;
 
-	auto task = [&execCount](BaseOpenGLFunctions *gl) { ++execCount; };
+    auto task = [&execCount](BaseOpenGLFunctions *) { ++execCount; };
 
 	taskQueue.addTask(task);
 	taskQueue.addTask(task);

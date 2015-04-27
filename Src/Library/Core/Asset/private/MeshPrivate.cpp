@@ -194,8 +194,7 @@ namespace t3d { namespace asset
 
 		if (!error.isEmpty())
 		{
-			QString formattedError = mFilepath + QString(" - Error: ") + error;
-			qFatal(formattedError.toStdString().c_str());
+			//System::fatal(mFilepath + QString(" - Error: ") + error);
 		}
 	}
 

@@ -41,7 +41,7 @@ namespace t3d { namespace QuickItems
 		}
 		else if (!mCamera)
 		{
-			qFatal("CameraItem hasn't had it's internal world::Camera created yet");
+			System::fatal("CameraItem hasn't had it's internal world::Camera created yet");
 		}
 	}
 

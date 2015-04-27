@@ -10,8 +10,6 @@
 namespace t3d
 {
 	OpenGLQuickView::OpenGLQuickView() :
-		mUpdatePending(false),
-		mAnimating(false),
 		mCapturesCursor(false),
 		mMouseButtonLeftPressed(false)
 	{
@@ -63,7 +61,7 @@ namespace t3d
 
         return delta;
 	#else
-		#error No mouse delta function for this platform.
+        //#error No mouse delta function for this platform.
 	#endif
 
 		return QVector2D();
@@ -79,7 +77,7 @@ namespace t3d
 		SetCursorPos(int(mouseDeltaOffsetX), int(mouseDeltaOffsetY));
         mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
 	#else
-		#error No mouse delta function for this platform
+        //#error No mouse delta function for this platform
 	#endif
 	}
 }

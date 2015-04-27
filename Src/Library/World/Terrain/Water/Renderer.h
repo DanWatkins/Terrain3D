@@ -26,7 +26,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 		void refresh();
 
 		void cleanup();
-		void render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
+        void render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
 		Property<float> pWaterLevel = 0.3f;
 

@@ -8,9 +8,11 @@
 #ifndef _t3d_Application_H
 #define _t3d_Application_H
 
-	#include <QtCore/QDebug>
-	#include <QtGui/QGuiApplication>
-	#include <QtCore/QSettings>
-	#include <QtQml/QQmlContext>
-#endif
+#include <QtCore/QDebug>
+#include <QtGui/QGuiApplication>
+#include <QtCore/QSettings>
+#include <QtQml/QQmlContext>
 
+#include <Library.h>
+
+#endif

@@ -14,6 +14,7 @@ INCLUDEPATH += ../../Src/Library \
 DESTDIR += ../../Deployment/Bin/
 
 unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
+unix|win32: LIBS += -L$$(VALPINE_BASE_HOME)/Deployment/Bin/ -lValpineBase
 
 HEADERS += \
     ../../Src/Application/QuickItems/CameraItem.h \

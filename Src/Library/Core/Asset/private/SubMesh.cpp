@@ -67,7 +67,7 @@ namespace t3d { namespace asset
 					vertexIndicies.append(static_cast<GLint>(i));
 			}
 
-			int normalOffset = vertexIndicies.count() * sizeof(GLint);
+            long normalOffset = vertexIndicies.count() * sizeof(GLint);
 
 			//add the vertex normal indicies
 			for (Face f : mFaces)
@@ -76,7 +76,7 @@ namespace t3d { namespace asset
 					vertexIndicies.append(static_cast<GLint>(i));
 			}
 
-			int textureOffset = vertexIndicies.count() * sizeof(GLint);
+            long textureOffset = vertexIndicies.count() * sizeof(GLint);
 
 			//add the texture coordinate indicies
 			for (Face f : mFaces)

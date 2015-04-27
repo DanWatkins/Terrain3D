@@ -71,7 +71,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 	}
 
 
-	void Renderer::render(Vec3f cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
+    void Renderer::render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
 	{
 		ShaderProgram::bind();
 		{

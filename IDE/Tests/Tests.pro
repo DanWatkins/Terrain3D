@@ -17,6 +17,7 @@ INCLUDEPATH += ../../Src/Library \
                 $$(VALPINE_BASE_HOME)/Src/
 
 unix|win32: LIBS += -L$$(VALPINE_BASE_HOME)/Deployment/Bin/ -lgtest
+unix|win32: LIBS += -L$$(VALPINE_BASE_HOME)/Deployment/Bin/ -lValpineBase
 unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
 
 HEADERS += \

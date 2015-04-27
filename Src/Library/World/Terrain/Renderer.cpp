@@ -154,7 +154,7 @@ namespace t3d { namespace world { namespace terrain
 		}
 		ShaderProgram::raw().release();
 
-		mWaterRenderer.render(cameraPos, modelViewMatrix, perspectiveMatrix);
+        mWaterRenderer.render(modelViewMatrix, perspectiveMatrix);
 	}
 
 

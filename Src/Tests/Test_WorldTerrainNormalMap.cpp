@@ -74,10 +74,5 @@ TEST_F(Test_WorldTerrainNormalMap, slope45Degree)
 		Vec3f p1(0, 1, 0);
 		Vec3f p2(1, 1, 0);
 		Vec3f p3(0, 0, 1);
-
-		Vec3f v1 = p2-p1;
-		Vec3f v2 = p3-p1;
-
-		Vec3f asd = glm::normalize(glm::cross(v1, v2));
 	}
 }

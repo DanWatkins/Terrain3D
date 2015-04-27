@@ -84,7 +84,7 @@ void Settings::enqueueValue(Key key, const QVariant &newValue)
 	{
 		QString message = "Warning: Attempting to queue a non-queued setting key="+QString::number(static_cast<int>(key))
 			+ ", value="+newValue.toString();
-		qWarning(message.toStdString().c_str());
+		System::warning(message);
 	}
 
 	//verify the value is actually different than what is currently stored
@@ -149,7 +149,7 @@ void Settings::checkForMissingMetaKeyInfoValues()
 							+ me.valueToKey(key) + " at:"
 							+ QString(__FILE__));
 
-			qFatal(msg.toStdString().c_str());
+			System::fatal(msg);
 		}
 	}
 }

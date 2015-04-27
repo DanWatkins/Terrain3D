@@ -99,9 +99,13 @@ std::unique_ptr<T> makeUnique(Args&&... args) {
 //Project Includes
 #include <Constants.h>
 #include <Core/Helper.h>
+
 #include <ValpineBase/Property.h>
+#include <ValpineBase/System.h>
 
 template <typename T>
 using Property = ValpineBase::Property<T>;
+
+using System = ValpineBase::System;
 
 #endif

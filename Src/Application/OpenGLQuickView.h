@@ -30,8 +30,6 @@ namespace t3d
 		bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
 
 	private:
-		bool mUpdatePending;
-		bool mAnimating;
 		bool mCapturesCursor;
 		Vec2i mLastCursorPos;
 		bool mMouseButtonLeftPressed;
