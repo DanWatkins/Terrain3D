@@ -34,7 +34,7 @@ TEST_CASE(AddTaskAsync)
 	std::thread f([&]
 	{
 		//task 1
-		taskQueue.addTask([&](BaseOpenGLFunctions *gl)
+		taskQueue.addTask([&](OpenGLFunctions *gl)
 		{
 			ASSERT_TRUE(QGuiApplication::instance()->thread() == QThread::currentThread()) << "Task not on main thread";
 			ASSERT_NOT_NULL(gl);
@@ -52,7 +52,7 @@ TEST_CASE(AddTaskAsync)
 		});
 
 		//task 2
-		taskQueue.addTask([&](BaseOpenGLFunctions *gl)
+		taskQueue.addTask([&](OpenGLFunctions *gl)
 		{
 			ASSERT_TRUE(QGuiApplication::instance()->thread() == QThread::currentThread()) << "Task not on main thread";
 			ASSERT_NOT_NULL(gl);
@@ -81,7 +81,7 @@ TEST_CASE(ClearOutTasksAfterRunning)
 	taskQueue.init();
 	int execCount = 0;
 
-    auto task = [&execCount](BaseOpenGLFunctions *) { ++execCount; };
+	auto task = [&execCount](OpenGLFunctions *) { ++execCount; };
 
 	taskQueue.addTask(task);
 	taskQueue.addTask(task);

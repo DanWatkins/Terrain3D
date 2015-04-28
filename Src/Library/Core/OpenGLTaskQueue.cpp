@@ -29,7 +29,7 @@ namespace t3d { namespace core
 
 		for (TaskFunction &tf : mTasks)
 		{
-			tf((BaseOpenGLFunctions*)this);
+			tf((OpenGLFunctions*)this);
 		}
 
 		mTasks.clear();

@@ -400,7 +400,7 @@ namespace t3d
 			core::Loadable::Begin b(this);
 			mEnvironment.refresh();
 			
-			mOpenGLTaskQueue.addTask([this](core::BaseOpenGLFunctions*)
+			mOpenGLTaskQueue.addTask([this](core::OpenGLFunctions*)
 			{
 				if (auto camera = mCamera.lock())
 					camera->refresh();
