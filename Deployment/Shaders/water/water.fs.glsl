@@ -1,4 +1,4 @@
-#version 420 core
+#version 410 core
 
 //==================================================================================================================|
 // Copyright (C) 2014-2015 Daniel L. Watkins
@@ -9,7 +9,7 @@ out vec4 outColor;
 
 in vec2 tc;
 
-layout (binding = 0) uniform sampler2D waterTexture;
+uniform sampler2D waterTexture;
 
 void main()
 {

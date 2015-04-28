@@ -198,7 +198,7 @@ namespace t3d { namespace world { namespace terrain
 			GLenum format = GL_BGRA;
 
 			int mipLevels = 8;
-			glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
+			/*glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
 
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
 							0, 0, 0,
@@ -219,7 +219,7 @@ namespace t3d { namespace world { namespace terrain
 							0, 0, 3,
 							imageSize, imageSize, 1,
 							format, GL_UNSIGNED_BYTE, images[3].bits());
-
+*/
 			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -244,6 +244,12 @@ namespace t3d { namespace world { namespace terrain
 		ULOC(textureMapResolution);
 		ULOC(heightMapSize);
 		#undef ULOC
+
+		//set texture sampler binding points
+		glUniform1i(ShaderProgram::raw().uniformLocation("heightMapSampler"), 0);
+		glUniform1i(ShaderProgram::raw().uniformLocation("lightMapSampler"), 1);
+		glUniform1i(ShaderProgram::raw().uniformLocation("textureLayers"), 2);
+		glUniform1i(ShaderProgram::raw().uniformLocation("terrainTexture"), 3);
 	}
 
 
@@ -274,8 +280,10 @@ namespace t3d { namespace world { namespace terrain
 			glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 
 			const HeightMap &hm = mTerrainData->heightMap();
-			glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
+			//glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
+			//glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, hm.size(), hm.size(), 0, GL_RED, GL_FLOAT, hm.raw());
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -291,8 +299,10 @@ namespace t3d { namespace world { namespace terrain
 			glBindTexture(GL_TEXTURE_2D, mTextures.lightMap);
 
 			const LightMap &lm = mTerrainData->lightMap();
-			glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, lm.size(), lm.size());
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, lm.size(), lm.size(), GL_RED, GL_UNSIGNED_SHORT, lm.raw());
+			//glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, lm.size(), lm.size());
+			//glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, lm.size(), lm.size(), GL_RED, GL_UNSIGNED_SHORT, lm.raw());
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, lm.size(), lm.size(), 0, GL_RED, GL_UNSIGNED_SHORT, lm.raw());
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);

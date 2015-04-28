@@ -1,6 +1,6 @@
-#version 420 core
+#version 410 core
 
-layout (binding = 5) uniform sampler2D material;
+uniform sampler2D material;
 
 out vec4 color;
 in vec3 vertexNormal;

@@ -128,12 +128,15 @@ namespace t3d { namespace world { namespace terrain { namespace water
 		
 			int imageSize = image.width();	//for now, assume all images are the same width and height
 			glBindTexture(GL_TEXTURE_2D, mTextures.water);
+			glUniform1i(ShaderProgram::raw().uniformLocation("waterTexture"), 0);
 
 			int mipLevels = 8;
-			glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGBA8, imageSize, imageSize);
+			//glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGBA8, imageSize, imageSize);
 
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize,
-							GL_BGRA, GL_UNSIGNED_BYTE, image.bits());
+			//glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize,
+			//				GL_BGRA, GL_UNSIGNED_BYTE, image.bits());
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, imageSize, imageSize, 0, GL_BGRA, GL_UNSIGNED_BYTE, image.bits());
 
 			glGenerateMipmap(GL_TEXTURE_2D);
 			glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

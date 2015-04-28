@@ -1,4 +1,4 @@
-#version 420 core
+#version 410 core
 
 //==================================================================================================================|
 // Copyright (C) 2014-2015 Daniel L. Watkins
@@ -23,7 +23,7 @@ void main()
                                    vec3(0.0, 0.0, 1.0));
 	
 	
-	const int chunksPerSide = terrainSize / chunkSize;
+	int chunksPerSide = terrainSize / chunkSize;
 
 	vec2 offset;
 	offset.x = (gl_InstanceID % chunksPerSide) * chunkSize;

@@ -37,12 +37,12 @@
 #include <QtGui/QGuiApplication>
 #include <QtQuick/QQuickItem>
 #include <QtGui/QOpenGLFunctions>
-#include <QtGui/QOpenGLFunctions_4_2_Core>
+#include <QtGui/QOpenGLFunctions_4_1_Core>
 #include <QtGui/QOpenGLTexture>
 
 namespace t3d { namespace core
 {
-	using BaseOpenGLFunctions =  QOpenGLFunctions_4_2_Core;
+	using BaseOpenGLFunctions =  QOpenGLFunctions_4_1_Core;
 }}
 
 #define WIN32_LEAN_AND_MEAN 1
