@@ -130,14 +130,22 @@ namespace t3d { namespace world { namespace terrain
 					}
 				}
 
+				glUniform1i(ShaderProgram::raw().uniformLocation("heightMapSampler"), 0);
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
+
+				glUniform1i(ShaderProgram::raw().uniformLocation("lightMapSampler"), 1);
 				glActiveTexture(GL_TEXTURE1);
 				glBindTexture(GL_TEXTURE_2D, mTextures.lightMap);
+
+				glUniform1i(ShaderProgram::raw().uniformLocation("textureLayers"), 2);
 				glActiveTexture(GL_TEXTURE2);
 				glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
+
+				glUniform1i(ShaderProgram::raw().uniformLocation("terrainTexture"), 3);
 				glActiveTexture(GL_TEXTURE3);
 				glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
+
 				//mTextures.terrain->bind();
 
 				const int terrainSize = mTerrainData->heightMap().size();
@@ -223,8 +231,6 @@ namespace t3d { namespace world { namespace terrain
 							imageSize, imageSize, 1,
 							format, GL_UNSIGNED_BYTE, images[3].bits());
 
-			glUniform1i(ShaderProgram::raw().uniformLocation("terrainTexture"), 3);
-
 			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -277,7 +283,6 @@ namespace t3d { namespace world { namespace terrain
 
 			glGenTextures(1, &mTextures.heightMap);
 			glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
-			glUniform1i(ShaderProgram::raw().uniformLocation("heightMapSampler"), 0);
 
 			const HeightMap &hm = mTerrainData->heightMap();
 			//glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
@@ -297,7 +302,6 @@ namespace t3d { namespace world { namespace terrain
 
 			glGenTextures(1, &mTextures.lightMap);
 			glBindTexture(GL_TEXTURE_2D, mTextures.lightMap);
-			glUniform1i(ShaderProgram::raw().uniformLocation("lightMapSampler"), 1);
 
 			const LightMap &lm = mTerrainData->lightMap();
 			//glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, lm.size(), lm.size());
@@ -317,7 +321,6 @@ namespace t3d { namespace world { namespace terrain
 
 			glGenTextures(1, &mTextures.indicies);
 			glBindTexture(GL_TEXTURE_BUFFER, mTextures.indicies);
-			glUniform1i(ShaderProgram::raw().uniformLocation("textureLayers"), 2);
 			{
 				GLuint buffer;
 				glGenBuffers(1, &buffer);

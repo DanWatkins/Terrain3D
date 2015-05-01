@@ -11,25 +11,22 @@ INCLUDEPATH += ../../Src/Library \
                 ../../Ext/ \
                 $$(VALPINE_BASE_HOME)/Src/
 
-DESTDIR += ../../Deployment/Bin/
 
-unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
-unix|win32: LIBS += -L$$(VALPINE_BASE_HOME)/Deployment/Bin/ -lValpineBase
-
-HEADERS += \
-    ../../Src/Application/QuickItems/CameraItem.h \
-    ../../Src/Application/Application.h \
-    ../../Src/Application/BackgroundUpdater.h \
-    ../../Src/Application/OpenGLQuickView.h \
-    ../../Src/Application/Settings.h \
-    ../../Src/Application/Terrain3D.h
-
-SOURCES += \
-    ../../Src/Application/QuickItems/CameraItem.cpp \
-    ../../Src/Application/Application.cpp \
-    ../../Src/Application/OpenGLQuickView.cpp \
-    ../../Src/Application/Settings.cpp \
-    ../../Src/Application/Terrain3D.cpp
+unix {
+	SOURCES += $$system("find ../../Src/Application/ -name '*.cpp'")
+	HEADERS += $$system("find ../../Src/Application/ -name '*.h'")
+}
+win32 {
+	SOURCES += $$system("dir ..\..\Src\Application\*.cpp /b /s")
+	HEADERS += $$system("dir ..\..\Src\Application\*.h /b /s")
+}
 
 RESOURCES += \
     ../../Src/Application/qml/main.qrc
+
+
+debug: CONFIG_DIR = debugs
+release: CONFIG_DIR = release
+
+LIBS += -L../Library/$$CONFIG_DIR/ -lValpineBase
+LIBS += -L../Library/$$CONFIG_DIR/ -lTerrain3D

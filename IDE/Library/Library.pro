@@ -12,13 +12,6 @@ INCLUDEPATH += ../../Src/Library \
 				../../Ext/ \
 				$$(VALPINE_BASE_HOME)/Src/
 
-DESTDIR += ../../Deployment/Bin/
-
-unix {
-	target.path = /usr/lib
-	INSTALLS += target
-}
-
 unix {
 	SOURCES += $$system("find ../../Src/Library/ -name '*.cpp'")
 	HEADERS += $$system("find ../../Src/Library/ -name '*.h'")

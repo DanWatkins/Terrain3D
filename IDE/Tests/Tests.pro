@@ -9,34 +9,31 @@ QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
 TEMPLATE = app
 
-DESTDIR += ../../Deployment/Bin/
-
 INCLUDEPATH += ../../Src/Library \
                 ../../Ext/ \
                 ../../Ext/gtest/inc/ \
                 $$(VALPINE_BASE_HOME)/Src/
 
-unix|win32: LIBS += -L$$(VALPINE_BASE_HOME)/Deployment/Bin/ -lgtest
-unix|win32: LIBS += -L$$(VALPINE_BASE_HOME)/Deployment/Bin/ -lValpineBase
-unix|win32: LIBS += -L$$OUT_PWD/../../Deployment/Bin/ -lTerrain3D
 
-HEADERS += \
-    ../../Src/Tests/Tests.h
+unix {
+	SOURCES += $$system("find ../../Src/Application/ -name '*.cpp'")
+	HEADERS += $$system("find ../../Src/Application/ -name '*.h'")
+}
+win32 {
+	SOURCES += $$system("dir ..\..\Src\Application\*.cpp /b /s")
+	HEADERS += $$system("dir ..\..\Src\Application\*.h /b /s")
+}
 
-SOURCES += \
-    ../../Src/Tests/Core/Test_Loadable.cpp \
-    ../../Src/Tests/Core/Test_OpenGLTaskQueue.cpp \
-    ../../Src/Tests/Test_CoreAssetManager.cpp \
-    ../../Src/Tests/Test_CoreFPSCounter.cpp \
-    ../../Src/Tests/Test_WorldEntityBaseEntity.cpp \
-    ../../Src/Tests/Test_WorldEntityManager.cpp \
-    ../../Src/Tests/Test_WorldEntityRenderer.cpp \
-    ../../Src/Tests/Test_WorldTerrainData.cpp \
-    ../../Src/Tests/Test_WorldTerrainLightingSlope.cpp \
-    ../../Src/Tests/Test_WorldTerrainLightMap.cpp \
-    ../../Src/Tests/Test_WorldTerrainNormalMap.cpp \
-    ../../Src/Tests/Test_WorldTerrainRenderer.cpp \
-    ../../Src/Tests/Tests.cpp
+RESOURCES += \
+	../../Src/Application/qml/main.qrc
+
+
+debug: CONFIG_DIR = debugs
+release: CONFIG_DIR = release
+
+LIBS += -L../Library/$$CONFIG_DIR/ -lValpineBase
+LIBS += -L../Library/$$CONFIG_DIR/ -lTerrain3D
+LIBS += -L../Library/$$CONFIG_DIR/ -lgtest
 
 RESOURCES += \
     ../../Src/Tests/qml/main.qrc

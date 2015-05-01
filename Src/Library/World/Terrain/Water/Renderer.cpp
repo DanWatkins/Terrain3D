@@ -41,9 +41,12 @@ namespace t3d { namespace world { namespace terrain { namespace water
 				CONNECT_PROPERTY_TO_UNIFORM(pSpanSize, spanSize)
 			#undef CONNECT_PROPERTY_TO_UNIFORM*/
 
-			mTerrainData->pHeightScale.addOnChangedListener([this]
-			{
+			mTerrainData->pHeightScale.addOnChangedListener([this] {
 				enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->pHeightScale());
+			});
+
+			mTerrainData->pSpanSize.addOnChangedListener([this] {
+				enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->pSpanSize());
 			});
 		}
 
