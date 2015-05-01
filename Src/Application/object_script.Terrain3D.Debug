@@ -1,0 +1,12 @@
+INPUT(
+./debug/CameraItem.o
+./debug/Application.o
+./debug/OpenGLQuickView.o
+./debug/Settings.o
+./debug/Terrain3D.o
+./debug/qrc_main.o
+./debug/moc_CameraItem.o
+./debug/moc_BackgroundUpdater.o
+./debug/moc_Settings.o
+./debug/moc_Terrain3D.o
+);
