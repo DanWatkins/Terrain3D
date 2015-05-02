@@ -1,12 +1,12 @@
-#version 410 core
+#version 420 core
 
 layout (location = 0) in int indexVertexPosition;
 layout (location = 1) in int indexVertexNormal;
 layout (location = 2) in int indexTextureCoordinate;
 
-uniform samplerBuffer vertexPositions;
-uniform samplerBuffer vertexNormals;
-uniform samplerBuffer texCoordinates;
+layout (binding = 2) uniform samplerBuffer vertexPositions;
+layout (binding = 3) uniform samplerBuffer vertexNormals;
+layout (binding = 4) uniform samplerBuffer texCoordinates;
 
 uniform mat4 cameraMatrix;
 uniform mat4 modelMatrix;

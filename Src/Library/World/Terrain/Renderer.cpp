@@ -130,8 +130,6 @@ namespace t3d { namespace world { namespace terrain
 					}
 				}
 
-				qDebug() << "Crap on a log";
-
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 				glActiveTexture(GL_TEXTURE1);

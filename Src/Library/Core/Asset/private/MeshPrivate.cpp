@@ -79,11 +79,6 @@ namespace t3d { namespace asset
 			glPrimitiveRestartIndex(PrimitiveRestartIndex);
 		}
 
-		glUniform1d(mProgram.uniformLocation("material"), 5);
-		glUniform1d(mProgram.uniformLocation("vertexPositions"), 2);
-		glUniform1d(mProgram.uniformLocation("vertexNormals"), 3);
-		glUniform1d(mProgram.uniformLocation("texCoordinates"), 4);
-
 		mProgram.release();
 	}
 
