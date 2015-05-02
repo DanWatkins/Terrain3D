@@ -1,4 +1,4 @@
-#version 410 core
+#version 420 core
 
 //==================================================================================================================|
 // Copyright (C) 2014-2015 Daniel L. Watkins
@@ -16,9 +16,9 @@ out vec4 color;
 
 uniform float height;
 
-uniform sampler2D lightMapSampler;
-uniform usamplerBuffer textureLayers;
-uniform sampler2DArray terrainTexture;
+layout (binding = 1) uniform sampler2D lightMapSampler;
+layout (binding = 2) uniform usamplerBuffer textureLayers;
+layout (binding = 3) uniform sampler2DArray terrainTexture;
 
 uniform int terrainSize;
 uniform int spanSize;

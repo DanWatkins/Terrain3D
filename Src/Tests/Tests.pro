@@ -27,8 +27,9 @@ RESOURCES += \
 	../../Src/Tests/qml/main.qrc
 
 
-debug: CONFIG_DIR = debugs
-release: CONFIG_DIR = release
+
+Release: CONFIG_DIR = release
+Debug: CONFIG_DIR = debug
 
 LIBS += -L../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/ -lValpineBase
 LIBS += -L../../Ext/ValpineBase/Src/External/gtest/$$CONFIG_DIR/ -lgtest

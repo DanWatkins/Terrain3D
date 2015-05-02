@@ -23,7 +23,7 @@ void main()
                                    vec3(0.0, 0.0, 1.0));
 	
 	
-	int chunksPerSide = terrainSize / chunkSize;
+	const int chunksPerSide = terrainSize / chunkSize;
 
 	vec2 offset;
 	offset.x = (gl_InstanceID % chunksPerSide) * chunkSize;

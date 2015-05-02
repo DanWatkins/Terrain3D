@@ -1,4 +1,4 @@
-#version 410 core
+#version 420 core
 
 //==================================================================================================================|
 // Copyright (C) 2014-2015 Daniel L. Watkins
@@ -23,7 +23,7 @@ uniform mat4 mvMatrix;
 uniform mat4 projMatrix;
 uniform float heightScale;
 
-uniform sampler2D heightMapSampler;
+layout (binding = 0) uniform sampler2D heightMapSampler;
 
 void main()
 {

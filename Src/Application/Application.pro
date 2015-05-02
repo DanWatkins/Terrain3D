@@ -23,9 +23,8 @@ win32 {
 RESOURCES += \
     ../../Src/Application/qml/main.qrc
 
-
-debug: CONFIG_DIR = debugs
-release: CONFIG_DIR = release
+Release: CONFIG_DIR = release
+Debug: CONFIG_DIR = debug
 
 LIBS += -L../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/ -lValpineBase
 LIBS += -L../Library/$$CONFIG_DIR/ -lTerrain3D
