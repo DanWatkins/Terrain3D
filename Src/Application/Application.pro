@@ -29,3 +29,6 @@ release: CONFIG_DIR = release
 
 LIBS += -L../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/ -lValpineBase
 LIBS += -L../Library/$$CONFIG_DIR/ -lTerrain3D
+
+PRE_TARGETDEPS += ../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/libValpineBase.a \
+					../Library/$$CONFIG_DIR/libTerrain3D.a

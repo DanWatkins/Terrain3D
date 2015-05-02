@@ -34,6 +34,8 @@ LIBS += -L../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/ -lValpineBase
 LIBS += -L../../Ext/ValpineBase/Src/External/gtest/$$CONFIG_DIR/ -lgtest
 LIBS += -L../Library/$$CONFIG_DIR/ -lTerrain3D
 
-RESOURCES += \
-    ../../Src/Tests/qml/main.qrc
+PRE_TARGETDEPS += ../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/libValpineBase.a \
+					../../Ext/ValpineBase/Src/External/gtest/$$CONFIG_DIR/libgtest.a \
+					../Library/$$CONFIG_DIR/libTerrain3D.a
+
 
