@@ -1,3 +1,4 @@
+#--General
 TEMPLATE = app
 TARGET = Terrain3D
 QT += gui qml quick
@@ -6,22 +7,25 @@ CONFIG += c++14 c++11
 QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
+
+#--Compile Sources
+unix {
+	SOURCES += $$system("find . -name '*.cpp'")
+	HEADERS += $$system("find . -name '*.h'")
+}
+win32 {
+	SOURCES += $$system("dir .\*.cpp /b /s")
+	HEADERS += $$system("dir .\*.h /b /s")
+}
+
+RESOURCES += ../../Src/Application/qml/main.qrc
+
+
+#--Dependencies
 INCLUDEPATH += ../Library \
 				../Application \
 				../../Ext/ValpineBase/Src/ \
 				../../Ext/ValpineBase/Ext/
-
-unix {
-	SOURCES += $$system("find ../../Src/Application/ -name '*.cpp'")
-	HEADERS += $$system("find ../../Src/Application/ -name '*.h'")
-}
-win32 {
-	SOURCES += $$system("dir ..\..\Src\Application\*.cpp /b /s")
-	HEADERS += $$system("dir ..\..\Src\Application\*.h /b /s")
-}
-
-RESOURCES += \
-    ../../Src/Application/qml/main.qrc
 
 Release: CONFIG_DIR = release
 Debug: CONFIG_DIR = debug

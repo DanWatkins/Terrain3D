@@ -195,7 +195,7 @@ namespace t3d { namespace asset
 
 		if (!error.isEmpty())
 		{
-			//System::fatal(mFilepath + QString(" - Error: ") + error);
+			System::fatal(mFilepath + QString(" - Error: ") + error);
 		}
 	}
 
