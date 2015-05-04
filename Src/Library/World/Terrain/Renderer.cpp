@@ -248,6 +248,11 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::refreshUniformValues()
 	{
+		glUniform1i(ShaderProgram::raw().uniformLocation("heightMapSampler"), 0);
+		glUniform1i(ShaderProgram::raw().uniformLocation("lightMapSampler"), 1);
+		glUniform1i(ShaderProgram::raw().uniformLocation("textureLayers"), 2);
+		glUniform1i(ShaderProgram::raw().uniformLocation("terrainTexture"), 3);
+
 		//terrain::Data
 		ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
 		ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);

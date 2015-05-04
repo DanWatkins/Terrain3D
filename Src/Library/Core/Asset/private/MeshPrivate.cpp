@@ -157,6 +157,17 @@ namespace t3d { namespace asset
 
 		if (mProgram.link() == false)
 			qDebug() << "Problem linking Mesh mesh shadres";
+
+		mProgram.bind();
+
+		glUniform1i(mProgram.uniformLocation("vertexPositions"), 2);
+		glUniform1i(mProgram.uniformLocation("vertexNormals"), 3);
+		glUniform1i(mProgram.uniformLocation("texCoordinates"), 4);
+		glUniform1i(mProgram.uniformLocation("material"), 5);
+
+		mProgram.release();
+
+		//TODO swtich this to use the ShaderProgram class
 	}
 
 

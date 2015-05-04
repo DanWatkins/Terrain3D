@@ -1,4 +1,4 @@
-#version 420 core
+#version 410 core
 
 //==================================================================================================================|
 // Copyright (C) 2014-2015 Daniel L. Watkins
@@ -46,7 +46,7 @@ void main()
 {
 	if (gl_InvocationID == 0)
 	{
-		const int chunksPerSide = terrainSize / chunkSize;
+		int chunksPerSide = terrainSize / chunkSize;
 		ivec2 chunkPos;
 		chunkPos.x = tcsIn[0].instanceId % chunksPerSide;
 		chunkPos.y = tcsIn[0].instanceId / chunksPerSide;
