@@ -1,7 +1,7 @@
 #--General
 TEMPLATE = app
 TARGET = Terrain3D
-QT += gui qml quick
+QT += gui qml quick openglextensions
 CONFIG += c++14 c++11
 
 QMAKE_CFLAGS_WARN_ON += -Wno-unknown-pragmas

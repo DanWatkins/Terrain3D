@@ -278,6 +278,7 @@ namespace t3d { namespace world { namespace terrain
 			glBindTexture(GL_TEXTURE_2D, mTextures.heightMap);
 
 			const HeightMap &hm = mTerrainData->heightMap();
+
 			glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, hm.size(), hm.size());
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, hm.size(), hm.size(), GL_RED, GL_FLOAT, hm.raw());
 

@@ -9,17 +9,10 @@
 #define _t3d_core_OpenGLFunctions_H
 
 #include <Library.h>
+#include <QtGui/QOpenGLFunctions_4_1_Core>
+#include <QtOpenGLExtensions/QOpenGLExtensions>
 
-#if defined(_WIN32) //We need 4_2 to use NSIGHT debugger
-	#include <QtGui/QOpenGLFunctions_4_2_Core>
-	using BaseOpenGLFunctions = QOpenGLFunctions_4_2_Core;
-
-#elif defined(__APPLE__) || defined(__linux__)
-	#include <QtGui/QOpenGLFunctions_4_1_Core>
-	using BaseOpenGLFunctions = QOpenGLFunctions_4_1_Core;
-#else
-	#error Unsupported platform
-#endif
+using BaseOpenGLFunctions = QOpenGLFunctions_4_1_Core;
 
 namespace t3d { namespace core
 {
@@ -29,7 +22,35 @@ namespace t3d { namespace core
 	 */
 	class OpenGLFunctions : public BaseOpenGLFunctions
 	{
+	public:
+		bool initializeOpenGLFunctions() override
+		{
+			if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
+				return false;
 
+			if (!mGL_textureStorage.initializeOpenGLFunctions())
+				return false;
+
+			return true;
+		}
+
+		void glTexStorage1D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
+		{
+			mGL_textureStorage.glTexStorage1D(target, levels, internalformat, width);
+		}
+
+		void glTexStorage2D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height)
+		{
+			mGL_textureStorage.glTexStorage2D(target, levels, internalformat, width, height);
+		}
+
+		void glTexStorage3D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth)
+		{
+			mGL_textureStorage.glTexStorage3D(target, levels, internalformat, width, height, depth);
+		}
+
+	private:
+		QOpenGLExtension_ARB_texture_storage mGL_textureStorage;
 	};
 }}
 
