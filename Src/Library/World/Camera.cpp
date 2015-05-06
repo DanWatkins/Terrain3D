@@ -32,7 +32,7 @@ namespace t3d { namespace world
 
 	void Camera::init()
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
 		initializeOpenGLFunctions();
 		mTerrainRenderer.init(&mEnvironment->terrainData());
 		mEntityRenderer.setManager(&mEnvironment->entityManager());
@@ -41,7 +41,7 @@ namespace t3d { namespace world
 
 	void Camera::refresh()
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
 		mTerrainRenderer.refresh();
 	}
 
@@ -91,7 +91,7 @@ namespace t3d { namespace world
 
 	void Camera::reloadShaders()
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
 		mTerrainRenderer.reloadShaders();
 	}
 
@@ -114,8 +114,8 @@ namespace t3d { namespace world
 		}
 
 		Vec3f direction = glm::normalize(position - pPos);
-		pOrientationAngle().y = radToDeg(asinf(-direction.y));
-		pOrientationAngle().x = -radToDeg(atan2f(-direction.x, -direction.z));
+        pOrientationAngle().y = vbase::radToDeg(asinf(-direction.y));
+        pOrientationAngle().x = -vbase::radToDeg(atan2f(-direction.x, -direction.z));
 		normalizeAngles();
 	}
 

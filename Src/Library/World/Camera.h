@@ -15,7 +15,7 @@
 #include <World/Terrain/Renderer.h>
 #include <World/Entity/Renderer.h>
 
-#include <Core/Loadable.h> //TODO temp
+#include <ValpineBase/Loadable.h>
 
 namespace t3d { namespace world
 {
@@ -23,7 +23,7 @@ namespace t3d { namespace world
 	 * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
 	 * rotate up/down and left/right.
 	 */
-	class Camera : public QObject, protected core::OpenGLFunctions, public core::Loadable
+    class Camera : public QObject, protected core::OpenGLFunctions, public vbase::Loadable
 	{
 		Q_OBJECT
 

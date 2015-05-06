@@ -12,14 +12,14 @@
 #include <World/Entity/Manager.h>
 #include <Core/Asset/Manager.h>
 
-#include <Core/Loadable.h> //TODO temp
+#include <ValpineBase/Loadable.h>
 
 namespace t3d { namespace world
 {
 	/**
 	 * \brief Top-level aggregate manager of simulation data.
 	 */
-	class Environment : public core::Loadable
+    class Environment : public vbase::Loadable
 	{
 	public:
 		Environment();

@@ -11,7 +11,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 {
 	void Renderer::init(Data *terrainData)
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
 
 		mTerrainData = terrainData;
 		ShaderProgram::init();
@@ -56,7 +56,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 
 	void Renderer::refresh()
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
 
 		if (mInvalidations.terrainData)
 		{

@@ -43,8 +43,7 @@
 #define WIN32_LEAN_AND_MEAN 1
 
 //GLM Includes
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#pragma GCC system_header
 #pragma clang system_header
 	#include <glm/glm.hpp>
 	#include <glm/ext.hpp>
@@ -56,6 +55,8 @@ typedef long long			int64;
 typedef unsigned long long	uint64;
 
 
+//TODO move all this into ValpineBase
+//Like ValpineBase/MathTypes.h
 typedef glm::vec2			Vec2f;
 typedef glm::vec3			Vec3f;
 typedef glm::vec4			Vec4f;
@@ -93,15 +94,15 @@ std::unique_ptr<T> makeUnique(Args&&... args) {
 
 //Project Includes
 #include <Constants.h>
-#include <Core/Helper.h>
 #include <Core/OpenGLFunctions.h>
 
+#include <ValpineBase/Helper.h>
 #include <ValpineBase/Property.h>
 #include <ValpineBase/System.h>
 
 template <typename T>
-using Property = ValpineBase::Property<T>;
+using Property = vbase::Property<T>;
 
-using System = ValpineBase::System;
+using System = vbase::System;
 
 #endif

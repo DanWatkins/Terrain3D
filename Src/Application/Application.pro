@@ -30,8 +30,8 @@ INCLUDEPATH += ../Library \
 Release: CONFIG_DIR = release
 Debug: CONFIG_DIR = debug
 
-LIBS += -L../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/ -lValpineBase
 LIBS += -L../Library/$$CONFIG_DIR/ -lTerrain3D
+LIBS += -L../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/ -lValpineBase
 
 PRE_TARGETDEPS += ../../Ext/ValpineBase/Src/ValpineBase/$$CONFIG_DIR/libValpineBase.a \
 					../Library/$$CONFIG_DIR/libTerrain3D.a

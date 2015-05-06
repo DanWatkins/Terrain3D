@@ -36,7 +36,7 @@ namespace t3d
 
 	void Terrain3D::init()
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
         pIsLoading.addOnChangedListener([this]
 		{
 			emit isLoadingChanged();
@@ -397,7 +397,7 @@ namespace t3d
 	{
 		QtConcurrent::run([this]
 		{
-			core::Loadable::Begin b(this);
+            vbase::Loadable::Begin b(this);
 			mEnvironment.refresh();
 			
 			mOpenGLTaskQueue.addTask([this](core::OpenGLFunctions*)

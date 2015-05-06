@@ -12,11 +12,11 @@
 #include <Core/ShaderProgram.h>
 #include <World/Terrain/Data.h>
 
-#include <Core/Loadable.h> //TODO
+#include <ValpineBase/Loadable.h>
 
 namespace t3d { namespace world { namespace terrain { namespace water
 {
-	class Renderer : public core::ShaderProgram, public core::Loadable
+    class Renderer : public core::ShaderProgram, public vbase::Loadable
 	{
 	public:
 		Renderer() {}

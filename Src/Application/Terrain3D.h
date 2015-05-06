@@ -19,12 +19,14 @@
 #include <World/Camera.h>
 #include "QuickItems/CameraItem.h"
 
+#include <ValpineBase/Loadable.h>
+
 namespace t3d
 {
 	/**
 	 * Represents the main application
 	 */
-	class Terrain3D : public OpenGLQuickView, public SettingsListener, public core::Loadable
+    class Terrain3D : public OpenGLQuickView, public SettingsListener, public vbase::Loadable
 	{
 		Q_OBJECT
 		Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);

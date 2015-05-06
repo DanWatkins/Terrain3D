@@ -27,7 +27,7 @@ namespace t3d { namespace world
 
 	void Environment::init()
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
 
 		generateTerrain(seedToUse());
 		mAssetManager.loadMeshesFromDirectory("../Meshes");
@@ -38,7 +38,7 @@ namespace t3d { namespace world
 
 	void Environment::refresh()
 	{
-		core::Loadable::Begin b(this);
+        vbase::Loadable::Begin b(this);
 
 		if (mNeedsToRefresh)
 		{
@@ -105,8 +105,8 @@ namespace t3d { namespace world
 		//randomly place trees on the "grass" areas
 		for (int i=0; i<NumTreesAttempt; i++)
 		{
-			int x = randInt(0, hm.size()-2);
-			int y = randInt(0, hm.size()-2);
+            int x = vbase::randInt(0, hm.size()-2);
+            int y = vbase::randInt(0, hm.size()-2);
 
 			//is there grass at this texture index?
 			int res = mTerrainData.pTextureMapResolution;
@@ -118,7 +118,7 @@ namespace t3d { namespace world
 				e1->setPos(Vec3f(x, height*mTerrainData.pHeightScale, y));	//hardcoded, GROSS TODO
 
 				e1->createRenderComponent();
-				QString treeName = treeList[randInt(0, treeList.size()-1)];
+                QString treeName = treeList[vbase::randInt(0, treeList.size()-1)];
 				e1->renderComponent()->setMesh(mAssetManager.meshForName(treeName));
 			}
 		}

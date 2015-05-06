@@ -7,7 +7,7 @@
 
 #include "../Tests.h"
 #include <Core/OpenGLTaskQueue.h>
-#include <Core/MutexTryLocker.h>
+#include <ValpineBase/MutexTryLocker.h>
 
 using namespace t3d::core;
 
@@ -39,7 +39,7 @@ TEST_CASE(AddTaskAsync)
 			ASSERT_TRUE(QGuiApplication::instance()->thread() == QThread::currentThread()) << "Task not on main thread";
 			ASSERT_NOT_NULL(gl);
 
-			MutexTryLocker l(&mutex);
+            vbase::MutexTryLocker l(&mutex);
 			ASSERT_TRUE(l.isLocked());	//TODO this is a weak attemt at verifying thread safety
 
 			//as long as calling these functions doesn't crash...we are good
@@ -57,7 +57,7 @@ TEST_CASE(AddTaskAsync)
 			ASSERT_TRUE(QGuiApplication::instance()->thread() == QThread::currentThread()) << "Task not on main thread";
 			ASSERT_NOT_NULL(gl);
 
-			MutexTryLocker l(&mutex);
+            vbase::MutexTryLocker l(&mutex);
 			ASSERT_TRUE(l.isLocked());	//TODO this is a weak attemt at verifying thread safety
 
 			gl->glBindTexture(GL_TEXTURE_2D, 0);

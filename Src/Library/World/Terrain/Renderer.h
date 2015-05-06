@@ -13,6 +13,8 @@
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Water/Renderer.h>
 
+#include <ValpineBase/Loadable.h>
+
 namespace t3d { namespace world { namespace terrain
 {
 	enum class Mode
@@ -22,7 +24,7 @@ namespace t3d { namespace world { namespace terrain
 	};
 
 
-	class Renderer : public core::ShaderProgram, public core::Loadable
+    class Renderer : public core::ShaderProgram, public vbase::Loadable
 	{
 		Q_OBJECT
 

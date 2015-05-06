@@ -5,12 +5,12 @@ namespace t3d { namespace world { namespace terrain { namespace Generator
     void applyRandomFault(HeightMap &heightMap, float faultAmount)
     {
         //create the fault line from two random points
-		Vec2f p1((float)randInt(0, heightMap.size()), (float)randInt(0, heightMap.size()));
+        Vec2f p1((float)vbase::randInt(0, heightMap.size()), (float)vbase::randInt(0, heightMap.size()));
         Vec2f p2;
 
         do
         {
-			p2 = Vec2f((float)randInt(0, heightMap.size()), (float)randInt(0, heightMap.size()));
+            p2 = Vec2f((float)vbase::randInt(0, heightMap.size()), (float)vbase::randInt(0, heightMap.size()));
         } while (p2 == p1);
 
 
