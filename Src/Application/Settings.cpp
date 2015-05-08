@@ -42,8 +42,10 @@ void Settings::setValue(Key key, const QVariant &newValue)
 
 QVariant Settings::value(Key key)
 {
-	QVariant value = mSettings->value(stringNameForKey(key),
-									  mMetaKeyInfo[key].defaultValue);
+    const auto &name = stringNameForKey(key);
+    const auto &defaultValue = mMetaKeyInfo[key].defaultValue;
+
+    QVariant value = mSettings->value(name, defaultValue);
 
 	if (QString(value.typeName()) == "QString" &&
 		(value.toString() == "false" || value.toString() == "true"))

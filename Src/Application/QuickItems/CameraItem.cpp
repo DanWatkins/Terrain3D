@@ -71,7 +71,7 @@ namespace t3d { namespace QuickItems
 
 	void CameraItem::render()
 	{
-		if (mCamera)
+        if (mCamera && mCamera->pHasLoaded)
 		{
 			mCamera->resize(width(), height());
 			mCamera->render();

@@ -45,46 +45,49 @@ namespace t3d
 		setResizeMode(QQuickView::SizeRootObjectToView);
 		setSource(QUrl("qrc:///main.qml"));
 
-        mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
-        mCamera = mCameraItem->createCamera();
-		
-		if (auto camera = mCamera.lock())
-		{
-			loadUserSettings();
-			mOpenGLTaskQueue.init();
-			mEnvironment.init();
-			camera->setEnvironment(&mEnvironment);
-			camera->init();
-			camera->prepareForRendering();
-		}
-		else
-		{
-			qFatal("Null camera instance");
-			return;
-		}
+        QObject::connect(this, &QQuickWindow::sceneGraphInitialized, [this]()
+        {
+            mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
+            mCamera = mCameraItem->createCamera();
 
-		connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
-				this, &Terrain3D::willUpdate);
-		backgroundUpdater.start();
+            if (auto camera = mCamera.lock())
+            {
+                loadUserSettings();
+                mOpenGLTaskQueue.init();
+                mEnvironment.init();
+                camera->setEnvironment(&mEnvironment);
+                camera->init();
+                camera->prepareForRendering();
+            }
+            else
+            {
+                qFatal("Null camera instance");
+                return;
+            }
 
-		QObject::connect(this, &QQuickView::beforeRendering,
-						 this, &Terrain3D::beforeRendering);
+            connect(&backgroundUpdater, &BackgroundUpdater::needsUpdate,
+                    this, &Terrain3D::willUpdate);
+            backgroundUpdater.start();
 
-		QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged,
-						 this, &Terrain3D::onFpsChanged);
+            QObject::connect(this, &QQuickView::beforeRendering,
+                             this, &Terrain3D::beforeRendering);
 
-		QObject::connect(mCamera.lock().get(), &world::Camera::posChanged,
-						 this, &Terrain3D::onCameraPosChanged);
+            QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged,
+                             this, &Terrain3D::onFpsChanged);
 
-		QWindow::show();
+            QObject::connect(mCamera.lock().get(), &world::Camera::posChanged,
+                             this, &Terrain3D::onCameraPosChanged);
 
-        mEnvironment.pIsLoading.addOnChangedListener([this]
-		{
-			qDebug() << "Changed";
-			emit this->isLoadingChanged();
-		});
+            mEnvironment.pIsLoading.addOnChangedListener([this]
+            {
+                qDebug() << "Changed";
+                emit this->isLoadingChanged();
+            });
 
-		emit cameraPosChanged();
+            emit cameraPosChanged();
+        });
+
+        QWindow::show();
 	}
 
 
