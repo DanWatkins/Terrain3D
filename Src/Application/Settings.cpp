@@ -17,6 +17,9 @@ void Settings::init()
 
 	QString filepath = QDir::currentPath()+"/Terrain3D.ini";
 	mSettings = new QSettings(filepath, QSettings::IniFormat);
+
+    auto status = mSettings->status();
+
 	mSettings->setValue("Version", mVersion);
 	mSettings->sync();
 }

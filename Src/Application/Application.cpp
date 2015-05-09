@@ -11,6 +11,8 @@
 
 #include <QuickItems/CameraItem.h>
 
+#include <QOpenGLContext>
+
 Settings mainSettings;
 
 /**
@@ -36,6 +38,15 @@ void loadAndRun(QGuiApplication &app)
 
 		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
 		mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
+
+		QSurfaceFormat format;
+        format.setDepthBufferSize(24);
+        format.setSamples(8);
+		format.setMajorVersion(4);
+		format.setMajorVersion(1);
+        format.setProfile(QSurfaceFormat::CoreProfile);
+        mainWindow.setFormat(format);
+
 		mainWindow.init();
 
 		Q_UNUSED(app); // apparently MSVC freaks out on /w4 claiming app is never referenced...
