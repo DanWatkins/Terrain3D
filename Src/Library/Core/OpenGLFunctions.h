@@ -23,16 +23,7 @@ namespace t3d { namespace core
 	class OpenGLFunctions : public BaseOpenGLFunctions
 	{
 	public:
-		bool initializeOpenGLFunctions() override
-		{
-			if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
-				return false;
-
-			if (!mGL_textureStorage.initializeOpenGLFunctions())
-				return false;
-
-			return true;
-		}
+        bool initializeOpenGLFunctions() override;
 
 		void glTexStorage1D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
 		{

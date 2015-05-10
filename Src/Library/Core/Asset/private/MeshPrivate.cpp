@@ -18,7 +18,9 @@ namespace t3d { namespace asset
 {
 	const GLuint mesh_p::PrimitiveRestartIndex = 900000000;
 
-	mesh_p::MeshPrivate(Mesh *mesh) : mMesh(mesh), mFaceData(new FaceData) {}
+    mesh_p::MeshPrivate(Mesh *mesh) : mMesh(mesh), mFaceData(new FaceData)
+    {
+    }
 
 
 	void mesh_p::batchRender(const QVector<Mat4> &matricies)
@@ -65,6 +67,7 @@ namespace t3d { namespace asset
 	void mesh_p::init()
 	{
 		initializeOpenGLFunctions();
+
 
 		loadShaders();
 		mProgram.bind();

@@ -145,7 +145,7 @@ namespace t3d
 			}
 
 			CASE(GraphicsScreenIsFullscreen) {
-				value.toBool() ? QWindow::showFullScreen() : QWindow::showNormal();
+                //value.toBool() ? QWindow::showFullScreen() : QWindow::showNormal();
 				break;
 			}
 

@@ -36,16 +36,14 @@ void loadAndRun(QGuiApplication &app)
 
 		t3d::Terrain3D mainWindow(&mainSettings);
 
-		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
-		mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
-
-		QSurfaceFormat format;
-        format.setDepthBufferSize(24);
-        format.setSamples(8);
-		format.setMajorVersion(4);
-		format.setMajorVersion(1);
+        QSurfaceFormat format;
+        format.setMajorVersion(4);
+        format.setMinorVersion(1);
         format.setProfile(QSurfaceFormat::CoreProfile);
         mainWindow.setFormat(format);
+
+		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
+		mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
 
 		mainWindow.init();
 
