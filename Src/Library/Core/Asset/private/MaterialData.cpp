@@ -13,7 +13,7 @@ namespace t3d { namespace asset
 	{
 		initializeOpenGLFunctions();
 
-		mTexture = strong<QOpenGLTexture>(new QOpenGLTexture(QImage(containingDirectory + mFilepath).mirrored()));
+        mTexture = unique<QOpenGLTexture>(new QOpenGLTexture(QImage(containingDirectory + mFilepath).mirrored()));
 		mTexture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
 		mTexture->setMagnificationFilter(QOpenGLTexture::Linear);
 	}

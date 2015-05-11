@@ -47,7 +47,6 @@ void loadAndRun(QGuiApplication &app)
 
 		mainWindow.init();
 
-		Q_UNUSED(app); // apparently MSVC freaks out on /w4 claiming app is never referenced...
 		app.exec();
 		restart = mainWindow.needsRestart();
 	}

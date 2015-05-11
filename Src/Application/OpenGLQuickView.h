@@ -18,7 +18,7 @@ namespace t3d
 	public:
 		OpenGLQuickView();
 
-	protected:
+        void mouseMoveEvent(QMouseEvent *ev) override;
 		void mousePressEvent(QMouseEvent *ev);
 		void mouseReleaseEvent(QMouseEvent *ev);
 
@@ -30,6 +30,7 @@ namespace t3d
 		bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
 
 	private:
+        Vec2i mCachedCursorPos;
 		bool mCapturesCursor;
 		Vec2i mLastCursorPos;
 		bool mMouseButtonLeftPressed;

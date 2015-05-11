@@ -16,6 +16,12 @@ namespace t3d
 	}
 
 
+    void OpenGLQuickView::mouseMoveEvent(QMouseEvent *ev)
+    {
+        mCachedCursorPos = Vec2i(ev->x(), ev->y());
+    }
+
+
 	void OpenGLQuickView::mousePressEvent(QMouseEvent *ev)
 	{
 		QQuickView::mousePressEvent(ev);
@@ -50,21 +56,14 @@ namespace t3d
 
 	QVector2D OpenGLQuickView::consumeCursorDelta()
 	{
-		QVector2D delta;
+        QVector2D delta;
 
-	#ifdef WIN32
-		POINT pos;
-		GetCursorPos(&pos);
-		delta = QVector2D(float(pos.x - mLastCursorPos.x), float(pos.y - mLastCursorPos.y));
+        delta = QVector2D(float(mCachedCursorPos.x - mLastCursorPos.x),
+                          float(mCachedCursorPos.y - mLastCursorPos.y));
 
-        mLastCursorPos = Vec2i(pos.x, pos.y);
+        mLastCursorPos = Vec2i(mCachedCursorPos.x, mCachedCursorPos.y);
 
         return delta;
-	#else
-        //#error No mouse delta function for this platform.
-	#endif
-
-		return QVector2D();
 	}
 
 
@@ -73,11 +72,8 @@ namespace t3d
 		if (mCapturesCursor == false)
 			return;
 
-	#ifdef WIN32
-		SetCursorPos(int(mouseDeltaOffsetX), int(mouseDeltaOffsetY));
+        QCursor::setPos(QWindow::mapToGlobal(QPoint(mouseDeltaOffsetX, mouseDeltaOffsetY)));
         mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
-	#else
-        //#error No mouse delta function for this platform
-	#endif
+        mCachedCursorPos = mLastCursorPos;
 	}
 }
