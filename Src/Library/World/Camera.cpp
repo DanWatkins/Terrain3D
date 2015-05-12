@@ -75,8 +75,8 @@ namespace t3d { namespace world
 
         mTerrainRenderer.render(pPos, viewMatrix(), perspectiveMatrix());
 		
-        mEntityRenderer.renderAll(totalMatrix());
-        mEnvironment->assetManager().renderAllQueued();
+        //mEntityRenderer.renderAll(totalMatrix());
+        //mEnvironment->assetManager().renderAllQueued();
 
 		emit finishedRendering();
 	}

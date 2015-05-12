@@ -18,11 +18,10 @@ namespace t3d
 	public:
 		OpenGLQuickView();
 
-        void mouseMoveEvent(QMouseEvent *ev) override;
 		void mousePressEvent(QMouseEvent *ev);
 		void mouseReleaseEvent(QMouseEvent *ev);
 
-		QVector2D consumeCursorDelta();
+		QPoint consumeCursorDelta();
 		void resetCursorPosition();
 
 		void setCapturesCursor(bool capturesCursor) { mCapturesCursor = capturesCursor; }
@@ -30,9 +29,8 @@ namespace t3d
 		bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
 
 	private:
-        Vec2i mCachedCursorPos;
 		bool mCapturesCursor;
-		Vec2i mLastCursorPos;
+		QPoint mLastCursorPos;
 		bool mMouseButtonLeftPressed;
 	};
 }

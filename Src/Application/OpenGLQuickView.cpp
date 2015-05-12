@@ -16,12 +16,6 @@ namespace t3d
 	}
 
 
-    void OpenGLQuickView::mouseMoveEvent(QMouseEvent *ev)
-    {
-        mCachedCursorPos = Vec2i(ev->x(), ev->y());
-    }
-
-
 	void OpenGLQuickView::mousePressEvent(QMouseEvent *ev)
 	{
 		QQuickView::mousePressEvent(ev);
@@ -51,17 +45,15 @@ namespace t3d
 		}
 	}
 
-	const float mouseDeltaOffsetX = 100.0f;
-	const float mouseDeltaOffsetY = 100.0f;
 
-	QVector2D OpenGLQuickView::consumeCursorDelta()
+	QPoint OpenGLQuickView::consumeCursorDelta()
 	{
-        QVector2D delta;
+		QPoint currentPos = QCursor::pos();
 
-        delta = QVector2D(float(mCachedCursorPos.x - mLastCursorPos.x),
-                          float(mCachedCursorPos.y - mLastCursorPos.y));
+		QPoint delta = QPoint(float(currentPos.x() - mLastCursorPos.x()),
+						  float(currentPos.y() - mLastCursorPos.y()));
 
-        mLastCursorPos = Vec2i(mCachedCursorPos.x, mCachedCursorPos.y);
+		mLastCursorPos = currentPos;
 
         return delta;
 	}
@@ -72,8 +64,10 @@ namespace t3d
 		if (mCapturesCursor == false)
 			return;
 
-        QCursor::setPos(QWindow::mapToGlobal(QPoint(mouseDeltaOffsetX, mouseDeltaOffsetY)));
-        mLastCursorPos = Vec2i(mouseDeltaOffsetX, mouseDeltaOffsetY);
-        mCachedCursorPos = mLastCursorPos;
+		QPoint targetPos = QWindow::framePosition()
+						   + QPoint(QWindow::width()/2, QWindow::height()/2);
+
+		QCursor::setPos(targetPos);
+		mLastCursorPos = targetPos;
 	}
 }
