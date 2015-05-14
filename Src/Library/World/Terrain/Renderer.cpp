@@ -66,9 +66,11 @@ namespace t3d { namespace world { namespace terrain
 		{
 			uploadTerrainData();
 			mInvalidations.terrainData = false;
-			ShaderProgram::bind();
+            if (ShaderProgram::bind())
+            {
 				refreshUniformValues();	
-			ShaderProgram::release();
+                ShaderProgram::release();
+            }
 		}
 
 		mWaterRenderer.refresh();
@@ -144,13 +146,14 @@ namespace t3d { namespace world { namespace terrain
 				const int chunksPerSide = terrainSize / chunkSize;
 
 				glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
-
+                //glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
 				glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide*chunksPerSide);
 			}
 
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glBindVertexArray(0);
 		}
+		glBindVertexArray(0);
 		ShaderProgram::raw().release();
 
         mWaterRenderer.render(modelViewMatrix, perspectiveMatrix);
@@ -248,13 +251,16 @@ namespace t3d { namespace world { namespace terrain
 
 	void Renderer::refreshUniformValues()
 	{
+        ShaderProgram::bind();
+
 		glUniform1i(ShaderProgram::raw().uniformLocation("heightMapSampler"), 0);
 		glUniform1i(ShaderProgram::raw().uniformLocation("lightMapSampler"), 1);
 		glUniform1i(ShaderProgram::raw().uniformLocation("textureLayers"), 2);
 		glUniform1i(ShaderProgram::raw().uniformLocation("terrainTexture"), 3);
 
 		//terrain::Data
-		ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
+        ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
+        //glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
 		ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
 		ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
 		ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->pChunkSize);
@@ -323,3 +329,4 @@ namespace t3d { namespace world { namespace terrain
 		}
 	}
 }}}
+

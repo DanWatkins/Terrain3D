@@ -18,8 +18,13 @@ namespace t3d { namespace world { namespace terrain { namespace water
 
 		ShaderProgram::bind();
 		{
-			glPatchParameteri(GL_PATCH_VERTICES, 4);
-			loadTextures();
+			glGenVertexArrays(1, &mVao);
+			glBindVertexArray(mVao);
+			{
+				glPatchParameteri(GL_PATCH_VERTICES, 4);
+				loadTextures();
+			}
+			glBindVertexArray(0);
 		}
 		ShaderProgram::release();
 
@@ -71,12 +76,14 @@ namespace t3d { namespace world { namespace terrain { namespace water
 	{
 		ShaderProgram::raw().removeAllShaders();
 		glDeleteTextures(1, &mTextures.water);
+		glDeleteVertexArrays(1, &mVao);
 	}
 
 
     void Renderer::render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
 	{
 		ShaderProgram::bind();
+		glBindVertexArray(mVao);
 		{
 			glUniformMatrix4fv(mUniforms.mvMatrix, 1, GL_FALSE, glm::value_ptr(modelViewMatrix));
 			glUniformMatrix4fv(mUniforms.projMatrix, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
@@ -88,6 +95,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 
 			glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
 		}
+		glBindVertexArray(0);
 		ShaderProgram::release();
 	}
 

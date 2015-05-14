@@ -38,6 +38,8 @@ namespace t3d { namespace world { namespace terrain { namespace water
 	private:
 		Q_DISABLE_COPY(Renderer)
 
+		GLuint mVao;
+
 		struct
 		{
 			GLint mvMatrix;

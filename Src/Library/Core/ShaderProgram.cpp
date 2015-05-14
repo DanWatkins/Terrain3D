@@ -45,6 +45,20 @@ namespace t3d { namespace core
 	}
 
 
+    bool ShaderProgram::bind()
+    {
+        if (!mProgram->bind())
+        {
+            System::warning("Unable to bind OpenGL ShaderProgram");
+            return false;
+        }
+
+        flushQueuedUniformValueChanges();
+
+        return true;
+    }
+
+
 	void ShaderProgram::reloadShaders()
 	{
 		loadShaders();
@@ -92,3 +106,4 @@ namespace t3d { namespace core
 		mQueuedUniformValueChanges.clear();
 	}
 }}
+

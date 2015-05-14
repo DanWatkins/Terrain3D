@@ -36,10 +36,10 @@ void loadAndRun(QGuiApplication &app)
 
 		t3d::Terrain3D mainWindow(&mainSettings);
 
-        QSurfaceFormat format;
+        QSurfaceFormat format = mainWindow.format();
         format.setMajorVersion(4);
-        format.setMinorVersion(1);
-        format.setProfile(QSurfaceFormat::CoreProfile);
+		format.setMinorVersion(1);
+		format.setProfile(QSurfaceFormat::CoreProfile);
         mainWindow.setFormat(format);
 
 		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
@@ -62,6 +62,8 @@ int main(int argc, char *argv[])
 
 	QGuiApplication app(argc, argv);
 	mainSettings.init();
+
+	qDebug() << "Main thread is " << QThread::currentThreadId();
 
 	//set all the QuickItem types
 	{

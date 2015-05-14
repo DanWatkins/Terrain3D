@@ -12,6 +12,7 @@
 #include <QtGui/QOpenGLFunctions_4_1_Core>
 #include <QtOpenGLExtensions/QOpenGLExtensions>
 
+
 using BaseOpenGLFunctions = QOpenGLFunctions_4_1_Core;
 
 namespace t3d { namespace core

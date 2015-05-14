@@ -23,7 +23,7 @@ namespace t3d { namespace core
 		void addShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
 		void loadShaders();
 
-		void bind() { mProgram->bind(); flushQueuedUniformValueChanges(); }
+        bool bind();
 		void release() { mProgram->release(); }
 
 		/**
