@@ -63,8 +63,6 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 	mainSettings.init();
 
-	qDebug() << "Main thread is " << QThread::currentThreadId();
-
 	//set all the QuickItem types
 	{
 		using namespace t3d::QuickItems;

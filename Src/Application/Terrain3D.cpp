@@ -69,8 +69,17 @@ namespace t3d
                     this, &Terrain3D::willUpdate);
             backgroundUpdater.start();
 
-            QObject::connect(this, &QQuickView::beforeRendering,
-                             this, &Terrain3D::beforeRendering);
+            QObject::connect(this, &QQuickView::beforeRendering, [this]
+            {
+                mFPSCounter.update();
+                mOpenGLTaskQueue.runTasks();
+
+                if (pIsLoading)
+                    return;
+
+                glClearColor(1.0f, 0.0f, 0.8f, 1.0f);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+            });
 
             QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged,
                              this, &Terrain3D::onFpsChanged);
@@ -425,18 +434,5 @@ namespace t3d
 		{
 			updateCursorPos();
 		}
-	}
-
-
-	void Terrain3D::beforeRendering()
-	{
-		mFPSCounter.update();
-		mOpenGLTaskQueue.runTasks();
-
-		if (pIsLoading)
-			return;
-
-		glClearColor(1.0f, 0.0f, 0.8f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 }
