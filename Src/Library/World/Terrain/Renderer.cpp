@@ -14,13 +14,19 @@ namespace t3d { namespace world { namespace terrain
 	{
 		pLodFactor.addOnChangedListener([this]()
 		{
-			this->enqueueUniformValueChange(&mUniforms.lod, pLodFactor);
+            this->enqueueUniformValueChange(&mUniforms.lodFactor, pLodFactor);
 		});
 
-		pIvdFactor.addOnChangedListener([this]()
+        pLodNear.addOnChangedListener([this]()
 		{
-			this->enqueueUniformValueChange(&mUniforms.ivd, pIvdFactor);
+            this->enqueueUniformValueChange(&mUniforms.lodNear, pLodNear);
 		});
+
+
+        pLodFar.addOnChangedListener([this]()
+        {
+            this->enqueueUniformValueChange(&mUniforms.lodFar, pLodFar);
+        });
 	}
 
 
@@ -237,8 +243,9 @@ namespace t3d { namespace world { namespace terrain
 
 		ULOC(terrainSize);
 		ULOC(chunkSize);
-		ULOC(lod);
-		ULOC(ivd);
+        ULOC(lodFactor);
+        ULOC(lodNear);
+        ULOC(lodFar);
 		ULOC(cameraPos);
 		ULOC(heightScale);
 		ULOC(spanSize);
@@ -268,8 +275,9 @@ namespace t3d { namespace world { namespace terrain
 		ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 
 		//this
-		ShaderProgram::raw().setUniformValue(mUniforms.lod, pLodFactor);
-		ShaderProgram::raw().setUniformValue(mUniforms.ivd, pIvdFactor);
+        ShaderProgram::raw().setUniformValue(mUniforms.lodFactor, pLodFactor);
+        ShaderProgram::raw().setUniformValue(mUniforms.lodNear, pLodNear);
+        ShaderProgram::raw().setUniformValue(mUniforms.lodFar, pLodFar);
 	}
 
 

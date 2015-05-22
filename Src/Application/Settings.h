@@ -43,10 +43,11 @@ public:
 		GraphicsCameraPositionX				= 103,
 		GraphicsCameraPositionY				= 104,
 		GraphicsCameraPositionZ				= 105,
-		GraphicsCameraFOV					= 106,  /* Field of view: Degrees measurment of the camera's viewing angle */
-		GraphicsCameraLOD					= 107,  /* Level of detail: A scale factor to adjust the overall level of detail */
-		GraphicsCameraIVD					= 108,	/* Immediate view distance: Everything within this distance should be full detail */
-		GraphicsCameraWireframe				= 109,
+        GraphicsCameraFOV					= 110,  /* Field of view: Degrees measurment of the camera's viewing angle */
+        GraphicsCameraLODFactor 			= 111,  /* Level of detail: A scale factor to adjust the overall level of detail */
+        GraphicsCameraLODNear				= 112,	/* The forward distance from the camera at which point the LOD begins to interpolate towards LODFar */
+        GraphicsCameraLODFar                = 113,  /* The forward distance from the camera at which point the LODNear has interpolated to the lowest LOD */
+        GraphicsCameraWireframe				= 130,
 
 		//world
 		WorldGeneratorSize					= 201,

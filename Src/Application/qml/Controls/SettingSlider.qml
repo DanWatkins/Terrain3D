@@ -14,6 +14,7 @@ SettingBaseControl {
 
     height: 30
 
+    default property alias value: slider.value
     property real minimumValue: 0
     property real maximumValue: 100
     property real stepSize: 2

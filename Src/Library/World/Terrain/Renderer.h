@@ -42,7 +42,8 @@ namespace t3d { namespace world { namespace terrain
 		void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
 		Property<float> pLodFactor = 1.0f;
-		Property<float> pIvdFactor = 100.0f;
+        Property<float> pLodNear = 50.0f;
+        Property<float> pLodFar = 450.0f;
 		Property<Mode> pMode = Mode::Normal;
 
 	protected:
@@ -66,8 +67,9 @@ namespace t3d { namespace world { namespace terrain
 
 			GLint terrainSize;
 			GLint chunkSize;
-			GLint lod;
-			GLint ivd;
+            GLint lodFactor;
+            GLint lodNear;
+            GLint lodFar;
 			GLint cameraPos;
 			GLint heightScale;
 			GLint spanSize;

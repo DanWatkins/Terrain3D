@@ -179,17 +179,23 @@ namespace t3d
 				break;
 			}
 
-			CASE(GraphicsCameraLOD) {
+            CASE(GraphicsCameraLODFactor) {
 				if (auto camera = mCamera.lock())
 					camera->terrainRenderer().pLodFactor = value.toFloat();
 				break;
 			}
 
-			CASE(GraphicsCameraIVD) {
-				if (auto camera = mCamera.lock())
-					camera->terrainRenderer().pIvdFactor = value.toFloat();
-				break;
-			}
+            CASE(GraphicsCameraLODNear) {
+                if (auto camera = mCamera.lock())
+                    camera->terrainRenderer().pLodNear = value.toFloat();
+                break;
+            }
+
+            CASE(GraphicsCameraLODFar) {
+                if (auto camera = mCamera.lock())
+                    camera->terrainRenderer().pLodFar = value.toFloat();
+                break;
+            }
 
 			CASE(GraphicsCameraWireframe) {
 				if (auto camera = mCamera.lock())

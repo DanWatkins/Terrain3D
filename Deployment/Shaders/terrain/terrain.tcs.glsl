@@ -20,7 +20,9 @@ out TCSOut
 
 uniform int terrainSize;
 uniform int chunkSize;
-uniform float lod;
+uniform float lodFactor;
+uniform float lodNear;
+uniform float lodFar;
 uniform float ivd; //immediate view distance
 uniform vec3 cameraPos;
 
@@ -37,8 +39,32 @@ int lodForChunkPos(ivec2 chunkPos)
 	realPos.y = 4.0;
 	realPos.z = float(chunkPos.y) * chunkSize + (chunkSize/2.0);
 
-	float invDistance = (terrainSize-distance(cameraPos, realPos) + ivd) / float(terrainSize);
-	return int(max(invDistance * maxLevel * lod, minLevel));
+        float dist = distance(cameraPos, realPos);
+
+        if (dist < lodFar)
+        {
+            //full detail
+            if (dist < lodNear)
+            {
+                return int(maxLevel * lodFactor);
+            }
+            //interpolate
+            else
+            {
+                float gap = lodFar - lodNear;
+                float perc = lodFar - dist;
+
+                float levelGap = maxLevel-minLevel;
+
+                return int((perc/gap*levelGap) + minLevel);
+            }
+        }
+        //least detail
+        else
+            return int(minLevel);
+
+        //float invDistance = (terrainSize-distance(cameraPos, realPos) + ivd) / float(terrainSize);
+        //return int(max(invDistance * maxLevel * lod, minLevel));
 }
 
 

@@ -69,8 +69,8 @@ SettingGroupBox {
     }
 
     SettingSlider {
-        title: "Camera LOD"
-        settingsKey: Settings.GraphicsCameraLOD
+        title: "Camera LOD Factor"
+        settingsKey: Settings.GraphicsCameraLODFactor
 
         minimumValue: 0.1
         maximumValue: 1.0
@@ -78,10 +78,21 @@ SettingGroupBox {
     }
 
     SettingSlider {
-        title: "Camera IVD"
-        settingsKey: Settings.GraphicsCameraIVD
+        id: slider_graphicsCameraLODNear
+        title: "Camera LOD Near"
+        settingsKey: Settings.GraphicsCameraLODNear
 
-        minimumValue: 0
+        minimumValue: 0.0
+        maximumValue: slider_graphicsCameraLODFar.value
+        stepSize: 0.05
+    }
+
+    SettingSlider {
+        id: slider_graphicsCameraLODFar
+        title: "Camera LOD Far"
+        settingsKey: Settings.GraphicsCameraLODFar
+
+        minimumValue: slider_graphicsCameraLODNear.value
         maximumValue: 1000
         stepSize: 50
     }

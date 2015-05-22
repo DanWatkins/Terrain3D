@@ -120,8 +120,9 @@ void Settings::initDefaultValues()
 	d[GraphicsCameraPositionY] = {0.0f, Instant};
 	d[GraphicsCameraPositionZ] = {0.0f, Instant};
 	d[GraphicsCameraFOV] = {60.0f, Instant};
-	d[GraphicsCameraLOD] = {1.0f, Instant};
-	d[GraphicsCameraIVD] = {140.0f, Instant};
+    d[GraphicsCameraLODFactor] = {1.0f, Instant};
+    d[GraphicsCameraLODNear] = {50.0f, Instant};
+    d[GraphicsCameraLODFar] = {450.0f, Instant};
 	d[GraphicsCameraWireframe] = {false, Instant};
 
 	//world
