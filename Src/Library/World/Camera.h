@@ -36,7 +36,6 @@ namespace t3d { namespace world
 
 	signals:
 		void finishedRendering();
-		void posChanged();
 
 	public:
         Camera();
@@ -72,7 +71,6 @@ namespace t3d { namespace world
 		Property<float> pFarPlane = 1200.0f;
 		Property<float> pAspectRatio = 1.0;
 		Property<float> pMaxVerticalAngle = 90.0f;
-
 
 		Property<Vec3f> pPos;
         Property<Vec2f> pOrientationAngle;

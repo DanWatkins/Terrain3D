@@ -10,13 +10,6 @@
 namespace t3d { namespace world
 {
     Camera::Camera() :
-        pPos(Property<Vec3f>::SetFunction([this](const Vec3f &value)
-        {
-			pPos.raw() = value;
-            emit posChanged();
-        })),
-
-
 		//TODO move these into the declaration
         pOrientationAngle(Property<Vec2f>::SetFunction([this](const Vec2f &value)
         {

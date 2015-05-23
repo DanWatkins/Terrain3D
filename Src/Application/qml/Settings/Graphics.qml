@@ -83,7 +83,7 @@ SettingGroupBox {
         settingsKey: Settings.GraphicsCameraLODNear
 
         minimumValue: 0.0
-        maximumValue: slider_graphicsCameraLODFar.value
+        maximumValue: 1000.0
         stepSize: 0.05
     }
 
@@ -92,7 +92,7 @@ SettingGroupBox {
         title: "Camera LOD Far"
         settingsKey: Settings.GraphicsCameraLODFar
 
-        minimumValue: slider_graphicsCameraLODNear.value
+        minimumValue: 0.0
         maximumValue: 1000
         stepSize: 50
     }

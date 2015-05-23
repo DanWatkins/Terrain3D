@@ -141,9 +141,6 @@ namespace t3d
 
 	public slots:
 		void willUpdate();
-		void onFpsChanged() { emit fpsChanged(); }
-		void onCameraPosChanged() { emit cameraPosChanged(); }
-		void onIsLoadingChanged() { emit isLoadingChanged(); }
 	};
 }
 

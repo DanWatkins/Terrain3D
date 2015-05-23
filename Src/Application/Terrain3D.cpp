@@ -81,15 +81,16 @@ namespace t3d
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
             });
 
-            QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged,
-                             this, &Terrain3D::onFpsChanged);
+            QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged, [this]() {
+                emit fpsChanged();
+            });
 
-            QObject::connect(mCamera.lock().get(), &world::Camera::posChanged,
-                             this, &Terrain3D::onCameraPosChanged);
-
-            mEnvironment.pIsLoading.addOnChangedListener([this]
+            mCamera.lock()->pPos.addOnChangedListener([this]
             {
-                qDebug() << "Changed";
+                emit cameraPosChanged();
+            });
+
+            mEnvironment.pIsLoading.addOnChangedListener([this] {
                 emit this->isLoadingChanged();
             });
 
