@@ -35,17 +35,6 @@ namespace t3d { namespace world { namespace terrain { namespace water
 				this->mInvalidations.terrainData = true;
 			});
 
-			/*#define CONNECT_PROPERTY_TO_UNIFORM(prop, uniform) \
-						mTerrainData->prop.addOnChangedListener([this]() \
-						{ \
-							this->enqueueUniformValueChange(&this->mUniforms.uniform, \
-														 this->mTerrainData->prop); \
-						});
-
-				CONNECT_PROPERTY_TO_UNIFORM(pHeightScale, heightScale)
-				CONNECT_PROPERTY_TO_UNIFORM(pSpanSize, spanSize)
-			#undef CONNECT_PROPERTY_TO_UNIFORM*/
-
 			mTerrainData->pHeightScale.addOnChangedListener([this] {
 				enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->pHeightScale());
 			});

@@ -8,11 +8,12 @@
 #ifndef _t3d_World_Environment_H
 #define _t3d_World_Environment_H
 
+#include <ValpineBase/Loadable.h>
+#include <ValpineBase/Property.h>
+
 #include <World/Terrain/Data.h>
 #include <World/Entity/Manager.h>
 #include <Core/Asset/Manager.h>
-
-#include <ValpineBase/Loadable.h>
 
 namespace t3d { namespace world
 {
@@ -47,29 +48,29 @@ namespace t3d { namespace world
 		 * \brief Length of a side of the terrain grid. World coordinates will be on the
 		 * range [(0,0,0), (pSize, terrain::Data::pHeightScale, pSize)]
 		 */
-		Property<int> pSize = 16;
+        vbase::Property<int> pSize = 16;
 
 		/**
 		 * \brief Number of faults to use with the fault-formation terrain generation algorithm
 		 */
-		Property<int> pFaultCount = 100;
+        vbase::Property<int> pFaultCount = 100;
 
 		/**
 		 * \brief Seed value used to initialize the random number generator for randomly generatin
 		 * the terrain.
 		 */
-		Property<int> pSeed = 0;
+        vbase::Property<int> pSeed = 0;
 
 		/**
 		 * \brief The intensity used for linear smoothing passes in post-process fault-formation
 		 * terrain generation.
 		 */
-		Property<float> pSmoothing = 0.5f;
+        vbase::Property<float> pSmoothing = 0.5f;
 
 		/**
 		 * \brief TODO this is a werid setting. It's kind of backwards.
 		 */
-		Property<float> pLightIntensity = 16.0f;
+        vbase::Property<float> pLightIntensity = 16.0f;
 
 	private:
 		int seedToUse();

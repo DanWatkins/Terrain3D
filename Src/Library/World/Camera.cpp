@@ -9,14 +9,7 @@
 
 namespace t3d { namespace world
 {
-    Camera::Camera() :
-		//TODO move these into the declaration
-        pOrientationAngle(Property<Vec2f>::SetFunction([this](const Vec2f &value)
-        {
-			pOrientationAngle.raw() = value;
-            normalizeAngles();
-        }))
-
+    Camera::Camera()
     {
 
         lookAt(Vec3f(60, 20, 60));

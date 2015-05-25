@@ -97,11 +97,7 @@ std::unique_ptr<T> makeUnique(Args&&... args) {
 #include <Core/OpenGLFunctions.h>
 
 #include <ValpineBase/Helper.h>
-#include <ValpineBase/Property.h>
 #include <ValpineBase/System.h>
-
-template <typename T>
-using Property = vbase::Property<T>;
 
 using System = vbase::System;
 

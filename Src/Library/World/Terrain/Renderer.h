@@ -8,12 +8,13 @@
 #ifndef _t3d_world_Terrain_Renderer_H
 #define _t3d_world_Terrain_Renderer_H
 
+#include <ValpineBase/Loadable.h>
+#include <ValpineBase/Property.h>
+
 #include <Library.h>
 #include <Core/ShaderProgram.h>
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Water/Renderer.h>
-
-#include <ValpineBase/Loadable.h>
 
 namespace t3d { namespace world { namespace terrain
 {
@@ -41,10 +42,10 @@ namespace t3d { namespace world { namespace terrain
 		void prepareForRendering();
 		void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
-		Property<float> pLodFactor = 1.0f;
-        Property<float> pLodNear = 50.0f;
-        Property<float> pLodFar = 450.0f;
-		Property<Mode> pMode = Mode::Normal;
+        vbase::Property<float> pLodFactor = 1.0f;
+        vbase::Property<float> pLodNear = 50.0f;
+        vbase::Property<float> pLodFar = 450.0f;
+        vbase::Property<Mode> pMode = Mode::Normal;
 
 	protected:
 		void addShaders() override;

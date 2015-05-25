@@ -8,14 +8,15 @@
 #ifndef _t3d_World_Camera_H
 #define _t3d_World_Camera_H
 
+#include <ValpineBase/Loadable.h>
+#include <ValpineBase/Property.h>
+
 #include <Library.h>
 #include <World/Environment.h>
 
 #include <World/Terrain/Data.h>
 #include <World/Terrain/Renderer.h>
 #include <World/Entity/Renderer.h>
-
-#include <ValpineBase/Loadable.h>
 
 namespace t3d { namespace world
 {
@@ -66,14 +67,19 @@ namespace t3d { namespace world
 		void reloadShaders();
 		void setEnvironment(Environment *environment) { mEnvironment = environment; }
 
-		Property<float> pFieldOfView = 50.0f;
-		Property<float> pNearPlane = 1.0f;
-		Property<float> pFarPlane = 1200.0f;
-		Property<float> pAspectRatio = 1.0;
-		Property<float> pMaxVerticalAngle = 90.0f;
+        vbase::Property<float> pFieldOfView = 50.0f;
+        vbase::Property<float> pNearPlane = 1.0f;
+        vbase::Property<float> pFarPlane = 1200.0f;
+        vbase::Property<float> pAspectRatio = 1.0;
+        vbase::Property<float> pMaxVerticalAngle = 90.0f;
 
-		Property<Vec3f> pPos;
-        Property<Vec2f> pOrientationAngle;
+        vbase::Property<Vec3f> pPos;
+
+        Property_Set(Vec2f, pOrientationAngle, Vec2f(0,0),
+        {
+             pOrientationAngle.raw() = _newValue;
+             normalizeAngles();
+        })
 		
 		Mat4 orientaion() const;
 

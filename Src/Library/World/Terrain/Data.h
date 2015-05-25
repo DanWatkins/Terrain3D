@@ -8,6 +8,8 @@
 #ifndef _t3d_World_Terrain_Data_H
 #define _t3d_World_Terrain_Data_H
 
+#include <ValpineBase/Property.h>
+
 #include <Library.h>
 #include <World/Terrain/HeightMap.h>
 #include <World/Terrain/LightMap.h>
@@ -32,10 +34,10 @@ namespace t3d { namespace world { namespace terrain
 		typedef QVector<GLubyte> TextureIndicies;
 		TextureIndicies& textureIndicies() { return mTextureIndicies; }
 
-		Property<int> pTextureMapResolution;
-		Property<float> pHeightScale;
-		Property<int> pSpanSize;
-		Property<int> pChunkSize;
+        vbase::Property<int> pTextureMapResolution;
+        vbase::Property<float> pHeightScale;
+        vbase::Property<int> pSpanSize;
+        vbase::Property<int> pChunkSize;
 
 	signals:
 		void heightMapChanged();

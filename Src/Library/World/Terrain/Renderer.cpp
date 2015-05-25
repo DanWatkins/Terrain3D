@@ -50,18 +50,23 @@ namespace t3d { namespace world { namespace terrain
 				this->mInvalidations.terrainData =  true;
 			});
 
-#define CONNECT_PROPERTY_TO_UNIFORM(prop, uniform) \
-					mTerrainData->prop.addOnChangedListener([this]() \
-					{ \
-						this->enqueueUniformValueChange(&this->mUniforms.uniform, \
-													 this->mTerrainData->prop); \
-					});
 
-			CONNECT_PROPERTY_TO_UNIFORM(pTextureMapResolution, textureMapResolution)
-			CONNECT_PROPERTY_TO_UNIFORM(pHeightScale, heightScale)
-			CONNECT_PROPERTY_TO_UNIFORM(pSpanSize, spanSize)
-			CONNECT_PROPERTY_TO_UNIFORM(pChunkSize, chunkSize)
-#undef CONNECT_PROPERTY_TO_UNIFORM
+            //TODO make some kind of "connectUniformToProperty thing to ShaderProgram"
+            mTerrainData->pTextureMapResolution.addOnChangedListener([this] {
+                enqueueUniformValueChange(&mUniforms.textureMapResolution, mTerrainData->pTextureMapResolution);
+            });
+
+            mTerrainData->pHeightScale.addOnChangedListener([this] {
+                enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->pHeightScale);
+            });
+
+            mTerrainData->pSpanSize.addOnChangedListener([this] {
+                enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->pSpanSize);
+            });
+
+            mTerrainData->pChunkSize.addOnChangedListener([this] {
+                enqueueUniformValueChange(&mUniforms.chunkSize, mTerrainData->pChunkSize);
+            });
 		}
 	}
 

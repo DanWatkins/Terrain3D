@@ -28,7 +28,7 @@ namespace t3d { namespace world { namespace terrain { namespace water
 		void cleanup();
         void render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
-		Property<float> pWaterLevel = 0.3f;
+        vbase::Property<float> pWaterLevel = 0.3f;
 
 	protected:
 		void addShaders() override;
