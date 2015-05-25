@@ -76,17 +76,13 @@ namespace t3d
 
                 if (pIsLoading)
                     return;
-
-                glClearColor(1.0f, 0.0f, 0.8f, 1.0f);
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
             });
 
             QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged, [this]() {
                 emit fpsChanged();
             });
 
-            mCamera.lock()->pPos.addOnChangedListener([this]
-            {
+			mCamera.lock()->pPos.addOnChangedListener([this] {
                 emit cameraPosChanged();
             });
 
@@ -145,17 +141,17 @@ namespace t3d
 		{
 			//graphics
 			CASE(GraphicsScreenResolutionWidth) {
-				QWindow::resize(value.toInt(), QWindow::height());
+				//QWindow::resize(value.toInt(), QWindow::height());
 				break;
 			}
 
 			CASE(GraphicsScreenResolutionHeight) {
-				QWindow::resize(QWindow::width(), value.toInt());
+				//QWindow::resize(QWindow::width(), value.toInt());
 				break;
 			}
 
 			CASE(GraphicsScreenIsFullscreen) {
-                //value.toBool() ? QWindow::showFullScreen() : QWindow::showNormal();
+				//value.toBool() ? QWindow::showFullScreen() : QWindow::showNormal();
 				break;
 			}
 
@@ -435,6 +431,7 @@ namespace t3d
 	{
 		if (mCameraItem == nullptr)
 		{
+			//TODO redundant?
 			mCameraItem = rootObject()->findChild<QuickItems::CameraItem*>("t3d_mainCamera");
 		}
 		else if (!pIsLoading)

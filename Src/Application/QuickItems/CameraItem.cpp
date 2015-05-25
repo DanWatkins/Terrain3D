@@ -12,37 +12,53 @@ namespace t3d { namespace QuickItems
 	CameraItem::CameraItem() :
 		mIsFrozen(false)
 	{
-		QObject::connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
 	}
 
-
-	void CameraItem::handleWindowChanged(QQuickWindow *window)
+	class CameraItemRenderer : public QQuickFramebufferObject::Renderer
 	{
-		if (window)
+	public:
+		CameraItemRenderer(CameraItem *host) : mHost(host) {}
+
+	private:
+		CameraItem *mHost = nullptr;
+
+		QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override
 		{
-			QObject::connect(window, SIGNAL(beforeSynchronizing()), this, SLOT(sync()), Qt::DirectConnection);
-			QObject::connect(window, SIGNAL(sceneGraphInvalidated()), this, SLOT(cleanup()), Qt::DirectConnection);
-			window->setClearBeforeRendering(false);
+			QOpenGLFramebufferObjectFormat format;
+			format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
+			format.setSamples(4);
+			return new QOpenGLFramebufferObject(size, format);
 		}
-	}
+
+		void render() override
+		{
+			if (auto camera = mHost->camera().lock())
+			{
+				if (camera->pHasLoaded)
+				{
+					camera->resize(framebufferObject()->width(),
+								   framebufferObject()->height());
+					camera->render();
+				}
+				else
+				{
+					auto ctx = QOpenGLContext::currentContext()->functions();
+					ctx->glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+					ctx->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+				}
+			}
+
+			update();
+			mHost->window()->resetOpenGLState();
+		}
+	};
 
 
-	void CameraItem::sync()
+	QQuickFramebufferObject::Renderer *CameraItem::createRenderer() const
 	{
-		if (!mIsSynced && mCamera)
-		{
-			QObject::connect(window(), SIGNAL(beforeRendering()),
-								 this, SLOT(render()), Qt::DirectConnection);
+		auto renderer = new CameraItemRenderer(const_cast<CameraItem*>(this));
 
-			QObject::connect(mCamera.get(), SIGNAL(finishedRendering()),
-								this, SLOT(cameraFinishedRendering()), Qt::DirectConnection);
-
-			mIsSynced = true;
-		}
-		else if (!mCamera)
-		{
-			System::fatal("CameraItem hasn't had it's internal world::Camera created yet");
-		}
+		return renderer;
 	}
 
 
@@ -60,28 +76,5 @@ namespace t3d { namespace QuickItems
 	void CameraItem::cleanup()
 	{
 		mCamera->cleanup();
-	}
-
-
-	void CameraItem::cameraFinishedRendering()
-	{
-		window()->resetOpenGLState();
-	}
-
-
-	void CameraItem::render()
-	{
-        if (mCamera && mCamera->pHasLoaded)
-		{
-			mCamera->resize(width(), height());
-			mCamera->render();
-		}
-		else
-		{
-			glClearColor(1.0f, 0.3f, 0.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
-		}
-
-		window()->update();
 	}
 }}

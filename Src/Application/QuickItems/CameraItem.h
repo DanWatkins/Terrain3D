@@ -14,7 +14,7 @@
 
 namespace t3d { namespace QuickItems
 {
-	class CameraItem : public QQuickItem
+	class CameraItem : public QQuickFramebufferObject
 	{
 		Q_OBJECT
 		Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY isLoadedChanged)
@@ -29,6 +29,8 @@ namespace t3d { namespace QuickItems
 		void setIsFrozen(bool isFrozen) { mIsFrozen = isFrozen; }
 
 		weak<world::Camera> createCamera();
+		weak<world::Camera> camera() { return mCamera; }
+		void cleanup();
 
 	private:
 		bool mIsFrozen;
@@ -38,17 +40,10 @@ namespace t3d { namespace QuickItems
 	signals:
 		void isLoadedChanged();
 
-	public slots:
-		void sync();
-		void cleanup();
-		void cameraFinishedRendering();
-		void render();
 
-	private slots:
-		void handleWindowChanged(QQuickWindow *window);
+	public:
+		QQuickFramebufferObject::Renderer *createRenderer() const;
 	};
 }}
 
 #endif
-
-
