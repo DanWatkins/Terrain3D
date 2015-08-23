@@ -12,20 +12,26 @@ An interactive 3D terrain simulation written in C++ using OpenGL 4 and Qt 5. The
 
 # Build Instructions
 
-You will need Qt 5.3+, Visual Studio 2013+, the Qt Visual Studio plugin, and a graphics card that supports OpenGL 4.2+. Simply open the Terrain3D.sln root file in Visual Studio and everything should build right out of the box.
+### Requirments
 
-Terrain3D is cross platform, but only a Visual Studio project file is maintained. Someday there will be a CMake script configured so you can easily build with any toolchain.
+Note: The project may build and run with different configurations. The following are only guarunteed to work.
+
+* **Build Machine**
+  * C++ Toolchain: GCC 4.9.2+ | MSVC 14.0+
+  * Qt: 5.5+
+* **Target Machine**
+  * OS: Windows 7+ | Ubuntu 15+ | Android 6.0+ (coming soon)
+  * OpenGL: 4.3+
+
+### Building
+
+Simply open Terrain3D.qbs in Qt Creator and hit build. When running from the IDE, make sure the working directory is set to &lt;root_path_to_terrain3d&gt;/Deployment/Bin/. Otherwise none of the relative resource paths will work.
+
 
 # Screen Shots
 
-Procedurally generated terrain and forest.
+![ScreenShot](./Screenshots/terrain3d_settings.png)
 
 ![ScreenShot](./Screenshots/terrain3d_main.png)
 
-Continuous level of detail.
-
 ![ScreenShot](./Screenshots/terrain3d_clod.png)
-
-Customizable settings menu.
-
-![ScreenShot](./Screenshots/terrain3d_settings.png)
