@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     /*AllocConsole();
 	freopen("CONIN$", "r", stdin);
 	freopen("CONOUT$", "w", stdout);
-	freopen("CONOUT$", "w", stderr);*/
+    freopen("CONOUT$", "w", stderr);*/
 
 	QGuiApplication app(argc, argv);
 	mainSettings.init();

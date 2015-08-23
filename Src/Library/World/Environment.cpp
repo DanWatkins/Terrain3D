@@ -91,7 +91,7 @@ namespace t3d { namespace world
 		mEntityManager.clear();
 
 		const terrain::HeightMap &hm = mTerrainData.heightMap();
-		const double density = 0.10f;
+        const double density = 0.06f;
 		const int NumTreesAttempt = density*hm.size() * density*hm.size();
 
 		QVector<QString> treeList;

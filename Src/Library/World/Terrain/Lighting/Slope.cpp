@@ -38,6 +38,7 @@ namespace t3d { namespace world { namespace terrain { namespace Lighting
 					}
 
 					lm.set(x, y, std::max(std::max(0.0f, brightness), 1.0f));
+                    //TODO problem here I think
 				}
 			}
 		}
