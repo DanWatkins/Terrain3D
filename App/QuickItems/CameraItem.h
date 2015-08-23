@@ -9,7 +9,7 @@
 #define _t3d_QUICK_ITEMS_CAMERA_H
 
 #include <QtQuick/QQuickFramebufferObject>
-#include <World/Camera.h>
+#include <Terrain3D/World/Camera.h>
 
 
 namespace t3d { namespace QuickItems

@@ -12,11 +12,11 @@
 #include "BackgroundUpdater.h"
 #include "Settings.h"
 
-#include <Application.h>
-#include <Core/FPSCounter.h>
-#include <Core/OpenGLTaskQueue.h>
-#include <World/Environment.h>
-#include <World/Camera.h>
+#include "Application.h"
+#include <Terrain3D/Core/FPSCounter.h>
+#include <Terrain3D/Core/OpenGLTaskQueue.h>
+#include <Terrain3D/World/Environment.h>
+#include <Terrain3D/World/Camera.h>
 #include "QuickItems/CameraItem.h"
 
 #include <ValpineBase/Loadable.h>

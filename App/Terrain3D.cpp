@@ -5,11 +5,12 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include "Terrain3D.h"
-#include <Core/Core.h>
-#include <QuickItems/CameraItem.h>
 #include <QtQml/QQmlContext>
 #include <QtConcurrent/QtConcurrent>
+
+#include "Terrain3D.h"
+#include "QuickItems/CameraItem.h"
+#include <Terrain3D/Core/Core.h>
 
 namespace t3d
 {

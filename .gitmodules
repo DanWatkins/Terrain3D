@@ -1,0 +1,3 @@
+[submodule "Ext/ValpineBase"]
+	path = Ext/ValpineBase
+	url = https://github.com/Valpineware/ValpineBase.git

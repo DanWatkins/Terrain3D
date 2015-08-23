@@ -8,7 +8,7 @@
 #ifndef _t3d_OpenGLQuickView_H
 #define _t3d_OpenGLQuickView_H
 
-#include <Library.h>
+#include <Terrain3D/Library.h>
 #include <QtQuick/QQuickView>
 
 namespace t3d

@@ -9,7 +9,7 @@
 #include "Terrain3D.h"
 #include "Settings.h"
 
-#include <QuickItems/CameraItem.h>
+#include "QuickItems/CameraItem.h"
 
 #include <QOpenGLContext>
 
