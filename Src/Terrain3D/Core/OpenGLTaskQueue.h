@@ -11,36 +11,37 @@
 #include <Terrain3D/Library.h>
 #include <Terrain3D/Core/OpenGLFunctions.h>
 
-namespace t3d { namespace core
+namespace t3d { namespace core {
+
+/**
+ * \brief Utility for queueing up tasks to be executed on the main thread with access to OpenGLFunctions.
+ * This is entirely thread-safe, so tasks can be queued from multiple threads.
+ */
+class OpenGLTaskQueue : protected OpenGLFunctions
 {
+public:
+	using TaskFunction = std::function<void(OpenGLFunctions*)>;
+
 	/**
-	 * \brief Utility for queueing up tasks to be executed on the main thread with access to OpenGLFunctions.
-	 * This is entirely thread-safe, so tasks can be queued from multiple threads.
+	 * Gets the internal OpenGLFunctions ready to go.
 	 */
-	class OpenGLTaskQueue : protected OpenGLFunctions
-	{
-	public:
-		using TaskFunction = std::function<void(OpenGLFunctions*)>;
+	void init();
 
-		/**
-		 * Gets the internal OpenGLFunctions ready to go.
-		 */
-		void init();
+	/**
+	 * Adds a task function to the queue which will be exectued when runTasks is called.
+	 */
+	void addTask(TaskFunction f);
 
-		/**
-		 * Adds a task function to the queue which will be exectued when runTasks is called.
-		 */
-		void addTask(TaskFunction f);
+	/**
+	 * Call this on the main thread to process all tasks. The task queue will be empty afterwards.
+	 */
+	void runTasks();
 
-		/**
-		 * Call this on the main thread to process all tasks. The task queue will be empty afterwards.
-		 */
-		void runTasks();
+private:
+	QMutex mMutex;
+	QList<TaskFunction> mTasks;
+};
 
-	private:
-		QMutex mMutex;
-		QList<TaskFunction> mTasks;
-	};
 }}
 
 #endif

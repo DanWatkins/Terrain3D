@@ -11,21 +11,22 @@
 #include <Terrain3D/Library.h>
 #include "MeshPrivate.h"
 
-namespace t3d { namespace asset
+namespace t3d { namespace asset {
+
+class OBJ
 {
-	class OBJ
-	{
-	public:
-		bool initWithFile(const QString &filepath, mesh_p *mesh);
+public:
+	bool initWithFile(const QString &filepath, mesh_p *mesh);
 
-	private:
-		mesh_p *mCurrentMesh;
+private:
+	mesh_p *mCurrentMesh;
 
-		bool parseFile(const QString &filepath);
-		bool parseField(const QStringList &field);
-		bool parseMaterialLib(const QString &filepath);
-		bool parseMaterialLibField(const QStringList &field);
-	};
+	bool parseFile(const QString &filepath);
+	bool parseField(const QStringList &field);
+	bool parseMaterialLib(const QString &filepath);
+	bool parseMaterialLibField(const QStringList &field);
+};
+
 }}
 
 #endif

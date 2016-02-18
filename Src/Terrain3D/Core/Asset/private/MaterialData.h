@@ -10,25 +10,26 @@
 
 #include "MeshPrivate.h"
 
-namespace t3d { namespace asset
+namespace t3d { namespace asset {
+
+class mesh_p::MaterialData : protected core::OpenGLFunctions
 {
-	class mesh_p::MaterialData : protected core::OpenGLFunctions
+public: //TODO massive
+	~MaterialData()
 	{
-	public: //TODO massive
-        ~MaterialData()
-        {
-            qDebug() << "Destroying MaterialData instance";
-        }
+		qDebug() << "Destroying MaterialData instance";
+	}
 
-		QString mName;
-		QString mFilepath;
+	QString mName;
+	QString mFilepath;
 
-        unique<QOpenGLTexture> mTexture;
+	unique<QOpenGLTexture> mTexture;
 
-		void uploadMaterialData(const QString &containingDirectory);
-		void bind();
-		void release();
-	};
+	void uploadMaterialData(const QString &containingDirectory);
+	void bind();
+	void release();
+};
+
 }}
 
 #endif

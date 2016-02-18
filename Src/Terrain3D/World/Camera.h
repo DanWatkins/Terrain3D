@@ -18,92 +18,93 @@
 #include <Terrain3D/World/Terrain/Renderer.h>
 #include <Terrain3D/World/Entity/Renderer.h>
 
-namespace t3d { namespace world
-{
-	/**
+namespace t3d { namespace world {
+
+/**
 	 * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
 	 * rotate up/down and left/right.
 	 */
-    class Camera : public QObject, protected core::OpenGLFunctions, public vbase::Loadable
+class Camera : public QObject, protected core::OpenGLFunctions, public vbase::Loadable
+{
+	Q_OBJECT
+
+public slots:
+	/**
+	 * @brief Renders everything visible by the camera using the current
+	 * OpenGL context.
+	 */
+	void render();
+
+signals:
+	void finishedRendering();
+
+public:
+	Camera();
+	~Camera() {}
+
+	/**
+	 * @brief Gets the instance ready for rendering.
+	 * @param configuration Contains various configuration information
+	 */
+	void init();
+	void refresh();
+
+	/**
+	 * Does the heavy lifting loading. Loads large resources from file and uploads data to the GPU.
+	 * Must be called after init.
+	 */
+	void prepareForRendering();
+
+	/**
+	 * @brief Deallocates all memory allocated in OpenGL on the GPU.
+	 */
+	void cleanup();
+
+	/**
+	 * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
+	 */
+	void resize(unsigned windowWidth, unsigned windowHeight);
+	void reloadShaders();
+	void setEnvironment(Environment *environment) { mEnvironment = environment; }
+
+	vbase::Property<float> pFieldOfView = 50.0f;
+	vbase::Property<float> pNearPlane = 1.0f;
+	vbase::Property<float> pFarPlane = 1200.0f;
+	vbase::Property<float> pAspectRatio = 1.0;
+	vbase::Property<float> pMaxVerticalAngle = 90.0f;
+
+	vbase::Property<Vec3f> pPos;
+
+	Property_Set(Vec2f, pOrientationAngle, Vec2f(0,0),
 	{
-		Q_OBJECT
+					 pOrientationAngle.raw() = _newValue;
+					 normalizeAngles();
+				 })
 
-	public slots:
-		/**
-		 * @brief Renders everything visible by the camera using the current
-		 * OpenGL context.
-		 */
-		void render();
+	Mat4 orientaion() const;
 
-	signals:
-		void finishedRendering();
+	void lookAt(Vec3f position);
+	Vec3f forward() const;
+	Vec3f right() const;
+	Vec3f up() const;
 
-	public:
-        Camera();
-		~Camera() {}
+	void setMode(terrain::Mode mode) { mTerrainRenderer.pMode = mode; }
+	terrain::Mode mode() { return mTerrainRenderer.pMode; }
 
-		/**
-		 * @brief Gets the instance ready for rendering.
-		 * @param configuration Contains various configuration information
-		 */
-		void init();
-		void refresh();
+	terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
 
-		/**
-		 * Does the heavy lifting loading. Loads large resources from file and uploads data to the GPU.
-		 * Must be called after init.
-		 */
-		void prepareForRendering();
+private:
+	Environment *mEnvironment;
+	terrain::Renderer mTerrainRenderer;
+	entity::Renderer mEntityRenderer;
 
-		/**
-		 * @brief Deallocates all memory allocated in OpenGL on the GPU.
-		 */
-		void cleanup();
+private:
+	Mat4 totalMatrix() const;
+	Mat4 perspectiveMatrix() const;
+	Mat4 viewMatrix() const;
+	void normalizeAngles();
+};
 
-		/**
-		 * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
-		 */
-		void resize(unsigned windowWidth, unsigned windowHeight);
-		void reloadShaders();
-		void setEnvironment(Environment *environment) { mEnvironment = environment; }
-
-        vbase::Property<float> pFieldOfView = 50.0f;
-        vbase::Property<float> pNearPlane = 1.0f;
-        vbase::Property<float> pFarPlane = 1200.0f;
-        vbase::Property<float> pAspectRatio = 1.0;
-        vbase::Property<float> pMaxVerticalAngle = 90.0f;
-
-        vbase::Property<Vec3f> pPos;
-
-        Property_Set(Vec2f, pOrientationAngle, Vec2f(0,0),
-        {
-             pOrientationAngle.raw() = _newValue;
-             normalizeAngles();
-        })
-		
-		Mat4 orientaion() const;
-
-		void lookAt(Vec3f position);
-		Vec3f forward() const;
-		Vec3f right() const;
-		Vec3f up() const;
-
-		void setMode(terrain::Mode mode) { mTerrainRenderer.pMode = mode; }
-		terrain::Mode mode() { return mTerrainRenderer.pMode; }
-
-		terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
-
-	private:
-		Environment *mEnvironment;
-		terrain::Renderer mTerrainRenderer;
-		entity::Renderer mEntityRenderer;
-
-	private:
-		Mat4 totalMatrix() const;
-		Mat4 perspectiveMatrix() const;
-		Mat4 viewMatrix() const;
-		void normalizeAngles();
-	};
 }}
 
 #endif

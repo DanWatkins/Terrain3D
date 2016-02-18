@@ -11,13 +11,14 @@
 #include <Terrain3D/Library.h>
 #include <Terrain3D/World/Terrain/Data.h>
 
-namespace t3d { namespace world { namespace terrain { namespace Generator
+namespace t3d { namespace world { namespace terrain { namespace Generator {
+
+class Generator
 {
-    class Generator
-	{
-	public:
-		virtual void generate(Data &terrainData, int size, int numberOfPasses, float smoothing, int seed) = 0;
-	};
+public:
+	virtual void generate(Data &terrainData, int size, int numberOfPasses, float smoothing, int seed) = 0;
+};
+
 }}}}
 
 #endif

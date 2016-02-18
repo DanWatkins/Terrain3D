@@ -38,60 +38,60 @@ namespace t3d
 		~Terrain3D();
 
 		/**
-		 * @brief
-		 */
+	 * @brief
+	 */
 		void init();
 
 
 		/**
-		 * @returns True if a new instance of Terrain3D should be run after this
-		 * one terminates.
-		 */
+	 * @returns True if a new instance of Terrain3D should be run after this
+	 * one terminates.
+	 */
 		Q_INVOKABLE bool needsRestart() { return mNeedsRestart; }
 
 		/**
-		 * @brief Causes the view to terminate and flag as needing a restart.
-		 */
+	 * @brief Causes the view to terminate and flag as needing a restart.
+	 */
 		Q_INVOKABLE void requestRestart() { mNeedsRestart = true; QQuickView::close(); }
 
 		Q_INVOKABLE void reloadShaders() { if (auto camera = mCamera.lock()) camera->reloadShaders(); }
 
 		/**
-		 *
-		 */
+	 *
+	 */
 		Q_INVOKABLE void toggleCaptureCursor();
 
 		/**
-		 *
-		 */
+	 *
+	 */
 		Q_INVOKABLE void toggleFullscreen();
 
 
 		/**
-		 *
-		 */
+	 *
+	 */
 		Q_INVOKABLE void toggleWireframe();
 
 
 		/**
-		 * @see SettingsListener::settingsValueChanged()
-		 */
+	 * @see SettingsListener::settingsValueChanged()
+	 */
 		void settingsValueChanged(Settings::Key key, const QVariant &value) override;
 
 
 		/**
-		 * @see SettingsListener::settingsQueueFinishedApplying()
-		 */
+	 * @see SettingsListener::settingsQueueFinishedApplying()
+	 */
 		void settingsQueueFinishedApplying() override;
 
 		/**
-		 * @returns the current overall frame rate.
-		 */
+	 * @returns the current overall frame rate.
+	 */
 		int fps() const { return mFPSCounter.fps(); }
 
 		/**
-		 * @returns the position of the camera formatted as a string.
-		 */
+	 * @returns the position of the camera formatted as a string.
+	 */
 		QString cameraPos() const
 		{
 			if (auto camera = mCamera.lock())

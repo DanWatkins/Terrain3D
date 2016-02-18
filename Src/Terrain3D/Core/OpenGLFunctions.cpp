@@ -7,22 +7,23 @@
 
 #include "OpenGLFunctions.h"
 
-namespace t3d { namespace core
+namespace t3d { namespace core {
+
+bool OpenGLFunctions::initializeOpenGLFunctions()
 {
-    bool OpenGLFunctions::initializeOpenGLFunctions()
-    {
-        if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
-        {
-            System::warning("Unable to initialize OpenGLFunctions");
-            return false;
-        }
+	if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
+	{
+		System::warning("Unable to initialize OpenGLFunctions");
+		return false;
+	}
 
-        if (!mGL_textureStorage.initializeOpenGLFunctions())
-        {
-            System::warning("Unable to load required OpenGL extensions for OpenGLFunctions");
-            return false;
-        }
+	if (!mGL_textureStorage.initializeOpenGLFunctions())
+	{
+		System::warning("Unable to load required OpenGL extensions for OpenGLFunctions");
+		return false;
+	}
 
-        return true;
-    }
+	return true;
+}
+
 }}

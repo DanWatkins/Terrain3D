@@ -10,20 +10,21 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d { namespace world { namespace terrain
+namespace t3d { namespace world { namespace terrain {
+
+class HeightMap;
+
+class NormalMap
 {
-	class HeightMap;
+public:
+	void generate(const HeightMap &hm);
+	int size() { return mNormals.size(); }
+	Vec3f get(int index) { return mNormals[index]; }
 
-	class NormalMap
-	{
-	public:
-		void generate(const HeightMap &hm);
-		int size() { return mNormals.size(); }
-		Vec3f get(int index) { return mNormals[index]; }
+private:
+	QVector<Vec3f> mNormals;
+};
 
-	private:
-		QVector<Vec3f> mNormals;
-	};
 }}}
 
 

@@ -10,26 +10,26 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d { namespace world { namespace terrain
+namespace t3d { namespace world { namespace terrain {
+
+class HeightMap
 {
-	class HeightMap
-	{
-	private:
-		QVector<float> mHeightData;
-		int mSize = 0;
+private:
+	QVector<float> mHeightData;
+	int mSize = 0;
 
-	public:
-		void reserve(int size);
-		void set(int index, float height);
-		void set(int indexX, int indexY, float height);
-		float get(int index) const;
-		float get(int indexX, int indexY) const;
+public:
+	void reserve(int size);
+	void set(int index, float height);
+	void set(int indexX, int indexY, float height);
+	float get(int index) const;
+	float get(int indexX, int indexY) const;
 
-		const float* raw() const;
-		int size() const { return mSize; }
-	};
+	const float* raw() const;
+	int size() const { return mSize; }
+};
+
 }}}
-
 
 #endif
 

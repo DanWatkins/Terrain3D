@@ -7,31 +7,32 @@
 
 #include "OpenGLTaskQueue.h"
 
-namespace t3d { namespace core
+namespace t3d { namespace core {
+
+void OpenGLTaskQueue::init()
 {
-	void OpenGLTaskQueue::init()
+	QMutexLocker m(&mMutex);
+	initializeOpenGLFunctions();
+}
+
+
+void OpenGLTaskQueue::addTask(TaskFunction f)
+{
+	QMutexLocker m(&mMutex);
+	mTasks.append(f);
+}
+
+
+void OpenGLTaskQueue::runTasks()
+{
+	QMutexLocker m(&mMutex);
+
+	for (TaskFunction &tf : mTasks)
 	{
-		QMutexLocker m(&mMutex);
-		initializeOpenGLFunctions();
+		tf((OpenGLFunctions*)this);
 	}
 
+	mTasks.clear();
+}
 
-	void OpenGLTaskQueue::addTask(TaskFunction f)
-	{
-		QMutexLocker m(&mMutex);
-		mTasks.append(f);
-	}
-
-
-	void OpenGLTaskQueue::runTasks()
-	{
-		QMutexLocker m(&mMutex);
-
-		for (TaskFunction &tf : mTasks)
-		{
-			tf((OpenGLFunctions*)this);
-		}
-
-		mTasks.clear();
-	}
 }}

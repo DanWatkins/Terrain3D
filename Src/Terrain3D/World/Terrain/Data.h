@@ -14,40 +14,41 @@
 #include <Terrain3D/World/Terrain/HeightMap.h>
 #include <Terrain3D/World/Terrain/LightMap.h>
 
-namespace t3d { namespace world { namespace terrain
+namespace t3d { namespace world { namespace terrain {
+
+class Data : public QObject
 {
-	class Data : public QObject
-	{
-		Q_OBJECT
+	Q_OBJECT
 
-	public:
-		void cleanup() { /*nothing to cleanup*/ }
+public:
+	void cleanup() { /*nothing to cleanup*/ }
 
-		void resetHeightMap(HeightMap &heightMap) { mHeightMap = heightMap; emit heightMapChanged(); }	//TODO really need a move constructor there
-		const HeightMap& heightMap() const { return mHeightMap; }
-		void resetLightMap(LightMap &lightMap) { mLightMap = lightMap; emit lightMapChanged(); }
-		const LightMap &lightMap() const { return mLightMap; }
+	void resetHeightMap(HeightMap &heightMap) { mHeightMap = heightMap; emit heightMapChanged(); }	//TODO really need a move constructor there
+	const HeightMap& heightMap() const { return mHeightMap; }
+	void resetLightMap(LightMap &lightMap) { mLightMap = lightMap; emit lightMapChanged(); }
+	const LightMap &lightMap() const { return mLightMap; }
 
-		typedef QMap<float, GLubyte> HeightIndex;
-		void computeTextureIndicies(const HeightIndex &heightIndex);
+	typedef QMap<float, GLubyte> HeightIndex;
+	void computeTextureIndicies(const HeightIndex &heightIndex);
 
-		typedef QVector<GLubyte> TextureIndicies;
-		TextureIndicies& textureIndicies() { return mTextureIndicies; }
+	typedef QVector<GLubyte> TextureIndicies;
+	TextureIndicies& textureIndicies() { return mTextureIndicies; }
 
-        vbase::Property<int> pTextureMapResolution;
-        vbase::Property<float> pHeightScale;
-        vbase::Property<int> pSpanSize;
-        vbase::Property<int> pChunkSize;
+	vbase::Property<int> pTextureMapResolution;
+	vbase::Property<float> pHeightScale;
+	vbase::Property<int> pSpanSize;
+	vbase::Property<int> pChunkSize;
 
-	signals:
-		void heightMapChanged();
-		void lightMapChanged();
+signals:
+	void heightMapChanged();
+	void lightMapChanged();
 
-	private:
-		HeightMap mHeightMap;
-		LightMap mLightMap;
-		TextureIndicies mTextureIndicies;		
-	};
+private:
+	HeightMap mHeightMap;
+	LightMap mLightMap;
+	TextureIndicies mTextureIndicies;
+};
+
 }}}
 
 #endif

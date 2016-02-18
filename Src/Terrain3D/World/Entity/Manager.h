@@ -12,28 +12,29 @@
 #include <Terrain3D/World/Entity/BaseEntity.h>
 #include <Terrain3D/Core/Asset/Manager.h>
 
-namespace t3d { namespace world { namespace entity
+namespace t3d { namespace world { namespace entity {
+
+class Manager : public QObject
 {
-	class Manager : public QObject
-	{
-		Q_OBJECT
+	Q_OBJECT
 
-	public:
-		Manager();
+public:
+	Manager();
 
-		void init(const asset::Manager *assetManager);
+	void init(const asset::Manager *assetManager);
 
-		void clear() { mEntityContainer.clear(); }
-		strong<BaseEntity> createEntity();
-		strong<BaseEntity> findEntity(int id);
+	void clear() { mEntityContainer.clear(); }
+	strong<BaseEntity> createEntity();
+	strong<BaseEntity> findEntity(int id);
 
-		const QVector<strong<BaseEntity>> &entityContainer() const { return mEntityContainer; }
+	const QVector<strong<BaseEntity>> &entityContainer() const { return mEntityContainer; }
 
-	private:
-		QVector<strong<BaseEntity>> mEntityContainer;	//TODO finish ReuseVector and use it here!
-		int mIdValueTrack;
-		const asset::Manager *mAssetManager;
-	};
+private:
+	QVector<strong<BaseEntity>> mEntityContainer;	//TODO finish ReuseVector and use it here!
+	int mIdValueTrack;
+	const asset::Manager *mAssetManager;
+};
+
 }}}
 
 #endif

@@ -9,20 +9,20 @@
 
 namespace t3d { namespace world { namespace terrain {
 
-	class HeightMap;
-	class LightMap;
+class HeightMap;
+class LightMap;
 
-	namespace Lighting
-	{
-		class Slope
-		{
-		public:
-			static bool computeBrightness(LightMap &lm, const HeightMap &hm, float intensity);
+namespace Lighting {
 
-
-		private:
+class Slope
+{
+public:
+	static bool computeBrightness(LightMap &lm, const HeightMap &hm, float intensity);
 
 
-		};
-	}
-}}}
+private:
+
+
+};
+
+}}}}

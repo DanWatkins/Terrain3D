@@ -10,34 +10,35 @@
 
 #include "./private/MeshPrivate.h"
 
-namespace t3d { namespace asset
+namespace t3d { namespace asset {
+
+Mesh::Mesh() :
+	mPrivate(new MeshPrivate(this))
 {
-	Mesh::Mesh() :
-		mPrivate(new MeshPrivate(this))
-	{
-	}
+}
 
-	bool Mesh::init(Manager *manager, const QString &filepath)
-	{
-		mManager = manager;
-		return mPrivate->initWithFile(filepath);
-	}
+bool Mesh::init(Manager *manager, const QString &filepath)
+{
+	mManager = manager;
+	return mPrivate->initWithFile(filepath);
+}
 
 
-	void Mesh::queueRender(const Mat4 &totalMatrix)
-	{
-		mManager->queueMeshRender(this, totalMatrix);
-	}
+void Mesh::queueRender(const Mat4 &totalMatrix)
+{
+	mManager->queueMeshRender(this, totalMatrix);
+}
 
 
-	void Mesh::batchRender(const QVector<Mat4> &matricies)
-	{
-		mPrivate->batchRender(matricies);
-	}
+void Mesh::batchRender(const QVector<Mat4> &matricies)
+{
+	mPrivate->batchRender(matricies);
+}
 
 
-	QString Mesh::name() const
-	{
-		return mPrivate->name();
-	}
+QString Mesh::name() const
+{
+	return mPrivate->name();
+}
+
 }}

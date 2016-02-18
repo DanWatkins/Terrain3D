@@ -10,21 +10,22 @@
 
 #include "BaseEntity.h"
 
-namespace t3d { namespace world { namespace entity
+namespace t3d { namespace world { namespace entity {
+
+class Component
 {
-	class Component
-	{
-	public:
-		Component() = delete;
-		Component(BaseEntity *baseEntity) { mBaseEntity = baseEntity; }
-		virtual ~Component() {}
+public:
+	Component() = delete;
+	Component(BaseEntity *baseEntity) { mBaseEntity = baseEntity; }
+	virtual ~Component() {}
 
-	protected:
-		BaseEntity* baseEntity() { return mBaseEntity; }
+protected:
+	BaseEntity* baseEntity() { return mBaseEntity; }
 
-	private:
-		BaseEntity *mBaseEntity;
-	};
+private:
+	BaseEntity *mBaseEntity;
+};
+
 }}}
 
 #endif

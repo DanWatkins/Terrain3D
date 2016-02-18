@@ -7,36 +7,37 @@
 
 #include "Utility.h"
 
-namespace t3d { namespace world { namespace terrain
+namespace t3d { namespace world { namespace terrain {
+
+int maxLevelsOfDetail(int blockSize)
 {
-	int maxLevelsOfDetail(int blockSize)
-	{
-		return int(std::log10(blockSize)/std::log10(2) + 0.5);
-	}
+	return int(std::log10(blockSize)/std::log10(2) + 0.5);
+}
 
 
-	int sizeForLod(int lod)
-	{
-		return static_cast<int>(pow(2, lod+1));
-	}
+int sizeForLod(int lod)
+{
+	return static_cast<int>(pow(2, lod+1));
+}
 
 
-    double lodDistanceBetweenPos(Vec2i a, Vec2i b, int blockSize)
-	{
-        int baseBlockSize = 8;
-		Vec2i net(a.x-b.x, a.y-b.y);
+double lodDistanceBetweenPos(Vec2i a, Vec2i b, int blockSize)
+{
+	int baseBlockSize = 8;
+	Vec2i net(a.x-b.x, a.y-b.y);
 
-        return std::sqrt(net.x*net.x + net.y*net.y) * blockSize / baseBlockSize;
-	}
+	return std::sqrt(net.x*net.x + net.y*net.y) * blockSize / baseBlockSize;
+}
 
 
-	int lodForDistance(double distance, int blockSize, float factor)
-	{
-		double maxLod = static_cast<double>(maxLevelsOfDetail(blockSize) - 1);
+int lodForDistance(double distance, int blockSize, float factor)
+{
+	double maxLod = static_cast<double>(maxLevelsOfDetail(blockSize) - 1);
 
-		if (factor <= 0.0f)
-			factor = 0.001f;
+	if (factor <= 0.0f)
+		factor = 0.001f;
 
-		return static_cast<int>(std::min(maxLod / (150.0f * factor) * distance, maxLod));
-	}
+	return static_cast<int>(std::min(maxLod / (150.0f * factor) * distance, maxLod));
+}
+
 }}}

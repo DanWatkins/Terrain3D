@@ -11,52 +11,53 @@
 #include <Terrain3D/Library.h>
 #include <Terrain3D/Core/Asset/Mesh.h>
 
-namespace t3d { namespace asset
+namespace t3d { namespace asset {
+
+class Manager
 {
-	class Manager
+public:
+	friend class Mesh;
+
+	void loadMeshesFromDirectory(const QString path);
+	int meshCount() const { return mMeshQueues.count(); }
+	strong<Mesh> meshForName(const QString name) const;
+
+
+	void renderAllQueued()
 	{
-	public:
-		friend class Mesh;
-
-		void loadMeshesFromDirectory(const QString path);
-		int meshCount() const { return mMeshQueues.count(); }
-		strong<Mesh> meshForName(const QString name) const;
-
-
-		void renderAllQueued()
+		for (MeshQueue &mq : mMeshQueues)
 		{
-			for (MeshQueue &mq : mMeshQueues)
-			{
-				mq.mesh->batchRender(mq.matricies);
+			mq.mesh->batchRender(mq.matricies);
 
-				mq.matricies.clear();
-			}
+			mq.matricies.clear();
 		}
+	}
 
-	private:
-		struct MeshQueue
-		{
-			strong<Mesh> mesh;
-			QVector<Mat4> matricies;
-		};
-
-		QList<MeshQueue> mMeshQueues;
-
-		void loadSystemMeshes(const QString &path);
-		void loadMesh(const QString &path);
-
-		void queueMeshRender(Mesh *mesh, const Mat4 &totalMatrix)
-		{
-			for (MeshQueue &mq : mMeshQueues)
-			{
-				if (mq.mesh.get() == mesh)
-				{
-					mq.matricies.append(totalMatrix);
-					break;
-				}
-			}
-		}
+private:
+	struct MeshQueue
+	{
+		strong<Mesh> mesh;
+		QVector<Mat4> matricies;
 	};
+
+	QList<MeshQueue> mMeshQueues;
+
+	void loadSystemMeshes(const QString &path);
+	void loadMesh(const QString &path);
+
+	void queueMeshRender(Mesh *mesh, const Mat4 &totalMatrix)
+	{
+		for (MeshQueue &mq : mMeshQueues)
+		{
+			if (mq.mesh.get() == mesh)
+			{
+				mq.matricies.append(totalMatrix);
+				break;
+			}
+		}
+	}
+};
+
 }}
 
 #endif

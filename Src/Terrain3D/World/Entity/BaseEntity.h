@@ -10,39 +10,40 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d { namespace world { namespace entity
+namespace t3d { namespace world { namespace entity {
+
+class RenderComponent;
+
+/**
+ * @brief A central aggregate of components that make up a simulatable entity.
+ *
+ * After construction no components exist by default. You can request for comonents to be instantiated internally
+ * by calling the create component associated method. For example: createRenderComponent(). The component can be
+ * accessed by calling renderComponent(). BaseEntity is not responsible for coordinating interactions between
+ * components.
+ *
+ * There is some common state information associated with the entity as a whole stored in BaseEntity.
+ */
+class BaseEntity
 {
-	class RenderComponent;
+public:
+	BaseEntity(int id);
+	~BaseEntity();
 
-	/**
-	 * @brief A central aggregate of components that make up a simulatable entity.
-	 *
-	 * After construction no components exist by default. You can request for comonents to be instantiated internally
-	 * by calling the create component associated method. For example: createRenderComponent(). The component can be
-	 * accessed by calling renderComponent(). BaseEntity is not responsible for coordinating interactions between
-	 * components.
-	 *
-	 * There is some common state information associated with the entity as a whole stored in BaseEntity.
-	 */
-	class BaseEntity
-	{
-	public:
-		BaseEntity(int id);
-		~BaseEntity();
+	int id() const { return mId; }
+	void setPos(const Vec3f &pos) { mPos = pos; }
+	Vec3f pos() const { return mPos; }
 
-		int id() const { return mId; }
-		void setPos(const Vec3f &pos) { mPos = pos; }
-		Vec3f pos() const { return mPos; }
+	RenderComponent* renderComponent() const;
+	void createRenderComponent();
 
-		RenderComponent* renderComponent() const;
-		void createRenderComponent();
+private:
+	int mId;
+	Vec3f mPos;
 
-	private:
-		int mId;
-		Vec3f mPos;
+	unique<RenderComponent> mRenderComponent;
+};
 
-		unique<RenderComponent> mRenderComponent;
-	};
 }}}
 
 #endif

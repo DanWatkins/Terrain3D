@@ -9,25 +9,26 @@
 #include "BaseEntity.h"
 #include "RenderComponent.h"
 
-namespace t3d { namespace world { namespace entity
+namespace t3d { namespace world { namespace entity {
+
+BaseEntity::BaseEntity(int id) :
+	mId(id)
 {
-	BaseEntity::BaseEntity(int id) :
-		mId(id)
-	{
-	}
+}
 
 
-	BaseEntity::~BaseEntity() {}
+BaseEntity::~BaseEntity() {}
 
 
-	RenderComponent* BaseEntity::renderComponent() const
-	{
-		return mRenderComponent.get();
-	}
+RenderComponent* BaseEntity::renderComponent() const
+{
+	return mRenderComponent.get();
+}
 
-	void BaseEntity::createRenderComponent()
-	{
-		if (!mRenderComponent)
-			mRenderComponent = unique<RenderComponent>(new RenderComponent(this));
-	}
+void BaseEntity::createRenderComponent()
+{
+	if (!mRenderComponent)
+		mRenderComponent = unique<RenderComponent>(new RenderComponent(this));
+}
+
 }}}
