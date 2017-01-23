@@ -45,8 +45,8 @@
 //GLM Includes
 #pragma GCC system_header
 #pragma clang system_header
-        #include <glm/glm.hpp>
-        #include <glm/ext.hpp>
+    #include <glm/glm.hpp>
+    #include <glm/ext.hpp>
 #pragma GCC diagnostic pop
 #pragma Clang diagnostic pop
 

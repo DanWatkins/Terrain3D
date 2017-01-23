@@ -5,6 +5,7 @@ StaticLibrary {
 	cpp.cxxLanguageVersion: "c++14"
 	cpp.includePaths: [
         "../Src/",
+        "../Ext/glm",
         "../Ext/ValpineBase/Ext",
         "../Ext/ValpineBase/Src"
 	]

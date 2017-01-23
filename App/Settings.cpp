@@ -87,7 +87,7 @@ void Settings::enqueueValue(Key key, const QVariant &newValue)
 	{
 		QString message = "Warning: Attempting to queue a non-queued setting key="+QString::number(static_cast<int>(key))
 			+ ", value="+newValue.toString();
-		System::warning(message);
+        //System::warn(message);
 	}
 
 	//verify the value is actually different than what is currently stored

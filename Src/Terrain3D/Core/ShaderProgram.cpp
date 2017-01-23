@@ -49,7 +49,7 @@ bool ShaderProgram::bind()
 {
 	if (!mProgram->bind())
 	{
-		System::warning("Unable to bind OpenGL ShaderProgram");
+        System::warn("Unable to bind OpenGL ShaderProgram");
 		return false;
 	}
 

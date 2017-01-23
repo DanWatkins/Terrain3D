@@ -1,3 +1,6 @@
 [submodule "Ext/ValpineBase"]
 	path = Ext/ValpineBase
 	url = https://github.com/Valpineware/ValpineBase.git
+[submodule "Ext/glm"]
+	path = Ext/glm
+	url = https://github.com/g-truc/glm.git

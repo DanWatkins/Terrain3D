@@ -5,6 +5,7 @@ Application {
 
     cpp.cxxLanguageVersion: "c++14"
     cpp.includePaths: [
+        "../Ext/glm",
         "../Ext/ValpineBase/Src",
         "../Ext/ValpineBase/Ext",
         "../Src/"

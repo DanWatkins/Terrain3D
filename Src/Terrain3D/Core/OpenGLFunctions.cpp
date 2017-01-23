@@ -13,13 +13,13 @@ bool OpenGLFunctions::initializeOpenGLFunctions()
 {
 	if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
 	{
-		System::warning("Unable to initialize OpenGLFunctions");
+        System::warn("Unable to initialize OpenGLFunctions");
 		return false;
 	}
 
 	if (!mGL_textureStorage.initializeOpenGLFunctions())
 	{
-		System::warning("Unable to load required OpenGL extensions for OpenGLFunctions");
+        System::warn("Unable to load required OpenGL extensions for OpenGLFunctions");
 		return false;
 	}
 
