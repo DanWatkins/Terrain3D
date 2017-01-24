@@ -1,5 +1,5 @@
 newmtl Bark
-map_Kd .\EU40brk.tif
+map_Kd /EU40brk.tif
 
 newmtl Leaf
-map_Kd .\EU40lef.tif
+map_Kd /EU40lef.tif
