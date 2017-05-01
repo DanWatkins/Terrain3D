@@ -9,11 +9,10 @@
 #define _t3d_core_OpenGLFunctions_H
 
 #include <Terrain3D/Library.h>
-#include <QtGui/QOpenGLFunctions_4_1_Core>
+#include <QtGui/QOpenGLExtraFunctions>
 #include <QtOpenGLExtensions/QOpenGLExtensions>
 
-
-using BaseOpenGLFunctions = QOpenGLFunctions_4_1_Core;
+using BaseOpenGLFunctions = QOpenGLExtraFunctions;
 
 namespace t3d { namespace core {
 
@@ -24,25 +23,42 @@ namespace t3d { namespace core {
 class OpenGLFunctions : public BaseOpenGLFunctions
 {
 public:
-	bool initializeOpenGLFunctions() override;
+    bool initializeOpenGLFunctions();
 
-	void glTexStorage1D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
-	{
-		mGL_textureStorage.glTexStorage1D(target, levels, internalformat, width);
-	}
+    void glPolygonMode(GLenum face, GLenum mode)
+    {
+        // TODO: Not available with OpenGL ES 3.2
+    }
 
-	void glTexStorage2D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height)
-	{
-		mGL_textureStorage.glTexStorage2D(target, levels, internalformat, width, height);
-	}
+    void glPatchParameterfv(GLenum pname, const GLfloat *values)
+    {
+        this->tessellationShader.glPatchParameterfv(pname, values);
+    }
 
-	void glTexStorage3D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth)
-	{
-		mGL_textureStorage.glTexStorage3D(target, levels, internalformat, width, height, depth);
-	}
+    void glPatchParameteri(GLenum pname, GLint value)
+    {
+        this->tessellationShader.glPatchParameteri(pname, value);
+    }
+
+    void glTexBuffer(GLenum target, GLenum internalformat, GLuint buffer)
+    {
+        this->textureBufferObject.glTexBufferARB(target, internalformat, buffer);
+    }
+
+    void glPrimitiveRestartIndex(GLuint index)
+    {
+        this->primitiveRestart.glPrimitiveRestartIndexNV(index);
+    }
+
+    void glPrimitiveRestart()
+    {
+        this->primitiveRestart.glPrimitiveRestartNV();
+    }
 
 private:
-	QOpenGLExtension_ARB_texture_storage mGL_textureStorage;
+    QOpenGLExtension_ARB_tessellation_shader tessellationShader;
+    QOpenGLExtension_ARB_texture_buffer_object textureBufferObject;
+    QOpenGLExtension_NV_primitive_restart primitiveRestart;
 };
 
 }}

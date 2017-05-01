@@ -11,17 +11,25 @@ namespace t3d { namespace core {
 
 bool OpenGLFunctions::initializeOpenGLFunctions()
 {
-	if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
-	{
-        System::warn("Unable to initialize OpenGLFunctions");
-		return false;
-	}
+    BaseOpenGLFunctions::initializeOpenGLFunctions();
 
-	if (!mGL_textureStorage.initializeOpenGLFunctions())
-	{
-        System::warn("Unable to load required OpenGL extensions for OpenGLFunctions");
-		return false;
-	}
+    if (!this->tessellationShader.initializeOpenGLFunctions())
+    {
+        System::warn("Unable to initialize tesselation shader extension");
+        return false;
+    }
+
+    if (!this->textureBufferObject.initializeOpenGLFunctions())
+    {
+        System::warn("Unable to initialize texture buffer object extension");
+        return false;
+    }
+
+    if (!this->primitiveRestart.initializeOpenGLFunctions())
+    {
+        System::warn("Unable to initialize texture buffer object extension");
+        return false;
+    }
 
 	return true;
 }
