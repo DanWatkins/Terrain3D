@@ -37,6 +37,7 @@ public slots:
 
 signals:
     void finishedRendering();
+    void posChanged();
 
 public:
     Camera();
@@ -47,6 +48,7 @@ public:
      * @param configuration Contains various configuration information
      */
     void init();
+
     void refresh();
 
     /**
@@ -64,22 +66,62 @@ public:
      * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
      */
     void resize(unsigned windowWidth, unsigned windowHeight);
+
     void reloadShaders();
+
     void setEnvironment(Environment *environment) { mEnvironment = environment; }
 
-    vbase::Property<float> pFieldOfView = 50.0f;
-    vbase::Property<float> pNearPlane = 1.0f;
-    vbase::Property<float> pFarPlane = 1200.0f;
-    vbase::Property<float> pAspectRatio = 1.0;
-    vbase::Property<float> pMaxVerticalAngle = 90.0f;
+    float fieldOfView() const { return mFieldOfView; }
 
-    vbase::Property<Vec3f> pPos;
+    void setFieldOfView(float fieldOfView) { mFieldOfView = fieldOfView; }
 
-    Property_Set(Vec2f, pOrientationAngle, Vec2f(0,0),
+    float nearPlane() const { return mNearPlane; }
+
+    float farPlane() const { return mFarPlane; }
+
+    float aspectRatio() const { return mAspectRatio; }
+
+    float maxVerticalAngle() const { return mMaxVerticalAngle; }
+
+    Vec3f const & pos() const { return mPos; }
+
+    void setPosX(float x)
     {
-                     pOrientationAngle.raw() = _newValue;
-                     normalizeAngles();
-                 })
+        mPos.x = x;
+        emit posChanged();
+    }
+
+    void setPosY(float y)
+    {
+        mPos.x = y;
+        emit posChanged();
+    }
+
+    void setPosZ(float z)
+    {
+        mPos.x = z;
+        emit posChanged();
+    }
+
+    void addPos(const Vec3f &pos)
+    {
+        mPos += pos;
+        emit posChanged();
+    }
+
+    Vec2f const & orientationAngle() const { return mOrientationAngle; }
+
+    void setOrientationAngle(const Vec2f &angle)
+    {
+        mOrientationAngle = angle;
+        normalizeAngles();
+    }
+
+    void addOrientationAngle(const Vec2f &angle)
+    {
+        mOrientationAngle += angle;
+        normalizeAngles();
+    }
 
     Mat4 orientaion() const;
 
@@ -88,8 +130,8 @@ public:
     Vec3f right() const;
     Vec3f up() const;
 
-    void setMode(terrain::Mode mode) { mTerrainRenderer.pMode = mode; }
-    terrain::Mode mode() { return mTerrainRenderer.pMode; }
+    void setMode(terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
+    terrain::Mode mode() { return mTerrainRenderer.mode(); }
 
     terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
 
@@ -98,7 +140,14 @@ private:
     terrain::Renderer mTerrainRenderer;
     entity::Renderer mEntityRenderer;
 
-private:
+    float mFieldOfView = 50.0f;
+    float mNearPlane = 1.0f;
+    float mFarPlane = 1200.0f;
+    float mAspectRatio = 1.0;
+    float mMaxVerticalAngle = 90.0f;
+    Vec3f mPos;
+    Vec2f mOrientationAngle;
+
     Mat4 totalMatrix() const;
     Mat4 perspectiveMatrix() const;
     Mat4 viewMatrix() const;

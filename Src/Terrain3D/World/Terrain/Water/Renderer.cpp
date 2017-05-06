@@ -35,12 +35,14 @@ void Renderer::init(Data *terrainData)
             this->mInvalidations.terrainData = true;
         });
 
-        mTerrainData->pHeightScale.addOnChangedListener([this] {
-            enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->pHeightScale());
+        QObject::connect(terrainData, &Data::heightScaleChanged, [this]()
+        {
+            enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->heightScale());
         });
 
-        mTerrainData->pSpanSize.addOnChangedListener([this] {
-            enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->pSpanSize());
+        QObject::connect(terrainData, &Data::spanSizeChanged, [this]()
+        {
+            enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->spanSize());
         });
     }
 
@@ -107,9 +109,9 @@ void Renderer::queryUniformLocations()
 void Renderer::refreshUniformValues()
 {
     ShaderProgram::raw().setUniformValue(mUniforms.size, mTerrainData->heightMap().size());
-    ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
-    ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
-    ShaderProgram::raw().setUniformValue(mUniforms.waterLevel, pWaterLevel);
+    ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
+    ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
+    ShaderProgram::raw().setUniformValue(mUniforms.waterLevel, mWaterLevel);
 }
 
 void Renderer::loadTextures()

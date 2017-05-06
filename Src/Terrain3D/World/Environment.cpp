@@ -16,12 +16,6 @@ namespace t3d { namespace world {
 
 Environment::Environment()
 {
-    auto setNeedsToRegenerate = [this]() { this->mNeedsToRefresh = true; };
-    pSize.addOnChangedListener(setNeedsToRegenerate);
-    pFaultCount.addOnChangedListener(setNeedsToRegenerate);
-    pSeed.addOnChangedListener(setNeedsToRegenerate);
-    pSmoothing.addOnChangedListener(setNeedsToRegenerate);
-    pLightIntensity.addOnChangedListener(setNeedsToRegenerate);
 }
 
 void Environment::init()
@@ -47,17 +41,17 @@ void Environment::refresh()
 
 int Environment::seedToUse()
 {
-    if (pSeed == mLastUsedSeed && mLastUsedSeed > 0)
+    if (mSeed == mLastUsedSeed && mLastUsedSeed > 0)
         return mLastUsedSeed;
     else
-        return (0 == pSeed) ? std::max((int)time(NULL), 1) : pSeed();
+        return (0 == mSeed) ? std::max((int)time(NULL), 1) : mSeed;
 }
 
 void Environment::generateTerrain(int seed)
 {
     terrain::Generator::FaultFormation generator;
     qDebug() << "Generating terrain data...";
-    generator.generate(mTerrainData, pSize, pFaultCount, pSmoothing, seed);
+    generator.generate(mTerrainData, mSize, mFaultCount, mSmoothing, seed);
     qDebug() << "   Generated height map";
 
     terrain::Data::HeightIndex hi;
@@ -71,8 +65,8 @@ void Environment::generateTerrain(int seed)
     //compute lighting
     {
         terrain::LightMap lm;
-        lm.reserve(pSize);
-        terrain::Lighting::Slope::computeBrightness(lm, mTerrainData.heightMap(), pLightIntensity);
+        lm.reserve(mSize);
+        terrain::Lighting::Slope::computeBrightness(lm, mTerrainData.heightMap(), mLightIntensity);
         mTerrainData.resetLightMap(lm);
     }
 
@@ -104,14 +98,14 @@ void Environment::generateEntities()
         int y = vbase::randInt(0, hm.size()-2);
 
         //is there grass at this texture index?
-        int res = mTerrainData.pTextureMapResolution;
+        int res = mTerrainData.textureMapResolution();
 
         if (mTerrainData.textureIndicies()[x*res + y*hm.size()*res*res] == 2)
         {
             strong<entity::BaseEntity> e1 = mEntityManager.createEntity();
 
             float height = hm.get(x, y);
-            e1->setPos(Vec3f(x, height*mTerrainData.pHeightScale, y));	//hardcoded, GROSS TODO
+            e1->setPos(Vec3f(x, height*mTerrainData.heightScale(), y));	//hardcoded, GROSS TODO
 
             e1->createRenderComponent();
             QString treeName = treeList[vbase::randInt(0, treeList.size()-1)];

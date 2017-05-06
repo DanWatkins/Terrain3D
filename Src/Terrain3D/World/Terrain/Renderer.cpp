@@ -12,20 +12,6 @@ namespace t3d { namespace world { namespace terrain {
 
 Renderer::Renderer()
 {
-    pLodFactor.addOnChangedListener([this]()
-    {
-        this->enqueueUniformValueChange(&mUniforms.lodFactor, pLodFactor);
-    });
-
-    pLodNear.addOnChangedListener([this]()
-    {
-        this->enqueueUniformValueChange(&mUniforms.lodNear, pLodNear);
-    });
-
-    pLodFar.addOnChangedListener([this]()
-    {
-        this->enqueueUniformValueChange(&mUniforms.lodFar, pLodFar);
-    });
 }
 
 void Renderer::init(Data *terrainData)
@@ -48,22 +34,24 @@ void Renderer::init(Data *terrainData)
             this->mInvalidations.terrainData =  true;
         });
 
-
-        //TODO make some kind of "connectUniformToProperty thing to ShaderProgram"
-        mTerrainData->pTextureMapResolution.addOnChangedListener([this] {
-            enqueueUniformValueChange(&mUniforms.textureMapResolution, mTerrainData->pTextureMapResolution);
+        QObject::connect(terrainData, &Data::textureMapResolutionChanged, [this]()
+        {
+            enqueueUniformValueChange(&mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
         });
 
-        mTerrainData->pHeightScale.addOnChangedListener([this] {
-            enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->pHeightScale);
+        QObject::connect(terrainData, &Data::heightScaleChanged, [this]()
+        {
+            enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->heightScale());
         });
 
-        mTerrainData->pSpanSize.addOnChangedListener([this] {
-            enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->pSpanSize);
+        QObject::connect(terrainData, &Data::spanSizeChanged, [this]()
+        {
+            enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->spanSize());
         });
 
-        mTerrainData->pChunkSize.addOnChangedListener([this] {
-            enqueueUniformValueChange(&mUniforms.chunkSize, mTerrainData->pChunkSize);
+        QObject::connect(terrainData, &Data::chunkSizeChanged, [this]()
+        {
+            enqueueUniformValueChange(&mUniforms.chunkSize, mTerrainData->chunkSize());
         });
     }
 }
@@ -122,7 +110,7 @@ void Renderer::render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const
 
         glBindVertexArray(mVao);
         {
-            switch (pMode())
+            switch (mMode)
             {
             case Mode::Normal:
             {
@@ -147,7 +135,7 @@ void Renderer::render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const
             glBindTexture(GL_TEXTURE_2D_ARRAY, mTextures.terrain);
 
             const int terrainSize = mTerrainData->heightMap().size();
-            const int chunkSize = mTerrainData->pChunkSize;
+            const int chunkSize = mTerrainData->chunkSize();
             const int chunksPerSide = terrainSize / chunkSize;
 
             glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
@@ -262,16 +250,16 @@ void Renderer::refreshUniformValues()
     //terrain::Data
     ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
     //glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
-    ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->pHeightScale);
-    ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->pSpanSize);
-    ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->pChunkSize);
-    ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->pTextureMapResolution);
+    ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
+    ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
+    ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
+    ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
     ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 
     //this
-    ShaderProgram::raw().setUniformValue(mUniforms.lodFactor, pLodFactor);
-    ShaderProgram::raw().setUniformValue(mUniforms.lodNear, pLodNear);
-    ShaderProgram::raw().setUniformValue(mUniforms.lodFar, pLodFar);
+    ShaderProgram::raw().setUniformValue(mUniforms.lodFactor, mLodFactor);
+    ShaderProgram::raw().setUniformValue(mUniforms.lodNear, mLodNear);
+    ShaderProgram::raw().setUniformValue(mUniforms.lodFar, mLodFar);
 }
 
 void Renderer::uploadTerrainData()

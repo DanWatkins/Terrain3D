@@ -34,19 +34,60 @@ public:
     typedef QVector<GLubyte> TextureIndicies;
     TextureIndicies& textureIndicies() { return mTextureIndicies; }
 
-    vbase::Property<int> pTextureMapResolution;
-    vbase::Property<float> pHeightScale;
-    vbase::Property<int> pSpanSize;
-    vbase::Property<int> pChunkSize;
+    int textureMapResolution() const { return mTextureMapResolution; }
+
+    void setTextureMapResolution(int resolution)
+    {
+        mTextureMapResolution = resolution;
+        emit textureMapResolutionChanged();
+    }
+
+    float heightScale() const { return mHeightScale; }
+
+    void setHeightScale(float heightScale)
+    {
+        mHeightScale = heightScale;
+        emit heightScaleChanged();
+    }
+
+    int spanSize() const { return mSpanSize; }
+
+    void setSpanSize(int spanSize)
+    {
+        mSpanSize = spanSize;
+        emit spanSizeChanged();
+    }
+
+    int chunkSize() const { return mChunkSize; }
+
+    void setChunkSize(int chunkSize)
+    {
+        mChunkSize = chunkSize;
+        emit chunkSizeChanged();
+    }
 
 signals:
     void heightMapChanged();
+
     void lightMapChanged();
+
+    void textureMapResolutionChanged();
+
+    void heightScaleChanged();
+
+    void spanSizeChanged();
+
+    void chunkSizeChanged();
 
 private:
     HeightMap mHeightMap;
     LightMap mLightMap;
     TextureIndicies mTextureIndicies;
+
+    int mTextureMapResolution;
+    float mHeightScale;
+    int mSpanSize;
+    int mChunkSize;
 };
 
 }}}

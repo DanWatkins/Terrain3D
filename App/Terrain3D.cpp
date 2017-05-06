@@ -74,11 +74,13 @@ void Terrain3D::init()
                 return;
         });
 
-        QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged, [this]() {
+        QObject::connect(&mFPSCounter, &FPSCounter::fpsChanged, [this]()
+        {
             emit fpsChanged();
         });
 
-        mCamera.lock()->pPos.addOnChangedListener([this] {
+        QObject::connect(mCamera.lock().get(), &t3d::world::Camera::posChanged, [this]()
+        {
             emit cameraPosChanged();
         });
 
@@ -148,41 +150,43 @@ void Terrain3D::settingsValueChanged(Settings::Key key, const QVariant &value)
     }
 
     CASE(GraphicsCameraPositionX) {
-        mCamera.lock()->pPos().x = value.toFloat();
+        mCamera.lock()->setPosX(value.toFloat());
         break;
     }
 
     CASE(GraphicsCameraPositionY) {
-        mCamera.lock()->pPos().y = value.toFloat();
+        mCamera.lock()->setPosY(value.toFloat());
         break;
     }
 
     CASE(GraphicsCameraPositionZ) {
-        mCamera.lock()->pPos().z = value.toFloat();
+        mCamera.lock()->setPosZ(value.toFloat());
         break;
     }
 
     CASE(GraphicsCameraFOV) {
         if (auto camera = mCamera.lock())
-            camera->pFieldOfView = value.toFloat();
+        {
+            camera->setFieldOfView(value.toFloat());
+        }
         break;
     }
 
     CASE(GraphicsCameraLODFactor) {
         if (auto camera = mCamera.lock())
-            camera->terrainRenderer().pLodFactor = value.toFloat();
+            camera->terrainRenderer().setLodFactor(value.toFloat());
         break;
     }
 
     CASE(GraphicsCameraLODNear) {
         if (auto camera = mCamera.lock())
-            camera->terrainRenderer().pLodNear = value.toFloat();
+            camera->terrainRenderer().setLodNear(value.toFloat());
         break;
     }
 
     CASE(GraphicsCameraLODFar) {
         if (auto camera = mCamera.lock())
-            camera->terrainRenderer().pLodFar = value.toFloat();
+            camera->terrainRenderer().setLodFar(value.toFloat());
         break;
     }
 
@@ -197,50 +201,50 @@ void Terrain3D::settingsValueChanged(Settings::Key key, const QVariant &value)
 
     //world
     CASE(WorldGeneratorSize) {
-        mEnvironment.pSize = value.toInt();
+        mEnvironment.setSize(value.toInt());
         break;
     }
 
     CASE(WorldGeneratorTextureMapResolution) {
-        mEnvironment.terrainData().pTextureMapResolution = value.toInt();
+        mEnvironment.terrainData().setTextureMapResolution(value.toInt());
         break;
     }
 
     CASE(WorldGeneratorSeed) {
-        mEnvironment.pSeed = value.toInt();
+        mEnvironment.setSeed(value.toInt());
         break;
     }
 
     CASE(WorldGeneratorFaultCount) {
-        mEnvironment.pFaultCount = value.toInt();
+        mEnvironment.setFaultCount(value.toInt());
         break;
     }
 
     CASE(WorldGeneratorSmoothing) {
-        mEnvironment.pSmoothing = value.toFloat();
+        mEnvironment.setSmoothing(value.toFloat());
         break;
     }
 
     CASE(WorldTerrainLightIntensity) {
-        mEnvironment.pLightIntensity = value.toFloat();
+        mEnvironment.setLightIntensity(value.toFloat());
         break;
     }
 
     CASE(WorldTerrainHeightScale) {
         if (auto camera = mCamera.lock())
-            mEnvironment.terrainData().pHeightScale = value.toFloat();
+            mEnvironment.terrainData().setHeightScale(value.toFloat());
         break;
     }
 
     CASE(WorldTerrainChunkSize) {
         if (auto camera = mCamera.lock())
-            mEnvironment.terrainData().pChunkSize = value.toInt();
+            mEnvironment.terrainData().setChunkSize(value.toInt());
         break;
     }
 
     CASE(WorldTerrainSpanSize) {
         if (auto camera = mCamera.lock())
-            mEnvironment.terrainData().pSpanSize = value.toInt();
+            mEnvironment.terrainData().setSpanSize(value.toInt());
         break;
     }
     }
@@ -338,13 +342,13 @@ void Terrain3D::updateCursorPos()
         float speed = 0.5f;
 
         if (mMovementKeys.w)
-            mCamera.lock()->pPos += (speed * mCamera.lock()->forward());
+            mCamera.lock()->addPos(speed * mCamera.lock()->forward());
         if (mMovementKeys.s)
-            mCamera.lock()->pPos += (speed * -mCamera.lock()->forward());
+            mCamera.lock()->addPos(speed * -mCamera.lock()->forward());
         if (mMovementKeys.a)
-            mCamera.lock()->pPos += (speed * -mCamera.lock()->right());
+            mCamera.lock()->addPos(speed * -mCamera.lock()->right());
         if (mMovementKeys.d)
-            mCamera.lock()->pPos += (speed * mCamera.lock()->right());
+            mCamera.lock()->addPos(speed * mCamera.lock()->right());
     }
 
     if (mCameraItem->isFrozen() || (!capturesCursor() && mouseButtonLeftPressed() == false))
@@ -362,7 +366,7 @@ void Terrain3D::updateCursorPos()
             {
                 const float mouseSensitivity = 0.001f;
                 QPoint delta = consumeCursorDelta();
-                mCamera.lock()->pOrientationAngle += Vec2f(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity);
+                mCamera.lock()->addOrientationAngle(Vec2f(delta.x()*mouseSensitivity, delta.y()*mouseSensitivity));
 
                 resetCursorPosition();
             }

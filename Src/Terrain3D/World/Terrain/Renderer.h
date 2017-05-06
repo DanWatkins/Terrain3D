@@ -41,10 +41,27 @@ public:
     void prepareForRendering();
     void render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
-    vbase::Property<float> pLodFactor = 1.0f;
-    vbase::Property<float> pLodNear = 50.0f;
-    vbase::Property<float> pLodFar = 450.0f;
-    vbase::Property<Mode> pMode = Mode::Normal;
+    void setLodFactor(float lodFactor)
+    {
+        mLodFactor = lodFactor;
+        this->enqueueUniformValueChange(&mUniforms.lodFactor, mLodFactor);
+    }
+
+    void setLodNear(float lodNear)
+    {
+        mLodNear = lodNear;
+        this->enqueueUniformValueChange(&mUniforms.lodNear, mLodNear);
+    }
+
+    void setLodFar(float lodFar)
+    {
+        mLodFar = lodFar;
+        this->enqueueUniformValueChange(&mUniforms.lodFar, mLodFar);
+    }
+
+    Mode mode() const { return mMode; }
+
+    void setMode(Mode mode) { mMode = mode; }
 
 protected:
     void addShaders() override;
@@ -59,6 +76,11 @@ private:
 
     GLuint mVao;
     GLuint mVbo[2];
+
+    float mLodFactor = 1.0f;
+    float mLodNear = 50.0f;
+    float mLodFar = 450.0f;
+    Mode mMode = Mode::Normal;
 
     struct
     {

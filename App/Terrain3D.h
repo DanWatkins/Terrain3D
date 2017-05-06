@@ -92,7 +92,7 @@ public:
     {
         if (auto camera = mCamera.lock())
         {
-            return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->pPos().x, camera->pPos().y, camera->pPos().z);
+            return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->pos().x, camera->pos().y, camera->pos().z);
         }
 
         return "Unknown";

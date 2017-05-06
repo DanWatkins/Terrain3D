@@ -55,7 +55,7 @@ void Camera::render()
     glClearColor(1.0f, 0.9f, 0.8f , 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    mTerrainRenderer.render(pPos, viewMatrix(), perspectiveMatrix());
+    mTerrainRenderer.render(mPos, viewMatrix(), perspectiveMatrix());
 
     mEntityRenderer.renderAll(totalMatrix());
     mEnvironment->assetManager().renderAllQueued();
@@ -65,7 +65,7 @@ void Camera::render()
 
 void Camera::resize(unsigned windowWidth, unsigned windowHeight)
 {
-    pAspectRatio = (float)windowWidth / (float)windowHeight;
+    mAspectRatio = (float)windowWidth / (float)windowHeight;
     glViewport(0, 0, (GLsizei)windowWidth, (GLsizei)windowHeight);
 }
 
@@ -78,22 +78,22 @@ void Camera::reloadShaders()
 Mat4 Camera::orientaion() const
 {
     Mat4 orientation;
-    orientation = glm::rotate(orientation, pOrientationAngle().y, Vec3f(1, 0, 0));
-    orientation = glm::rotate(orientation, pOrientationAngle().x, Vec3f(0, 1, 0));
+    orientation = glm::rotate(orientation, mOrientationAngle.y, Vec3f(1, 0, 0));
+    orientation = glm::rotate(orientation, mOrientationAngle.x, Vec3f(0, 1, 0));
     return orientation;
 }
 
 void Camera::lookAt(Vec3f position)
 {
-    if (pPos == position)
+    if (mPos == position)
     {
         std::cout << "MEGA ERROR: You are trying to look at your origin" << std::endl;
         return;
     }
 
-    Vec3f direction = glm::normalize(position - pPos);
-    pOrientationAngle().y = asinf(-direction.y);
-    pOrientationAngle().x = -atan2f(-direction.x, -direction.z);
+    Vec3f direction = glm::normalize(position - mPos);
+    mOrientationAngle.y = asinf(-direction.y);
+    mOrientationAngle.x = -atan2f(-direction.x, -direction.z);
     normalizeAngles();
 }
 
@@ -119,24 +119,25 @@ Mat4 Camera::totalMatrix() const
 
 Mat4 Camera::perspectiveMatrix() const
 {
-    return glm::perspective<float>(pFieldOfView, pAspectRatio, pNearPlane, pFarPlane);
+    return glm::perspective<float>(mFieldOfView, mAspectRatio, mNearPlane, mFarPlane);
 }
 
 Mat4 Camera::viewMatrix() const
 {
-    return orientaion() * glm::translate(Mat4(), -pPos);
+    return orientaion() * glm::translate(Mat4(), -mPos);
 }
 
 void Camera::normalizeAngles()
 {
-    pOrientationAngle().x = fmodf(pOrientationAngle().x, glm::pi<float>() * 2.0f);
-    if (pOrientationAngle().x < 0.0f)
-        pOrientationAngle().x += glm::pi<float>() * 2.0f;
+    mOrientationAngle.x = fmodf(mOrientationAngle.x, glm::pi<float>() * 2.0f);
 
-    if (pOrientationAngle().y > pMaxVerticalAngle)
-        pOrientationAngle().y = pMaxVerticalAngle;
-    else if (pOrientationAngle().y < -pMaxVerticalAngle)
-        pOrientationAngle().y = -pMaxVerticalAngle;
+    if (mOrientationAngle.x < 0.0f)
+        mOrientationAngle.x += glm::pi<float>() * 2.0f;
+
+    if (mOrientationAngle.y > mMaxVerticalAngle)
+        mOrientationAngle.y = mMaxVerticalAngle;
+    else if (mOrientationAngle.y < -mMaxVerticalAngle)
+        mOrientationAngle.y = -mMaxVerticalAngle;
 }
 
 }}

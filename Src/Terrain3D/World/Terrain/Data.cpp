@@ -26,7 +26,7 @@ GLubyte indexForHeight(const Data::HeightIndex &hi, float height)
 
 void Data::computeTextureIndicies(const HeightIndex &heightIndex)
 {
-    int tcRes = pTextureMapResolution;
+    int tcRes = mTextureMapResolution;
     int hmSize = mHeightMap.size();
     int tcmSize = (hmSize-1)*tcRes + 1;
     mTextureIndicies.resize(tcmSize*tcmSize);

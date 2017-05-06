@@ -28,8 +28,6 @@ public:
     void cleanup();
     void render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
-    vbase::Property<float> pWaterLevel = 0.3f;
-
 protected:
     void addShaders() override;
     void queryUniformLocations() override;
@@ -39,6 +37,7 @@ private:
     Q_DISABLE_COPY(Renderer)
 
     GLuint mVao;
+    float mWaterLevel = 0.3f;
 
     struct
     {
