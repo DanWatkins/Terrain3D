@@ -100,8 +100,8 @@ void Camera::lookAt(Vec3f position)
 	}
 
 	Vec3f direction = glm::normalize(position - pPos);
-	pOrientationAngle().y = vbase::radToDeg(asinf(-direction.y));
-	pOrientationAngle().x = -vbase::radToDeg(atan2f(-direction.x, -direction.z));
+    pOrientationAngle().y = asinf(-direction.y);
+    pOrientationAngle().x = -atan2f(-direction.x, -direction.z);
 	normalizeAngles();
 }
 
@@ -146,9 +146,9 @@ Mat4 Camera::viewMatrix() const
 
 void Camera::normalizeAngles()
 {
-	pOrientationAngle().x = fmodf(pOrientationAngle().x, 360.0f);
+    pOrientationAngle().x = fmodf(pOrientationAngle().x, glm::pi<float>() * 2.0f);
 	if (pOrientationAngle().x < 0.0f)
-		pOrientationAngle().x += 360.0f;
+        pOrientationAngle().x += glm::pi<float>() * 2.0f;
 
 	if (pOrientationAngle().y > pMaxVerticalAngle)
 		pOrientationAngle().y = pMaxVerticalAngle;

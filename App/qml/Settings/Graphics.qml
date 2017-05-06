@@ -64,8 +64,8 @@ SettingGroupBox {
         settingsKey: Settings.GraphicsCameraFOV
 
         minimumValue: 0
-        maximumValue: 160
-        stepSize: 1
+        maximumValue: 3
+        stepSize: 0.1
     }
 
     SettingSlider {

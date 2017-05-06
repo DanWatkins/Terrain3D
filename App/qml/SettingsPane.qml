@@ -19,7 +19,7 @@ Item {
     anchors.top: parent.top
     anchors.bottom: parent.bottom
 
-    width: 300
+    width: 400
 
     signal hasFinished()
 
