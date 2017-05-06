@@ -54,7 +54,7 @@ SettingBaseControl {
         horizontalAlignment: Text.AlignLeft
         font.pixelSize: 12
 
-        text: slider.value
+        text: slider.value.toFixed(2)
 
         anchors.right: parent.right
         anchors.rightMargin: 6
