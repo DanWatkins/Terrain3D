@@ -45,8 +45,10 @@
 //GLM Includes
 #pragma GCC system_header
 #pragma clang system_header
-    #include <glm/glm.hpp>
-    #include <glm/ext.hpp>
+
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+
 #pragma GCC diagnostic pop
 #pragma Clang diagnostic pop
 
@@ -88,8 +90,9 @@ template <typename T>
 using unique = std::unique_ptr<T>;
 
 template<typename T, typename... Args>
-std::unique_ptr<T> makeUnique(Args&&... args) {
-	return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+std::unique_ptr<T> makeUnique(Args&&... args)
+{
+    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
 //Project Includes

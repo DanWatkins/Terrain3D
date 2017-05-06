@@ -19,55 +19,55 @@ namespace t3d { namespace world { namespace terrain { namespace water {
 class Renderer : public core::ShaderProgram, public vbase::Loadable
 {
 public:
-	Renderer() {}
-	~Renderer() {}
+    Renderer() {}
+    ~Renderer() {}
 
-	void init(Data *terrainData);
-	void refresh();
+    void init(Data *terrainData);
+    void refresh();
 
-	void cleanup();
-	void render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
+    void cleanup();
+    void render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
-	vbase::Property<float> pWaterLevel = 0.3f;
+    vbase::Property<float> pWaterLevel = 0.3f;
 
 protected:
-	void addShaders() override;
-	void queryUniformLocations() override;
-	void refreshUniformValues() override;
+    void addShaders() override;
+    void queryUniformLocations() override;
+    void refreshUniformValues() override;
 
 private:
-	Q_DISABLE_COPY(Renderer)
+    Q_DISABLE_COPY(Renderer)
 
-	GLuint mVao;
+    GLuint mVao;
 
-	struct
-	{
-		GLint mvMatrix;
-		GLint projMatrix;
-		GLint size;
-		GLint spanSize;
-		GLint heightScale;
-		GLint waterLevel;
-		GLint timeDelta;
-	} mUniforms;
+    struct
+    {
+        GLint mvMatrix;
+        GLint projMatrix;
+        GLint size;
+        GLint spanSize;
+        GLint heightScale;
+        GLint waterLevel;
+        GLint timeDelta;
+    } mUniforms;
 
-	struct
-	{
-		GLuint water;
-	} mTextures;
+    struct
+    {
+        GLuint water;
+    } mTextures;
 
-	struct
-	{
-		bool terrainData = false;
-	} mInvalidations;
+    struct
+    {
+        bool terrainData = false;
+    } mInvalidations;
 
-	Data *mTerrainData;
-	QElapsedTimer mElapsedTimer;
+    Data *mTerrainData;
+    QElapsedTimer mElapsedTimer;
 
 private:
-	void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
-	void loadShaders();
-	void loadTextures();
+    void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
+    void loadShaders();
+    void loadTextures();
 };
 
 }}}}

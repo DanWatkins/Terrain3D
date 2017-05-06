@@ -18,31 +18,31 @@ class Manager;
 class Mesh
 {
 private:
-	struct BoundingSphere
-	{
-		float radius;
-		Vec3f offset;
-	};
+    struct BoundingSphere
+    {
+        float radius;
+        Vec3f offset;
+    };
 
 public:
-	friend class Manager;
-	Mesh();
+    friend class Manager;
+    Mesh();
 
-	bool init(Manager *manager, const QString &filepath);
-	void queueRender(const Mat4 &totalMatrix);
+    bool init(Manager *manager, const QString &filepath);
+    void queueRender(const Mat4 &totalMatrix);
 
-	QString name() const;
-	BoundingSphere& boundingSphere() { return mBoundingSphere; }
-	const BoundingSphere& boundingSphere() const { return mBoundingSphere; }
+    QString name() const;
+    BoundingSphere& boundingSphere() { return mBoundingSphere; }
+    const BoundingSphere& boundingSphere() const { return mBoundingSphere; }
 
-	class MeshPrivate;
+    class MeshPrivate;
 
 private:
-	strong<MeshPrivate> mPrivate;
-	Manager *mManager = nullptr;
-	void batchRender(const QVector<Mat4> &matricies);
+    strong<MeshPrivate> mPrivate;
+    Manager *mManager = nullptr;
+    void batchRender(const QVector<Mat4> &matricies);
 
-	BoundingSphere mBoundingSphere;
+    BoundingSphere mBoundingSphere;
 };
 
 }}

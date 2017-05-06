@@ -11,19 +11,19 @@ namespace t3d { namespace core {
 
 bool OpenGLFunctions::initializeOpenGLFunctions()
 {
-	if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
-	{
+    if (!BaseOpenGLFunctions::initializeOpenGLFunctions())
+    {
         System::warn("Unable to initialize OpenGLFunctions");
-		return false;
-	}
+        return false;
+    }
 
-	if (!mGL_textureStorage.initializeOpenGLFunctions())
-	{
+    if (!mGL_textureStorage.initializeOpenGLFunctions())
+    {
         System::warn("Unable to load required OpenGL extensions for OpenGLFunctions");
-		return false;
-	}
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 }}

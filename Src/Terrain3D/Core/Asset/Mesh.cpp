@@ -13,32 +13,29 @@
 namespace t3d { namespace asset {
 
 Mesh::Mesh() :
-	mPrivate(new MeshPrivate(this))
+    mPrivate(new MeshPrivate(this))
 {
 }
 
 bool Mesh::init(Manager *manager, const QString &filepath)
 {
-	mManager = manager;
-	return mPrivate->initWithFile(filepath);
+    mManager = manager;
+    return mPrivate->initWithFile(filepath);
 }
-
 
 void Mesh::queueRender(const Mat4 &totalMatrix)
 {
-	mManager->queueMeshRender(this, totalMatrix);
+    mManager->queueMeshRender(this, totalMatrix);
 }
-
 
 void Mesh::batchRender(const QVector<Mat4> &matricies)
 {
-	mPrivate->batchRender(matricies);
+    mPrivate->batchRender(matricies);
 }
-
 
 QString Mesh::name() const
 {
-	return mPrivate->name();
+    return mPrivate->name();
 }
 
 }}

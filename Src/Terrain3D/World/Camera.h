@@ -21,91 +21,90 @@
 namespace t3d { namespace world {
 
 /**
-	 * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
-	 * rotate up/down and left/right.
-	 */
+     * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
+     * rotate up/down and left/right.
+     */
 class Camera : public QObject, protected core::OpenGLFunctions, public vbase::Loadable
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public slots:
-	/**
-	 * @brief Renders everything visible by the camera using the current
-	 * OpenGL context.
-	 */
-	void render();
+    /**
+     * @brief Renders everything visible by the camera using the current
+     * OpenGL context.
+     */
+    void render();
 
 signals:
-	void finishedRendering();
+    void finishedRendering();
 
 public:
-	Camera();
-	~Camera() {}
+    Camera();
+    ~Camera() {}
 
-	/**
-	 * @brief Gets the instance ready for rendering.
-	 * @param configuration Contains various configuration information
-	 */
-	void init();
-	void refresh();
+    /**
+     * @brief Gets the instance ready for rendering.
+     * @param configuration Contains various configuration information
+     */
+    void init();
+    void refresh();
 
-	/**
-	 * Does the heavy lifting loading. Loads large resources from file and uploads data to the GPU.
-	 * Must be called after init.
-	 */
-	void prepareForRendering();
+    /**
+     * Does the heavy lifting loading. Loads large resources from file and uploads data to the GPU.
+     * Must be called after init.
+     */
+    void prepareForRendering();
 
-	/**
-	 * @brief Deallocates all memory allocated in OpenGL on the GPU.
-	 */
-	void cleanup();
+    /**
+     * @brief Deallocates all memory allocated in OpenGL on the GPU.
+     */
+    void cleanup();
 
-	/**
-	 * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
-	 */
-	void resize(unsigned windowWidth, unsigned windowHeight);
-	void reloadShaders();
-	void setEnvironment(Environment *environment) { mEnvironment = environment; }
+    /**
+     * @brief Adjusts the aspect ratio according to \p windowWidth and \p windowHeight
+     */
+    void resize(unsigned windowWidth, unsigned windowHeight);
+    void reloadShaders();
+    void setEnvironment(Environment *environment) { mEnvironment = environment; }
 
-	vbase::Property<float> pFieldOfView = 50.0f;
-	vbase::Property<float> pNearPlane = 1.0f;
-	vbase::Property<float> pFarPlane = 1200.0f;
-	vbase::Property<float> pAspectRatio = 1.0;
-	vbase::Property<float> pMaxVerticalAngle = 90.0f;
+    vbase::Property<float> pFieldOfView = 50.0f;
+    vbase::Property<float> pNearPlane = 1.0f;
+    vbase::Property<float> pFarPlane = 1200.0f;
+    vbase::Property<float> pAspectRatio = 1.0;
+    vbase::Property<float> pMaxVerticalAngle = 90.0f;
 
-	vbase::Property<Vec3f> pPos;
+    vbase::Property<Vec3f> pPos;
 
-	Property_Set(Vec2f, pOrientationAngle, Vec2f(0,0),
-	{
-					 pOrientationAngle.raw() = _newValue;
-					 normalizeAngles();
-				 })
+    Property_Set(Vec2f, pOrientationAngle, Vec2f(0,0),
+    {
+                     pOrientationAngle.raw() = _newValue;
+                     normalizeAngles();
+                 })
 
-	Mat4 orientaion() const;
+    Mat4 orientaion() const;
 
-	void lookAt(Vec3f position);
-	Vec3f forward() const;
-	Vec3f right() const;
-	Vec3f up() const;
+    void lookAt(Vec3f position);
+    Vec3f forward() const;
+    Vec3f right() const;
+    Vec3f up() const;
 
-	void setMode(terrain::Mode mode) { mTerrainRenderer.pMode = mode; }
-	terrain::Mode mode() { return mTerrainRenderer.pMode; }
+    void setMode(terrain::Mode mode) { mTerrainRenderer.pMode = mode; }
+    terrain::Mode mode() { return mTerrainRenderer.pMode; }
 
-	terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
-
-private:
-	Environment *mEnvironment;
-	terrain::Renderer mTerrainRenderer;
-	entity::Renderer mEntityRenderer;
+    terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
 
 private:
-	Mat4 totalMatrix() const;
-	Mat4 perspectiveMatrix() const;
-	Mat4 viewMatrix() const;
-	void normalizeAngles();
+    Environment *mEnvironment;
+    terrain::Renderer mTerrainRenderer;
+    entity::Renderer mEntityRenderer;
+
+private:
+    Mat4 totalMatrix() const;
+    Mat4 perspectiveMatrix() const;
+    Mat4 viewMatrix() const;
+    void normalizeAngles();
 };
 
 }}
 
 #endif
-

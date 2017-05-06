@@ -11,24 +11,22 @@ namespace t3d { namespace asset {
 
 void mesh_p::MaterialData::uploadMaterialData(const QString &containingDirectory)
 {
-	initializeOpenGLFunctions();
+    initializeOpenGLFunctions();
 
-	mTexture = unique<QOpenGLTexture>(new QOpenGLTexture(QImage(containingDirectory + mFilepath).mirrored()));
-	mTexture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
-	mTexture->setMagnificationFilter(QOpenGLTexture::Linear);
+    mTexture = unique<QOpenGLTexture>(new QOpenGLTexture(QImage(containingDirectory + mFilepath).mirrored()));
+    mTexture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+    mTexture->setMagnificationFilter(QOpenGLTexture::Linear);
 }
-
 
 void mesh_p::MaterialData::bind()
 {
-	glActiveTexture(GL_TEXTURE5);
-	mTexture->bind();
+    glActiveTexture(GL_TEXTURE5);
+    mTexture->bind();
 }
-
 
 void mesh_p::MaterialData::release()
 {
-	mTexture->release();
+    mTexture->release();
 }
 
 }}

@@ -27,21 +27,21 @@ class RenderComponent;
 class BaseEntity
 {
 public:
-	BaseEntity(int id);
-	~BaseEntity();
+    BaseEntity(int id);
+    ~BaseEntity();
 
-	int id() const { return mId; }
-	void setPos(const Vec3f &pos) { mPos = pos; }
-	Vec3f pos() const { return mPos; }
+    int id() const { return mId; }
+    void setPos(const Vec3f &pos) { mPos = pos; }
+    Vec3f pos() const { return mPos; }
 
-	RenderComponent* renderComponent() const;
-	void createRenderComponent();
+    RenderComponent* renderComponent() const;
+    void createRenderComponent();
 
 private:
-	int mId;
-	Vec3f mPos;
+    int mId;
+    Vec3f mPos;
 
-	unique<RenderComponent> mRenderComponent;
+    unique<RenderComponent> mRenderComponent;
 };
 
 }}}

@@ -15,18 +15,17 @@ namespace t3d { namespace world { namespace entity {
 class Component
 {
 public:
-	Component() = delete;
-	Component(BaseEntity *baseEntity) { mBaseEntity = baseEntity; }
-	virtual ~Component() {}
+    Component() = delete;
+    Component(BaseEntity *baseEntity) { mBaseEntity = baseEntity; }
+    virtual ~Component() {}
 
 protected:
-	BaseEntity* baseEntity() { return mBaseEntity; }
+    BaseEntity* baseEntity() { return mBaseEntity; }
 
 private:
-	BaseEntity *mBaseEntity;
+    BaseEntity *mBaseEntity;
 };
 
 }}}
 
 #endif
-

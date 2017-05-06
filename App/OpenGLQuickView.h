@@ -11,29 +11,29 @@
 #include <Terrain3D/Library.h>
 #include <QtQuick/QQuickView>
 
-namespace t3d
+namespace t3d {
+
+class OpenGLQuickView : public QQuickView
 {
-	class OpenGLQuickView : public QQuickView
-	{
-	public:
-		OpenGLQuickView();
+public:
+    OpenGLQuickView();
 
-		void mousePressEvent(QMouseEvent *ev);
-		void mouseReleaseEvent(QMouseEvent *ev);
+    void mousePressEvent(QMouseEvent *ev);
+    void mouseReleaseEvent(QMouseEvent *ev);
 
-		QPoint consumeCursorDelta();
-		void resetCursorPosition();
+    QPoint consumeCursorDelta();
+    void resetCursorPosition();
 
-		void setCapturesCursor(bool capturesCursor) { mCapturesCursor = capturesCursor; }
-		bool capturesCursor() { return mCapturesCursor; }
-		bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
+    void setCapturesCursor(bool capturesCursor) { mCapturesCursor = capturesCursor; }
+    bool capturesCursor() { return mCapturesCursor; }
+    bool mouseButtonLeftPressed() { return mMouseButtonLeftPressed; }
 
-	private:
-		bool mCapturesCursor;
-		QPoint mLastCursorPos;
-		bool mMouseButtonLeftPressed;
-	};
+private:
+    bool mCapturesCursor;
+    QPoint mLastCursorPos;
+    bool mMouseButtonLeftPressed;
+};
+
 }
 
 #endif
-

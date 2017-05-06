@@ -20,26 +20,26 @@ namespace t3d { namespace core {
 class OpenGLTaskQueue : protected OpenGLFunctions
 {
 public:
-	using TaskFunction = std::function<void(OpenGLFunctions*)>;
+    using TaskFunction = std::function<void(OpenGLFunctions*)>;
 
-	/**
-	 * Gets the internal OpenGLFunctions ready to go.
-	 */
-	void init();
+    /**
+     * Gets the internal OpenGLFunctions ready to go.
+     */
+    void init();
 
-	/**
-	 * Adds a task function to the queue which will be exectued when runTasks is called.
-	 */
-	void addTask(TaskFunction f);
+    /**
+     * Adds a task function to the queue which will be exectued when runTasks is called.
+     */
+    void addTask(TaskFunction f);
 
-	/**
-	 * Call this on the main thread to process all tasks. The task queue will be empty afterwards.
-	 */
-	void runTasks();
+    /**
+     * Call this on the main thread to process all tasks. The task queue will be empty afterwards.
+     */
+    void runTasks();
 
 private:
-	QMutex mMutex;
-	QList<TaskFunction> mTasks;
+    QMutex mMutex;
+    QList<TaskFunction> mTasks;
 };
 
 }}

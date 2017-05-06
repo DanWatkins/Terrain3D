@@ -7,29 +7,30 @@
 
 #include <QtCore/QThread>
 
-namespace t3d
+namespace t3d {
+
+class BackgroundUpdater : public QThread
 {
-	class BackgroundUpdater : public QThread
-	{
-		Q_OBJECT
-	public:
-		BackgroundUpdater() : mFrequencyMs(16) {}
-		BackgroundUpdater(int frequencyMs) : mFrequencyMs(frequencyMs) {}
+    Q_OBJECT
+public:
+    BackgroundUpdater() : mFrequencyMs(16) {}
+    BackgroundUpdater(int frequencyMs) : mFrequencyMs(frequencyMs) {}
 
-	protected:
-		void run() override
-		{
-			while (isInterruptionRequested() == false)
-			{
-				msleep(mFrequencyMs);
-				emit needsUpdate();
-			}
-		}
+protected:
+    void run() override
+    {
+        while (isInterruptionRequested() == false)
+        {
+            msleep(mFrequencyMs);
+            emit needsUpdate();
+        }
+    }
 
-	private:
-		int mFrequencyMs;
+private:
+    int mFrequencyMs;
 
-	signals:
-		void needsUpdate();
-	};
+signals:
+    void needsUpdate();
+};
+
 }

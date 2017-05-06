@@ -16,21 +16,21 @@ namespace t3d { namespace asset {
 class mesh_p::SubMesh : public core::OpenGLFunctions
 {
 public:
-	GLuint mVao;
-	QVector<Face> mFaces;
-	int mIndexCount = 0;	//number of indicies in the index buffer including restart indicies
-	QString mMaterial;
+    GLuint mVao;
+    QVector<Face> mFaces;
+    int mIndexCount = 0;	//number of indicies in the index buffer including restart indicies
+    QString mMaterial;
 
-	void uploadData();
-	void render();
-	void bind();
-	void unbind();
+    void uploadData();
+    void render();
+    void bind();
+    void unbind();
 
-	void checkForErrors(const FaceData *faceData, QString &error);
+    void checkForErrors(const FaceData *faceData, QString &error);
 
 private:
-	void uploadIndexData();
-	void uploadVertexData();
+    void uploadIndexData();
+    void uploadVertexData();
 };
 
 }}

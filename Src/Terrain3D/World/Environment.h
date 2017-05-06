@@ -23,66 +23,66 @@ namespace t3d { namespace world {
 class Environment : public vbase::Loadable
 {
 public:
-	Environment();
-	~Environment() {}
+    Environment();
+    ~Environment() {}
 
-	void init();
-	void refresh();
+    void init();
+    void refresh();
 
-	/**
-	 * @returns A reference to the internal terrain::Data instance.
-	 */
-	terrain::Data& terrainData() { return mTerrainData; }
+    /**
+     * @returns A reference to the internal terrain::Data instance.
+     */
+    terrain::Data& terrainData() { return mTerrainData; }
 
-	/**
-	 * @returns A reference to the internal entity::Manager instance.
-	 */
-	entity::Manager& entityManager() { return mEntityManager; }
+    /**
+     * @returns A reference to the internal entity::Manager instance.
+     */
+    entity::Manager& entityManager() { return mEntityManager; }
 
-	/**
-	 * @returns A reference to the internal asset::Manager instance.
-	 */
-	asset::Manager& assetManager() { return mAssetManager; }
+    /**
+     * @returns A reference to the internal asset::Manager instance.
+     */
+    asset::Manager& assetManager() { return mAssetManager; }
 
-	/**
-	 * \brief Length of a side of the terrain grid. World coordinates will be on the
-	 * range [(0,0,0), (pSize, terrain::Data::pHeightScale, pSize)]
-	 */
-	vbase::Property<int> pSize = 16;
+    /**
+     * \brief Length of a side of the terrain grid. World coordinates will be on the
+     * range [(0,0,0), (pSize, terrain::Data::pHeightScale, pSize)]
+     */
+    vbase::Property<int> pSize = 16;
 
-	/**
-	 * \brief Number of faults to use with the fault-formation terrain generation algorithm
-	 */
-	vbase::Property<int> pFaultCount = 100;
+    /**
+     * \brief Number of faults to use with the fault-formation terrain generation algorithm
+     */
+    vbase::Property<int> pFaultCount = 100;
 
-	/**
-	 * \brief Seed value used to initialize the random number generator for randomly generatin
-	 * the terrain.
-	 */
-	vbase::Property<int> pSeed = 0;
+    /**
+     * \brief Seed value used to initialize the random number generator for randomly generatin
+     * the terrain.
+     */
+    vbase::Property<int> pSeed = 0;
 
-	/**
-	 * \brief The intensity used for linear smoothing passes in post-process fault-formation
-	 * terrain generation.
-	 */
-	vbase::Property<float> pSmoothing = 0.5f;
+    /**
+     * \brief The intensity used for linear smoothing passes in post-process fault-formation
+     * terrain generation.
+     */
+    vbase::Property<float> pSmoothing = 0.5f;
 
-	/**
-	 * \brief TODO this is a werid setting. It's kind of backwards.
-	 */
-	vbase::Property<float> pLightIntensity = 16.0f;
+    /**
+     * \brief TODO this is a werid setting. It's kind of backwards.
+     */
+    vbase::Property<float> pLightIntensity = 16.0f;
 
 private:
-	int seedToUse();
-	void generateTerrain(int seed);
-	void generateEntities();
+    int seedToUse();
+    void generateTerrain(int seed);
+    void generateEntities();
 
-	terrain::Data mTerrainData;
-	entity::Manager mEntityManager;
-	asset::Manager mAssetManager;
+    terrain::Data mTerrainData;
+    entity::Manager mEntityManager;
+    asset::Manager mAssetManager;
 
-	bool mNeedsToRefresh = false;
-	int mLastUsedSeed = 0;
+    bool mNeedsToRefresh = false;
+    int mLastUsedSeed = 0;
 };
 
 }}

@@ -12,23 +12,26 @@
 #include "Component.h"
 
 namespace t3d { namespace asset {
-	class Mesh;
+
+class Mesh;
+
 }}
 
-namespace t3d { namespace world { namespace entity
+namespace t3d { namespace world { namespace entity {
+
+class RenderComponent : public Component
 {
-	class RenderComponent : public Component
-	{
-	public:
-		RenderComponent() = delete;
-		RenderComponent(BaseEntity *baseEntity);
+public:
+    RenderComponent() = delete;
+    RenderComponent(BaseEntity *baseEntity);
 
-		void setMesh(weak<asset::Mesh> mesh);
-		void render(const Mat4 &cameraMatrix);
+    void setMesh(weak<asset::Mesh> mesh);
+    void render(const Mat4 &cameraMatrix);
 
-	private:
-		weak<asset::Mesh> mMesh;
-	};
+private:
+    weak<asset::Mesh> mMesh;
+};
+
 }}}
 
 #endif

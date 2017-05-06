@@ -12,23 +12,21 @@
 namespace t3d { namespace world { namespace entity {
 
 BaseEntity::BaseEntity(int id) :
-	mId(id)
+    mId(id)
 {
 }
 
-
 BaseEntity::~BaseEntity() {}
-
 
 RenderComponent* BaseEntity::renderComponent() const
 {
-	return mRenderComponent.get();
+    return mRenderComponent.get();
 }
 
 void BaseEntity::createRenderComponent()
 {
-	if (!mRenderComponent)
-		mRenderComponent = unique<RenderComponent>(new RenderComponent(this));
+    if (!mRenderComponent)
+        mRenderComponent = unique<RenderComponent>(new RenderComponent(this));
 }
 
 }}}

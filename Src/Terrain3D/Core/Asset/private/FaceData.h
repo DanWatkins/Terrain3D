@@ -15,19 +15,19 @@ namespace t3d { namespace asset {
 class mesh_p::FaceData : public core::OpenGLFunctions
 {
 public:  //TODO massive
-	QVector<Vertex> mVertecies;
-	QVector<Vertex> mVertexNormals;
-	QVector<Vertex> mTextureCoordinates;
+    QVector<Vertex> mVertecies;
+    QVector<Vertex> mVertexNormals;
+    QVector<Vertex> mTextureCoordinates;
 
-	GLuint bufferVertexPositions;
-	GLuint bufferVertexNormals;
-	GLuint bufferTextureCoordinates;
+    GLuint bufferVertexPositions;
+    GLuint bufferVertexNormals;
+    GLuint bufferTextureCoordinates;
 
-	void uploadData();
-	void bind();
+    void uploadData();
+    void bind();
 
 private:
-	void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
+    void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
 };
 
 }}

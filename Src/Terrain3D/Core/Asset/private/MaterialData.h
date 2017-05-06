@@ -15,19 +15,19 @@ namespace t3d { namespace asset {
 class mesh_p::MaterialData : protected core::OpenGLFunctions
 {
 public: //TODO massive
-	~MaterialData()
-	{
-		qDebug() << "Destroying MaterialData instance";
-	}
+    ~MaterialData()
+    {
+        qDebug() << "Destroying MaterialData instance";
+    }
 
-	QString mName;
-	QString mFilepath;
+    QString mName;
+    QString mFilepath;
 
-	unique<QOpenGLTexture> mTexture;
+    unique<QOpenGLTexture> mTexture;
 
-	void uploadMaterialData(const QString &containingDirectory);
-	void bind();
-	void release();
+    void uploadMaterialData(const QString &containingDirectory);
+    void bind();
+    void release();
 };
 
 }}

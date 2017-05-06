@@ -11,28 +11,26 @@ namespace t3d { namespace core {
 
 void OpenGLTaskQueue::init()
 {
-	QMutexLocker m(&mMutex);
-	initializeOpenGLFunctions();
+    QMutexLocker m(&mMutex);
+    initializeOpenGLFunctions();
 }
-
 
 void OpenGLTaskQueue::addTask(TaskFunction f)
 {
-	QMutexLocker m(&mMutex);
-	mTasks.append(f);
+    QMutexLocker m(&mMutex);
+    mTasks.append(f);
 }
-
 
 void OpenGLTaskQueue::runTasks()
 {
-	QMutexLocker m(&mMutex);
+    QMutexLocker m(&mMutex);
 
-	for (TaskFunction &tf : mTasks)
-	{
-		tf((OpenGLFunctions*)this);
-	}
+    for (TaskFunction &tf : mTasks)
+    {
+        tf((OpenGLFunctions*)this);
+    }
 
-	mTasks.clear();
+    mTasks.clear();
 }
 
 }}

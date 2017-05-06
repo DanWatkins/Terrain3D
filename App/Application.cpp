@@ -22,56 +22,55 @@ Settings mainSettings;
  */
 void loadAndRun(QGuiApplication &app)
 {
-	bool restart = true;
-	int instanceCount = 0;
+    bool restart = true;
+    int instanceCount = 0;
 
-	while (restart)
-	{
-		if (instanceCount == 0)
-			qDebug() << "Starting new instance..";
-		else
-			qDebug() << "Restarting...";
+    while (restart)
+    {
+        if (instanceCount == 0)
+            qDebug() << "Starting new instance..";
+        else
+            qDebug() << "Restarting...";
 
-		++instanceCount;
+        ++instanceCount;
 
-		t3d::Terrain3D mainWindow(&mainSettings);
+        t3d::Terrain3D mainWindow(&mainSettings);
 
         QSurfaceFormat format = mainWindow.format();
         format.setMajorVersion(4);
-		format.setMinorVersion(1);
-		format.setProfile(QSurfaceFormat::CoreProfile);
+        format.setMinorVersion(1);
+        format.setProfile(QSurfaceFormat::CoreProfile);
         mainWindow.setFormat(format);
 
-		mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
-		mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
+        mainWindow.rootContext()->setContextProperty("appSettings", &mainSettings);
+        mainWindow.rootContext()->setContextProperty("terrain3D", &mainWindow);
 
-		mainWindow.init();
+        mainWindow.init();
 
-		app.exec();
-		restart = mainWindow.needsRestart();
-	}
+        app.exec();
+        restart = mainWindow.needsRestart();
+    }
 }
-
 
 int main(int argc, char *argv[])
 {
     /*AllocConsole();
-	freopen("CONIN$", "r", stdin);
-	freopen("CONOUT$", "w", stdout);
+    freopen("CONIN$", "r", stdin);
+    freopen("CONOUT$", "w", stdout);
     freopen("CONOUT$", "w", stderr);*/
 
-	QGuiApplication app(argc, argv);
-	mainSettings.init();
+    QGuiApplication app(argc, argv);
+    mainSettings.init();
 
-	//set all the QuickItem types
-	{
-		using namespace t3d::QuickItems;
+    //set all the QuickItem types
+    {
+        using namespace t3d::QuickItems;
 
-		qmlRegisterType<CameraItem>("Terrain3D", 1, 0, "Camera");
-		qmlRegisterType<Settings>("Terrain3D", 1, 0, "Settings");
-	}
+        qmlRegisterType<CameraItem>("Terrain3D", 1, 0, "Camera");
+        qmlRegisterType<Settings>("Terrain3D", 1, 0, "Settings");
+    }
 
-	loadAndRun(app);
+    loadAndRun(app);
 
-	return 0;
+    return 0;
 }

@@ -13,31 +13,29 @@
 namespace t3d { namespace world { namespace terrain {
 
 /*
-	 * Stores normalized floats (0.0 - 1.0) indicating the brightness for a given
-	 * vertex when rendering terrain.
-	 */
+ * Stores normalized floats (0.0 - 1.0) indicating the brightness for a given
+ * vertex when rendering terrain.
+ */
 class LightMap
 {
 public:
-	LightMap();
-	typedef GLushort ValueType;
-	typedef QVector<ValueType> ValueVector;
+    LightMap();
+    typedef GLushort ValueType;
+    typedef QVector<ValueType> ValueVector;
 
-	void reserve(int size);
-	void set(int x, int y, float normalizedValue);
-	float get(int x, int y);
+    void reserve(int size);
+    void set(int x, int y, float normalizedValue);
+    float get(int x, int y);
 
-	int size() const { return mSize; }
+    int size() const { return mSize; }
 
-	const ValueType* raw() const { return &mValues.at(0); }
+    const ValueType* raw() const { return &mValues.at(0); }
 
 private:
-	ValueVector mValues;
-	int mSize;
+    ValueVector mValues;
+    int mSize;
 };
 
 }}}
 
-
 #endif
-

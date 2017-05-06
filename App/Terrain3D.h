@@ -21,127 +21,123 @@
 
 #include <ValpineBase/Loadable.h>
 
-namespace t3d
+namespace t3d {
+
+/**
+* Represents the main application
+*/
+class Terrain3D : public OpenGLQuickView, public SettingsListener, public vbase::Loadable
 {
-	/**
-	 * Represents the main application
-	 */
-    class Terrain3D : public OpenGLQuickView, public SettingsListener, public vbase::Loadable
-	{
-		Q_OBJECT
-		Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
-		Q_PROPERTY(QString cameraPos READ cameraPos NOTIFY cameraPosChanged);
-		Q_PROPERTY(bool isLoading MEMBER pIsLoading NOTIFY isLoadingChanged);
+    Q_OBJECT
+    Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
+    Q_PROPERTY(QString cameraPos READ cameraPos NOTIFY cameraPosChanged);
+    Q_PROPERTY(bool isLoading MEMBER pIsLoading NOTIFY isLoadingChanged);
 
-	public:
-		Terrain3D(Settings *mainSettings);
-		~Terrain3D();
+public:
+    Terrain3D(Settings *mainSettings);
+    ~Terrain3D();
 
-		/**
-	 * @brief
-	 */
-		void init();
+    /**
+     * @brief
+     */
+    void init();
 
+    /**
+     * @returns True if a new instance of Terrain3D should be run after this
+     * one terminates.
+     */
+    Q_INVOKABLE bool needsRestart() { return mNeedsRestart; }
 
-		/**
-	 * @returns True if a new instance of Terrain3D should be run after this
-	 * one terminates.
-	 */
-		Q_INVOKABLE bool needsRestart() { return mNeedsRestart; }
+    /**
+     * @brief Causes the view to terminate and flag as needing a restart.
+     */
+    Q_INVOKABLE void requestRestart() { mNeedsRestart = true; QQuickView::close(); }
 
-		/**
-	 * @brief Causes the view to terminate and flag as needing a restart.
-	 */
-		Q_INVOKABLE void requestRestart() { mNeedsRestart = true; QQuickView::close(); }
+    Q_INVOKABLE void reloadShaders() { if (auto camera = mCamera.lock()) camera->reloadShaders(); }
 
-		Q_INVOKABLE void reloadShaders() { if (auto camera = mCamera.lock()) camera->reloadShaders(); }
+    /**
+     *
+     */
+    Q_INVOKABLE void toggleCaptureCursor();
 
-		/**
-	 *
-	 */
-		Q_INVOKABLE void toggleCaptureCursor();
+    /**
+     *
+     */
+    Q_INVOKABLE void toggleFullscreen();
 
-		/**
-	 *
-	 */
-		Q_INVOKABLE void toggleFullscreen();
+    /**
+     *
+     */
+    Q_INVOKABLE void toggleWireframe();
 
+    /**
+     * @see SettingsListener::settingsValueChanged()
+     */
+    void settingsValueChanged(Settings::Key key, const QVariant &value) override;
 
-		/**
-	 *
-	 */
-		Q_INVOKABLE void toggleWireframe();
+    /**
+     * @see SettingsListener::settingsQueueFinishedApplying()
+     */
+    void settingsQueueFinishedApplying() override;
 
+    /**
+     * @returns the current overall frame rate.
+     */
+    int fps() const { return mFPSCounter.fps(); }
 
-		/**
-	 * @see SettingsListener::settingsValueChanged()
-	 */
-		void settingsValueChanged(Settings::Key key, const QVariant &value) override;
+    /**
+     * @returns the position of the camera formatted as a string.
+     */
+    QString cameraPos() const
+    {
+        if (auto camera = mCamera.lock())
+        {
+            return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->pPos().x, camera->pPos().y, camera->pPos().z);
+        }
 
+        return "Unknown";
+    }
 
-		/**
-	 * @see SettingsListener::settingsQueueFinishedApplying()
-	 */
-		void settingsQueueFinishedApplying() override;
+private:
+    world::Environment mEnvironment;
+    weak<world::Camera> mCamera;
+    bool mPreviouslyHadFocus;
+    bool mNeedsRestart;
 
-		/**
-	 * @returns the current overall frame rate.
-	 */
-		int fps() const { return mFPSCounter.fps(); }
+    Settings *mMainSettings;
+    QuickItems::CameraItem *mCameraItem;
+    BackgroundUpdater backgroundUpdater;
+    FPSCounter mFPSCounter;
 
-		/**
-	 * @returns the position of the camera formatted as a string.
-	 */
-		QString cameraPos() const
-		{
-			if (auto camera = mCamera.lock())
-			{
-				return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->pPos().x, camera->pPos().y, camera->pPos().z);
-			}
+    QFuture<void> mRefreshFuture;
+    core::OpenGLTaskQueue mOpenGLTaskQueue;
 
-			return "Unknown";
-		}
+private:
+    struct MovementKeys
+    {
+        bool w, a, s, d;
+        MovementKeys() { clear(); }
+        void clear() { w=a=s=d=false; }
+    } mMovementKeys;
 
-	private:
-		world::Environment mEnvironment;
-		weak<world::Camera> mCamera;
-		bool mPreviouslyHadFocus;
-		bool mNeedsRestart;
+    void focusOutEvent(QFocusEvent *ev) override;
+    void keyPressEvent(QKeyEvent *ev) override;
+    void keyReleaseEvent(QKeyEvent *ev) override;
 
-		Settings *mMainSettings;
-		QuickItems::CameraItem *mCameraItem;
-		BackgroundUpdater backgroundUpdater;
-		FPSCounter mFPSCounter;
+    void updateCursorPos();
+    void loadUserSettings();
+    void refresh();
 
-		QFuture<void> mRefreshFuture;
-		core::OpenGLTaskQueue mOpenGLTaskQueue;
+signals:
+    void toggleSettingsMenu();
+    void refreshSettingsMenu();
+    void fpsChanged();
+    void cameraPosChanged();
+    void isLoadingChanged();
 
-	private:
-		struct MovementKeys
-		{
-			bool w, a, s, d;
-			MovementKeys() { clear(); }
-			void clear() { w=a=s=d=false; }
-		} mMovementKeys;
-
-		void focusOutEvent(QFocusEvent *ev) override;
-		void keyPressEvent(QKeyEvent *ev) override;
-		void keyReleaseEvent(QKeyEvent *ev) override;
-
-		void updateCursorPos();
-		void loadUserSettings();
-		void refresh();
-
-	signals:
-		void toggleSettingsMenu();
-		void refreshSettingsMenu();
-		void fpsChanged();
-		void cameraPosChanged();
-		void isLoadingChanged();
-
-	public slots:
-		void willUpdate();
-	};
+public slots:
+    void willUpdate();
+};
 }
 
 #endif

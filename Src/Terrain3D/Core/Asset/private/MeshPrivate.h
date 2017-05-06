@@ -16,78 +16,78 @@ namespace t3d { namespace asset {
 class Mesh::MeshPrivate : protected core::OpenGLFunctions
 {
 public:
-	friend class OBJ;
-	MeshPrivate() = delete;
-	MeshPrivate(Mesh *mesh);
-	void init();
-	bool initWithFile(const QString &filepath);
+    friend class OBJ;
+    MeshPrivate() = delete;
+    MeshPrivate(Mesh *mesh);
+    void init();
+    bool initWithFile(const QString &filepath);
 
-	void batchRender(const QVector<Mat4> &matricies);
+    void batchRender(const QVector<Mat4> &matricies);
 
-	void setFilepath(const QString &filepath);
-	QString filepath() const { return mFilepath; }
-	QString containingDirectory() const { return mContainingDirectory; }
+    void setFilepath(const QString &filepath);
+    QString filepath() const { return mFilepath; }
+    QString containingDirectory() const { return mContainingDirectory; }
 
-	void setName(const QString &name) { mName = name; }
-	QString name() const { return mName; }
-	void setBaseScale(const Vec3f &baseScale) { mBaseScale = baseScale; }
+    void setName(const QString &name) { mName = name; }
+    QString name() const { return mName; }
+    void setBaseScale(const Vec3f &baseScale) { mBaseScale = baseScale; }
 
 protected:
-	struct Vertex
-	{
-		GLfloat values[3];
-	};
+    struct Vertex
+    {
+        GLfloat values[3];
+    };
 
-	static const GLuint PrimitiveRestartIndex;
+    static const GLuint PrimitiveRestartIndex;
 
-	class MaterialData;
-	class FaceData;
-	class SubMesh;
+    class MaterialData;
+    class FaceData;
+    class SubMesh;
 
-	struct Face
-	{
-		QVector<int> vertexIndex;
-		QVector<int> textureIndex;
-		QVector<int> normalIndex;
-	};
+    struct Face
+    {
+        QVector<int> vertexIndex;
+        QVector<int> textureIndex;
+        QVector<int> normalIndex;
+    };
 
-	QList<strong<MaterialData>> mMaterials;
+    QList<strong<MaterialData>> mMaterials;
 
 private:
-	Mesh *mMesh = nullptr;	//the host mesh using this
-	weak<Mesh> mSphere;
+    Mesh *mMesh = nullptr;	//the host mesh using this
+    weak<Mesh> mSphere;
 
-	QString mContainingDirectory;
-	QString mFilepath;
-	QOpenGLShaderProgram mProgram;
+    QString mContainingDirectory;
+    QString mFilepath;
+    QOpenGLShaderProgram mProgram;
 
-	QString mName;
-	Vec3f mBaseScale;
+    QString mName;
+    Vec3f mBaseScale;
 
-	strong<FaceData> mFaceData;
-	QList<strong<SubMesh>> mSubMesh;
+    strong<FaceData> mFaceData;
+    QList<strong<SubMesh>> mSubMesh;
 
-	struct Uniforms
-	{
-		GLuint matrixCamera;
-		GLuint matrixModel;
-		GLuint indexCount;
-	} mUniforms;
+    struct Uniforms
+    {
+        GLuint matrixCamera;
+        GLuint matrixModel;
+        GLuint indexCount;
+    } mUniforms;
 
-	void loadShaders();
-	void uploadData();
-	void checkForErrors();
+    void loadShaders();
+    void uploadData();
+    void checkForErrors();
 
-	void bindForRender();
-	void unbindAfterRender();
+    void bindForRender();
+    void unbindAfterRender();
 
 
 protected:
-	void makeSubMesh();
-	strong<SubMesh> currentSubMesh();
-	void addVertexPosition(const Vertex &vertex);
-	void addVertexNormal(const Vertex &normal);
-	void addTextureCoordinate(const Vertex &texCoord);
+    void makeSubMesh();
+    strong<SubMesh> currentSubMesh();
+    void addVertexPosition(const Vertex &vertex);
+    void addVertexNormal(const Vertex &normal);
+    void addTextureCoordinate(const Vertex &texCoord);
 };
 
 typedef Mesh::MeshPrivate mesh_p;

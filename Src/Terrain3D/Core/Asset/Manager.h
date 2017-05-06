@@ -16,46 +16,45 @@ namespace t3d { namespace asset {
 class Manager
 {
 public:
-	friend class Mesh;
+    friend class Mesh;
 
-	void loadMeshesFromDirectory(const QString path);
-	int meshCount() const { return mMeshQueues.count(); }
-	strong<Mesh> meshForName(const QString name) const;
+    void loadMeshesFromDirectory(const QString path);
+    int meshCount() const { return mMeshQueues.count(); }
+    strong<Mesh> meshForName(const QString name) const;
 
+    void renderAllQueued()
+    {
+        for (MeshQueue &mq : mMeshQueues)
+        {
+            mq.mesh->batchRender(mq.matricies);
 
-	void renderAllQueued()
-	{
-		for (MeshQueue &mq : mMeshQueues)
-		{
-			mq.mesh->batchRender(mq.matricies);
-
-			mq.matricies.clear();
-		}
-	}
+            mq.matricies.clear();
+        }
+    }
 
 private:
-	struct MeshQueue
-	{
-		strong<Mesh> mesh;
-		QVector<Mat4> matricies;
-	};
+    struct MeshQueue
+    {
+        strong<Mesh> mesh;
+        QVector<Mat4> matricies;
+    };
 
-	QList<MeshQueue> mMeshQueues;
+    QList<MeshQueue> mMeshQueues;
 
-	void loadSystemMeshes(const QString &path);
-	void loadMesh(const QString &path);
+    void loadSystemMeshes(const QString &path);
+    void loadMesh(const QString &path);
 
-	void queueMeshRender(Mesh *mesh, const Mat4 &totalMatrix)
-	{
-		for (MeshQueue &mq : mMeshQueues)
-		{
-			if (mq.mesh.get() == mesh)
-			{
-				mq.matricies.append(totalMatrix);
-				break;
-			}
-		}
-	}
+    void queueMeshRender(Mesh *mesh, const Mat4 &totalMatrix)
+    {
+        for (MeshQueue &mq : mMeshQueues)
+        {
+            if (mq.mesh.get() == mesh)
+            {
+                mq.matricies.append(totalMatrix);
+                break;
+            }
+        }
+    }
 };
 
 }}
