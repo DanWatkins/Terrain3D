@@ -31,6 +31,7 @@ class Terrain3D : public OpenGLQuickView, public SettingsListener, public vbase:
     Q_OBJECT
     Q_PROPERTY(int fps READ fps NOTIFY fpsChanged);
     Q_PROPERTY(QString cameraPos READ cameraPos NOTIFY cameraPosChanged);
+    Q_PROPERTY(QString cameraOrientation READ cameraOrientation NOTIFY cameraOrientationChanged);
     Q_PROPERTY(bool isLoading MEMBER pIsLoading NOTIFY isLoadingChanged);
 
 public:
@@ -92,10 +93,20 @@ public:
     {
         if (auto camera = mCamera.lock())
         {
-            return QString().sprintf("(x=%.3f,y=%.3f,z=%.3f)", camera->pos().x, camera->pos().y, camera->pos().z);
+            return QString().sprintf("x:%.1f y:%.1f z:%.1f", camera->pos().x, camera->pos().y, camera->pos().z);
         }
 
-        return "Unknown";
+        return "n/a";
+    }
+
+    QString cameraOrientation() const
+    {
+        if (auto camera = mCamera.lock())
+        {
+            return QString().sprintf("x:%.2f y:%.2f", camera->orientationAngle().x, camera->orientationAngle().y);
+        }
+
+        return "n/a";
     }
 
 private:
@@ -133,6 +144,7 @@ signals:
     void refreshSettingsMenu();
     void fpsChanged();
     void cameraPosChanged();
+    void cameraOrientationChanged();
     void isLoadingChanged();
 
 public slots:

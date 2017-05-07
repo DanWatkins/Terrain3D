@@ -11,8 +11,7 @@ namespace t3d { namespace world {
 
 Camera::Camera()
 {
-
-    lookAt(Vec3f(60, 20, 60));
+    mOrientationAngle = Vec2f(2.3 * glm::pi<float>() / 3, 0.5f);
 }
 
 void Camera::init()

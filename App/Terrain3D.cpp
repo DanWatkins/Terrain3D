@@ -84,11 +84,17 @@ void Terrain3D::init()
             emit cameraPosChanged();
         });
 
+        QObject::connect(mCamera.lock().get(), &t3d::world::Camera::orientationChanged, [this]()
+        {
+            emit cameraOrientationChanged();
+        });
+
         mEnvironment.pIsLoading.addOnChangedListener([this] {
             emit this->isLoadingChanged();
         });
 
         emit cameraPosChanged();
+        emit cameraOrientationChanged();
     });
 
     QWindow::show();

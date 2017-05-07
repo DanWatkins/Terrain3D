@@ -101,12 +101,12 @@ void Settings::initDefaultValues()
 #define d mMetaKeyInfo
 
     //graphics
-    d[GraphicsScreenResolutionWidth] = {800, Instant};
-    d[GraphicsScreenResolutionHeight] = {600, Instant};
+    d[GraphicsScreenResolutionWidth] = {1600, Instant};
+    d[GraphicsScreenResolutionHeight] = {900, Instant};
     d[GraphicsScreenIsFullscreen] = {false, Instant};
-    d[GraphicsCameraPositionX] = {0.0f, Instant};
-    d[GraphicsCameraPositionY] = {0.0f, Instant};
-    d[GraphicsCameraPositionZ] = {0.0f, Instant};
+    d[GraphicsCameraPositionX] = {20.0f, Instant};
+    d[GraphicsCameraPositionY] = {65.0f, Instant};
+    d[GraphicsCameraPositionZ] = {20.0f, Instant};
     d[GraphicsCameraFOV] = {1.0f, Instant};
     d[GraphicsCameraLODFactor] = {1.0f, Instant};
     d[GraphicsCameraLODNear] = {50.0f, Instant};

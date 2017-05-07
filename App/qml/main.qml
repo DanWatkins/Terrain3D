@@ -7,8 +7,8 @@ import Terrain3D 1.0
 
 Item {
     id: appWindow
-    width: 800
-    height: 600
+    width: 1600
+    height: 900
 
 
     Camera {
@@ -138,14 +138,20 @@ Item {
             }
 
             Text {
-                text: "FPS: " + Math.min(terrain3D.fps, 60);
-                font.pointSize: 16
+                text: "FPS[" + terrain3D.fps + "]";
+                font.pointSize: 14
                 color: "white"
             }
 
             Text {
-                text: "Pos: " + terrain3D.cameraPos;
-                font.pointSize: 16
+                text: "Pos[" + terrain3D.cameraPos + "]";
+                font.pointSize: 14
+                color: "white"
+            }
+
+            Text {
+                text: "Orientation[" + terrain3D.cameraOrientation + "]";
+                font.pointSize: 14
                 color: "white"
             }
         }

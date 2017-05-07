@@ -38,6 +38,7 @@ public slots:
 signals:
     void finishedRendering();
     void posChanged();
+    void orientationChanged();
 
 public:
     Camera();
@@ -93,13 +94,13 @@ public:
 
     void setPosY(float y)
     {
-        mPos.x = y;
+        mPos.y = y;
         emit posChanged();
     }
 
     void setPosZ(float z)
     {
-        mPos.x = z;
+        mPos.z = z;
         emit posChanged();
     }
 
@@ -115,12 +116,14 @@ public:
     {
         mOrientationAngle = angle;
         normalizeAngles();
+        emit orientationChanged();
     }
 
     void addOrientationAngle(const Vec2f &angle)
     {
         mOrientationAngle += angle;
         normalizeAngles();
+        emit orientationChanged();
     }
 
     Mat4 orientaion() const;
@@ -145,7 +148,7 @@ private:
     float mFarPlane = 1200.0f;
     float mAspectRatio = 1.0;
     float mMaxVerticalAngle = 90.0f;
-    Vec3f mPos;
+    Vec3f mPos = Vec3f(0.0f, 25.0f, 75.0f);
     Vec2f mOrientationAngle;
 
     Mat4 totalMatrix() const;
