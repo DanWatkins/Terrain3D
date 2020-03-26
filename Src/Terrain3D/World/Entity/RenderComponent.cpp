@@ -8,7 +8,7 @@
 #include "RenderComponent.h"
 #include <Terrain3D/Core/Asset/Mesh.h>
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 RenderComponent::RenderComponent(BaseEntity *baseEntity) :
     Component(baseEntity)
@@ -31,4 +31,4 @@ void RenderComponent::render(const Mat4 &cameraMatrix)
     mMesh.lock()->queueRender(cameraMatrix * transformation);
 }
 
-}}}
+}

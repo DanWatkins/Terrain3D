@@ -7,7 +7,7 @@
 
 #include <Terrain3D/World/Terrain/Data.h>
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 GLubyte indexForHeight(const Data::HeightIndex &hi, float height)
 {
@@ -68,4 +68,4 @@ void Data::computeTextureIndicies(const HeightIndex &heightIndex)
     }
 }
 
-}}}
+}

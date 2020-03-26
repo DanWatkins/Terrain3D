@@ -9,7 +9,7 @@
 #include "BaseEntity.h"
 #include "RenderComponent.h"
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 BaseEntity::BaseEntity(int id) :
     mId(id)
@@ -29,4 +29,4 @@ void BaseEntity::createRenderComponent()
         mRenderComponent = unique<RenderComponent>(new RenderComponent(this));
 }
 
-}}}
+}

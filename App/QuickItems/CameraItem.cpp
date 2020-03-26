@@ -7,7 +7,7 @@
 
 #include "CameraItem.h"
 
-namespace t3d { namespace QuickItems
+namespace t3d::QuickItems
 {
 	CameraItem::CameraItem() :
 		mIsFrozen(false)
@@ -77,4 +77,4 @@ namespace t3d { namespace QuickItems
 	{
 		mCamera->cleanup();
 	}
-}}
+}

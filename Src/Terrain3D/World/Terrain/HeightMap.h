@@ -10,7 +10,7 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 class HeightMap
 {
@@ -29,6 +29,6 @@ public:
     int size() const { return mSize; }
 };
 
-}}}
+}
 
 #endif
