@@ -149,7 +149,7 @@ private:
     float mAspectRatio = 1.0;
     float mMaxVerticalAngle = 90.0f;
     Vec3f mPos = Vec3f(0.0f, 25.0f, 75.0f);
-    Vec2f mOrientationAngle;
+    Vec2f mOrientationAngle = Vec2f(0.0f, 0.0f);
 
     Mat4 totalMatrix() const;
     Mat4 perspectiveMatrix() const;

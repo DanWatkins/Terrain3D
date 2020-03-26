@@ -27,7 +27,7 @@ void RenderComponent::setMesh(weak<asset::Mesh> mesh)
 
 void RenderComponent::render(const Mat4 &cameraMatrix)
 {
-    Mat4 transformation = glm::translate(baseEntity()->pos());
+    Mat4 transformation = glm::translate(Mat4(1.0f), baseEntity()->pos());
     mMesh.lock()->queueRender(cameraMatrix * transformation);
 }
 
