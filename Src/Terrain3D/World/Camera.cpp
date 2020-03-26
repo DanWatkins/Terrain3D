@@ -76,7 +76,7 @@ void Camera::reloadShaders()
 
 Mat4 Camera::orientaion() const
 {
-    Mat4 orientation;
+    Mat4 orientation(1.0f);
     orientation = glm::rotate(orientation, mOrientationAngle.y, Vec3f(1, 0, 0));
     orientation = glm::rotate(orientation, mOrientationAngle.x, Vec3f(0, 1, 0));
     return orientation;

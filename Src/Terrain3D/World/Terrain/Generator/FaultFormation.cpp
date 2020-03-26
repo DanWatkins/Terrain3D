@@ -6,7 +6,7 @@ void applyRandomFault(HeightMap &heightMap, float faultAmount)
 {
     //create the fault line from two random points
     Vec2f p1((float)vbase::randInt(0, heightMap.size()), (float)vbase::randInt(0, heightMap.size()));
-    Vec2f p2;
+    Vec2f p2 = Vec2f(0.0f, 0.0f);
 
     do
     {

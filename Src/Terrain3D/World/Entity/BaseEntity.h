@@ -39,7 +39,7 @@ public:
 
 private:
     int mId;
-    Vec3f mPos;
+    Vec3f mPos = Vec3f(0.0f, 0.0f, 0.0f);
 
     unique<RenderComponent> mRenderComponent;
 };

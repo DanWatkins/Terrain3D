@@ -49,7 +49,7 @@ void mesh_p::batchRender(const QVector<Mat4> &matricies)
 
             glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(resultMatrix));
             glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
-                               glm::value_ptr(glm::rotate(Mat4(), 0.0f, Vec3f(0, 1, 0))));
+                               glm::value_ptr(glm::rotate(Mat4(1.0f), 0.0f, Vec3f(0, 1, 0))));
 
 
             subMesh->render();
