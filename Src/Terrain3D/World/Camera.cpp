@@ -123,7 +123,7 @@ Mat4 Camera::perspectiveMatrix() const
 
 Mat4 Camera::viewMatrix() const
 {
-    return orientaion() * glm::translate(Mat4(), -mPos);
+    return orientaion() * glm::translate(Mat4(1.0f), -mPos);
 }
 
 void Camera::normalizeAngles()

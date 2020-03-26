@@ -45,7 +45,7 @@ void mesh_p::batchRender(const QVector<Mat4> &matricies)
 
         for (const Mat4 &mat : matricies)
         {
-            Mat4 resultMatrix = mat * glm::scale(mBaseScale);
+            Mat4 resultMatrix = mat * glm::scale(Mat4(1.0f), mBaseScale);
 
             glUniformMatrix4fv(mUniforms.matrixCamera, 1, GL_FALSE, glm::value_ptr(resultMatrix));
             glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
