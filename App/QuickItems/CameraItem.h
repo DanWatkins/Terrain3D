@@ -11,7 +11,7 @@
 #include <QtQuick/QQuickFramebufferObject>
 #include <Terrain3D/World/Camera.h>
 
-namespace t3d { namespace QuickItems {
+namespace t3d::QuickItems {
 
 class CameraItem : public QQuickFramebufferObject
 {
@@ -44,6 +44,6 @@ public:
     QQuickFramebufferObject::Renderer *createRenderer() const;
 };
 
-}}
+}
 
 #endif

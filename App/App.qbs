@@ -3,7 +3,7 @@ import qbs 1.0
 Application {
     name: "Terrain3D"
 
-	cpp.cxxLanguageVersion: "c++14"
+    cpp.cxxLanguageVersion: "c++17"
 	cpp.includePaths: [
         "../Src/",
         "../Ext/glm",
