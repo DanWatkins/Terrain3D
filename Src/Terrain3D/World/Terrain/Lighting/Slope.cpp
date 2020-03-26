@@ -9,7 +9,7 @@
 #include <Terrain3D/World/Terrain/LightMap.h>
 #include <Terrain3D/World/Terrain/HeightMap.h>
 
-namespace t3d { namespace world { namespace terrain { namespace Lighting {
+namespace t3d::world::terrain::Lighting {
 
 bool Slope::computeBrightness(LightMap &lm, const HeightMap &hm, float intensity)
 {
@@ -46,4 +46,4 @@ bool Slope::computeBrightness(LightMap &lm, const HeightMap &hm, float intensity
     return true;
 }
 
-}}}}
+}

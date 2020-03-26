@@ -7,7 +7,7 @@
 
 #include <Terrain3D/World/Terrain/Data.h>
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 class HeightMap;
 class LightMap;
@@ -20,4 +20,4 @@ public:
     static bool computeBrightness(LightMap &lm, const HeightMap &hm, float intensity);
 };
 
-}}}}
+}}

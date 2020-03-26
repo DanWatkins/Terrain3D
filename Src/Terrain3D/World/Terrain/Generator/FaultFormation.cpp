@@ -1,6 +1,6 @@
 #include "FaultFormation.h"
 
-namespace t3d { namespace world { namespace terrain { namespace Generator {
+namespace t3d::world::terrain::Generator {
 
 void applyRandomFault(HeightMap &heightMap, float faultAmount)
 {
@@ -119,4 +119,4 @@ void FaultFormation::generate(Data &terrainData, int size, int numberOfPasses, f
     qDebug() << "      Reseated the height map";
 }
 
-}}}}
+}

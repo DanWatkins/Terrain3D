@@ -12,7 +12,7 @@
 #include <Terrain3D/World/Entity/RenderComponent.h>
 #include <Terrain3D/World/Entity/Manager.h>
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 class Renderer
 {
@@ -40,7 +40,7 @@ private:
     Manager *mManager;
 };
 
-}}}
+}
 
 #endif
 

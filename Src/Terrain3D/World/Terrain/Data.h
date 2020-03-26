@@ -14,7 +14,7 @@
 #include <Terrain3D/World/Terrain/HeightMap.h>
 #include <Terrain3D/World/Terrain/LightMap.h>
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 class Data : public QObject
 {
@@ -90,6 +90,6 @@ private:
     int mChunkSize;
 };
 
-}}}
+}
 
 #endif

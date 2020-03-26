@@ -10,7 +10,7 @@
 
 #include "BaseEntity.h"
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 class Component
 {
@@ -26,6 +26,6 @@ private:
     BaseEntity *mBaseEntity;
 };
 
-}}}
+}
 
 #endif

@@ -8,7 +8,7 @@
 #include "NormalMap.h"
 #include "HeightMap.h"
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 void NormalMap::generate(const HeightMap &hm)
 {
@@ -44,4 +44,4 @@ void NormalMap::generate(const HeightMap &hm)
     }
 }
 
-}}}
+}

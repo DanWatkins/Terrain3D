@@ -17,7 +17,7 @@ class Mesh;
 
 }}
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 class RenderComponent : public Component
 {
@@ -32,7 +32,7 @@ private:
     weak<asset::Mesh> mMesh;
 };
 
-}}}
+}
 
 #endif
 

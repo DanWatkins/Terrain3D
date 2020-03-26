@@ -8,7 +8,7 @@
 #include "Manager.h"
 #include "RenderComponent.h"
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 Manager::Manager() :
     mIdValueTrack(0)
@@ -39,4 +39,4 @@ strong<BaseEntity> Manager::findEntity(int id)
     return nullptr;
 }
 
-}}}
+}

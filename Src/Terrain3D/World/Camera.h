@@ -18,7 +18,7 @@
 #include <Terrain3D/World/Terrain/Renderer.h>
 #include <Terrain3D/World/Entity/Renderer.h>
 
-namespace t3d { namespace world {
+namespace t3d::world {
 
 /**
      * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
@@ -157,6 +157,6 @@ private:
     void normalizeAngles();
 };
 
-}}
+}
 
 #endif

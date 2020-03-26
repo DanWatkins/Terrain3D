@@ -10,7 +10,7 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 class HeightMap;
 
@@ -25,6 +25,6 @@ private:
     QVector<Vec3f> mNormals;
 };
 
-}}}
+}
 
 #endif
