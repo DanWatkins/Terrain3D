@@ -7,7 +7,7 @@
 
 #include "Renderer.h"
 
-namespace t3d { namespace world { namespace terrain { namespace water {
+namespace t3d::world::terrain::water {
 
 void Renderer::init(Data *terrainData)
 {
@@ -136,4 +136,4 @@ void Renderer::loadTextures()
     }
 }
 
-}}}}
+}

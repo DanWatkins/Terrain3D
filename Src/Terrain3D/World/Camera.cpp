@@ -7,7 +7,7 @@
 
 #include "Camera.h"
 
-namespace t3d { namespace world {
+namespace t3d::world {
 
 Camera::Camera()
 {
@@ -139,4 +139,4 @@ void Camera::normalizeAngles()
         mOrientationAngle.y = -mMaxVerticalAngle;
 }
 
-}}
+}

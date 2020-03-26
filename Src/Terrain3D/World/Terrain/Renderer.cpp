@@ -8,7 +8,7 @@
 #include <Terrain3D/World/Terrain/Renderer.h>
 #include "Utility.h"
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 Renderer::Renderer()
 {
@@ -316,4 +316,4 @@ void Renderer::uploadTerrainData()
     }
 }
 
-}}}
+}

@@ -17,10 +17,10 @@ An interactive 3D terrain simulation written in C++ using OpenGL 4 and Qt 5. The
 Note: The project may build and run with different configurations. The following are only guarunteed to work.
 
 * **Build Machine**
-  * C++ Toolchain: GCC 4.9.2+ | MSVC 14.0+
-  * Qt: 5.5+
+  * C++ Toolchain: GCC 6.0+ | MSVC 14.0+
+  * Qt: 5.9+
 * **Target Machine**
-  * OS: Windows 7+ | Ubuntu 15+ | Android 6.0+ (coming soon)
+  * OS: Windows 7+ | Ubuntu 16.04+
   * OpenGL: 4.3+
 
 ### Building

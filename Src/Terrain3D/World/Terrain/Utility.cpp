@@ -7,7 +7,7 @@
 
 #include "Utility.h"
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 int maxLevelsOfDetail(int blockSize)
 {
@@ -37,4 +37,4 @@ int lodForDistance(double distance, int blockSize, float factor)
     return static_cast<int>(std::min(maxLod / (150.0f * factor) * distance, maxLod));
 }
 
-}}}
+}

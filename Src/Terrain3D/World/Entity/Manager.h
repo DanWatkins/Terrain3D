@@ -12,7 +12,7 @@
 #include <Terrain3D/World/Entity/BaseEntity.h>
 #include <Terrain3D/Core/Asset/Manager.h>
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 class Manager : public QObject
 {
@@ -35,7 +35,7 @@ private:
     const asset::Manager *mAssetManager;
 };
 
-}}}
+}
 
 #endif
 

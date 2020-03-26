@@ -7,7 +7,7 @@
 
 #include "LightMap.h"
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 LightMap::LightMap() :
     mSize(0)
@@ -30,4 +30,4 @@ float LightMap::get(int x, int y)
     return static_cast<float>(mValues[x + y*mSize]) / static_cast<float>(std::numeric_limits<ValueType>::max());
 }
 
-}}}
+}

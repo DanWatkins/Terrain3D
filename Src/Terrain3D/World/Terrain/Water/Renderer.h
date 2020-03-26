@@ -14,7 +14,7 @@
 
 #include <ValpineBase/Loadable.h>
 
-namespace t3d { namespace world { namespace terrain { namespace water {
+namespace t3d::world::terrain::water {
 
 class Renderer : public core::ShaderProgram, public vbase::Loadable
 {
@@ -69,7 +69,7 @@ private:
     void loadTextures();
 };
 
-}}}}
+}
 
 #endif
 

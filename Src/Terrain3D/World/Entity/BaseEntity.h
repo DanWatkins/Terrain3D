@@ -10,7 +10,7 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d { namespace world { namespace entity {
+namespace t3d::world::entity {
 
 class RenderComponent;
 
@@ -44,7 +44,7 @@ private:
     unique<RenderComponent> mRenderComponent;
 };
 
-}}}
+}
 
 #endif
 

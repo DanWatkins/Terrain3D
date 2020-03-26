@@ -7,7 +7,7 @@
 
 #include "HeightMap.h"
 
-namespace t3d { namespace world { namespace terrain {
+namespace t3d::world::terrain {
 
 void HeightMap::reserve(int size)
 {
@@ -42,4 +42,4 @@ const float* HeightMap::raw() const
     return mHeightData.isEmpty() ? nullptr : &mHeightData[0];
 }
 
-}}}
+}
