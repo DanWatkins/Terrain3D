@@ -3,35 +3,33 @@
 An interactive 3D terrain simulation written in C++ using OpenGL 4 and Qt 5. The main features include:
 
 * Procedurally generated terrain and forests.
-* Continuous level of detail: Terrain chunks farther away from the camera are rendered with less detail (triangles). The LODing is done entirely on the GPU using tessellation shaders.
+* Continuous level of detail system to reduce geometric detail of terrain rendered farther away from the viewer.
 * Single-plane terrain texture and light mapping.
-* Static mesh loading and rendering system.
+* Static mesh loading and rendering.
 * Simple animated water.
 * Customizable settings menu.
 * Qt Quick integration.
 
 # Build Instructions
 
-### Requirments
-
-Note: The project may build and run with different configurations. The following are only guarunteed to work.
+## Requirments
 
 * **Build Machine**
-  * C++ Toolchain: GCC 6.0+ | MSVC 14.0+
+  * C++ Toolchain: GCC 6.0+, MSVC 14.0+
   * Qt: 5.9+
 * **Target Machine**
-  * OS: Windows 7+ | Ubuntu 16.04+
+  * OS: Windows 7+, Ubuntu 16.04+
   * OpenGL: 4.3+
 
-### Building
+## Building
 
-Simply open Terrain3D.qbs in Qt Creator and hit build. When running from the IDE, make sure the working directory is set to &lt;root_path_to_terrain3d&gt;/Deployment/Bin/. Otherwise none of the relative resource paths will work.
+Open Terrain3D.qbs in Qt Creator and configure using a desktop kit. Set the run working directory to the Deployment directory in the repository so all resources can be loaded when running from the IDE.
 
 
 # Screen Shots
 
-![ScreenShot](./Screenshots/terrain3d_settings.png)
+![ScreenShot](./Screenshots/00.jpg)
 
-![ScreenShot](./Screenshots/terrain3d_main.png)
+![ScreenShot](./Screenshots/01.jpg)
 
-![ScreenShot](./Screenshots/terrain3d_clod.png)
+![ScreenShot](./Screenshots/02.jpg)
