@@ -7,7 +7,8 @@
 
 #include <QtCore/QThread>
 
-namespace t3d {
+namespace t3d
+{
 
 class BackgroundUpdater : public QThread
 {

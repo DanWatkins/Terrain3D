@@ -11,7 +11,8 @@
 #include <QtQuick/QQuickFramebufferObject>
 #include <Terrain3D/World/Camera.h>
 
-namespace t3d::QuickItems {
+namespace t3d::QuickItems
+{
 
 class CameraItem : public QQuickFramebufferObject
 {
@@ -22,7 +23,7 @@ class CameraItem : public QQuickFramebufferObject
 public:
     CameraItem();
 
-    //properties
+    // properties
     bool isLoaded() const { return mCamera.get() != nullptr; }
     bool isFrozen() const { return mIsFrozen; }
     void setIsFrozen(bool isFrozen) { mIsFrozen = isFrozen; }
@@ -38,7 +39,6 @@ private:
 
 signals:
     void isLoadedChanged();
-
 
 public:
     QQuickFramebufferObject::Renderer *createRenderer() const;

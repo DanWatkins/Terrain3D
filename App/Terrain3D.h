@@ -8,24 +8,25 @@
 #ifndef _t3d_Terrain3D_H
 #define _t3d_Terrain3D_H
 
-#include "OpenGLQuickView.h"
 #include "BackgroundUpdater.h"
+#include "OpenGLQuickView.h"
 #include "Settings.h"
 
 #include "Application.h"
+#include "QuickItems/CameraItem.h"
 #include <Terrain3D/Core/FPSCounter.h>
 #include <Terrain3D/Core/OpenGLTaskQueue.h>
-#include <Terrain3D/World/Environment.h>
 #include <Terrain3D/World/Camera.h>
-#include "QuickItems/CameraItem.h"
+#include <Terrain3D/World/Environment.h>
 
 #include <ValpineBase/Loadable.h>
 
-namespace t3d {
+namespace t3d
+{
 
 /**
-* Represents the main application
-*/
+ * Represents the main application
+ */
 class Terrain3D : public OpenGLQuickView, public SettingsListener, public vbase::Loadable
 {
     Q_OBJECT
@@ -52,9 +53,17 @@ public:
     /**
      * @brief Causes the view to terminate and flag as needing a restart.
      */
-    Q_INVOKABLE void requestRestart() { mNeedsRestart = true; QQuickView::close(); }
+    Q_INVOKABLE void requestRestart()
+    {
+        mNeedsRestart = true;
+        QQuickView::close();
+    }
 
-    Q_INVOKABLE void reloadShaders() { if (auto camera = mCamera.lock()) camera->reloadShaders(); }
+    Q_INVOKABLE void reloadShaders()
+    {
+        if (auto camera = mCamera.lock())
+            camera->reloadShaders();
+    }
 
     /**
      *
@@ -93,7 +102,8 @@ public:
     {
         if (auto camera = mCamera.lock())
         {
-            return QString().sprintf("x:%.1f y:%.1f z:%.1f", camera->pos().x, camera->pos().y, camera->pos().z);
+            return QString().sprintf("x:%.1f y:%.1f z:%.1f", camera->pos().x, camera->pos().y,
+                                     camera->pos().z);
         }
 
         return "n/a";
@@ -103,7 +113,8 @@ public:
     {
         if (auto camera = mCamera.lock())
         {
-            return QString().sprintf("x:%.2f y:%.2f", camera->orientationAngle().x, camera->orientationAngle().y);
+            return QString().sprintf("x:%.2f y:%.2f", camera->orientationAngle().x,
+                                     camera->orientationAngle().y);
         }
 
         return "n/a";
@@ -128,7 +139,7 @@ private:
     {
         bool w, a, s, d;
         MovementKeys() { clear(); }
-        void clear() { w=a=s=d=false; }
+        void clear() { w = a = s = d = false; }
     } mMovementKeys;
 
     void focusOutEvent(QFocusEvent *ev) override;

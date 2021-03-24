@@ -8,8 +8,8 @@
 #ifndef _t3d_Settings_H
 #define _t3d_Settings_H
 
-#include <QtCore/QSettings>
 #include <QtCore/QHash>
+#include <QtCore/QSettings>
 
 #include "Application.h"
 
@@ -23,10 +23,7 @@ public:
     /**
      * @brief The default constructor.
      */
-    Settings() :
-        mSettings(nullptr),
-        mVersion("0.0.0")
-    {}
+    Settings() : mSettings(nullptr), mVersion("0.0.0") {}
 
     /**
      * @brief Loads the settings from file and creates a table of default values.
@@ -36,36 +33,42 @@ public:
 
     enum Key
     {
-        //graphics
-        GraphicsScreenResolutionWidth		= 100,
-        GraphicsScreenResolutionHeight		= 101,
-        GraphicsScreenIsFullscreen			= 102,
-        GraphicsCameraPositionX				= 103,
-        GraphicsCameraPositionY				= 104,
-        GraphicsCameraPositionZ				= 105,
-        GraphicsCameraFOV					= 110,  /* Field of view: Degrees measurment of the camera's viewing angle */
-        GraphicsCameraLODFactor 			= 111,  /* Level of detail: A scale factor to adjust the overall level of detail */
-        GraphicsCameraLODNear				= 112,	/* The forward distance from the camera at which point the LOD begins to interpolate towards LODFar */
-        GraphicsCameraLODFar                = 113,  /* The forward distance from the camera at which point the LODNear has interpolated to the lowest LOD */
-        GraphicsCameraWireframe				= 130,
+        // graphics
+        GraphicsScreenResolutionWidth = 100,
+        GraphicsScreenResolutionHeight = 101,
+        GraphicsScreenIsFullscreen = 102,
+        GraphicsCameraPositionX = 103,
+        GraphicsCameraPositionY = 104,
+        GraphicsCameraPositionZ = 105,
+        GraphicsCameraFOV =
+            110, /* Field of view: Degrees measurment of the camera's viewing angle */
+        GraphicsCameraLODFactor =
+            111, /* Level of detail: A scale factor to adjust the overall level of detail */
+        GraphicsCameraLODNear = 112, /* The forward distance from the camera at which point the LOD
+                                        begins to interpolate towards LODFar */
+        GraphicsCameraLODFar = 113,  /* The forward distance from the camera at which point the
+                                        LODNear has interpolated to the lowest LOD */
+        GraphicsCameraWireframe = 130,
 
-        //world
-        WorldGeneratorSize					= 201,
-        WorldGeneratorTextureMapResolution	= 202,
-        WorldGeneratorSeed					= 203,
-        WorldGeneratorFaultCount			= 204,
-        WorldGeneratorSmoothing				= 205,
-        WorldTerrainHeightScale				= 211,
-        WorldTerrainChunkSize				= 212,
-        WorldTerrainSpanSize				= 213,
-        WorldTerrainLightIntensity			= 214
-    }; Q_ENUMS(Key)
+        // world
+        WorldGeneratorSize = 201,
+        WorldGeneratorTextureMapResolution = 202,
+        WorldGeneratorSeed = 203,
+        WorldGeneratorFaultCount = 204,
+        WorldGeneratorSmoothing = 205,
+        WorldTerrainHeightScale = 211,
+        WorldTerrainChunkSize = 212,
+        WorldTerrainSpanSize = 213,
+        WorldTerrainLightIntensity = 214
+    };
+    Q_ENUMS(Key)
 
     enum KeyUpdateType
     {
         Instant,
         Queued
-    }; Q_ENUMS(KeyUpdateType)
+    };
+    Q_ENUMS(KeyUpdateType)
 
     /**
      * @brief Assigns \p value to be associated with \p key. The internal QSettings
@@ -125,7 +128,7 @@ private:
 
     QSettings *mSettings;
     const QString mVersion;
-    QList<SettingsListener*> mListeners;
+    QList<SettingsListener *> mListeners;
     QList<QPair<Key, QVariant>> mSettingsQueue;
 
     struct MetaKeyInfo

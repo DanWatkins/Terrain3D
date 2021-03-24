@@ -9,8 +9,8 @@
 #define _t3d_Application_H
 
 #include <QtCore/QDebug>
-#include <QtGui/QGuiApplication>
 #include <QtCore/QSettings>
+#include <QtGui/QGuiApplication>
 #include <QtQml/QQmlContext>
 
 #include <Terrain3D/Library.h>
