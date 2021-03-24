@@ -11,7 +11,8 @@
 #include "../Library.h"
 #include <list>
 
-namespace t3d {
+namespace t3d
+{
 
 class FPSCounter : public QObject
 {
@@ -32,7 +33,7 @@ public:
 public:
     FPSCounter() = delete;
     FPSCounter(qint64 superSampleRate, qint64 subSampleRate,
-               strong<Timer> timer=strong<Timer>(new Timer));
+               strong<Timer> timer = strong<Timer>(new Timer));
 
     int fps() const { return round(mFps); }
     void update();

@@ -10,16 +10,15 @@
 
 #include "Library.h"
 
-const QString		gVersion						= "0.10";
+const QString gVersion = "0.10";
 
-const int			gDefaultWindowWidth				= 1600;
-const int			gDefaultWindowHeight			= 900;
+const int gDefaultWindowWidth = 1600;
+const int gDefaultWindowHeight = 900;
 
-const QString		gWindowTitle					= QString("Terrain3D ") + gVersion;
+const QString gWindowTitle = QString("Terrain3D ") + gVersion;
 
-const QString		gDefaultPathTextures			= "./Textures/";
-const QString		gDefaultPathShaders				= "./Shaders/";
-const QString		gDefaultPathMeshes				= "./Meshes/";
+const QString gDefaultPathTextures = "./Textures/";
+const QString gDefaultPathShaders = "./Shaders/";
+const QString gDefaultPathMeshes = "./Meshes/";
 
 #endif
-

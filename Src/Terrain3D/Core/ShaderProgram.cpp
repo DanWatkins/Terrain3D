@@ -7,7 +7,8 @@
 
 #include "ShaderProgram.h"
 
-namespace t3d { namespace core {
+namespace t3d::core
+{
 
 void ShaderProgram::init()
 {
@@ -19,10 +20,12 @@ void ShaderProgram::addShader(const QString &filename, QOpenGLShader::ShaderType
 {
     QOpenGLShader *shader = new QOpenGLShader(shaderType, mProgram.get());
     if (!shader->compileSourceFile(gDefaultPathShaders + filename))
-        qDebug() << "Error compiling shader " << filename << " of type " << static_cast<int>(shaderType);
+        qDebug() << "Error compiling shader " << filename << " of type "
+                 << static_cast<int>(shaderType);
 
     if (!mProgram->addShader(shader))
-        qDebug() << "Error adding shader " << filename << " of type " << static_cast<int>(shaderType);
+        qDebug() << "Error adding shader " << filename << " of type "
+                 << static_cast<int>(shaderType);
 }
 
 void ShaderProgram::loadShaders()
@@ -66,10 +69,11 @@ void ShaderProgram::enqueueUniformValueChange(const GLint *uniformLocation, QVar
     {
         mProgram->bind();
         setUniformFromQVariant(*uniformLocation, value);
-        mProgram->release();	//TODO this can cause issues if used while the program was bound externally
+        mProgram->release(); // TODO this can cause issues if used while the program was bound
+                             // externally
     }
     else
-        mQueuedUniformValueChanges.append(QPair<const GLint*, QVariant>(uniformLocation, value));
+        mQueuedUniformValueChanges.append(QPair<const GLint *, QVariant>(uniformLocation, value));
 }
 
 void ShaderProgram::setUniformFromQVariant(GLint location, QVariant &value)
@@ -77,15 +81,18 @@ void ShaderProgram::setUniformFromQVariant(GLint location, QVariant &value)
     switch (static_cast<QMetaType::Type>(value.type()))
     {
     case QMetaType::Int:
-        mProgram->setUniformValue(location, static_cast<GLint>(value.toInt())); break;
+        mProgram->setUniformValue(location, static_cast<GLint>(value.toInt()));
+        break;
     case QMetaType::Double:
-        mProgram->setUniformValue(location, static_cast<GLfloat>(value.toDouble())); break;
+        mProgram->setUniformValue(location, static_cast<GLfloat>(value.toDouble()));
+        break;
     case QMetaType::Float:
-        mProgram->setUniformValue(location, static_cast<GLfloat>(value.toFloat())); break;
+        mProgram->setUniformValue(location, static_cast<GLfloat>(value.toFloat()));
+        break;
     default:
         qFatal("Trying to set a queued shader uniform value for an unknown type");
-        //TODO this is all we support. Eventuall QOpenGLShaderProgram should support
-        //setUniformValue directly from a QVariant.
+        // TODO this is all we support. Eventuall QOpenGLShaderProgram should support
+        // setUniformValue directly from a QVariant.
     }
 }
 
@@ -99,4 +106,4 @@ void ShaderProgram::flushQueuedUniformValueChanges()
     mQueuedUniformValueChanges.clear();
 }
 
-}}
+}

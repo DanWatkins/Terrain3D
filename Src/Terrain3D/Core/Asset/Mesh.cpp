@@ -10,10 +10,10 @@
 
 #include "./private/MeshPrivate.h"
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
-Mesh::Mesh() :
-    mPrivate(new MeshPrivate(this))
+Mesh::Mesh() : mPrivate(new MeshPrivate(this))
 {
 }
 
@@ -38,4 +38,4 @@ QString Mesh::name() const
     return mPrivate->name();
 }
 
-}}
+}

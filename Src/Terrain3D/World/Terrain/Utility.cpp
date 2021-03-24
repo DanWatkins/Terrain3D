@@ -7,24 +7,25 @@
 
 #include "Utility.h"
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 int maxLevelsOfDetail(int blockSize)
 {
-    return int(std::log10(blockSize)/std::log10(2) + 0.5);
+    return int(std::log10(blockSize) / std::log10(2) + 0.5);
 }
 
 int sizeForLod(int lod)
 {
-    return static_cast<int>(pow(2, lod+1));
+    return static_cast<int>(pow(2, lod + 1));
 }
 
 double lodDistanceBetweenPos(Vec2i a, Vec2i b, int blockSize)
 {
     int baseBlockSize = 8;
-    Vec2i net(a.x-b.x, a.y-b.y);
+    Vec2i net(a.x - b.x, a.y - b.y);
 
-    return std::sqrt(net.x*net.x + net.y*net.y) * blockSize / baseBlockSize;
+    return std::sqrt(net.x * net.x + net.y * net.y) * blockSize / baseBlockSize;
 }
 
 int lodForDistance(double distance, int blockSize, float factor)

@@ -8,10 +8,11 @@
 #ifndef _t3d_Core_Asset_Mesh_H
 #define _t3d_Core_Asset_Mesh_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/OpenGLFunctions.h>
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 class Manager;
 
@@ -32,8 +33,8 @@ public:
     void queueRender(const Mat4 &totalMatrix);
 
     QString name() const;
-    BoundingSphere& boundingSphere() { return mBoundingSphere; }
-    const BoundingSphere& boundingSphere() const { return mBoundingSphere; }
+    BoundingSphere &boundingSphere() { return mBoundingSphere; }
+    const BoundingSphere &boundingSphere() const { return mBoundingSphere; }
 
     class MeshPrivate;
 
@@ -45,7 +46,6 @@ private:
     BoundingSphere mBoundingSphere;
 };
 
-}}
+}
 
 #endif
-

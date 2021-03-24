@@ -8,19 +8,20 @@
 #ifndef _t3d_core_OpenGLTaskQueue_H
 #define _t3d_core_OpenGLTaskQueue_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/OpenGLFunctions.h>
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace core {
+namespace t3d::core
+{
 
 /**
- * \brief Utility for queueing up tasks to be executed on the main thread with access to OpenGLFunctions.
- * This is entirely thread-safe, so tasks can be queued from multiple threads.
+ * \brief Utility for queueing up tasks to be executed on the main thread with access to
+ * OpenGLFunctions. This is entirely thread-safe, so tasks can be queued from multiple threads.
  */
 class OpenGLTaskQueue : protected OpenGLFunctions
 {
 public:
-    using TaskFunction = std::function<void(OpenGLFunctions*)>;
+    using TaskFunction = std::function<void(OpenGLFunctions *)>;
 
     /**
      * Gets the internal OpenGLFunctions ready to go.
@@ -42,7 +43,6 @@ private:
     QList<TaskFunction> mTasks;
 };
 
-}}
+}
 
 #endif
-

@@ -8,10 +8,11 @@
 #ifndef _t3d_AssetManager_H
 #define _t3d_AssetManager_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/Asset/Mesh.h>
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 class Manager
 {
@@ -57,7 +58,6 @@ private:
     }
 };
 
-}}
+}
 
 #endif
-

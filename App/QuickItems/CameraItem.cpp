@@ -9,72 +9,68 @@
 
 namespace t3d::QuickItems
 {
-	CameraItem::CameraItem() :
-		mIsFrozen(false)
-	{
-	}
 
-	class CameraItemRenderer : public QQuickFramebufferObject::Renderer
-	{
-	public:
-		CameraItemRenderer(CameraItem *host) : mHost(host) {}
+CameraItem::CameraItem() : mIsFrozen(false)
+{
+}
 
-	private:
-		CameraItem *mHost = nullptr;
+class CameraItemRenderer : public QQuickFramebufferObject::Renderer
+{
+public:
+    CameraItemRenderer(CameraItem *host) : mHost(host) {}
 
-		QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override
-		{
-			QOpenGLFramebufferObjectFormat format;
-			format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
-			format.setSamples(4);
-			return new QOpenGLFramebufferObject(size, format);
-		}
+private:
+    CameraItem *mHost = nullptr;
 
-		void render() override
-		{
-			if (auto camera = mHost->camera().lock())
-			{
-				if (camera->pHasLoaded)
-				{
-					camera->resize(framebufferObject()->width(),
-								   framebufferObject()->height());
-					camera->render();
-				}
-				else
-				{
-					auto ctx = QOpenGLContext::currentContext()->functions();
-					ctx->glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-					ctx->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-				}
-			}
+    QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override
+    {
+        QOpenGLFramebufferObjectFormat format;
+        format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
+        format.setSamples(4);
+        return new QOpenGLFramebufferObject(size, format);
+    }
 
-			update();
-			mHost->window()->resetOpenGLState();
-		}
-	};
+    void render() override
+    {
+        if (auto camera = mHost->camera().lock())
+        {
+            if (camera->pHasLoaded)
+            {
+                camera->resize(framebufferObject()->width(), framebufferObject()->height());
+                camera->render();
+            }
+            else
+            {
+                auto ctx = QOpenGLContext::currentContext()->functions();
+                ctx->glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+                ctx->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+            }
+        }
 
+        update();
+        mHost->window()->resetOpenGLState();
+    }
+};
 
-	QQuickFramebufferObject::Renderer *CameraItem::createRenderer() const
-	{
-		auto renderer = new CameraItemRenderer(const_cast<CameraItem*>(this));
+QQuickFramebufferObject::Renderer *CameraItem::createRenderer() const
+{
+    auto renderer = new CameraItemRenderer(const_cast<CameraItem *>(this));
 
-		return renderer;
-	}
+    return renderer;
+}
 
+weak<world::Camera> CameraItem::createCamera()
+{
+    if (!mCamera)
+    {
+        mCamera = strong<world::Camera>(new world::Camera);
+    }
 
-	weak<world::Camera> CameraItem::createCamera()
-	{
-		if (!mCamera)
-		{
-			mCamera = strong<world::Camera>(new world::Camera);
-		}
+    return mCamera;
+}
 
-		return mCamera;
-	}
-
-
-	void CameraItem::cleanup()
-	{
-		mCamera->cleanup();
-	}
+void CameraItem::cleanup()
+{
+    mCamera->cleanup();
+}
 }

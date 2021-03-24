@@ -10,19 +10,21 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d::world::entity {
+namespace t3d::world::entity
+{
 
 class RenderComponent;
 
 /**
  * @brief A central aggregate of components that make up a simulatable entity.
  *
- * After construction no components exist by default. You can request for comonents to be instantiated internally
- * by calling the create component associated method. For example: createRenderComponent(). The component can be
- * accessed by calling renderComponent(). BaseEntity is not responsible for coordinating interactions between
- * components.
+ * After construction no components exist by default. You can request for comonents to be
+ * instantiated internally by calling the create component associated method. For example:
+ * createRenderComponent(). The component can be accessed by calling renderComponent(). BaseEntity
+ * is not responsible for coordinating interactions between components.
  *
- * There is some common state information associated with the entity as a whole stored in BaseEntity.
+ * There is some common state information associated with the entity as a whole stored in
+ * BaseEntity.
  */
 class BaseEntity
 {
@@ -34,7 +36,7 @@ public:
     void setPos(const Vec3f &pos) { mPos = pos; }
     Vec3f pos() const { return mPos; }
 
-    RenderComponent* renderComponent() const;
+    RenderComponent *renderComponent() const;
     void createRenderComponent();
 
 private:
@@ -47,4 +49,3 @@ private:
 }
 
 #endif
-

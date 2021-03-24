@@ -7,13 +7,15 @@
 
 #include "MaterialData.h"
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 void mesh_p::MaterialData::uploadMaterialData(const QString &containingDirectory)
 {
     initializeOpenGLFunctions();
 
-    mTexture = unique<QOpenGLTexture>(new QOpenGLTexture(QImage(containingDirectory + mFilepath).mirrored()));
+    mTexture = unique<QOpenGLTexture>(
+        new QOpenGLTexture(QImage(containingDirectory + mFilepath).mirrored()));
     mTexture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
     mTexture->setMagnificationFilter(QOpenGLTexture::Linear);
 }
@@ -29,4 +31,4 @@ void mesh_p::MaterialData::release()
     mTexture->release();
 }
 
-}}
+}

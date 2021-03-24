@@ -7,7 +7,8 @@
 
 #include "Renderer.h"
 
-namespace t3d::world::terrain::water {
+namespace t3d::world::terrain::water
+{
 
 void Renderer::init(Data *terrainData)
 {
@@ -28,20 +29,16 @@ void Renderer::init(Data *terrainData)
     }
     ShaderProgram::release();
 
-    //connect to terrainData signals
+    // connect to terrainData signals
     {
-        QObject::connect(terrainData, &Data::heightMapChanged, [this]()
-        {
-            this->mInvalidations.terrainData = true;
-        });
+        QObject::connect(terrainData, &Data::heightMapChanged,
+                         [this]() { this->mInvalidations.terrainData = true; });
 
-        QObject::connect(terrainData, &Data::heightScaleChanged, [this]()
-        {
+        QObject::connect(terrainData, &Data::heightScaleChanged, [this]() {
             enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->heightScale());
         });
 
-        QObject::connect(terrainData, &Data::spanSizeChanged, [this]()
-        {
+        QObject::connect(terrainData, &Data::spanSizeChanged, [this]() {
             enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->spanSize());
         });
     }
@@ -120,15 +117,15 @@ void Renderer::loadTextures()
     {
         QImage image(gDefaultPathTextures + "water.png");
 
-        int imageSize = image.width();	//for now, assume all images are the same width and height
+        int imageSize = image.width(); // for now, assume all images are the same width and height
         glBindTexture(GL_TEXTURE_2D, mTextures.water);
         glUniform1i(ShaderProgram::raw().uniformLocation("waterTexture"), 0);
 
         int mipLevels = 8;
         glTexStorage2D(GL_TEXTURE_2D, mipLevels, GL_RGBA8, imageSize, imageSize);
 
-        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize,
-                        GL_BGRA, GL_UNSIGNED_BYTE, image.bits());
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, imageSize, imageSize, GL_BGRA, GL_UNSIGNED_BYTE,
+                        image.bits());
 
         glGenerateMipmap(GL_TEXTURE_2D);
         glSamplerParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

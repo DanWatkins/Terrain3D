@@ -11,12 +11,13 @@
 #include <ValpineBase/Loadable.h>
 #include <ValpineBase/Property.h>
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/ShaderProgram.h>
+#include <Terrain3D/Library.h>
 #include <Terrain3D/World/Terrain/Data.h>
 #include <Terrain3D/World/Terrain/Water/Renderer.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 enum class Mode
 {

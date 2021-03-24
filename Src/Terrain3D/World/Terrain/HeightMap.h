@@ -10,7 +10,8 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 class HeightMap
 {
@@ -25,7 +26,7 @@ public:
     float get(int index) const;
     float get(int indexX, int indexY) const;
 
-    const float* raw() const;
+    const float *raw() const;
     int size() const { return mSize; }
 };
 

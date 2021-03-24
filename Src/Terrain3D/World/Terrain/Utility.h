@@ -10,7 +10,8 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 int maxLevelsOfDetail(int blockSize);
 int sizeForLod(int lod);

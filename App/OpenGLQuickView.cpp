@@ -7,11 +7,10 @@
 
 #include "OpenGLQuickView.h"
 
-namespace t3d {
+namespace t3d
+{
 
-OpenGLQuickView::OpenGLQuickView() :
-    mCapturesCursor(false),
-    mMouseButtonLeftPressed(false)
+OpenGLQuickView::OpenGLQuickView() : mCapturesCursor(false), mMouseButtonLeftPressed(false)
 {
 }
 
@@ -23,7 +22,7 @@ void OpenGLQuickView::mousePressEvent(QMouseEvent *ev)
     {
         if (ev->button() == Qt::LeftButton)
         {
-            //force the last cursor position to update (zero it out)
+            // force the last cursor position to update (zero it out)
             consumeCursorDelta();
             mMouseButtonLeftPressed = true;
         }
@@ -60,8 +59,8 @@ void OpenGLQuickView::resetCursorPosition()
     if (mCapturesCursor == false)
         return;
 
-    QPoint targetPos = QWindow::framePosition()
-            + QPoint(QWindow::width()/2, QWindow::height()/2);
+    QPoint targetPos =
+        QWindow::framePosition() + QPoint(QWindow::width() / 2, QWindow::height() / 2);
 
     QCursor::setPos(targetPos);
     mLastCursorPos = targetPos;

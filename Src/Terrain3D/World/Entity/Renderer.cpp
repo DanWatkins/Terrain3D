@@ -8,6 +8,7 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
 
-namespace t3d::world::entity {
+namespace t3d::world::entity
+{
 
 }

@@ -10,7 +10,8 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 class HeightMap;
 

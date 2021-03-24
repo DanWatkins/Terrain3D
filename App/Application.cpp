@@ -6,8 +6,8 @@
 //==================================================================================================================|
 
 #include "Application.h"
-#include "Terrain3D.h"
 #include "Settings.h"
+#include "Terrain3D.h"
 
 #include "QuickItems/CameraItem.h"
 
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     mainSettings.init();
 
-    //set all the QuickItem types
+    // set all the QuickItem types
     {
         using namespace t3d::QuickItems;
 

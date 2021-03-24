@@ -10,7 +10,8 @@
 
 #include "BaseEntity.h"
 
-namespace t3d::world::entity {
+namespace t3d::world::entity
+{
 
 class Component
 {
@@ -20,7 +21,7 @@ public:
     virtual ~Component() {}
 
 protected:
-    BaseEntity* baseEntity() { return mBaseEntity; }
+    BaseEntity *baseEntity() { return mBaseEntity; }
 
 private:
     BaseEntity *mBaseEntity;

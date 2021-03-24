@@ -10,7 +10,8 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 /*
  * Stores normalized floats (0.0 - 1.0) indicating the brightness for a given
@@ -29,7 +30,7 @@ public:
 
     int size() const { return mSize; }
 
-    const ValueType* raw() const { return &mValues.at(0); }
+    const ValueType *raw() const { return &mValues.at(0); }
 
 private:
     ValueVector mValues;

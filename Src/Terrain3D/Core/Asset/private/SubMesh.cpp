@@ -7,7 +7,8 @@
 
 #include "SubMesh.h"
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 void mesh_p::SubMesh::uploadData()
 {
@@ -31,7 +32,7 @@ void mesh_p::SubMesh::uploadIndexData()
         QVector<GLuint> indexBuffer;
         indexBuffer.reserve(mFaces.count() * 4 - 1);
 
-        GLuint i=0;
+        GLuint i = 0;
         for (Face f : mFaces)
         {
             if (!indexBuffer.isEmpty())
@@ -44,8 +45,9 @@ void mesh_p::SubMesh::uploadIndexData()
             }
         }
 
-        //mIndexCount = indexBuffer.count();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.count()*sizeof(GLuint), &indexBuffer[0], GL_STATIC_DRAW);
+        // mIndexCount = indexBuffer.count();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.count() * sizeof(GLuint), &indexBuffer[0],
+                     GL_STATIC_DRAW);
     }
 }
 
@@ -56,9 +58,9 @@ void mesh_p::SubMesh::uploadVertexData()
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     {
         QVector<GLint> vertexIndicies;
-        vertexIndicies.reserve(mFaces.count()*3*2);
+        vertexIndicies.reserve(mFaces.count() * 3 * 2);
 
-        //add the vertex position indicies
+        // add the vertex position indicies
         for (Face f : mFaces)
         {
             for (int i : f.vertexIndex)
@@ -67,7 +69,7 @@ void mesh_p::SubMesh::uploadVertexData()
 
         long normalOffset = vertexIndicies.count() * sizeof(GLint);
 
-        //add the vertex normal indicies
+        // add the vertex normal indicies
         for (Face f : mFaces)
         {
             for (int i : f.normalIndex)
@@ -76,7 +78,7 @@ void mesh_p::SubMesh::uploadVertexData()
 
         long textureOffset = vertexIndicies.count() * sizeof(GLint);
 
-        //add the texture coordinate indicies
+        // add the texture coordinate indicies
         for (Face f : mFaces)
         {
             for (int i : f.textureIndex)
@@ -85,15 +87,16 @@ void mesh_p::SubMesh::uploadVertexData()
 
         mIndexCount = vertexIndicies.count();
 
-        glBufferData(GL_ARRAY_BUFFER, vertexIndicies.count()*sizeof(GLuint), &vertexIndicies[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vertexIndicies.count() * sizeof(GLuint), &vertexIndicies[0],
+                     GL_STATIC_DRAW);
 
         glVertexAttribIPointer(0, 1, GL_INT, 0, NULL);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribIPointer(1, 1, GL_INT, 0, (void*)normalOffset);
+        glVertexAttribIPointer(1, 1, GL_INT, 0, (void *)normalOffset);
         glEnableVertexAttribArray(1);
 
-        glVertexAttribIPointer(2, 1, GL_INT, 0, (void*)textureOffset);
+        glVertexAttribIPointer(2, 1, GL_INT, 0, (void *)textureOffset);
         glEnableVertexAttribArray(2);
     }
 }
@@ -122,11 +125,12 @@ void mesh_p::SubMesh::checkForErrors(const FaceData *faceData, QString &error)
         return;
     }
 
-    for (int fi=0; fi<mFaces.count(); fi++)
+    for (int fi = 0; fi < mFaces.count(); fi++)
     {
         Face &f = mFaces[fi];
 
-        if (f.vertexIndex.count() != f.normalIndex.count()  ||  f.vertexIndex.count() != f.textureIndex.count())
+        if (f.vertexIndex.count() != f.normalIndex.count() ||
+            f.vertexIndex.count() != f.textureIndex.count())
         {
             error = QString("Inconsistent vertex attributes for face %1").arg(fi);
             break;
@@ -155,4 +159,4 @@ void mesh_p::SubMesh::checkForErrors(const FaceData *faceData, QString &error)
     }
 }
 
-}}
+}

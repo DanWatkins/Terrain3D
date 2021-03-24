@@ -7,7 +7,8 @@
 
 #include "Manager.h"
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 void Manager::loadMeshesFromDirectory(const QString path)
 {
@@ -19,7 +20,7 @@ void Manager::loadMeshesFromDirectory(const QString path)
     {
         QFileInfo info(iter.next());
 
-        //skip the system dir
+        // skip the system dir
         if (info.dir().dirName() == "_system")
             continue;
 
@@ -66,4 +67,4 @@ strong<Mesh> Manager::meshForName(const QString name) const
     return nullptr;
 }
 
-}}
+}

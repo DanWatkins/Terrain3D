@@ -8,10 +8,11 @@
 #ifndef _t3d_Core_Asset_MeshPrivate_H
 #define _t3d_Core_Asset_MeshPrivate_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/Asset/Mesh.h>
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 class Mesh::MeshPrivate : protected core::OpenGLFunctions
 {
@@ -54,7 +55,7 @@ protected:
     QList<strong<MaterialData>> mMaterials;
 
 private:
-    Mesh *mMesh = nullptr;	//the host mesh using this
+    Mesh *mMesh = nullptr; // the host mesh using this
     weak<Mesh> mSphere;
 
     QString mContainingDirectory;
@@ -81,7 +82,6 @@ private:
     void bindForRender();
     void unbindAfterRender();
 
-
 protected:
     void makeSubMesh();
     strong<SubMesh> currentSubMesh();
@@ -92,7 +92,6 @@ protected:
 
 typedef Mesh::MeshPrivate mesh_p;
 
-}}
+}
 
 #endif
-

@@ -10,15 +10,13 @@
 
 #include "MeshPrivate.h"
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 class mesh_p::MaterialData : protected core::OpenGLFunctions
 {
-public: //TODO massive
-    ~MaterialData()
-    {
-        qDebug() << "Destroying MaterialData instance";
-    }
+public: // TODO massive
+    ~MaterialData() { qDebug() << "Destroying MaterialData instance"; }
 
     QString mName;
     QString mFilepath;
@@ -30,7 +28,6 @@ public: //TODO massive
     void release();
 };
 
-}}
+}
 
 #endif
-

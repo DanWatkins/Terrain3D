@@ -6,14 +6,11 @@
 //==================================================================================================================|
 #include "FPSCounter.h"
 
-namespace t3d {
+namespace t3d
+{
 
-FPSCounter::FPSCounter(qint64 superSampleRate, qint64 subSampleRate,
-                       strong<Timer> timer) :
-    mSuperSampleRate(superSampleRate),
-    mSubSampleRate(subSampleRate),
-    mFps(0),
-    mTimer(timer)
+FPSCounter::FPSCounter(qint64 superSampleRate, qint64 subSampleRate, strong<Timer> timer)
+    : mSuperSampleRate(superSampleRate), mSubSampleRate(subSampleRate), mFps(0), mTimer(timer)
 {
     mSubList.push_back(0);
     mTimer->start();
@@ -34,9 +31,10 @@ void FPSCounter::update()
 
 void FPSCounter::refreshFPS()
 {
-    const int subSamples = std::min(static_cast<int>(mSuperSampleRate/mSubSampleRate), mSubList.size());
+    const int subSamples =
+        std::min(static_cast<int>(mSuperSampleRate / mSubSampleRate), mSubList.size());
 
-    //sum up the relevant sub list frame counts
+    // sum up the relevant sub list frame counts
     mFps = 0;
     int times = 0;
 
@@ -51,7 +49,7 @@ void FPSCounter::refreshFPS()
         mFps += i.previous();
     }
 
-    //divide by factor to get back to a 1 second super sample rate
+    // divide by factor to get back to a 1 second super sample rate
     const float factor = mSuperSampleRate / 1000.0f;
     mFps /= factor;
 }

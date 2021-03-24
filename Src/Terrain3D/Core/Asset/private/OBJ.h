@@ -8,10 +8,11 @@
 #ifndef _t3d_CORE_OBJ_H
 #define _t3d_CORE_OBJ_H
 
-#include <Terrain3D/Library.h>
 #include "MeshPrivate.h"
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace asset {
+namespace t3d::asset
+{
 
 class OBJ
 {
@@ -27,7 +28,6 @@ private:
     bool parseMaterialLibField(const QStringList &field);
 };
 
-}}
+}
 
 #endif
-

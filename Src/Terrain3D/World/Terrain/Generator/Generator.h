@@ -11,15 +11,16 @@
 #include <Terrain3D/Library.h>
 #include <Terrain3D/World/Terrain/Data.h>
 
-namespace t3d::world::terrain::Generator {
+namespace t3d::world::terrain::Generator
+{
 
 class Generator
 {
 public:
-    virtual void generate(Data &terrainData, int size, int numberOfPasses, float smoothing, int seed) = 0;
+    virtual void generate(Data &terrainData, int size, int numberOfPasses, float smoothing,
+                          int seed) = 0;
 };
 
 }
 
 #endif
-

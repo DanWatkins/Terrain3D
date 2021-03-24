@@ -8,13 +8,14 @@
 #ifndef _t3d_world_terrain_water_Renderer_H
 #define _t3d_world_terrain_water_Renderer_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/ShaderProgram.h>
+#include <Terrain3D/Library.h>
 #include <Terrain3D/World/Terrain/Data.h>
 
 #include <ValpineBase/Loadable.h>
 
-namespace t3d::world::terrain::water {
+namespace t3d::world::terrain::water
+{
 
 class Renderer : public core::ShaderProgram, public vbase::Loadable
 {
@@ -72,4 +73,3 @@ private:
 }
 
 #endif
-

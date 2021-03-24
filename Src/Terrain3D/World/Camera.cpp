@@ -7,7 +7,8 @@
 
 #include "Camera.h"
 
-namespace t3d::world {
+namespace t3d::world
+{
 
 Camera::Camera()
 {
@@ -51,7 +52,7 @@ void Camera::render()
     glDepthMask(GL_TRUE);
     glDepthFunc(GL_LEQUAL);
 
-    glClearColor(1.0f, 0.9f, 0.8f , 1.0f);
+    glClearColor(1.0f, 0.9f, 0.8f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     mTerrainRenderer.render(mPos, viewMatrix(), perspectiveMatrix());

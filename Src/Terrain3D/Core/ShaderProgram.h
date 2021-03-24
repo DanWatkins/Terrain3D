@@ -10,7 +10,8 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d { namespace core {
+namespace t3d::core
+{
 
 class ShaderProgram : public QObject, protected OpenGLFunctions
 {
@@ -27,12 +28,12 @@ protected:
     void release() { mProgram->release(); }
 
     /**
-     * Allows uniform values to be set even if the program is not linked yet by queueing the change into a buffer
-     * that is flushed the next time the shader is bound or linked. If the shader is currently linked, then the
-     * changes will take effect immediately.
+     * Allows uniform values to be set even if the program is not linked yet by queueing the change
+     * into a buffer that is flushed the next time the shader is bound or linked. If the shader is
+     * currently linked, then the changes will take effect immediately.
      *
-     * \param uniformLocation A pointer to where the location value is stored. It must hold a valid location by
-     * the time the shader is linked.
+     * \param uniformLocation A pointer to where the location value is stored. It must hold a valid
+     * location by the time the shader is linked.
      */
     void enqueueUniformValueChange(const GLint *uniformLocation, QVariant value);
 
@@ -55,16 +56,16 @@ protected:
     /**
      * @returns a reference to the internal QOpenGLShaderProgram.
      */
-    QOpenGLShaderProgram& raw() { return *mProgram.get(); }
+    QOpenGLShaderProgram &raw() { return *mProgram.get(); }
 
 private:
     void setUniformFromQVariant(GLint location, QVariant &value);
     void flushQueuedUniformValueChanges();
 
     unique<QOpenGLShaderProgram> mProgram;
-    QList<QPair<const GLint*, QVariant>> mQueuedUniformValueChanges;
+    QList<QPair<const GLint *, QVariant>> mQueuedUniformValueChanges;
 };
 
-}}
+}
 
 #endif
