@@ -9,22 +9,24 @@
 #define _t3d_RENDERER_H
 
 #include <Terrain3D/Library.h>
-#include <Terrain3D/World/Entity/RenderComponent.h>
 #include <Terrain3D/World/Entity/Manager.h>
+#include <Terrain3D/World/Entity/RenderComponent.h>
 
-namespace t3d::world::entity {
+namespace t3d::world::entity
+{
 
 class Renderer
 {
-public:
+  public:
     void setManager(Manager *manager) { mManager = manager; }
-    //void renderAll(const Mat4 &cameraMatrix);
+    // void renderAll(const Mat4 &cameraMatrix);
 
     void renderAll(const Mat4 &cameraMatrix)
     {
         if (!mManager)
         {
-            qDebug() << "entity::Renderer cannot renderAll because there is no valid entity::Manager connected";
+            qDebug() << "entity::Renderer cannot renderAll because there is no valid "
+                        "entity::Manager connected";
             return;
         }
 
@@ -36,11 +38,10 @@ public:
         }
     }
 
-private:
+  private:
     Manager *mManager;
 };
 
 }
 
 #endif
-

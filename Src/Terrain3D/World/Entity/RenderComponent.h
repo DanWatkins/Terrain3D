@@ -11,28 +11,32 @@
 #include "BaseEntity.h"
 #include "Component.h"
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 class Mesh;
 
-}}
+}
+}
 
-namespace t3d::world::entity {
+namespace t3d::world::entity
+{
 
 class RenderComponent : public Component
 {
-public:
+  public:
     RenderComponent() = delete;
     RenderComponent(BaseEntity *baseEntity);
 
     void setMesh(weak<asset::Mesh> mesh);
     void render(const Mat4 &cameraMatrix);
 
-private:
+  private:
     weak<asset::Mesh> mMesh;
 };
 
 }
 
 #endif
-

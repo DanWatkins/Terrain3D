@@ -8,14 +8,17 @@
 #ifndef _t3d_AssetManager_H
 #define _t3d_AssetManager_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/Asset/Mesh.h>
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 class Manager
 {
-public:
+  public:
     friend class Mesh;
 
     void loadMeshesFromDirectory(const QString path);
@@ -32,7 +35,7 @@ public:
         }
     }
 
-private:
+  private:
     struct MeshQueue
     {
         strong<Mesh> mesh;
@@ -57,7 +60,7 @@ private:
     }
 };
 
-}}
+}
+}
 
 #endif
-

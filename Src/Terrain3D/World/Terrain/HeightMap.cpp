@@ -7,13 +7,14 @@
 
 #include "HeightMap.h"
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 void HeightMap::reserve(int size)
 {
     mSize = size;
     mHeightData.clear();
-    mHeightData = QVector<float>(size*size, 0.1f);
+    mHeightData = QVector<float>(size * size, 0.1f);
 }
 
 void HeightMap::set(int index, float height)
@@ -23,7 +24,7 @@ void HeightMap::set(int index, float height)
 
 void HeightMap::set(int indexX, int indexY, float height)
 {
-    int index = mSize*indexY + indexX;
+    int index = mSize * indexY + indexX;
     mHeightData[index] = height;
 }
 
@@ -34,10 +35,10 @@ float HeightMap::get(int index) const
 
 float HeightMap::get(int indexX, int indexY) const
 {
-    return mHeightData.at(indexY*mSize + indexX);
+    return mHeightData.at(indexY * mSize + indexX);
 }
 
-const float* HeightMap::raw() const
+const float *HeightMap::raw() const
 {
     return mHeightData.isEmpty() ? nullptr : &mHeightData[0];
 }

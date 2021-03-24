@@ -8,17 +8,20 @@
 #ifndef _t3d_CORE_OBJ_H
 #define _t3d_CORE_OBJ_H
 
-#include <Terrain3D/Library.h>
 #include "MeshPrivate.h"
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 class OBJ
 {
-public:
+  public:
     bool initWithFile(const QString &filepath, mesh_p *mesh);
 
-private:
+  private:
     mesh_p *mCurrentMesh;
 
     bool parseFile(const QString &filepath);
@@ -27,7 +30,7 @@ private:
     bool parseMaterialLibField(const QStringList &field);
 };
 
-}}
+}
+}
 
 #endif
-

@@ -7,17 +7,20 @@
 
 #include <Terrain3D/World/Terrain/Data.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 class HeightMap;
 class LightMap;
 
-namespace Lighting {
+namespace Lighting
+{
 
 class Slope
 {
-public:
+  public:
     static bool computeBrightness(LightMap &lm, const HeightMap &hm, float intensity);
 };
 
-}}
+}
+}

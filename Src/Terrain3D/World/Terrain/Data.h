@@ -14,25 +14,36 @@
 #include <Terrain3D/World/Terrain/HeightMap.h>
 #include <Terrain3D/World/Terrain/LightMap.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 class Data : public QObject
 {
     Q_OBJECT
 
-public:
-    void cleanup() { /*nothing to cleanup*/ }
+  public:
+    void cleanup()
+    { /*nothing to cleanup*/
+    }
 
-    void resetHeightMap(HeightMap &heightMap) { mHeightMap = heightMap; emit heightMapChanged(); }	//TODO really need a move constructor there
-    const HeightMap& heightMap() const { return mHeightMap; }
-    void resetLightMap(LightMap &lightMap) { mLightMap = lightMap; emit lightMapChanged(); }
+    void resetHeightMap(HeightMap &heightMap)
+    {
+        mHeightMap = heightMap;
+        emit heightMapChanged();
+    } // TODO really need a move constructor there
+    const HeightMap &heightMap() const { return mHeightMap; }
+    void resetLightMap(LightMap &lightMap)
+    {
+        mLightMap = lightMap;
+        emit lightMapChanged();
+    }
     const LightMap &lightMap() const { return mLightMap; }
 
     typedef QMap<float, GLubyte> HeightIndex;
     void computeTextureIndicies(const HeightIndex &heightIndex);
 
     typedef QVector<GLubyte> TextureIndicies;
-    TextureIndicies& textureIndicies() { return mTextureIndicies; }
+    TextureIndicies &textureIndicies() { return mTextureIndicies; }
 
     int textureMapResolution() const { return mTextureMapResolution; }
 
@@ -66,7 +77,7 @@ public:
         emit chunkSizeChanged();
     }
 
-signals:
+  signals:
     void heightMapChanged();
 
     void lightMapChanged();
@@ -79,7 +90,7 @@ signals:
 
     void chunkSizeChanged();
 
-private:
+  private:
     HeightMap mHeightMap;
     LightMap mLightMap;
     TextureIndicies mTextureIndicies;

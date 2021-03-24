@@ -8,14 +8,17 @@
 #ifndef _t3d_Core_Asset_MeshPrivate_H
 #define _t3d_Core_Asset_MeshPrivate_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/Asset/Mesh.h>
+#include <Terrain3D/Library.h>
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 class Mesh::MeshPrivate : protected core::OpenGLFunctions
 {
-public:
+  public:
     friend class OBJ;
     MeshPrivate() = delete;
     MeshPrivate(Mesh *mesh);
@@ -32,7 +35,7 @@ public:
     QString name() const { return mName; }
     void setBaseScale(const Vec3f &baseScale) { mBaseScale = baseScale; }
 
-protected:
+  protected:
     struct Vertex
     {
         GLfloat values[3];
@@ -53,8 +56,8 @@ protected:
 
     QList<strong<MaterialData>> mMaterials;
 
-private:
-    Mesh *mMesh = nullptr;	//the host mesh using this
+  private:
+    Mesh *mMesh = nullptr; // the host mesh using this
     weak<Mesh> mSphere;
 
     QString mContainingDirectory;
@@ -81,8 +84,7 @@ private:
     void bindForRender();
     void unbindAfterRender();
 
-
-protected:
+  protected:
     void makeSubMesh();
     strong<SubMesh> currentSubMesh();
     void addVertexPosition(const Vertex &vertex);
@@ -92,7 +94,7 @@ protected:
 
 typedef Mesh::MeshPrivate mesh_p;
 
-}}
+}
+}
 
 #endif
-

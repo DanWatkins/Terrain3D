@@ -7,11 +7,14 @@
 
 #include "OBJ.h"
 
-#include "MaterialData.h"
 #include "FaceData.h"
+#include "MaterialData.h"
 #include "SubMesh.h"
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 bool OBJ::initWithFile(const QString &filepath, mesh_p *mesh)
 {
@@ -45,7 +48,7 @@ bool OBJ::parseFile(const QString &filepath)
 
         if (!parseField(field))
         {
-            //qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
+            // qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
         }
 
         ++lineNumber;
@@ -56,13 +59,13 @@ bool OBJ::parseFile(const QString &filepath)
 
 bool OBJ::parseField(const QStringList &field)
 {
-    //material lib
+    // material lib
     if (field.front() == "mtllib" && field.count() == 2)
     {
         parseMaterialLib(mCurrentMesh->containingDirectory() + "/" + field.at(1));
     }
-    //use material - aka create a new SubMesh
-    else if (field.front() == "usemtl" && field.count() <=2)
+    // use material - aka create a new SubMesh
+    else if (field.front() == "usemtl" && field.count() <= 2)
     {
         mCurrentMesh->makeSubMesh();
 
@@ -70,7 +73,7 @@ bool OBJ::parseField(const QStringList &field)
             mCurrentMesh->currentSubMesh()->mMaterial = field.at(1);
     }
 
-    //vertex
+    // vertex
     else if (field.front() == "v" && field.count() == 4)
     {
         mesh_p::Vertex vertex;
@@ -79,7 +82,7 @@ bool OBJ::parseField(const QStringList &field)
         vertex.values[2] = field.at(3).toFloat();
         mCurrentMesh->addVertexPosition(vertex);
     }
-    //vertex normal
+    // vertex normal
     else if (field.front() == "vn" && field.count() == 4)
     {
         mesh_p::Vertex vertex;
@@ -88,7 +91,7 @@ bool OBJ::parseField(const QStringList &field)
         vertex.values[2] = field.at(3).toFloat();
         mCurrentMesh->addVertexNormal(vertex);
     }
-    //vertex texture coordinate
+    // vertex texture coordinate
     else if (field.front() == "vt" && (field.count() == 3 || field.count() == 4))
     {
         mesh_p::Vertex vertex;
@@ -98,21 +101,21 @@ bool OBJ::parseField(const QStringList &field)
             vertex.values[2] = field.at(3).toFloat();
         mCurrentMesh->addTextureCoordinate(vertex);
     }
-    //face
-    else if (field.front() == "f"  &&  field.size() >= 4)
+    // face
+    else if (field.front() == "f" && field.size() >= 4)
     {
         mesh_p::Face face;
 
-        for (int i=0; i<field.size()-1; i++)
+        for (int i = 0; i < field.size() - 1; i++)
         {
-            QStringList cmp = field.at(i+1).split("/");
+            QStringList cmp = field.at(i + 1).split("/");
 
             if (cmp.size() > 0)
-                face.vertexIndex.push_back(cmp.at(0).toInt()-1);
+                face.vertexIndex.push_back(cmp.at(0).toInt() - 1);
             if (cmp.size() > 1)
-                face.textureIndex.push_back(cmp.at(1).toInt()-1);
+                face.textureIndex.push_back(cmp.at(1).toInt() - 1);
             if (cmp.size() > 2)
-                face.normalIndex.push_back(cmp.at(2).toInt()-1);
+                face.normalIndex.push_back(cmp.at(2).toInt() - 1);
         }
 
         mCurrentMesh->currentSubMesh()->mFaces.push_back(face);
@@ -121,15 +124,15 @@ bool OBJ::parseField(const QStringList &field)
     {
         mCurrentMesh->setName(field.at(1));
     }
-    //comment
+    // comment
     else if (field.at(0).startsWith("#"))
     {
-        //do nothing
+        // do nothing
     }
-    //blank line
+    // blank line
     else if (field.size() == 0)
     {
-        //do nothing
+        // do nothing
         qDebug() << "Blank line";
     }
     else
@@ -155,7 +158,7 @@ bool OBJ::parseMaterialLib(const QString &filepath)
 
         if (!parseMaterialLibField(field))
         {
-            //qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
+            // qDebug() << filepath << "- Error parsing line " << lineNumber << ": " << line;
         }
 
         ++lineNumber;
@@ -166,24 +169,25 @@ bool OBJ::parseMaterialLib(const QString &filepath)
 
 bool OBJ::parseMaterialLibField(const QStringList &field)
 {
-    //new material
+    // new material
     if (field.front() == "newmtl" && field.count() == 2)
     {
         mCurrentMesh->mMaterials.append(strong<mesh_p::MaterialData>(new mesh_p::MaterialData));
         mCurrentMesh->mMaterials.last()->mName = field.at(1);
     }
-    //texture map - diffuse
+    // texture map - diffuse
     else if (field.front() == "map_Kd" && field.count() == 2)
     {
         mCurrentMesh->mMaterials.last()->mFilepath = field.at(1);
     }
     else
     {
-        //unknown
+        // unknown
         return false;
     }
 
     return true;
 }
 
-}}
+}
+}

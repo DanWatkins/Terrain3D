@@ -7,7 +7,10 @@
 
 #include "FaceData.h"
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 void mesh_p::FaceData::uploadData()
 {
@@ -28,11 +31,14 @@ void mesh_p::FaceData::bind()
     glBindTexture(GL_TEXTURE_BUFFER, bufferTextureCoordinates);
 }
 
-void mesh_p::FaceData::uploadBufferAttribute(GLenum textureUnit, const QVector<mesh_p::Vertex> &data, GLuint &textureName)
+void mesh_p::FaceData::uploadBufferAttribute(GLenum textureUnit,
+                                             const QVector<mesh_p::Vertex> &data,
+                                             GLuint &textureName)
 {
     if (data.isEmpty())
     {
-        qDebug() << "Warning: Empty vertex attribute data for FaceData for texture unit " << textureUnit;
+        qDebug() << "Warning: Empty vertex attribute data for FaceData for texture unit "
+                 << textureUnit;
         return;
     }
 
@@ -44,10 +50,12 @@ void mesh_p::FaceData::uploadBufferAttribute(GLenum textureUnit, const QVector<m
         glGenBuffers(1, &buffer);
         glBindBuffer(GL_TEXTURE_BUFFER, buffer);
         {
-            glBufferData(GL_TEXTURE_BUFFER, data.count()*3*sizeof(GLfloat), &data[0], GL_STATIC_DRAW);
+            glBufferData(GL_TEXTURE_BUFFER, data.count() * 3 * sizeof(GLfloat), &data[0],
+                         GL_STATIC_DRAW);
             glTexBuffer(GL_TEXTURE_BUFFER, GL_R32F, buffer);
         }
     }
 }
 
-}}
+}
+}

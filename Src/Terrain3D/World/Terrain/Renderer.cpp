@@ -5,10 +5,11 @@
 // This file is licensed under the MIT License.
 //==================================================================================================================|
 
-#include <Terrain3D/World/Terrain/Renderer.h>
 #include "Utility.h"
+#include <Terrain3D/World/Terrain/Renderer.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 Renderer::Renderer()
 {
@@ -22,35 +23,28 @@ void Renderer::init(Data *terrainData)
 
     mWaterRenderer.init(mTerrainData);
 
-    //connect to terrainData signals
+    // connect to terrainData signals
     {
-        QObject::connect(terrainData, &Data::heightMapChanged, [this]()
-        {
-            this->mInvalidations.terrainData = true;
+        QObject::connect(terrainData, &Data::heightMapChanged,
+                         [this]() { this->mInvalidations.terrainData = true; });
+
+        QObject::connect(terrainData, &Data::lightMapChanged,
+                         [this]() { this->mInvalidations.terrainData = true; });
+
+        QObject::connect(terrainData, &Data::textureMapResolutionChanged, [this]() {
+            enqueueUniformValueChange(&mUniforms.textureMapResolution,
+                                      mTerrainData->textureMapResolution());
         });
 
-        QObject::connect(terrainData, &Data::lightMapChanged, [this]()
-        {
-            this->mInvalidations.terrainData =  true;
-        });
-
-        QObject::connect(terrainData, &Data::textureMapResolutionChanged, [this]()
-        {
-            enqueueUniformValueChange(&mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
-        });
-
-        QObject::connect(terrainData, &Data::heightScaleChanged, [this]()
-        {
+        QObject::connect(terrainData, &Data::heightScaleChanged, [this]() {
             enqueueUniformValueChange(&mUniforms.heightScale, mTerrainData->heightScale());
         });
 
-        QObject::connect(terrainData, &Data::spanSizeChanged, [this]()
-        {
+        QObject::connect(terrainData, &Data::spanSizeChanged, [this]() {
             enqueueUniformValueChange(&mUniforms.spanSize, mTerrainData->spanSize());
         });
 
-        QObject::connect(terrainData, &Data::chunkSizeChanged, [this]()
-        {
+        QObject::connect(terrainData, &Data::chunkSizeChanged, [this]() {
             enqueueUniformValueChange(&mUniforms.chunkSize, mTerrainData->chunkSize());
         });
     }
@@ -101,7 +95,8 @@ void Renderer::cleanup()
     glDeleteVertexArrays(1, &mVao);
 }
 
-void Renderer::render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix)
+void Renderer::render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix,
+                      const Mat4 &perspectiveMatrix)
 {
     ShaderProgram::raw().bind();
     {
@@ -139,8 +134,8 @@ void Renderer::render(const Vec3f &cameraPos, const Mat4 &modelViewMatrix, const
             const int chunksPerSide = terrainSize / chunkSize;
 
             glUniform3fv(mUniforms.cameraPos, 1, glm::value_ptr(cameraPos));
-            //glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
-            glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide*chunksPerSide);
+            // glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
+            glDrawArraysInstanced(GL_PATCHES, 0, 4, chunksPerSide * chunksPerSide);
         }
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -171,17 +166,21 @@ void Renderer::loadTextures()
 {
     {
         QVector<QString> files;
-        files << "dirt.png" << "sand.png" << "grass.png" << "mountain.png";
-        QVector<QImage> images(files.count(), QImage(QSize(700,700), QImage::Format_RGBA8888));
+        files << "dirt.png"
+              << "sand.png"
+              << "grass.png"
+              << "mountain.png";
+        QVector<QImage> images(files.count(), QImage(QSize(700, 700), QImage::Format_RGBA8888));
 
-        for (int i=0; i<images.count(); i++)
+        for (int i = 0; i < images.count(); i++)
         {
             QImage &image = images[i];
             if (!image.load(gDefaultPathTextures + files[i]))
                 qDebug() << "Error loading texture " << gDefaultPathTextures + files[i];
         }
 
-        int imageSize = images.first().width();	//for now, assume all images are the same width and height
+        int imageSize =
+            images.first().width(); // for now, assume all images are the same width and height
 
         glGenTextures(1, &mTextures.terrain);
         qDebug() << "I am " << mTextures.terrain;
@@ -192,25 +191,17 @@ void Renderer::loadTextures()
         int mipLevels = 8;
         glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevels, GL_RGBA8, imageSize, imageSize, 4);
 
-        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-                        0, 0, 0,
-                        imageSize, imageSize, 1,
-                        format, GL_UNSIGNED_BYTE, images[0].bits());
+        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, 0, imageSize, imageSize, 1, format,
+                        GL_UNSIGNED_BYTE, images[0].bits());
 
-        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-                        0, 0, 1,
-                        imageSize, imageSize, 1,
-                        format, GL_UNSIGNED_BYTE, images[1].bits());
+        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, 1, imageSize, imageSize, 1, format,
+                        GL_UNSIGNED_BYTE, images[1].bits());
 
-        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-                        0, 0, 2,
-                        imageSize, imageSize, 1,
-                        format, GL_UNSIGNED_BYTE, images[2].bits());
+        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, 2, imageSize, imageSize, 1, format,
+                        GL_UNSIGNED_BYTE, images[2].bits());
 
-        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-                        0, 0, 3,
-                        imageSize, imageSize, 1,
-                        format, GL_UNSIGNED_BYTE, images[3].bits());
+        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, 3, imageSize, imageSize, 1, format,
+                        GL_UNSIGNED_BYTE, images[3].bits());
 
         glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
         glSamplerParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -247,16 +238,17 @@ void Renderer::refreshUniformValues()
     glUniform1i(ShaderProgram::raw().uniformLocation("textureLayers"), 2);
     glUniform1i(ShaderProgram::raw().uniformLocation("terrainTexture"), 3);
 
-    //terrain::Data
+    // terrain::Data
     ShaderProgram::raw().setUniformValue(mUniforms.terrainSize, mTerrainData->heightMap().size());
-    //glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
+    // glUniform1i(mUniforms.terrainSize, mTerrainData->heightMap().size());
     ShaderProgram::raw().setUniformValue(mUniforms.heightScale, mTerrainData->heightScale());
     ShaderProgram::raw().setUniformValue(mUniforms.spanSize, mTerrainData->spanSize());
     ShaderProgram::raw().setUniformValue(mUniforms.chunkSize, mTerrainData->chunkSize());
-    ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution, mTerrainData->textureMapResolution());
+    ShaderProgram::raw().setUniformValue(mUniforms.textureMapResolution,
+                                         mTerrainData->textureMapResolution());
     ShaderProgram::raw().setUniformValue(mUniforms.heightMapSize, mTerrainData->heightMap().size());
 
-    //this
+    // this
     ShaderProgram::raw().setUniformValue(mUniforms.lodFactor, mLodFactor);
     ShaderProgram::raw().setUniformValue(mUniforms.lodNear, mLodNear);
     ShaderProgram::raw().setUniformValue(mUniforms.lodFar, mLodFar);
@@ -264,7 +256,7 @@ void Renderer::refreshUniformValues()
 
 void Renderer::uploadTerrainData()
 {
-    //height map
+    // height map
     {
         if (glIsTexture(mTextures.heightMap))
             glDeleteTextures(1, &mTextures.heightMap);
@@ -281,7 +273,7 @@ void Renderer::uploadTerrainData()
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     }
 
-    //light map
+    // light map
     {
         if (glIsTexture(mTextures.lightMap))
             glDeleteTextures(1, &mTextures.lightMap);
@@ -291,13 +283,14 @@ void Renderer::uploadTerrainData()
 
         const LightMap &lm = mTerrainData->lightMap();
         glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, lm.size(), lm.size());
-        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, lm.size(), lm.size(), GL_RED, GL_UNSIGNED_SHORT, lm.raw());
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, lm.size(), lm.size(), GL_RED, GL_UNSIGNED_SHORT,
+                        lm.raw());
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     }
 
-    //texture indicies
+    // texture indicies
     {
         if (glIsTexture(mTextures.indicies))
             glDeleteTextures(1, &mTextures.indicies);
@@ -309,7 +302,9 @@ void Renderer::uploadTerrainData()
             glGenBuffers(1, &buffer);
             glBindBuffer(GL_TEXTURE_BUFFER, buffer);
             {
-                glBufferData(GL_TEXTURE_BUFFER, sizeof(GLubyte)*mTerrainData->textureIndicies().size(), &mTerrainData->textureIndicies()[0], GL_STATIC_DRAW);
+                glBufferData(GL_TEXTURE_BUFFER,
+                             sizeof(GLubyte) * mTerrainData->textureIndicies().size(),
+                             &mTerrainData->textureIndicies()[0], GL_STATIC_DRAW);
                 glTexBuffer(GL_TEXTURE_BUFFER, GL_R8UI, buffer);
             }
         }

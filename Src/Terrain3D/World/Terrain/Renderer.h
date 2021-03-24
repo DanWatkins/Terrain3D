@@ -11,12 +11,13 @@
 #include <ValpineBase/Loadable.h>
 #include <ValpineBase/Property.h>
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/ShaderProgram.h>
+#include <Terrain3D/Library.h>
 #include <Terrain3D/World/Terrain/Data.h>
 #include <Terrain3D/World/Terrain/Water/Renderer.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 enum class Mode
 {
@@ -28,7 +29,7 @@ class Renderer : public core::ShaderProgram, public vbase::Loadable
 {
     Q_OBJECT
 
-public:
+  public:
     Renderer();
     ~Renderer() {}
 
@@ -63,12 +64,12 @@ public:
 
     void setMode(Mode mode) { mMode = mode; }
 
-protected:
+  protected:
     void addShaders() override;
     void queryUniformLocations() override;
     void refreshUniformValues() override;
 
-private:
+  private:
     Q_DISABLE_COPY(Renderer)
 
     Data *mTerrainData;
@@ -113,7 +114,7 @@ private:
         bool terrainData = false;
     } mInvalidations;
 
-private:
+  private:
     void loadTextures();
     void uploadTerrainData();
 };

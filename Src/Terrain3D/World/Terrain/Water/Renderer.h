@@ -8,17 +8,18 @@
 #ifndef _t3d_world_terrain_water_Renderer_H
 #define _t3d_world_terrain_water_Renderer_H
 
-#include <Terrain3D/Library.h>
 #include <Terrain3D/Core/ShaderProgram.h>
+#include <Terrain3D/Library.h>
 #include <Terrain3D/World/Terrain/Data.h>
 
 #include <ValpineBase/Loadable.h>
 
-namespace t3d::world::terrain::water {
+namespace t3d::world::terrain::water
+{
 
 class Renderer : public core::ShaderProgram, public vbase::Loadable
 {
-public:
+  public:
     Renderer() {}
     ~Renderer() {}
 
@@ -28,12 +29,12 @@ public:
     void cleanup();
     void render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
-protected:
+  protected:
     void addShaders() override;
     void queryUniformLocations() override;
     void refreshUniformValues() override;
 
-private:
+  private:
     Q_DISABLE_COPY(Renderer)
 
     GLuint mVao;
@@ -63,7 +64,7 @@ private:
     Data *mTerrainData;
     QElapsedTimer mElapsedTimer;
 
-private:
+  private:
     void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
     void loadShaders();
     void loadTextures();
@@ -72,4 +73,3 @@ private:
 }
 
 #endif
-

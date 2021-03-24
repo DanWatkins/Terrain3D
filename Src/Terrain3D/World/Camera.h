@@ -14,33 +14,34 @@
 #include <Terrain3D/Library.h>
 #include <Terrain3D/World/Environment.h>
 
+#include <Terrain3D/World/Entity/Renderer.h>
 #include <Terrain3D/World/Terrain/Data.h>
 #include <Terrain3D/World/Terrain/Renderer.h>
-#include <Terrain3D/World/Entity/Renderer.h>
 
-namespace t3d::world {
+namespace t3d::world
+{
 
 /**
-     * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right. It can also
-     * rotate up/down and left/right.
-     */
+ * Represents an all-in-one World instance visualizer. It can move forward/backward and left/right.
+ * It can also rotate up/down and left/right.
+ */
 class Camera : public QObject, protected core::OpenGLFunctions, public vbase::Loadable
 {
     Q_OBJECT
 
-public slots:
+  public slots:
     /**
      * @brief Renders everything visible by the camera using the current
      * OpenGL context.
      */
     void render();
 
-signals:
+  signals:
     void finishedRendering();
     void posChanged();
     void orientationChanged();
 
-public:
+  public:
     Camera();
     ~Camera() {}
 
@@ -84,7 +85,7 @@ public:
 
     float maxVerticalAngle() const { return mMaxVerticalAngle; }
 
-    Vec3f const & pos() const { return mPos; }
+    Vec3f const &pos() const { return mPos; }
 
     void setPosX(float x)
     {
@@ -110,7 +111,7 @@ public:
         emit posChanged();
     }
 
-    Vec2f const & orientationAngle() const { return mOrientationAngle; }
+    Vec2f const &orientationAngle() const { return mOrientationAngle; }
 
     void setOrientationAngle(const Vec2f &angle)
     {
@@ -136,9 +137,9 @@ public:
     void setMode(terrain::Mode mode) { mTerrainRenderer.setMode(mode); }
     terrain::Mode mode() { return mTerrainRenderer.mode(); }
 
-    terrain::Renderer& terrainRenderer() { return mTerrainRenderer; }
+    terrain::Renderer &terrainRenderer() { return mTerrainRenderer; }
 
-private:
+  private:
     Environment *mEnvironment;
     terrain::Renderer mTerrainRenderer;
     entity::Renderer mEntityRenderer;

@@ -9,16 +9,18 @@
 #include "BaseEntity.h"
 #include "RenderComponent.h"
 
-namespace t3d::world::entity {
+namespace t3d::world::entity
+{
 
-BaseEntity::BaseEntity(int id) :
-    mId(id)
+BaseEntity::BaseEntity(int id) : mId(id)
 {
 }
 
-BaseEntity::~BaseEntity() {}
+BaseEntity::~BaseEntity()
+{
+}
 
-RenderComponent* BaseEntity::renderComponent() const
+RenderComponent *BaseEntity::renderComponent() const
 {
     return mRenderComponent.get();
 }

@@ -11,18 +11,21 @@
 #include <ValpineBase/Loadable.h>
 #include <ValpineBase/Property.h>
 
-#include <Terrain3D/World/Terrain/Data.h>
-#include <Terrain3D/World/Entity/Manager.h>
 #include <Terrain3D/Core/Asset/Manager.h>
+#include <Terrain3D/World/Entity/Manager.h>
+#include <Terrain3D/World/Terrain/Data.h>
 
-namespace t3d { namespace world {
+namespace t3d
+{
+namespace world
+{
 
 /**
  * \brief Top-level aggregate manager of simulation data.
  */
 class Environment : public vbase::Loadable
 {
-public:
+  public:
     Environment();
     ~Environment() {}
 
@@ -32,17 +35,17 @@ public:
     /**
      * @returns A reference to the internal terrain::Data instance.
      */
-    terrain::Data& terrainData() { return mTerrainData; }
+    terrain::Data &terrainData() { return mTerrainData; }
 
     /**
      * @returns A reference to the internal entity::Manager instance.
      */
-    entity::Manager& entityManager() { return mEntityManager; }
+    entity::Manager &entityManager() { return mEntityManager; }
 
     /**
      * @returns A reference to the internal asset::Manager instance.
      */
-    asset::Manager& assetManager() { return mAssetManager; }
+    asset::Manager &assetManager() { return mAssetManager; }
 
     /**
      * \brief Length of a side of the terrain grid. World coordinates will be on the
@@ -92,7 +95,7 @@ public:
         mNeedsToRefresh = true;
     }
 
-private:
+  private:
     int seedToUse();
     void generateTerrain(int seed);
     void generateEntities();
@@ -111,6 +114,7 @@ private:
     int mLastUsedSeed = 0;
 };
 
-}}
+}
+}
 
 #endif

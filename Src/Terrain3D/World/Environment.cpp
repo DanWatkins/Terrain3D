@@ -12,7 +12,10 @@
 #include <Terrain3D/World/Entity/BaseEntity.h>
 #include <Terrain3D/World/Entity/RenderComponent.h>
 
-namespace t3d { namespace world {
+namespace t3d
+{
+namespace world
+{
 
 Environment::Environment()
 {
@@ -62,7 +65,7 @@ void Environment::generateTerrain(int seed)
     mTerrainData.computeTextureIndicies(hi);
     qDebug() << "   Generated texture indicies";
 
-    //compute lighting
+    // compute lighting
     {
         terrain::LightMap lm;
         lm.reserve(mSize);
@@ -81,7 +84,7 @@ void Environment::generateEntities()
 
     const terrain::HeightMap &hm = mTerrainData.heightMap();
     const double density = 0.06f;
-    const int NumTreesAttempt = density*hm.size() * density*hm.size();
+    const int NumTreesAttempt = density * hm.size() * density * hm.size();
 
     QVector<QString> treeList;
     treeList.append("Tree_Ash_Medium");
@@ -91,27 +94,28 @@ void Environment::generateEntities()
     treeList.append("Tree_Ash_Large");
     treeList.append("Bush_Myrtle_01");
 
-    //randomly place trees on the "grass" areas
-    for (int i=0; i<NumTreesAttempt; i++)
+    // randomly place trees on the "grass" areas
+    for (int i = 0; i < NumTreesAttempt; i++)
     {
-        int x = vbase::randInt(0, hm.size()-2);
-        int y = vbase::randInt(0, hm.size()-2);
+        int x = vbase::randInt(0, hm.size() - 2);
+        int y = vbase::randInt(0, hm.size() - 2);
 
-        //is there grass at this texture index?
+        // is there grass at this texture index?
         int res = mTerrainData.textureMapResolution();
 
-        if (mTerrainData.textureIndicies()[x*res + y*hm.size()*res*res] == 2)
+        if (mTerrainData.textureIndicies()[x * res + y * hm.size() * res * res] == 2)
         {
             strong<entity::BaseEntity> e1 = mEntityManager.createEntity();
 
             float height = hm.get(x, y);
-            e1->setPos(Vec3f(x, height*mTerrainData.heightScale(), y));	//hardcoded, GROSS TODO
+            e1->setPos(Vec3f(x, height * mTerrainData.heightScale(), y)); // hardcoded, GROSS TODO
 
             e1->createRenderComponent();
-            QString treeName = treeList[vbase::randInt(0, treeList.size()-1)];
+            QString treeName = treeList[vbase::randInt(0, treeList.size() - 1)];
             e1->renderComponent()->setMesh(mAssetManager.meshForName(treeName));
         }
     }
 }
 
-}}
+}
+}

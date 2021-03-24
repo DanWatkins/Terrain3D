@@ -8,10 +8,10 @@
 #include "Manager.h"
 #include "RenderComponent.h"
 
-namespace t3d::world::entity {
+namespace t3d::world::entity
+{
 
-Manager::Manager() :
-    mIdValueTrack(0)
+Manager::Manager() : mIdValueTrack(0)
 {
 }
 
@@ -30,7 +30,7 @@ strong<BaseEntity> Manager::createEntity()
 
 strong<BaseEntity> Manager::findEntity(int id)
 {
-    for (int i=0; i<mEntityContainer.count(); i++)
+    for (int i = 0; i < mEntityContainer.count(); i++)
     {
         if (mEntityContainer[i]->id() == id)
             return mEntityContainer[i];

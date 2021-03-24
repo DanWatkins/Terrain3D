@@ -10,11 +10,14 @@
 
 #include "MeshPrivate.h"
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 class mesh_p::FaceData : public core::OpenGLFunctions
 {
-public:  //TODO massive
+  public: // TODO massive
     QVector<Vertex> mVertecies;
     QVector<Vertex> mVertexNormals;
     QVector<Vertex> mTextureCoordinates;
@@ -26,11 +29,12 @@ public:  //TODO massive
     void uploadData();
     void bind();
 
-private:
-    void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data, GLuint &textureName);
+  private:
+    void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data,
+                               GLuint &textureName);
 };
 
-}}
+}
+}
 
 #endif
-

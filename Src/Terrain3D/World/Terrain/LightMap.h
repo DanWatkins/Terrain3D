@@ -10,7 +10,8 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 /*
  * Stores normalized floats (0.0 - 1.0) indicating the brightness for a given
@@ -18,7 +19,7 @@ namespace t3d::world::terrain {
  */
 class LightMap
 {
-public:
+  public:
     LightMap();
     typedef GLushort ValueType;
     typedef QVector<ValueType> ValueVector;
@@ -29,9 +30,9 @@ public:
 
     int size() const { return mSize; }
 
-    const ValueType* raw() const { return &mValues.at(0); }
+    const ValueType *raw() const { return &mValues.at(0); }
 
-private:
+  private:
     ValueVector mValues;
     int mSize;
 };

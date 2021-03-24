@@ -8,13 +8,16 @@
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
 
-#include "MeshPrivate.h"
-#include "SubMesh.h"
 #include "FaceData.h"
 #include "MaterialData.h"
+#include "MeshPrivate.h"
 #include "OBJ.h"
+#include "SubMesh.h"
 
-namespace t3d { namespace asset {
+namespace t3d
+{
+namespace asset
+{
 
 const GLuint mesh_p::PrimitiveRestartIndex = 900000000;
 
@@ -28,7 +31,7 @@ void mesh_p::batchRender(const QVector<Mat4> &matricies)
 
     for (strong<SubMesh> subMesh : mSubMesh)
     {
-        //find the material associated with this sub mesh
+        // find the material associated with this sub mesh
         strong<MaterialData> material;
         for (strong<MaterialData> m : mMaterials)
         {
@@ -40,7 +43,8 @@ void mesh_p::batchRender(const QVector<Mat4> &matricies)
         }
 
         glUniform1i(mUniforms.indexCount, subMesh->mIndexCount);
-        if (material) material->bind();
+        if (material)
+            material->bind();
         subMesh->bind();
 
         for (const Mat4 &mat : matricies)
@@ -51,12 +55,12 @@ void mesh_p::batchRender(const QVector<Mat4> &matricies)
             glUniformMatrix4fv(mUniforms.matrixModel, 1, GL_FALSE,
                                glm::value_ptr(glm::rotate(Mat4(1.0f), 0.0f, Vec3f(0, 1, 0))));
 
-
             subMesh->render();
         }
 
         subMesh->unbind();
-        if (material) material->release();
+        if (material)
+            material->release();
     }
 
     unbindAfterRender();
@@ -65,7 +69,6 @@ void mesh_p::batchRender(const QVector<Mat4> &matricies)
 void mesh_p::init()
 {
     initializeOpenGLFunctions();
-
 
     loadShaders();
     mProgram.bind();
@@ -89,7 +92,7 @@ bool mesh_p::initWithFile(const QString &filepath)
     if (!file.open(QIODevice::ReadOnly))
         return false;
 
-    //read values from the JSON T3D file
+    // read values from the JSON T3D file
     QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
     QJsonObject object = doc.object();
     {
@@ -99,10 +102,12 @@ bool mesh_p::initWithFile(const QString &filepath)
         QJsonObject boundingSphere = object["boundingSphere"].toObject();
         mMesh->boundingSphere().radius = boundingSphere["radius"].toDouble();
         QJsonArray bsOffset = boundingSphere["offset"].toArray();
-        mMesh->boundingSphere().offset = Vec3f(bsOffset[0].toDouble(), bsOffset[1].toDouble(), bsOffset[2].toDouble());
+        mMesh->boundingSphere().offset =
+            Vec3f(bsOffset[0].toDouble(), bsOffset[1].toDouble(), bsOffset[2].toDouble());
     }
 
-    return OBJ().initWithFile(QFileInfo(filepath).absolutePath() + "/" + object["meshFile"].toString(), this);
+    return OBJ().initWithFile(
+        QFileInfo(filepath).absolutePath() + "/" + object["meshFile"].toString(), this);
 }
 
 void mesh_p::setFilepath(const QString &filepath)
@@ -160,7 +165,7 @@ void mesh_p::loadShaders()
 
     mProgram.release();
 
-    //TODO swtich this to use the ShaderProgram class
+    // TODO swtich this to use the ShaderProgram class
 }
 
 void mesh_p::uploadData()
@@ -212,4 +217,5 @@ void mesh_p::unbindAfterRender()
     mProgram.release();
 }
 
-}}
+}
+}

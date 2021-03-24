@@ -10,22 +10,23 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d::world::terrain {
+namespace t3d::world::terrain
+{
 
 class HeightMap
 {
-private:
+  private:
     QVector<float> mHeightData;
     int mSize = 0;
 
-public:
+  public:
     void reserve(int size);
     void set(int index, float height);
     void set(int indexX, int indexY, float height);
     float get(int index) const;
     float get(int indexX, int indexY) const;
 
-    const float* raw() const;
+    const float *raw() const;
     int size() const { return mSize; }
 };
 
