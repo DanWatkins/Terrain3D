@@ -7,9 +7,7 @@
 
 #include "OpenGLTaskQueue.h"
 
-namespace t3d
-{
-namespace core
+namespace t3d::core
 {
 
 void OpenGLTaskQueue::init()
@@ -36,5 +34,4 @@ void OpenGLTaskQueue::runTasks()
     mTasks.clear();
 }
 
-}
 }

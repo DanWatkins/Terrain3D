@@ -7,9 +7,7 @@
 
 #include "ShaderProgram.h"
 
-namespace t3d
-{
-namespace core
+namespace t3d::core
 {
 
 void ShaderProgram::init()
@@ -108,5 +106,4 @@ void ShaderProgram::flushQueuedUniformValueChanges()
     mQueuedUniformValueChanges.clear();
 }
 
-}
 }

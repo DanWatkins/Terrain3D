@@ -10,9 +10,7 @@
 
 #include <Terrain3D/Library.h>
 
-namespace t3d
-{
-namespace core
+namespace t3d::core
 {
 
 class ShaderProgram : public QObject, protected OpenGLFunctions
@@ -68,7 +66,6 @@ private:
     QList<QPair<const GLint *, QVariant>> mQueuedUniformValueChanges;
 };
 
-}
 }
 
 #endif

@@ -14,9 +14,7 @@
 
 using BaseOpenGLFunctions = QOpenGLFunctions_4_1_Core;
 
-namespace t3d
-{
-namespace core
+namespace t3d::core
 {
 
 /*
@@ -50,7 +48,6 @@ private:
     QOpenGLExtension_ARB_texture_storage mGL_textureStorage;
 };
 
-}
 }
 
 #endif

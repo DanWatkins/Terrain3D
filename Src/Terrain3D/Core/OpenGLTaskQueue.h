@@ -11,9 +11,7 @@
 #include <Terrain3D/Core/OpenGLFunctions.h>
 #include <Terrain3D/Library.h>
 
-namespace t3d
-{
-namespace core
+namespace t3d::core
 {
 
 /**
@@ -45,7 +43,6 @@ private:
     QList<TaskFunction> mTasks;
 };
 
-}
 }
 
 #endif
