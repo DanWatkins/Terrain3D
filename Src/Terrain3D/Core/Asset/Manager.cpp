@@ -7,9 +7,7 @@
 
 #include "Manager.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 void Manager::loadMeshesFromDirectory(const QString path)
@@ -69,5 +67,4 @@ strong<Mesh> Manager::meshForName(const QString name) const
     return nullptr;
 }
 
-}
 }

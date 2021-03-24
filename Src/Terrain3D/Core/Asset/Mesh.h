@@ -11,9 +11,7 @@
 #include <Terrain3D/Core/OpenGLFunctions.h>
 #include <Terrain3D/Library.h>
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 class Manager;
@@ -48,7 +46,6 @@ class Mesh
     BoundingSphere mBoundingSphere;
 };
 
-}
 }
 
 #endif

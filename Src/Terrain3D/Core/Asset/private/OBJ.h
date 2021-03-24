@@ -11,9 +11,7 @@
 #include "MeshPrivate.h"
 #include <Terrain3D/Library.h>
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 class OBJ
@@ -30,7 +28,6 @@ class OBJ
     bool parseMaterialLibField(const QStringList &field);
 };
 
-}
 }
 
 #endif

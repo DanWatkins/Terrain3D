@@ -11,9 +11,7 @@
 #include "MaterialData.h"
 #include "SubMesh.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 bool OBJ::initWithFile(const QString &filepath, mesh_p *mesh)
@@ -189,5 +187,4 @@ bool OBJ::parseMaterialLibField(const QStringList &field)
     return true;
 }
 
-}
 }

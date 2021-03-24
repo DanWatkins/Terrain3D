@@ -22,7 +22,7 @@ class Manager : public QObject
   public:
     Manager();
 
-    void init(const asset::Manager *assetManager);
+    void init(const t3d::asset::Manager *assetManager);
 
     void clear() { mEntityContainer.clear(); }
     strong<BaseEntity> createEntity();

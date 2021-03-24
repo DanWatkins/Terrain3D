@@ -10,9 +10,7 @@
 
 #include "MeshPrivate.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 class mesh_p::FaceData : public core::OpenGLFunctions
@@ -34,7 +32,6 @@ class mesh_p::FaceData : public core::OpenGLFunctions
                                GLuint &textureName);
 };
 
-}
 }
 
 #endif

@@ -7,9 +7,7 @@
 
 #include "SubMesh.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 void mesh_p::SubMesh::uploadData()
@@ -161,5 +159,4 @@ void mesh_p::SubMesh::checkForErrors(const FaceData *faceData, QString &error)
     }
 }
 
-}
 }

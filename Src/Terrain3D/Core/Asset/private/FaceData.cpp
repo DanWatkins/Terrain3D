@@ -7,9 +7,7 @@
 
 #include "FaceData.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 void mesh_p::FaceData::uploadData()
@@ -57,5 +55,4 @@ void mesh_p::FaceData::uploadBufferAttribute(GLenum textureUnit,
     }
 }
 
-}
 }

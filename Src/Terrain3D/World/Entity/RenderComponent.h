@@ -11,14 +11,11 @@
 #include "BaseEntity.h"
 #include "Component.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 class Mesh;
 
-}
 }
 
 namespace t3d::world::entity

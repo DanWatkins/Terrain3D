@@ -7,9 +7,7 @@
 
 #include "MaterialData.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 void mesh_p::MaterialData::uploadMaterialData(const QString &containingDirectory)
@@ -33,5 +31,4 @@ void mesh_p::MaterialData::release()
     mTexture->release();
 }
 
-}
 }

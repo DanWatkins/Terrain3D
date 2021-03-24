@@ -11,9 +11,7 @@
 #include "FaceData.h"
 #include "MeshPrivate.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 class mesh_p::SubMesh : public core::OpenGLFunctions
@@ -36,7 +34,6 @@ class mesh_p::SubMesh : public core::OpenGLFunctions
     void uploadVertexData();
 };
 
-}
 }
 
 #endif

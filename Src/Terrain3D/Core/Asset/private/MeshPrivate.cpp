@@ -14,9 +14,7 @@
 #include "OBJ.h"
 #include "SubMesh.h"
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 const GLuint mesh_p::PrimitiveRestartIndex = 900000000;
@@ -217,5 +215,4 @@ void mesh_p::unbindAfterRender()
     mProgram.release();
 }
 
-}
 }

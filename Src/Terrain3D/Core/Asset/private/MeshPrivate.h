@@ -11,9 +11,7 @@
 #include <Terrain3D/Core/Asset/Mesh.h>
 #include <Terrain3D/Library.h>
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 class Mesh::MeshPrivate : protected core::OpenGLFunctions
@@ -94,7 +92,6 @@ class Mesh::MeshPrivate : protected core::OpenGLFunctions
 
 typedef Mesh::MeshPrivate mesh_p;
 
-}
 }
 
 #endif

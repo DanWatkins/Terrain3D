@@ -11,9 +11,7 @@
 #include <Terrain3D/Core/Asset/Mesh.h>
 #include <Terrain3D/Library.h>
 
-namespace t3d
-{
-namespace asset
+namespace t3d::asset
 {
 
 class Manager
@@ -60,7 +58,6 @@ class Manager
     }
 };
 
-}
 }
 
 #endif
