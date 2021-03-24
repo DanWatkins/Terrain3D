@@ -18,14 +18,14 @@ class Manager;
 
 class Mesh
 {
-  private:
+private:
     struct BoundingSphere
     {
         float radius;
         Vec3f offset;
     };
 
-  public:
+public:
     friend class Manager;
     Mesh();
 
@@ -38,7 +38,7 @@ class Mesh
 
     class MeshPrivate;
 
-  private:
+private:
     strong<MeshPrivate> mPrivate;
     Manager *mManager = nullptr;
     void batchRender(const QVector<Mat4> &matricies);

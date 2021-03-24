@@ -15,7 +15,7 @@ namespace t3d::asset
 
 class mesh_p::MaterialData : protected core::OpenGLFunctions
 {
-  public: // TODO massive
+public: // TODO massive
     ~MaterialData() { qDebug() << "Destroying MaterialData instance"; }
 
     QString mName;

@@ -21,7 +21,7 @@ class Data : public QObject
 {
     Q_OBJECT
 
-  public:
+public:
     void cleanup()
     { /*nothing to cleanup*/
     }
@@ -77,7 +77,7 @@ class Data : public QObject
         emit chunkSizeChanged();
     }
 
-  signals:
+signals:
     void heightMapChanged();
 
     void lightMapChanged();
@@ -90,7 +90,7 @@ class Data : public QObject
 
     void chunkSizeChanged();
 
-  private:
+private:
     HeightMap mHeightMap;
     LightMap mLightMap;
     TextureIndicies mTextureIndicies;

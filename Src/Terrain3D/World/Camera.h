@@ -29,19 +29,19 @@ class Camera : public QObject, protected core::OpenGLFunctions, public vbase::Lo
 {
     Q_OBJECT
 
-  public slots:
+public slots:
     /**
      * @brief Renders everything visible by the camera using the current
      * OpenGL context.
      */
     void render();
 
-  signals:
+signals:
     void finishedRendering();
     void posChanged();
     void orientationChanged();
 
-  public:
+public:
     Camera();
     ~Camera() {}
 
@@ -139,7 +139,7 @@ class Camera : public QObject, protected core::OpenGLFunctions, public vbase::Lo
 
     terrain::Renderer &terrainRenderer() { return mTerrainRenderer; }
 
-  private:
+private:
     Environment *mEnvironment;
     terrain::Renderer mTerrainRenderer;
     entity::Renderer mEntityRenderer;

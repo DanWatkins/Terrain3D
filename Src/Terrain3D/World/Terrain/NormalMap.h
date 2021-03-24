@@ -17,12 +17,12 @@ class HeightMap;
 
 class NormalMap
 {
-  public:
+public:
     void generate(const HeightMap &hm);
     int size() { return mNormals.size(); }
     Vec3f get(int index) { return mNormals[index]; }
 
-  private:
+private:
     QVector<Vec3f> mNormals;
 };
 

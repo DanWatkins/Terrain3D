@@ -29,7 +29,7 @@ class Renderer : public core::ShaderProgram, public vbase::Loadable
 {
     Q_OBJECT
 
-  public:
+public:
     Renderer();
     ~Renderer() {}
 
@@ -64,12 +64,12 @@ class Renderer : public core::ShaderProgram, public vbase::Loadable
 
     void setMode(Mode mode) { mMode = mode; }
 
-  protected:
+protected:
     void addShaders() override;
     void queryUniformLocations() override;
     void refreshUniformValues() override;
 
-  private:
+private:
     Q_DISABLE_COPY(Renderer)
 
     Data *mTerrainData;
@@ -114,7 +114,7 @@ class Renderer : public core::ShaderProgram, public vbase::Loadable
         bool terrainData = false;
     } mInvalidations;
 
-  private:
+private:
     void loadTextures();
     void uploadTerrainData();
 };

@@ -18,10 +18,10 @@ namespace core
 class ShaderProgram : public QObject, protected OpenGLFunctions
 {
     Q_OBJECT
-  public:
+public:
     virtual void reloadShaders();
 
-  protected:
+protected:
     void init();
     void addShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
     void loadShaders();
@@ -60,7 +60,7 @@ class ShaderProgram : public QObject, protected OpenGLFunctions
      */
     QOpenGLShaderProgram &raw() { return *mProgram.get(); }
 
-  private:
+private:
     void setUniformFromQVariant(GLint location, QVariant &value);
     void flushQueuedUniformValueChanges();
 

@@ -16,7 +16,7 @@ namespace t3d::world::terrain::Generator
 
 class Generator
 {
-  public:
+public:
     virtual void generate(Data &terrainData, int size, int numberOfPasses, float smoothing,
                           int seed) = 0;
 };

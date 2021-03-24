@@ -16,7 +16,7 @@ namespace t3d::asset
 
 class Mesh::MeshPrivate : protected core::OpenGLFunctions
 {
-  public:
+public:
     friend class OBJ;
     MeshPrivate() = delete;
     MeshPrivate(Mesh *mesh);
@@ -33,7 +33,7 @@ class Mesh::MeshPrivate : protected core::OpenGLFunctions
     QString name() const { return mName; }
     void setBaseScale(const Vec3f &baseScale) { mBaseScale = baseScale; }
 
-  protected:
+protected:
     struct Vertex
     {
         GLfloat values[3];
@@ -54,7 +54,7 @@ class Mesh::MeshPrivate : protected core::OpenGLFunctions
 
     QList<strong<MaterialData>> mMaterials;
 
-  private:
+private:
     Mesh *mMesh = nullptr; // the host mesh using this
     weak<Mesh> mSphere;
 
@@ -82,7 +82,7 @@ class Mesh::MeshPrivate : protected core::OpenGLFunctions
     void bindForRender();
     void unbindAfterRender();
 
-  protected:
+protected:
     void makeSubMesh();
     strong<SubMesh> currentSubMesh();
     void addVertexPosition(const Vertex &vertex);

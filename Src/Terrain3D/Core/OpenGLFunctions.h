@@ -26,7 +26,7 @@ namespace core
  */
 class OpenGLFunctions : public BaseOpenGLFunctions
 {
-  public:
+public:
     bool initializeOpenGLFunctions() override;
 
     void glTexStorage1D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
@@ -46,7 +46,7 @@ class OpenGLFunctions : public BaseOpenGLFunctions
         mGL_textureStorage.glTexStorage3D(target, levels, internalformat, width, height, depth);
     }
 
-  private:
+private:
     QOpenGLExtension_ARB_texture_storage mGL_textureStorage;
 };
 

@@ -23,14 +23,14 @@ namespace t3d::world::entity
 
 class RenderComponent : public Component
 {
-  public:
+public:
     RenderComponent() = delete;
     RenderComponent(BaseEntity *baseEntity);
 
     void setMesh(weak<asset::Mesh> mesh);
     void render(const Mat4 &cameraMatrix);
 
-  private:
+private:
     weak<asset::Mesh> mMesh;
 };
 

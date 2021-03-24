@@ -19,18 +19,18 @@ class FPSCounter : public QObject
     Q_OBJECT
     Q_PROPERTY(int fps READ fps NOTIFY fpsChanged)
 
-  public:
+public:
     class Timer
     {
-      public:
+    public:
         virtual qint64 elapsed() { return mTimer.elapsed(); }
         virtual void start() { mTimer.start(); }
 
-      private:
+    private:
         QElapsedTimer mTimer;
     };
 
-  public:
+public:
     FPSCounter() = delete;
     FPSCounter(qint64 superSampleRate, qint64 subSampleRate,
                strong<Timer> timer = strong<Timer>(new Timer));
@@ -38,13 +38,13 @@ class FPSCounter : public QObject
     int fps() const { return round(mFps); }
     void update();
 
-  signals:
+signals:
     void fpsChanged();
 
-  private:
+private:
     void refreshFPS();
 
-  private:
+private:
     qint64 mSuperSampleRate, mSubSampleRate;
     float mFps;
 

@@ -25,7 +25,7 @@ namespace world
  */
 class Environment : public vbase::Loadable
 {
-  public:
+public:
     Environment();
     ~Environment() {}
 
@@ -95,7 +95,7 @@ class Environment : public vbase::Loadable
         mNeedsToRefresh = true;
     }
 
-  private:
+private:
     int seedToUse();
     void generateTerrain(int seed);
     void generateEntities();

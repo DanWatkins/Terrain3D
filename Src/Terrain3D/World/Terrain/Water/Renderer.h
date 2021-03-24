@@ -19,7 +19,7 @@ namespace t3d::world::terrain::water
 
 class Renderer : public core::ShaderProgram, public vbase::Loadable
 {
-  public:
+public:
     Renderer() {}
     ~Renderer() {}
 
@@ -29,12 +29,12 @@ class Renderer : public core::ShaderProgram, public vbase::Loadable
     void cleanup();
     void render(const Mat4 &modelViewMatrix, const Mat4 &perspectiveMatrix);
 
-  protected:
+protected:
     void addShaders() override;
     void queryUniformLocations() override;
     void refreshUniformValues() override;
 
-  private:
+private:
     Q_DISABLE_COPY(Renderer)
 
     GLuint mVao;
@@ -64,7 +64,7 @@ class Renderer : public core::ShaderProgram, public vbase::Loadable
     Data *mTerrainData;
     QElapsedTimer mElapsedTimer;
 
-  private:
+private:
     void loadShader(const QString &filename, QOpenGLShader::ShaderType shaderType);
     void loadShaders();
     void loadTextures();

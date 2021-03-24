@@ -19,7 +19,7 @@ class Manager : public QObject
 {
     Q_OBJECT
 
-  public:
+public:
     Manager();
 
     void init(const t3d::asset::Manager *assetManager);
@@ -30,7 +30,7 @@ class Manager : public QObject
 
     const QVector<strong<BaseEntity>> &entityContainer() const { return mEntityContainer; }
 
-  private:
+private:
     QVector<strong<BaseEntity>> mEntityContainer; // TODO finish ReuseVector and use it here!
     int mIdValueTrack;
     const asset::Manager *mAssetManager;

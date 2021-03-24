@@ -22,7 +22,7 @@ namespace core
  */
 class OpenGLTaskQueue : protected OpenGLFunctions
 {
-  public:
+public:
     using TaskFunction = std::function<void(OpenGLFunctions *)>;
 
     /**
@@ -40,7 +40,7 @@ class OpenGLTaskQueue : protected OpenGLFunctions
      */
     void runTasks();
 
-  private:
+private:
     QMutex mMutex;
     QList<TaskFunction> mTasks;
 };

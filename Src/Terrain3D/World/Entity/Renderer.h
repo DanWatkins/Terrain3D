@@ -17,7 +17,7 @@ namespace t3d::world::entity
 
 class Renderer
 {
-  public:
+public:
     void setManager(Manager *manager) { mManager = manager; }
     // void renderAll(const Mat4 &cameraMatrix);
 
@@ -38,7 +38,7 @@ class Renderer
         }
     }
 
-  private:
+private:
     Manager *mManager;
 };
 

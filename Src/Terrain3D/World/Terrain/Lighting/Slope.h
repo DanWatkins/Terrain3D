@@ -18,7 +18,7 @@ namespace Lighting
 
 class Slope
 {
-  public:
+public:
     static bool computeBrightness(LightMap &lm, const HeightMap &hm, float intensity);
 };
 

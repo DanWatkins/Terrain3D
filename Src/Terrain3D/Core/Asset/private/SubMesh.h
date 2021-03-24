@@ -16,7 +16,7 @@ namespace t3d::asset
 
 class mesh_p::SubMesh : public core::OpenGLFunctions
 {
-  public:
+public:
     GLuint mVao;
     QVector<Face> mFaces;
     int mIndexCount = 0; // number of indicies in the index buffer including restart indicies
@@ -29,7 +29,7 @@ class mesh_p::SubMesh : public core::OpenGLFunctions
 
     void checkForErrors(const FaceData *faceData, QString &error);
 
-  private:
+private:
     void uploadIndexData();
     void uploadVertexData();
 };

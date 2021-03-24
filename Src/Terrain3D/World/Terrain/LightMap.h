@@ -19,7 +19,7 @@ namespace t3d::world::terrain
  */
 class LightMap
 {
-  public:
+public:
     LightMap();
     typedef GLushort ValueType;
     typedef QVector<ValueType> ValueVector;
@@ -32,7 +32,7 @@ class LightMap
 
     const ValueType *raw() const { return &mValues.at(0); }
 
-  private:
+private:
     ValueVector mValues;
     int mSize;
 };

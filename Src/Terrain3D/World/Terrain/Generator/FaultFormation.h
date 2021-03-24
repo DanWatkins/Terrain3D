@@ -8,7 +8,7 @@ namespace t3d::world::terrain::Generator
 
 class FaultFormation : public Generator
 {
-  public:
+public:
     void generate(Data &terrainData, int size, int numberOfPasses, float smoothing, int seed);
 };
 

@@ -15,7 +15,7 @@ namespace t3d::asset
 
 class mesh_p::FaceData : public core::OpenGLFunctions
 {
-  public: // TODO massive
+public: // TODO massive
     QVector<Vertex> mVertecies;
     QVector<Vertex> mVertexNormals;
     QVector<Vertex> mTextureCoordinates;
@@ -27,7 +27,7 @@ class mesh_p::FaceData : public core::OpenGLFunctions
     void uploadData();
     void bind();
 
-  private:
+private:
     void uploadBufferAttribute(GLenum textureUnit, const QVector<Vertex> &data,
                                GLuint &textureName);
 };

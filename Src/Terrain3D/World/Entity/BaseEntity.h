@@ -28,7 +28,7 @@ class RenderComponent;
  */
 class BaseEntity
 {
-  public:
+public:
     BaseEntity(int id);
     ~BaseEntity();
 
@@ -39,7 +39,7 @@ class BaseEntity
     RenderComponent *renderComponent() const;
     void createRenderComponent();
 
-  private:
+private:
     int mId;
     Vec3f mPos = Vec3f(0.0f, 0.0f, 0.0f);
 

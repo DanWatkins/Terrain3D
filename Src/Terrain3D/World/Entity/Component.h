@@ -15,15 +15,15 @@ namespace t3d::world::entity
 
 class Component
 {
-  public:
+public:
     Component() = delete;
     Component(BaseEntity *baseEntity) { mBaseEntity = baseEntity; }
     virtual ~Component() {}
 
-  protected:
+protected:
     BaseEntity *baseEntity() { return mBaseEntity; }
 
-  private:
+private:
     BaseEntity *mBaseEntity;
 };
 

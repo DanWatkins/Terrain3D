@@ -16,7 +16,7 @@ namespace t3d::asset
 
 class Manager
 {
-  public:
+public:
     friend class Mesh;
 
     void loadMeshesFromDirectory(const QString path);
@@ -33,7 +33,7 @@ class Manager
         }
     }
 
-  private:
+private:
     struct MeshQueue
     {
         strong<Mesh> mesh;
