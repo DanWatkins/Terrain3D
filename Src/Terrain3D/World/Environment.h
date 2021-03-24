@@ -15,9 +15,7 @@
 #include <Terrain3D/World/Entity/Manager.h>
 #include <Terrain3D/World/Terrain/Data.h>
 
-namespace t3d
-{
-namespace world
+namespace t3d::world
 {
 
 /**
@@ -114,7 +112,6 @@ private:
     int mLastUsedSeed = 0;
 };
 
-}
 }
 
 #endif

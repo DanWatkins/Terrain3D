@@ -12,9 +12,7 @@
 #include <Terrain3D/World/Entity/BaseEntity.h>
 #include <Terrain3D/World/Entity/RenderComponent.h>
 
-namespace t3d
-{
-namespace world
+namespace t3d::world
 {
 
 Environment::Environment()
@@ -117,5 +115,4 @@ void Environment::generateEntities()
     }
 }
 
-}
 }
